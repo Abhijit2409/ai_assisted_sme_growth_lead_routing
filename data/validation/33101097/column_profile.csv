@@ -1,0 +1,17 @@
+column,cache_type,distinct_values,empty_strings,min_length,max_length,example_value,all_nonempty_values_integer
+REF_DATE,VARCHAR (raw string),1,0,7,7,2025-07,False
+GEO,VARCHAR (raw string),3169,0,3,64,Nanaimo G,False
+DGUID,VARCHAR (raw string),3355,0,12,16,2021A00055921034,False
+Employment size,VARCHAR (raw string),9,0,16,21,"Total, with employees",False
+North American Industry Classification System (NAICS),VARCHAR (raw string),445,0,14,134,Miscellaneous merchant wholesalers [418],False
+UOM,VARCHAR (raw string),1,0,6,6,Number,False
+UOM_ID,VARCHAR (raw string),1,0,3,3,223,True
+SCALAR_FACTOR,VARCHAR (raw string),1,0,5,5,units,False
+SCALAR_ID,VARCHAR (raw string),1,0,1,1,0,True
+VECTOR,VARCHAR (raw string),1050274,0,11,11,v1808820577,False
+COORDINATE,VARCHAR (raw string),1050274,0,5,10,3169.1.64,False
+VALUE,VARCHAR (raw string),2766,0,1,6,2,True
+STATUS,VARCHAR (raw string),1,1050274,0,0,,True
+SYMBOL,VARCHAR (raw string),1,1050274,0,0,,True
+TERMINATED,VARCHAR (raw string),1,1050274,0,0,,True
+DECIMALS,VARCHAR (raw string),1,0,1,1,0,True

@@ -1,0 +1,23 @@
+area,crosswalk,check,passed,detail
+geography,E1,every 0722 CMA has one disposition,True,35 CMAs
+geography,E1,shared codes represented,True,35
+geography,E1,1097-only CMAs represented as target-only,True,"Fredericton, Drummondville, Red Deer, Kamloops, Chilliwack, Nanaimo"
+geography,E1,no duplicate target codes,True,
+geography,E1,DGUID codes agree (2016 and 2021 suffix),True,
+geography,E1,no name-based join (codes only),True,
+geography,E1,every shared mapping visibly boundary-flagged,True,
+geography,E1,Belleville handled explicitly,True,
+geography,E2,all 24 ISED CMA labels have exactly one disposition,True,
+geography,E2,every reviewed code exists in 1097,True,
+geography,E2,province membership consistent,True,
+geography,E2,no fuzzy or similarity matching,True,
+geography,E2,reviewed mapping covers exactly the workbook labels,True,
+geography,E2,Sudbury is an explicit alias to 580,True,
+geography,E2,Quebec CMA row maps to CMA 421 (not the province),True,
+geography,E2,vintage caveat on every row,True,
+geography,E8,official province codes agree with 0722 DGUIDs and 1097 CSD codes,True,13 codes
+geography,E8,every ISED region/province label has a disposition,True,10 labels
+geography,E8,every target code valid,True,
+geography,E8,individual provinces map one-to-one,True,5 provinces
+geography,E8,territories visible in BC grouping,True,
+geography,E8,no regional estimate replicated to provinces,True,

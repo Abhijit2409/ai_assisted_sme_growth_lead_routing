@@ -1,0 +1,45 @@
+# dbt transformation layer for the Canadian SME Acquisition Strategy analytical data platform.
+# Run every dbt command from the repository root (relative paths below resolve against it).
+name: sme_market_intelligence
+version: "1.0.0"
+config-version: 2
+profile: sme_banking
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+test-paths: ["tests"]
+# Reviewed crosswalks stay in data/reference/crosswalks (single authoritative copy) and are loaded
+# as seeds from there; seeds/ holds small reviewed code maps that were constants in the Python layer.
+seed-paths: ["seeds", "data/reference/crosswalks"]
+target-path: "target"
+
+flags:
+  send_anonymous_usage_stats: false
+
+models:
+  sme_market_intelligence:
+    staging:
+      +schema: staging
+      +materialized: view
+    intermediate:
+      +schema: intermediate
+      +materialized: table
+    marts:
+      +schema: analytics
+      +materialized: table
+
+seeds:
+  sme_market_intelligence:
+    +schema: reference
+
+# Constants shared by several models (defined once; tests check them against the sources where the source states them).
+vars:
+  statcan_0722_source_id: "StatCan 33-10-0722-01"
+  statcan_1097_source_id: "StatCan 33-10-1097-01"
+  ised_source_id: "ISED SFGSME 2023"
+  snapshot_period_1097: "December 2025"
+  source_ref_date_1097: "2025-07"
+  pandemic_window_start: "2020-03"
+  pandemic_window_end: "2021-12"
+  ised_survey_year: 2023
+  ised_national_label: "1 to 499 employees"

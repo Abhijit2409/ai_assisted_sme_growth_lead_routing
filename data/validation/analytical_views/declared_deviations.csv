@@ -1,0 +1,6 @@
+item,phase_f_reference,decision,rows_affected
+ISED Table 50 excluded from fact_ised_financing_context,metric I06 cites Tables 49/50,I06 is served by Table 49 (weighted SMEs by one-way segment); Table 50 is a region x industry cross and would break the one-way grain,280
+Derived momentum measures stored as rows,"M04-M07, M10, M11 formulas","value_origin = derived, own statistical_unit and formula; computed only from available same-series inputs; t-1 is the previous calendar month",1891432
+ISED stub text looked up in reviewed crosswalks,no name joins,"ISED publishes no codes; the verbatim stub text is matched exactly, within its row context, to the E2/E4/E8 keys and only codes are used downstream",1497
+Momentum band scope classes,metric scope classes,500+ labelled 'outside SME scope (500+)'; 20-99 and 100-499 labelled 'SME-specific measure' (active only; 18 CMAs publish them),1632136
+Declared nullable key parts,primary keys,bridge_cma_vintage.cma_code_sgc2016 is NULL for the 6 target-only CMAs; bridge_industry.target_code is NULL for aggregates and non-reconcilable members,26

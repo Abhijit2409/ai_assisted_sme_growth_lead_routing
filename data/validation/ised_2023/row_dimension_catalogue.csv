@@ -1,0 +1,153 @@
+stub_set,stub_row,group,category,subcategory,label,level,dimension_class,geography_level,naics_codes,owner_demographic,definitional_segment,label_from_number_format
+tables_1_49_A,17,All SMEs,1 to 499 employees,,1 to 499 employees,category,all_smes,,,False,False,False
+tables_1_49_A,18,Employment Size,1 to 4 employees,,1 to 4 employees,category,employment_size,,,False,False,False
+tables_1_49_A,19,Employment Size,5 to 19 employees,,5 to 19 employees,category,employment_size,,,False,False,False
+tables_1_49_A,20,Employment Size,20 to 99 employees,,20 to 99 employees,category,employment_size,,,False,False,False
+tables_1_49_A,21,Employment Size,100 to 499 employees,,100 to 499 employees,category,employment_size,,,False,False,False
+tables_1_49_A,22,Region,Atlantic,,Atlantic,category,geography_region,multi_province_region,,False,False,False
+tables_1_49_A,23,Region,Quebec,,Quebec,category,geography_region,province,,False,False,False
+tables_1_49_A,24,Region,Ontario,,Ontario,category,geography_region,province,,False,False,False
+tables_1_49_A,25,Region,,Northern Ontario,Northern Ontario,subcategory,geography_region,sub_provincial_region,,False,False,False
+tables_1_49_A,26,Region,,Southern Ontario,Southern Ontario,subcategory,geography_region,sub_provincial_region,,False,False,False
+tables_1_49_A,27,Region,Prairies,,Prairies,category,geography_region,multi_province_region,,False,False,False
+tables_1_49_A,28,Region,,Manitoba,Manitoba,subcategory,geography_region,province,,False,False,False
+tables_1_49_A,29,Region,,Saskatchewan,Saskatchewan,subcategory,geography_region,province,,False,False,False
+tables_1_49_A,30,Region,,Alberta,Alberta,subcategory,geography_region,province,,False,False,False
+tables_1_49_A,31,Region,British Columbia and Territories,,British Columbia and Territories,category,geography_region,province_plus_territories,,False,False,False
+tables_1_49_A,32,CMA Level,St. John's,,St. John's,category,geography_cma,cma,,False,False,False
+tables_1_49_A,33,CMA Level,Halifax,,Halifax,category,geography_cma,cma,,False,False,False
+tables_1_49_A,34,CMA Level,Quebec,,Quebec,category,geography_cma,cma,,False,False,False
+tables_1_49_A,35,CMA Level,Montreal,,Montreal,category,geography_cma,cma,,False,False,False
+tables_1_49_A,36,CMA Level,Ottawa-Gatineau,,Ottawa-Gatineau,category,geography_cma,cma,,False,False,False
+tables_1_49_A,37,CMA Level,Toronto,,Toronto,category,geography_cma,cma,,False,False,False
+tables_1_49_A,38,CMA Level,Kingston,,Kingston,category,geography_cma,cma,,False,False,False
+tables_1_49_A,39,CMA Level,Peterborough,,Peterborough,category,geography_cma,cma,,False,False,False
+tables_1_49_A,40,CMA Level,Hamilton,,Hamilton,category,geography_cma,cma,,False,False,False
+tables_1_49_A,41,CMA Level,Oshawa,,Oshawa,category,geography_cma,cma,,False,False,False
+tables_1_49_A,42,CMA Level,Brantford,,Brantford,category,geography_cma,cma,,False,False,False
+tables_1_49_A,43,CMA Level,Guelph,,Guelph,category,geography_cma,cma,,False,False,False
+tables_1_49_A,44,CMA Level,Barrie,,Barrie,category,geography_cma,cma,,False,False,False
+tables_1_49_A,45,CMA Level,St. Catharines-Niagara,,St. Catharines-Niagara,category,geography_cma,cma,,False,False,False
+tables_1_49_A,46,CMA Level,Kitchener-Cambridge-Waterloo,,Kitchener-Cambridge-Waterloo,category,geography_cma,cma,,False,False,False
+tables_1_49_A,47,CMA Level,London,,London,category,geography_cma,cma,,False,False,False
+tables_1_49_A,48,CMA Level,Windsor,,Windsor,category,geography_cma,cma,,False,False,False
+tables_1_49_A,49,CMA Level,Sudbury,,Sudbury,category,geography_cma,cma,,False,False,False
+tables_1_49_A,50,CMA Level,Thunder Bay,,Thunder Bay,category,geography_cma,cma,,False,False,False
+tables_1_49_A,51,CMA Level,Winnipeg,,Winnipeg,category,geography_cma,cma,,False,False,False
+tables_1_49_A,52,CMA Level,Calgary,,Calgary,category,geography_cma,cma,,False,False,False
+tables_1_49_A,53,CMA Level,Edmonton,,Edmonton,category,geography_cma,cma,,False,False,False
+tables_1_49_A,54,CMA Level,Vancouver,,Vancouver,category,geography_cma,cma,,False,False,False
+tables_1_49_A,55,CMA Level,Victoria,,Victoria,category,geography_cma,cma,,False,False,False
+tables_1_49_A,56,Industries,"Agriculture, Forestry, Fishing and Hunting (NAICS 11), Mining and Oil and Gas Extraction (NAICS 21)",,"Agriculture, Forestry, Fishing and Hunting (NAICS 11), Mining and Oil and Gas Extraction (NAICS 21)",category,industry_naics_group,,11;21,False,False,False
+tables_1_49_A,57,Industries,Construction (NAICS 23),,Construction (NAICS 23),category,industry_naics_group,,23,False,False,False
+tables_1_49_A,58,Industries,Manufacturing (NAICS 31-33),,Manufacturing (NAICS 31-33),category,industry_naics_group,,31-33,False,False,False
+tables_1_49_A,59,Industries,Wholesale Trade (NAICS 41),,Wholesale Trade (NAICS 41),category,industry_naics_group,,41,False,False,False
+tables_1_49_A,60,Industries,Retail Trade (NAICS 44-45),,Retail Trade (NAICS 44-45),category,industry_naics_group,,44-45,False,False,False
+tables_1_49_A,61,Industries,Transportation and Warehousing (NAICS 48-49),,Transportation and Warehousing (NAICS 48-49),category,industry_naics_group,,48-49,False,False,False
+tables_1_49_A,62,Industries,"Professional, Scientific and Technical Services (NAICS 54)",,"Professional, Scientific and Technical Services (NAICS 54)",category,industry_naics_group,,54,False,False,False
+tables_1_49_A,63,Industries,Accommodation and Food Services (NAICS 72),,Accommodation and Food Services (NAICS 72),category,industry_naics_group,,72,False,False,False
+tables_1_49_A,64,Industries,Other Services (NAICS 81),,Other Services (NAICS 81),category,industry_naics_group,,81,False,False,False
+tables_1_49_A,65,Industries,"Information and Cultural Industries (NAICS 51), Real Estate and Rental and Leasing (NAICS 53), Administrative and Support, Waste Management and Remediation Services (NAICS 56), Health Care and Social Assistance (NAICS 62), Arts, Entertainment and Recreation (NAICS 71)",,"Information and Cultural Industries (NAICS 51), Real Estate and Rental and Leasing (NAICS 53), Administrative and Support, Waste Management and Remediation Services (NAICS 56), Health Care and Social Assistance (NAICS 62), Arts, Entertainment and Recreation (NAICS 71)",category,industry_naics_group,,51;53;56;62;71,False,False,False
+tables_1_49_A,66,Industries,Special industry aggregations,Information and Communication Technologies (ICT),Information and Communication Technologies (ICT),subcategory,industry_special_aggregate,,,False,False,False
+tables_1_49_A,67,Industries,,Knowledge-Based Industries (KBI),Knowledge-Based Industries (KBI),subcategory,industry_special_aggregate,,,False,False,False
+tables_1_49_A,68,Industries,,ALL Tourism,ALL Tourism,subcategory,industry_special_aggregate,,,False,False,False
+tables_1_49_A,69,Industries,Tourism industry sub categories aggregation,Transportation,Transportation,subcategory,industry_special_aggregate,,,False,False,False
+tables_1_49_A,70,Industries,,"Arts, Entertainment and Recreation","Arts, Entertainment and Recreation",subcategory,industry_special_aggregate,,,False,False,False
+tables_1_49_A,71,Industries,,Accommodation services,Accommodation services,subcategory,industry_special_aggregate,,,False,False,False
+tables_1_49_A,72,Industries,,Food services and drinking places,Food services and drinking places,subcategory,industry_special_aggregate,,,False,False,False
+tables_1_49_A,73,Industries,,Other,Other,subcategory,industry_special_aggregate,,,False,False,False
+tables_1_49_A,74,Location,Rural,,Rural,category,rural_urban,,,False,False,False
+tables_1_49_A,75,Location,Urban,,Urban,category,rural_urban,,,False,False,False
+tables_1_49_A,76,Export Status,Exporter,,Exporter,category,export_status,,,False,False,False
+tables_1_49_A,77,Export Status,Non-exporter,,Non-exporter,category,export_status,,,False,False,False
+tables_1_49_A,78,International Business Activity,Undertook at least one international business activity,,Undertook at least one international business activity,category,international_activity,,,False,False,False
+tables_1_49_A,79,Growth,20% or more growth per year,,20% or more growth per year,category,sales_growth,,,False,False,False
+tables_1_49_A,80,Growth,16% to 19% growth per year,,16% to 19% growth per year,category,sales_growth,,,False,False,False
+tables_1_49_A,81,Growth,11% to 15% growth per year,,11% to 15% growth per year,category,sales_growth,,,False,False,False
+tables_1_49_A,82,Growth,6% to 10% growth per year,,6% to 10% growth per year,category,sales_growth,,,False,False,False
+tables_1_49_A,83,Growth,1% to 5% growth per year,,1% to 5% growth per year,category,sales_growth,,,False,False,False
+tables_1_49_A,84,Growth,No Growth Firms (0% growth per year),,No Growth Firms (0% growth per year),category,sales_growth,,,False,False,False
+tables_1_49_A,85,Growth,Less than 0% growth per year,,Less than 0% growth per year,category,sales_growth,,,False,False,False
+tables_1_49_A,86,New Markets,Intends to expand sales into new markets,,Intends to expand sales into new markets,category,expansion_intention,,,False,False,False
+tables_1_49_A,87,New Markets,Does not intend to expand sales into new markets,,Does not intend to expand sales into new markets,category,expansion_intention,,,False,False,False
+tables_1_49_A,88,Age of Business,2021-2023 (2 years or younger),,2021-2023 (2 years or younger),category,business_age,,,False,False,False
+tables_1_49_A,89,Age of Business,2013-2020 (3 to 10 years old),,2013-2020 (3 to 10 years old),category,business_age,,,False,False,False
+tables_1_49_A,90,Age of Business,2003-2012 (11 to 20 years old),,2003-2012 (11 to 20 years old),category,business_age,,,False,False,False
+tables_1_49_A,91,Age of Business,Prior to 2003 (more than 20 years old),,Prior to 2003 (more than 20 years old),category,business_age,,,False,False,False
+tables_1_49_A,92,Innovation Activities developed or introduced,New or significantly improved good or service,,New or significantly improved good or service,category,innovation,,,False,False,False
+tables_1_49_A,93,Innovation Activities developed or introduced,New or significantly improved process or method,,New or significantly improved process or method,category,innovation,,,False,False,False
+tables_1_49_A,94,Innovation Activities developed or introduced,"A new organizational method in your business practices, workplace organization or external relations",,"A new organizational method in your business practices, workplace organization or external relations",category,innovation,,,False,False,False
+tables_1_49_A,95,Innovation Activities developed or introduced,A new way of selling your goods or services,,A new way of selling your goods or services,category,innovation,,,False,False,False
+tables_1_49_A,96,Innovation Activities developed or introduced,At least one of the 4 above innovations,,At least one of the 4 above innovations,category,innovation,,,False,False,False
+tables_1_49_A,97,Innovation Activities developed or introduced,Non-Innovator (none of the above),,Non-Innovator (none of the above),category,innovation,,,False,False,False
+tables_1_49_A,98,New Technology Adoption,Adopted at least one new technology over the last three years,,Adopted at least one new technology over the last three years,category,technology_adoption,,,False,False,False
+tables_1_49_A,99,E-Commerce,Used e-commerce platform or digital payment system,,Used e-commerce platform or digital payment system,category,ecommerce,,,False,False,False
+tables_1_49_A,100,Intellectual Property,Holds IP,,Holds IP,category,intellectual_property,,,False,False,False
+tables_1_49_A,101,Intellectual Property,Holds Formal IP,,Holds Formal IP,category,intellectual_property,,,False,False,False
+tables_1_49_A,102,Intellectual Property,No IP,,No IP,category,intellectual_property,,,False,False,False
+tables_1_49_A,103,Intellectual Property,Moderately or very familiar with at least one type of IP,,Moderately or very familiar with at least one type of IP,category,intellectual_property,,,False,False,False
+tables_1_49_A,104,Intellectual Property,Not or slightly familiar with all types of IP,,Not or slightly familiar with all types of IP,category,intellectual_property,,,False,False,False
+tables_1_49_A,105,Age of Primary Decision Maker,<30 years old,,<30 years old,category,owner_age,,,True,False,False
+tables_1_49_A,106,Age of Primary Decision Maker,30 to 39 years old,,30 to 39 years old,category,owner_age,,,True,False,False
+tables_1_49_A,107,Age of Primary Decision Maker,40 to 49 years old,,40 to 49 years old,category,owner_age,,,True,False,False
+tables_1_49_A,108,Age of Primary Decision Maker,50 to 64 years old,,50 to 64 years old,category,owner_age,,,True,False,False
+tables_1_49_A,109,Age of Primary Decision Maker,65+ years old,,65+ years old,category,owner_age,,,True,False,False
+tables_1_49_A,110,Highest Level of Education Attained by the Primary Decision Maker,Less than high school,,Less than high school,category,owner_education,,,True,False,False
+tables_1_49_A,111,Highest Level of Education Attained by the Primary Decision Maker,High school,,High school,category,owner_education,,,True,False,False
+tables_1_49_A,112,Highest Level of Education Attained by the Primary Decision Maker,College/Cegep/Trade School,,College/Cegep/Trade School,category,owner_education,,,True,False,False
+tables_1_49_A,113,Highest Level of Education Attained by the Primary Decision Maker,Bachelor's degree,,Bachelor's degree,category,owner_education,,,True,False,False
+tables_1_49_A,114,Highest Level of Education Attained by the Primary Decision Maker,Master's degree or above,,Master's degree or above,category,owner_education,,,True,False,False
+tables_1_49_A,115,Place of birth,In Canada,,In Canada,category,owner_birthplace,,,True,False,False
+tables_1_49_A,116,Place of birth,Outside Canada,,Outside Canada,category,owner_birthplace,,,True,False,False
+tables_1_49_A,117,Female Ownership,0%,,0%,category,female_ownership,,,True,False,True
+tables_1_49_A,118,Female Ownership,1% to 49%,,1% to 49%,category,female_ownership,,,True,False,False
+tables_1_49_A,119,Female Ownership,50%,,50%,category,female_ownership,,,True,False,True
+tables_1_49_A,120,Female Ownership,51% to 99%,,51% to 99%,category,female_ownership,,,True,False,False
+tables_1_49_A,121,Female Ownership,100%,,100%,category,female_ownership,,,True,False,True
+tables_1_49_A,122,Demographics,"Majority ownership, Indigenous",,"Majority ownership, Indigenous",category,ownership_demographics,,,True,False,False
+tables_1_49_A,123,Demographics,"Majority ownership, Visible Minority",,"Majority ownership, Visible Minority",category,ownership_demographics,,,True,False,False
+tables_1_49_A,124,Demographics,,"Majority ownership by Visible Minority, with one or more South Asian owner(s)","Majority ownership by Visible Minority, with one or more South Asian owner(s)",subcategory,ownership_demographics,,,True,False,False
+tables_1_49_A,125,Demographics,,"Majority ownership by Visible Minority, with one or more Chinese owner(s)","Majority ownership by Visible Minority, with one or more Chinese owner(s)",subcategory,ownership_demographics,,,True,False,False
+tables_1_49_A,126,Demographics,,"Majority ownership by Visible Minority, with one or more Black owner(s)","Majority ownership by Visible Minority, with one or more Black owner(s)",subcategory,ownership_demographics,,,True,False,False
+tables_1_49_A,127,Demographics,,"Majority ownership by Visible Minority, with one or more Filipino owner(s)","Majority ownership by Visible Minority, with one or more Filipino owner(s)",subcategory,ownership_demographics,,,True,False,False
+tables_1_49_A,128,Demographics,,"Majority ownership by Visible Minority, with one or more Latin American owner(s)","Majority ownership by Visible Minority, with one or more Latin American owner(s)",subcategory,ownership_demographics,,,True,False,False
+tables_1_49_A,129,Demographics,,"Majority ownership by Visible Minority, with one or more Arab owner(s)","Majority ownership by Visible Minority, with one or more Arab owner(s)",subcategory,ownership_demographics,,,True,False,False
+tables_1_49_A,130,Demographics,,"Majority ownership by Visible Minority, with one or more Southeast Asian owner(s)","Majority ownership by Visible Minority, with one or more Southeast Asian owner(s)",subcategory,ownership_demographics,,,True,False,False
+tables_1_49_A,131,Demographics,,"Majority ownership by Visible Minority, with one or more West Asian owner(s)","Majority ownership by Visible Minority, with one or more West Asian owner(s)",subcategory,ownership_demographics,,,True,False,False
+tables_1_49_A,132,Demographics,,"Majority ownership by Visible Minority, with one or more Korean owner(s)","Majority ownership by Visible Minority, with one or more Korean owner(s)",subcategory,ownership_demographics,,,True,False,False
+tables_1_49_A,133,Demographics,,"Majority ownership by Visible Minority, with one or more Japanese owner(s)","Majority ownership by Visible Minority, with one or more Japanese owner(s)",subcategory,ownership_demographics,,,True,False,False
+tables_1_49_A,134,Demographics,,"Majority ownership by Visible Minority, with one or more Other group owner(s)","Majority ownership by Visible Minority, with one or more Other group owner(s)",subcategory,ownership_demographics,,,True,False,False
+tables_1_49_A,135,Demographics,"Majority ownership, Non-binary",,"Majority ownership, Non-binary",category,ownership_demographics,,,True,False,False
+tables_1_49_A,136,Demographics,"Majority ownership, 2SLGBTQ+",,"Majority ownership, 2SLGBTQ+",category,ownership_demographics,,,True,False,False
+tables_1_49_A,137,Demographics,"Majority ownership, Person(s) with a disability",,"Majority ownership, Person(s) with a disability",category,ownership_demographics,,,True,False,False
+tables_1_49_A,138,Potential Borrowers,Did not request external financing though external financing may have been required,,Did not request external financing though external financing may have been required,category,potential_borrowers,,,False,True,False
+tables_1_49_A,139,Rejected (Debt) Borrowers,Request for at least one type of debt financing was rejected,,Request for at least one type of debt financing was rejected,category,rejected_borrowers,,,False,True,False
+tables_1_49_A,140,Procurement,Did business with Federal government,,Did business with Federal government,category,procurement,,,False,False,False
+tables_1_49_A,141,Co-operatives,Co-operatives,,Co-operatives,category,cooperatives,,,False,False,False
+tables_1_49_A,142,Clean Tech,Clean Technology SMEs,,Clean Technology SMEs,category,clean_tech,,,False,False,False
+tables_1_49_A,143,Social Enterprises,Not-for-profit,,Not-for-profit,category,social_enterprises,,,False,False,False
+tables_1_49_A,144,Social Enterprises,Charity,,Charity,category,social_enterprises,,,False,False,False
+tables_1_49_A,145,Social Enterprises,For-profit,,For-profit,category,social_enterprises,,,False,False,False
+tables_1_49_A,146,Legal Status,Incorporated,,Incorporated,category,legal_status,,,False,False,False
+tables_1_49_A,147,Legal Status,Unincorporated,,Unincorporated,category,legal_status,,,False,False,False
+tables_1_49_A,148,Legal Status,,Sole Proprietorship,Sole Proprietorship,subcategory,legal_status,,,False,False,False
+table_50,17,Region,Atlantic,,Atlantic,category,geography_region,multi_province_region,,False,False,False
+table_50,18,Region,Quebec,,Quebec,category,geography_region,province,,False,False,False
+table_50,19,Region,Ontario,,Ontario,category,geography_region,province,,False,False,False
+table_50,20,Region,,Northern Ontario,Northern Ontario,subcategory,geography_region,sub_provincial_region,,False,False,False
+table_50,21,Region,,Southern Ontario,Southern Ontario,subcategory,geography_region,sub_provincial_region,,False,False,False
+table_50,22,Region,Prairies,,Prairies,category,geography_region,multi_province_region,,False,False,False
+table_50,23,Region,,Manitoba,Manitoba,subcategory,geography_region,province,,False,False,False
+table_50,24,Region,,Saskatchewan,Saskatchewan,subcategory,geography_region,province,,False,False,False
+table_50,25,Region,,Alberta,Alberta,subcategory,geography_region,province,,False,False,False
+table_50,26,Region,British Columbia and Territories,,British Columbia and Territories,category,geography_region,province_plus_territories,,False,False,False
+table_50,27,Industry,"Agriculture, Forestry, Fishing and Hunting (NAICS 11), Mining and Oil and Gas Extraction (NAICS 21)",,"Agriculture, Forestry, Fishing and Hunting (NAICS 11), Mining and Oil and Gas Extraction (NAICS 21)",category,industry_naics_group,,11;21,False,False,False
+table_50,28,Industry,Construction (NAICS 23),,Construction (NAICS 23),category,industry_naics_group,,23,False,False,False
+table_50,29,Industry,Manufacturing (NAICS 31-33),,Manufacturing (NAICS 31-33),category,industry_naics_group,,31-33,False,False,False
+table_50,30,Industry,Wholesale Trade (NAICS 41),,Wholesale Trade (NAICS 41),category,industry_naics_group,,41,False,False,False
+table_50,31,Industry,Retail Trade (NAICS 44-45),,Retail Trade (NAICS 44-45),category,industry_naics_group,,44-45,False,False,False
+table_50,32,Industry,Transportation and Warehousing (NAICS 48-49),,Transportation and Warehousing (NAICS 48-49),category,industry_naics_group,,48-49,False,False,False
+table_50,33,Industry,"Professional, Scientific and Technical Services (NAICS 54)",,"Professional, Scientific and Technical Services (NAICS 54)",category,industry_naics_group,,54,False,False,False
+table_50,34,Industry,Accommodation and Food Services (NAICS 72),,Accommodation and Food Services (NAICS 72),category,industry_naics_group,,72,False,False,False
+table_50,35,Industry,Other Services (NAICS 81),,Other Services (NAICS 81),category,industry_naics_group,,81,False,False,False
+table_50,36,Industry,"Information and Cultural Industries (NAICS 51), Real Estate and Rental and Leasing (NAICS 53), Administrative and Support, Waste Management and Remediation Services (NAICS 56), Health Care and Social Assistance (NAICS 62), Arts, Entertainment and Recreation (NAICS 71)",,"Information and Cultural Industries (NAICS 51), Real Estate and Rental and Leasing (NAICS 53), Administrative and Support, Waste Management and Remediation Services (NAICS 56), Health Care and Social Assistance (NAICS 62), Arts, Entertainment and Recreation (NAICS 71)",category,industry_naics_group,,51;53;56;62;71,False,False,False

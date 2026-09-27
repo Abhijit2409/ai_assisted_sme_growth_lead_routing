@@ -1,0 +1,21 @@
+dimension,item,source_pair,alignment_status,detail,phase_e_requirement,evidence_label
+statistical_unit,unit,0722-1097,non-reconcilable,Enterprise vs location; location/enterprise ratio varies by CMA and sector,non-reconcilable,FACT: DATA
+statistical_unit,unit,0722-ISED,"same unit, different population",Both enterprises; ISED is a filtered survey population,E6_ised_scope_approximation,FACT: SOURCE
+statistical_unit,unit,1097-ISED,non-reconcilable,Location vs enterprise,non-reconcilable,FACT: SOURCE
+time,reference period,all,non-reconcilable,Monthly 2015-01-2026-05 vs December 2025 snapshot vs 2023: never one observation period,non-reconcilable,FACT: SOURCE
+geography,CMA codes 0722 vs 1097,0722-1097,"shared codes, different vintage","35 shared CMA codes; 6 CMAs only in 1097 (Fredericton, Drummondville, Red Deer, Kamloops, Chilliwack, Nanaimo); 2016 vs SGC 2021 boundaries: effect unknown",E1_cma_sgc2016_to_sgc2021,FACT: DATA
+geography,CMA label differences,0722-1097,labels differ for same code,"421: 'Québec, Quebec' vs 'Quebec'; 522: 'Belleville, Ontario' vs 'Belleville - Quinte West'",E1_cma_sgc2016_to_sgc2021,FACT: DATA
+geography,Quebec label ambiguity,all,name collision,1097 labels CMA 421 'Quebec'; in 0722 and ISED region rows 'Quebec' is the province; ISED also has a CMA row 'Quebec',E2_ised_cma_labels_to_codes,FACT: DATA
+geography,ISED CMA labels,ISED-1097,name-only; 23 of 24 match after light normalization,23 of 24 ISED CMA labels match 1097; unmatched: Sudbury (1097: 'Greater Sudbury'),E2_ised_cma_labels_to_codes,FACT: DATA
+geography,provinces and regions,ISED-0722,name-only; partial,"ISED publishes Quebec, Ontario, Manitoba, Saskatchewan, Alberta individually; Atlantic grouped; BC combined with territories",E8_ised_regions_to_province_codes,FACT: DATA
+geography,provinces,1097-others,not available,1097 has no province or Canada totals; summing CSDs undercounts (Note 2),non-reconcilable,FACT: SOURCE
+geography,CSD detail,1097-others,only in 1097,CSD structure has no counterpart in 0722 or ISED,non-reconcilable,FACT: DATA
+industry,0722 members to NAICS 2022,0722-1097,requires mapping,18 sector-level members; 52+55 combined; 61/62 partial (Notes 12/13); [11] scope undocumented; 311/312 subsectors; NAICS vintage not stated,E3_0722_industry_to_naics2022,FACT: DATA
+industry,0722 tourism members,0722-1097,non-reconcilable,"10 tourism members are TSA-based, overlap sectors; not constructible from NAICS 4-digit",non-reconcilable,FACT: SOURCE
+industry,ISED groups to NAICS 2022,ISED-1097,requires mapping,10 coarse groups incl. 11+21 and 51+53+56+62+71 combined,E4_ised_industry_to_naics2022,FACT: DATA
+industry,ISED special aggregates,ISED-all,non-reconcilable,"8 overlapping aggregates (ICT, KBI, tourism); definitions not published in the workbook",E7_unclassified_and_overlapping_aggregates,FACT: SOURCE
+industry,1097 Unclassified,1097-others,no counterpart,4.29-12.66% of CMA locations; not allocable to sectors,E7_unclassified_and_overlapping_aggregates,FACT: DATA
+employment_size,ISED vs 0722 labels,0722-ISED,identical labels 1-4 ... 100-499,"Same band labels; both enterprise-based, but 0722 closures/exits use a prior-12-month average and ISED is survey-reported",E5_1097_size_to_sme_bands,FACT: DATA
+employment_size,1097 bands to broader bands,1097-0722/ISED,numeric nesting only,Every 1097 band nests in one broader band numerically; location vs enterprise basis makes the counts non-equivalent,E5_1097_size_to_sme_bands,FACT: DATA
+measure,flows vs stock,0722-1097,non-reconcilable as rate,1097 locations / 0722 enterprises ranges 1.157-1.344 across CMAs and 1.183-1.637 across sectors,non-reconcilable,FACT: DATA
+measure,survey percentages vs counts,ISED-StatCan,non-reconcilable,Prevalence within a segment's applicable population is not a count,non-reconcilable,FACT: SOURCE

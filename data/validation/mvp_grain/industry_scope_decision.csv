@@ -1,0 +1,11 @@
+category,layer,decision,evidence,treatment
+1097 NAICS sectors (19 business sectors),scale_and_composition,primary CMA industry-composition grain,CMA x sector (1-499): 95.0% of cells have 10+ locations,include
+1097 public administration (91),scale_and_composition,shown separately; outside SME banking-acquisition scope and ISED scope,,exclude from composition
+1097 Unclassified,scale_and_composition,carried separately (E7); excluded from sector-share denominator,,separate display
+1097 4-digit industry groups,scale_and_composition,not in MVP: sparse and hard to read (Phase B: CMA median 11 locations per group),,exclude
+ISED 10 broad groups,financing_context,separate financing-context grain (one-way),E4,include (context)
+ISED 8 special aggregates,financing_context,overlap groups; not in MVP views,E7,exclude
+0722 sector momentum,momentum,optional view for the 8 CMAs with detail,E3,optional
+0722 tourism aggregates and components,momentum,overlap sectors; excluded,E7,exclude
+"0722 [11] Forestry, fishing and hunting",momentum,scope unresolved; excluded from cross-source sector views,E3,exclude from cross-source
+0722 partial 61 and 62,momentum,"partial sectors; shown with their own labels, never compared with 1097 61/62",E3,own-label only

@@ -1,0 +1,14 @@
+source_pair,join_key,feasibility,reason,phase_e_requirement
+0722-1097,CMA code (DGUID suffix),qualified,35 shared codes; vintage 2016 vs 2021,E1_cma_sgc2016_to_sgc2021
+0722-1097,province code,not available,1097 has no provinces,non-reconcilable
+0722-1097,NAICS,crosswalk required,0722 members are not NAICS 2022 codes,E3_0722_industry_to_naics2022
+0722-1097,size band,crosswalk required (numeric nesting only),Unit and methodology differ,E5_1097_size_to_sme_bands
+0722-1097,time,not joinable,Monthly SA vs December 2025 snapshot,non-reconcilable
+ISED-0722,CMA name,prohibited as a key; crosswalk required,No codes in ISED,E2_ised_cma_labels_to_codes
+ISED-0722,province/region name,crosswalk required,Name-only; partial provinces,E8_ised_regions_to_province_codes
+ISED-0722,size band label,identical labels,Same enterprise unit; survey vs administrative,E5_1097_size_to_sme_bands
+ISED-0722,industry group,crosswalk required,Coarse ISED groups vs 0722 members,E4_ised_industry_to_naics2022
+ISED-1097,CMA name,prohibited as a key; crosswalk required,23 of 24 match after normalization,E2_ised_cma_labels_to_codes
+ISED-1097,industry group,crosswalk required,Coarse groups to NAICS 2022 codes,E4_ised_industry_to_naics2022
+ISED-1097,size band,crosswalk required (numeric nesting only),Location vs enterprise,E5_1097_size_to_sme_bands
+all,any row-level (cell) join,prohibited,"Different units, populations and periods",non-reconcilable

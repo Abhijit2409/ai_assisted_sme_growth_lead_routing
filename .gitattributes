@@ -1,0 +1,5 @@
+# Store every file byte-for-byte: validation evidence records SHA-256 hashes of outputs,
+# seeds and documents, so line endings must never be converted on commit or checkout.
+* -text
+*.parquet binary
+*.png binary

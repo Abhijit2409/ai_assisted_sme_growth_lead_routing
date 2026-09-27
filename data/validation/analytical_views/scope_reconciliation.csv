@@ -1,0 +1,11 @@
+source,rows,included,treatment
+StatCan 33-10-0722-01,6015632,all,CMA rows in the lineage-checked cache
+StatCan 33-10-0722-01,1891432,yes,T004 + 18 sector members x 6 size scopes x 4 published measures
+StatCan 33-10-0722-01,3007816,no,"reopening, entrants, temporary closures, exits (0 valued at CMA level)"
+StatCan 33-10-0722-01,1116384,no,"tourism members, subsectors 311/312, member 32 aggregate (39,693 valued)"
+ISED SFGSME 2023,79876,all,value cells in the ISED cache
+ISED SFGSME 2023,1497,yes,"Tables 1, 3, 4, 49 (national, 4 size bands, 24 CMAs, 10 regions, 10 groups); Table 5 (national, 4 size bands)"
+ISED SFGSME 2023,72600,no,table outside the MVP core tables
+ISED SFGSME 2023,4399,no,segment dimension not in the MVP one-way grain
+ISED SFGSME 2023,1100,no,Table 5 outside national and size-band scope (I05)
+ISED SFGSME 2023,280,no,Table 50: two-way cross (region columns x industry rows); outside the one-way segment grain

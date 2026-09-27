@@ -1,0 +1,33 @@
+industry_id,industry,parent_industry_id,industry_class,naics_codes,metadata_notes,flags
+1,Business sector industries [T004],,business_sector_aggregate,T004,,
+2,"Forestry, fishing and hunting [11]",1.0,naics_sector,11,,
+3,"Mining, quarrying, and oil and gas extraction [21]",1.0,naics_sector,21,,
+4,Utilities [22],1.0,naics_sector,22,,
+5,Construction [23],1.0,naics_sector,23,,
+6,Manufacturing [31-33],1.0,naics_sector,31-33,,
+30,Food manufacturing [311],1.0,naics_subsector,311,,metadata_parent_is_T004_not_manufacturing
+31,Beverage and tobacco product manufacturing [312],1.0,naics_subsector,312,,metadata_parent_is_T004_not_manufacturing
+7,Wholesale trade [41],1.0,naics_sector,41,,
+8,Retail trade [44-45],1.0,naics_sector,44-45,,
+9,Transportation and warehousing [48-49],1.0,naics_sector,48-49,,
+10,Information and cultural industries [51],1.0,naics_sector,51,,
+11,"Finance and insurance and Management of companies and enterprises [52, 55]",1.0,naics_sector,52;55,,combined_sectors
+12,Real estate and rental and leasing [53],1.0,naics_sector,53,,
+13,"Professional, scientific and technical services [54]",1.0,naics_sector,54,,
+14,"Administrative and support, waste management and remediation services [56]",1.0,naics_sector,56,,
+15,Educational services [61],1.0,naics_sector,61,12,partial_sector_coverage
+16,Health care and social assistance [62],1.0,naics_sector,62,13,partial_sector_coverage
+17,"Arts, entertainment and recreation [71]",1.0,naics_sector,71,,
+18,Accommodation and food services [72],1.0,naics_sector,72,,
+19,Other services (except public administration) [81],1.0,naics_sector,81,,
+20,Tourism industry,1.0,tourism_aggregate,,14,not_a_naics_industry_overlaps_sectors
+21,Total tourism transportation,20.0,tourism_aggregate,,14,not_a_naics_industry_overlaps_sectors
+22,"Air transportation (tourism) [4811, 4812]",21.0,tourism_component,4811;4812,14,not_a_naics_industry_overlaps_sectors
+23,"Rail, scenic and sightseeing transportation (tourism) [482114, 487110, 487210, 487990]",21.0,tourism_component,482114;487110;487210;487990,14,not_a_naics_industry_overlaps_sectors
+24,"Water transportation (tourism) [483115, 483116, 483213, 483214]",21.0,tourism_component,483115;483116;483213;483214,14,not_a_naics_industry_overlaps_sectors
+25,"Bus transportation, taxi and limousine services, and vehicle rental (tourism) [485110, 485210, 485410, 485510, 485990, 485310, 485320, 532111, 532120]",21.0,tourism_component,485110;485210;485410;485510;485990;485310;485320;532111;532120,14,not_a_naics_industry_overlaps_sectors
+26,"Travel services (tourism) [561510, 561520, 561590]",20.0,tourism_component,561510;561520;561590,14,not_a_naics_industry_overlaps_sectors
+27,"Recreation and entertainment (tourism) [51213, 7111, 7112, 7113, 7115, 7121, 7131, 7132, 713910, 713920, 713930, 713950, 713990]",20.0,tourism_component,51213;7111;7112;7113;7115;7121;7131;7132;713910;713920;713930;713950;713990,14,not_a_naics_industry_overlaps_sectors
+28,"Accommodation (tourism) [721111, 721112, 721113, 721120, 721114, 721211, 721213, 721191, 721192, 721198, 721212]",20.0,tourism_component,721111;721112;721113;721120;721114;721211;721213;721191;721192;721198;721212,14,not_a_naics_industry_overlaps_sectors
+29,"Food and beverage services (tourism) [722511, 722512, 722410]",20.0,tourism_component,722511;722512;722410,14,not_a_naics_industry_overlaps_sectors
+32,Business sector industries (except educational services and health care and social assistance),,business_sector_aggregate,,15,

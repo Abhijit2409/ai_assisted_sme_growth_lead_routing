@@ -1,0 +1,6 @@
+bucket,series,rows_in_file,rows_valued,pct_of_expected_series
+0_absent_from_file,11360,0,0,15.09
+1_valued_0pct,58894,7889302,0,78.25
+4_valued_51_to_75pct,1305,178785,131805,1.73
+5_valued_76_to_99pct,254,34798,33274,0.34
+6_valued_100pct,3451,472787,472787,4.59

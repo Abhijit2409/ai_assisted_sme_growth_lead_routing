@@ -1,0 +1,75 @@
+crosswalk,mapping_status,source_label,target_code,target_label,reason
+E1,target-only,,320,Fredericton,No momentum (0722) data for this CMA
+E1,target-only,,447,Drummondville,No momentum (0722) data for this CMA
+E1,target-only,,830,Red Deer,No momentum (0722) data for this CMA
+E1,target-only,,925,Kamloops,No momentum (0722) data for this CMA
+E1,target-only,,930,Chilliwack,No momentum (0722) data for this CMA
+E1,target-only,,938,Nanaimo,No momentum (0722) data for this CMA
+E3,unresolved,"Forestry, fishing and hunting [11]",113,Forestry and logging,"Member titled 'Forestry, fishing and hunting'; exact scope undocumented; Phase B ratio outlier even at 113-115"
+E3,unresolved,"Forestry, fishing and hunting [11]",114,"Fishing, hunting and trapping","Member titled 'Forestry, fishing and hunting'; exact scope undocumented; Phase B ratio outlier even at 113-115"
+E3,unresolved,"Forestry, fishing and hunting [11]",115,Support activities for agriculture and forestry,"Member titled 'Forestry, fishing and hunting'; exact scope undocumented; Phase B ratio outlier even at 113-115"
+E3,partial mapping,Educational services [61],6114,Business schools and computer and management training,Note 12: only NAICS 6114-6117
+E3,partial mapping,Educational services [61],6115,Technical and trade schools,Note 12: only NAICS 6114-6117
+E3,partial mapping,Educational services [61],6116,Other schools and instruction,Note 12: only NAICS 6114-6117
+E3,partial mapping,Educational services [61],6117,Educational support services,Note 12: only NAICS 6114-6117
+E3,partial mapping,Health care and social assistance [62],621,Ambulatory health care services,"Note 13: 621, 623, 624 (excludes 622 hospitals)"
+E3,partial mapping,Health care and social assistance [62],623,Nursing and residential care facilities,"Note 13: 621, 623, 624 (excludes 622 hospitals)"
+E3,partial mapping,Health care and social assistance [62],624,Social assistance,"Note 13: 621, 623, 624 (excludes 622 hospitals)"
+E3,non-reconcilable,Tourism industry,,,"Tourism (TSA-based, Note 14); overlaps sectors; excluded from additive joins"
+E3,non-reconcilable,Total tourism transportation,,,"Tourism (TSA-based, Note 14); overlaps sectors; excluded from additive joins"
+E3,non-reconcilable,"Air transportation (tourism) [4811, 4812]",,,"Tourism (TSA-based, Note 14); overlaps sectors; excluded from additive joins"
+E3,non-reconcilable,"Rail, scenic and sightseeing transportation (tourism) [482114, 487110, 487210, 487990]",,,"Tourism (TSA-based, Note 14); overlaps sectors; excluded from additive joins"
+E3,non-reconcilable,"Water transportation (tourism) [483115, 483116, 483213, 483214]",,,"Tourism (TSA-based, Note 14); overlaps sectors; excluded from additive joins"
+E3,non-reconcilable,"Bus transportation, taxi and limousine services, and vehicle rental (tourism) [485110, 485210, 485410, 485510, 485990, 485310, 485320, 532111, 532120]",,,"Tourism (TSA-based, Note 14); overlaps sectors; excluded from additive joins"
+E3,non-reconcilable,"Travel services (tourism) [561510, 561520, 561590]",,,"Tourism (TSA-based, Note 14); overlaps sectors; excluded from additive joins"
+E3,non-reconcilable,"Recreation and entertainment (tourism) [51213, 7111, 7112, 7113, 7115, 7121, 7131, 7132, 713910, 713920, 713930, 713950, 713990]",,,"Tourism (TSA-based, Note 14); overlaps sectors; excluded from additive joins"
+E3,non-reconcilable,"Accommodation (tourism) [721111, 721112, 721113, 721120, 721114, 721211, 721213, 721191, 721192, 721198, 721212]",,,"Tourism (TSA-based, Note 14); overlaps sectors; excluded from additive joins"
+E3,non-reconcilable,"Food and beverage services (tourism) [722511, 722512, 722410]",,,"Tourism (TSA-based, Note 14); overlaps sectors; excluded from additive joins"
+E4,partial mapping,Other Services (NAICS 81),81,Other services (except public administration),Values are ISED percentages for the whole group; never split to sectors
+E4,non-reconcilable,Information and Communication Technologies (ICT),,,Reported separately; never part of the 10-group structure
+E4,non-reconcilable,Knowledge-Based Industries (KBI),,,Reported separately; never part of the 10-group structure
+E4,non-reconcilable,ALL Tourism,,,Reported separately; never part of the 10-group structure
+E4,non-reconcilable,Transportation,,,Reported separately; never part of the 10-group structure
+E4,non-reconcilable,"Arts, Entertainment and Recreation",,,Reported separately; never part of the 10-group structure
+E4,non-reconcilable,Accommodation services,,,Reported separately; never part of the 10-group structure
+E4,non-reconcilable,Food services and drinking places,,,Reported separately; never part of the 10-group structure
+E4,non-reconcilable,Other,,,Reported separately; never part of the 10-group structure
+E6,partial mapping,Unclassified locations,,,Carried separately (E7); not in the approximation
+E6,non-reconcilable,"Gross revenue >= $30,000",,,cannot be applied to 1097
+E6,non-reconcilable,Non-profit organizations,,,cannot be applied to 1097
+E6,non-reconcilable,Joint ventures,,,cannot be applied to 1097
+E6,non-reconcilable,Government agencies,,,cannot be applied to 1097
+E6,non-reconcilable,Subsidiaries (workbook Notes),,,cannot be applied to 1097
+E6,non-reconcilable,Financing and leasing companies beyond the NAICS exclusions,,,cannot be applied to 1097
+E6,non-reconcilable,Enterprise (not location) as the unit,,,cannot be applied to 1097
+E6,non-reconcilable,Other survey eligibility and response conditions,,,cannot be applied to 1097
+E7,non-reconcilable,Unclassified [2],,,overlapping or unallocatable
+E7,non-reconcilable,Tourism industry,,,overlapping or unallocatable
+E7,non-reconcilable,Total tourism transportation,,,overlapping or unallocatable
+E7,non-reconcilable,"Air transportation (tourism) [4811, 4812]",,,overlapping or unallocatable
+E7,non-reconcilable,"Rail, scenic and sightseeing transportation (tourism) [482114, 487110, 487210, 487990]",,,overlapping or unallocatable
+E7,non-reconcilable,"Water transportation (tourism) [483115, 483116, 483213, 483214]",,,overlapping or unallocatable
+E7,non-reconcilable,"Bus transportation, taxi and limousine services, and vehicle rental (tourism) [485110, 485210, 485410, 485510, 485990, 485310, 485320, 532111, 532120]",,,overlapping or unallocatable
+E7,non-reconcilable,"Travel services (tourism) [561510, 561520, 561590]",,,overlapping or unallocatable
+E7,non-reconcilable,"Recreation and entertainment (tourism) [51213, 7111, 7112, 7113, 7115, 7121, 7131, 7132, 713910, 713920, 713930, 713950, 713990]",,,overlapping or unallocatable
+E7,non-reconcilable,"Accommodation (tourism) [721111, 721112, 721113, 721120, 721114, 721211, 721213, 721191, 721192, 721198, 721212]",,,overlapping or unallocatable
+E7,non-reconcilable,"Food and beverage services (tourism) [722511, 722512, 722410]",,,overlapping or unallocatable
+E7,non-reconcilable,Business sector industries [T004],,,overlapping or unallocatable
+E7,non-reconcilable,Business sector industries (except educational services and health care and social assistance),,,overlapping or unallocatable
+E7,non-reconcilable,Food manufacturing [311],,,Overlapping category found during construction
+E7,non-reconcilable,Beverage and tobacco product manufacturing [312],,,Overlapping category found during construction
+E7,non-reconcilable,Information and Communication Technologies (ICT),,,overlapping or unallocatable
+E7,non-reconcilable,Knowledge-Based Industries (KBI),,,overlapping or unallocatable
+E7,non-reconcilable,ALL Tourism,,,overlapping or unallocatable
+E7,non-reconcilable,Transportation,,,overlapping or unallocatable
+E7,non-reconcilable,"Arts, Entertainment and Recreation",,,overlapping or unallocatable
+E7,non-reconcilable,Accommodation services,,,overlapping or unallocatable
+E7,non-reconcilable,Food services and drinking places,,,overlapping or unallocatable
+E7,non-reconcilable,Other,,,overlapping or unallocatable
+E7,non-reconcilable,Northern Ontario,,,Overlapping geography rows found during construction
+E7,non-reconcilable,Southern Ontario,,,Overlapping geography rows found during construction
+E7,non-reconcilable,Manitoba,,,Overlapping geography rows found during construction
+E7,non-reconcilable,Saskatchewan,,,Overlapping geography rows found during construction
+E7,non-reconcilable,Alberta,,,Overlapping geography rows found during construction
+E8,unresolved,Northern Ontario,35,Ontario,Regional estimates are never replicated or split to provinces
+E8,unresolved,Southern Ontario,35,Ontario,Regional estimates are never replicated or split to provinces

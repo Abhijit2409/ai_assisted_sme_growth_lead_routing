@@ -1,0 +1,84 @@
+version: 2
+
+models:
+  - name: int_market__cma_vintage_alignment
+    description: "Grain: one row per SGC 2021 CMA (41). CMA vintage mapping from reviewed crosswalk E1, typed and renamed; feeds the bridge and the spine."
+    columns:
+      - name: cma_code_sgc2021
+        description: "SGC 2021 CMA code."
+        data_tests: [unique, not_null]
+  - name: int_market__cma_evidence_coverage
+    description: "Grain: one row per SGC 2021 CMA (41). Geographic-scope alignment: source coverage (0722 history, 1097 scale, ISED CMA row), province(s), ISED region key and the derived evidence tier."
+    columns:
+      - name: cma_code_sgc2021
+        description: "SGC 2021 CMA code."
+        data_tests: [unique, not_null]
+      - name: tier
+        description: "Derived evidence tier (1, 2 or 3)."
+        data_tests: [not_null]
+  - name: int_market__industry_members
+    description: "Grain: one row per industry system x code (495). Industry-scope alignment: NAICS 2022 hierarchy (recursive sector ancestry), 0722 and ISED members with scope, additivity, overlap and E7 rule links."
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["industry_system", "industry_code"]
+  - name: int_market__momentum_scope_members
+    description: "Grain: one row per 0722 industry member in the momentum view (19): T004 plus the 18 sectors of the additive rollup (E3)."
+    data_tests:
+      - row_count_equals:
+          arguments:
+            expected: 19
+  - name: int_market__momentum_published
+    description: "Grain: one row per CMA x month x size member x industry member x measure (published 0722 rows in scope: 35 CMAs, 19 members, 4 measures published for CMAs)."
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["cma_code_sgc2016", "ref_month", "size_member_id", "industry_member_id", "measure_member_id"]
+  - name: int_market__momentum_series_inputs
+    description: "Grain: one row per CMA x size member x industry member x month with openings or closures. Openings and closures preparation next to the active-business denominator of the same series at t-1 (0722 only), with availability and E flags."
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["cma_code_sgc2016", "ref_month", "size_member_id", "industry_member_id"]
+  - name: int_market__momentum_derived
+    description: "Grain: one row per series-month x derived measure. Net-formation and rate calculations with value-state handling (unavailable_input, no_prior_month, derived_E)."
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["cma_code_sgc2016", "ref_month", "size_member_id", "industry_member_id", "measure"]
+  - name: int_market__cma_location_cells
+    description: "Grain: one row per CMA (41) x NAICS member (total, 20 sectors, Unclassified) x size member (9). Market-scale preparation on a full grid; omitted cells inside a CMA are flagged zero-by-reconciliation."
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["cma_code_sgc2021", "naics_member_id", "size_member_id"]
+      - row_count_equals:
+          arguments:
+            expected: 8118
+  - name: int_financing__ised_region_keys
+    description: "Grain: one row per ISED region or province label (10). Region key = set of SGC province codes covered; reviewed keys for the two undocumented sub-provincial regions."
+    columns:
+      - name: ised_region_label
+        description: "Verbatim ISED region row text."
+        data_tests: [unique, not_null]
+      - name: region_key
+        description: "Region key."
+        data_tests: [unique, not_null]
+  - name: int_financing__province_region_keys
+    description: "Grain: one row per SGC province or territory code (13). The ISED region giving each province its regional context."
+    columns:
+      - name: province_code
+        description: "SGC province or territory code."
+        data_tests: [unique, not_null]
+  - name: int_financing__segment_lookup
+    description: "Grain: one row per ISED row context x verbatim stub text. ISED contextual segmentation: the exact, context-qualified lookup from ISED stub text to reviewed crosswalk codes."
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["dimension_class", "stub_label"]
+  - name: int_financing__estimates_in_scope
+    description: "Grain: one row per in-scope ISED table x measure x one-way segment. Scope filter, segment code, measure definitions and quality-based use status (evidence-quality flags)."
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["measure_id", "segment_dimension", "segment_key"]

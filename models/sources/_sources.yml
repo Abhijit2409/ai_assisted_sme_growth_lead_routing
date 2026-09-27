@@ -1,0 +1,101 @@
+version: 2
+
+# All sources are read in place from validated local files (never copied).
+# Paths are relative to the repository root, where every dbt command is run.
+
+sources:
+  - name: statcan_cache
+    description: >
+      Statistics Canada public tables, cached from the downloaded CSV files as Parquet by the Python
+      validation layer (src/validation/cache_lineage.py). Each cache carries a lineage record
+      (<cache>.lineage.json): source SHA-256 matched against data/source_manifest.csv, schema version,
+      cache SHA-256 and an order-independent row-parity digest computed from an independent parse of
+      the raw CSV. The raw values are kept as text (VALUE, STATUS, SYMBOL) next to derived numeric and
+      member-id columns. Re-validate with src/validation/verify_pipeline_inputs.py before building.
+    tables:
+      - name: business_dynamics
+        description: >
+          StatCan table 33-10-0722-01, "Experimental estimates for business openings and closures for
+          Canada, provinces, territories and census metropolitan areas, seasonally adjusted".
+          Local relation: data/cache/statcan_33100722.parquet (8,575,672 rows).
+          Grain: one row per geography x industry member x employment-size member x business-dynamics
+          measure x reference month. Statistical unit: employer enterprise (an enterprise is counted in
+          every industry or region it operates in, so the table is not additive). Time coverage: monthly,
+          2015-01 to 2026-05, seasonally adjusted. Geography: Canada, 10 provinces, 3 territories and 35
+          CMAs on SGC 2016 (DGUID prefix 2016S0503). Population: employer businesses in the business
+          sector (T004). Exclusions: non-employer businesses; reopenings, entrants, exits and temporary
+          closures are not published for CMAs; exits lag six months. Missing values: STATUS 'x' =
+          suppressed and '..' = not available, both kept unavailable (NULL value), never zero; 'E' = use
+          with caution; blank = acceptable or better. Limitations: momentum is all-employer context,
+          not SME-specific; sector detail exists for 8 CMAs only; 0722 NAICS vintage is not stated.
+        meta:
+          external_location: "read_parquet('data/cache/statcan_33100722.parquet')"
+          lineage_record: data/cache/statcan_33100722.parquet.lineage.json
+      - name: business_locations
+        description: >
+          StatCan table 33-10-1097-01, "Canadian Business Counts, with employees, census metropolitan
+          areas and census subdivisions, December 2025". Local relation:
+          data/cache/statcan_33101097.parquet (1,050,274 rows). Grain: one row per published geography x
+          employment-size member x NAICS 2022 member. Statistical unit: employer statistical location
+          (a business with 10 stores and a head office counts 11 times); counts are locations, not
+          businesses, clients or prospects. Time: December 2025 snapshot (REF_DATE 2025-07); StatCan
+          advises against using the series as a time series. Geography: SGC 2021; 41 CMAs, their CSDs and
+          CSDs outside CMAs with 10+ active businesses. Size: 8 bands plus "Total, with employees".
+          Missing values: nothing is suppressed and no zero is published; an omitted cell inside a
+          listed geography is zero by reconciliation (every published parent equals the sum of its
+          children), which the validation evidence proves. Out-of-scope geographies are unknown, not zero.
+          Limitations: 'Unclassified' units have no industry and are never allocated to sectors.
+        meta:
+          external_location: "read_parquet('data/cache/statcan_33101097.parquet')"
+          lineage_record: data/cache/statcan_33101097.parquet.lineage.json
+
+  - name: ised_cache
+    description: >
+      ISED Survey on Financing and Growth of Small and Medium Enterprises 2023 (SFGSME), parsed from the
+      published Excel workbook by src/validation/05_validate_ised_sfgsme_2023.py into a tidy cell table.
+      The workbook itself is never modified; the parse is checked against its 46 validation gates.
+    tables:
+      - name: financing_cells
+        description: >
+          Local relation: data/cache/ised_sfgsme_2023_cells.parquet (79,876 value cells). Grain: one row
+          per table x measure (column block) x stub row. Statistical unit: weighted survey estimate for
+          SMEs with 1-499 employees and at least $30,000 revenue (percentages, dollar amounts, weighted
+          counts, unweighted respondent counts). Time: calendar 2023. Geography: national, ISED regions and
+          provinces, and 24 CMA row labels without codes or a stated geography vintage. Exclusions: NAICS
+          22, 52, 55, 61, 91 and selected groups are outside the survey scope. Quality markers: A-D usable;
+          E = CV 20-30% (caution); F = CV 30%+ (excluded from comparisons); '..' = unavailable, never zero;
+          blank cells are structurally omitted combinations. Limitations: survey estimates are contextual;
+          percentages are never converted into counts and one-way segments are never multiplied.
+        meta:
+          external_location: "read_parquet('data/cache/ised_sfgsme_2023_cells.parquet')"
+
+  - name: validated_profiles
+    description: >
+      Profiles written by the source-validation scripts from the official table metadata (for example the
+      NAICS hierarchy, which comes from the 1097 metadata file and cannot be rebuilt from the data cache).
+      They are validated evidence, read as text exactly as written, and never modified by dbt.
+    tables:
+      - name: naics_profile_1097
+        description: "One row per 1097 NAICS 2022 member (445): code, label, level and derived parent (from the table metadata). Written by src/validation/04_validate_statcan_33101097.py."
+        meta:
+          external_location: "read_csv('data/validation/33101097/naics_profile.csv', all_varchar=true, allow_quoted_nulls=false, header=true)"
+      - name: geography_profile_1097
+        description: "One row per 1097 geography (3,387): SGC 2021 code, level, DGUID and province code(s). A CMA spanning two provinces lists both codes separated by ';'. Written by src/validation/04_validate_statcan_33101097.py."
+        meta:
+          external_location: "read_csv('data/validation/33101097/geography_profile.csv', all_varchar=true, allow_quoted_nulls=false, header=true)"
+      - name: employment_size_profile_1097
+        description: "One row per 1097 employment-size member (9) with 41-CMA location totals used as reconciliation anchors. Written by src/validation/04_validate_statcan_33101097.py."
+        meta:
+          external_location: "read_csv('data/validation/33101097/employment_size_profile.csv', all_varchar=true, allow_quoted_nulls=false, header=true)"
+      - name: industry_classification_0722
+        description: "One row per 0722 industry member (32) with its class and parent (from the table metadata). Written by src/validation/03_availability_statcan_33100722.py."
+        meta:
+          external_location: "read_csv('data/validation/33100722/industry_classification.csv', all_varchar=true, allow_quoted_nulls=false, header=true)"
+      - name: ised_estimate_definitions
+        description: "One row per ISED measure (617): block title, header path, unit and universe/denominator. Written by src/validation/05_validate_ised_sfgsme_2023.py."
+        meta:
+          external_location: "read_csv('data/validation/ised_2023/estimate_definitions.csv', all_varchar=true, allow_quoted_nulls=false, header=true)"
+      - name: selected_reporting_spine
+        description: "The approved 41-CMA reporting spine with evidence tiers (24 Tier 1, 11 Tier 2, 6 Tier 3). dbt re-derives the tiers from the crosswalks and source coverage and tests them against this file. Written by src/validation/08_select_mvp_grain.py."
+        meta:
+          external_location: "read_csv('data/validation/mvp_grain/selected_reporting_spine.csv', all_varchar=true, allow_quoted_nulls=false, header=true)"

@@ -1,0 +1,18 @@
+item,treatment,reason
+single combined fact table,prohibited,"units, periods and estimate types differ (Phase D)"
+0722 flows / 1097 locations,prohibited,unit mismatch
+ISED % converted to counts or multiplied across dimensions,prohibited,"survey prevalence, one-way segments"
+ISED F estimates,excluded,source: do not use
+ISED E estimates,caution flag + sensitivity,20-30% CV / 10-15 SE
+'..' and 'x',"unavailable, never zero",Phases A and C
+name-based joins,prohibited,"codes only (E1, E2, E8)"
+Tier 3 CMAs ranked with Tiers 1-2,prohibited,6 CMAs have no momentum
+Missing ISED CMA context (Tiers 2-3),shown as missing; regional context via E8 labelled as regional,never imputed
+all-size 0722 series labelled SME,prohibited,"500+ is about 0.3% of active enterprises (median, 18 CMAs) but still outside scope"
+SME-specific momentum rates,not available,all-band openings in 0 CMAs
+2016 vs 2021 CMA boundaries,caveat on every cross-layer CMA view,E1 boundary flags
+ISED geography vintage,not stated; caveat on Tier 1 context,E2
+Approximate ISED-scope locations,diagnostic only,never ISED-eligible SMEs
+"CSD detail, 4-digit industries, CMA x sector x 100-499",excluded from MVP,sparsity and readability
+Public data to leads,prohibited,aggregates never identify businesses
+Synthetic CRM layer,kept separate,later phase; never mixed with public aggregates

@@ -1,0 +1,12 @@
+model,primary_key,baseline_distinct_keys,dbt_distinct_keys,baseline_duplicate_keys,dbt_duplicate_keys,baseline_rows_with_null_key_part,dbt_rows_with_null_key_part,keys_only_in_baseline,keys_only_in_dbt,passed
+dim_cma,cma_code_sgc2021,41,41,0,0,0,0,0,0,True
+dim_industry,"industry_system, industry_code",495,495,0,0,0,0,0,0,True
+dim_size_band,size_band_key,6,6,0,0,0,0,0,0,True
+bridge_cma_vintage,"cma_code_sgc2016, cma_code_sgc2021",41,41,0,0,6,6,0,0,True
+bridge_industry,"source_system, source_code, target_code",63,63,0,0,20,20,0,0,True
+bridge_size_band,"source_band, target_band",9,9,0,0,0,0,0,0,True
+fact_cma_momentum_monthly,"cma_code_sgc2016, ref_month, size_band_key, industry_code_0722, measure",3782864,3782864,0,0,0,0,0,0,True
+fact_cma_market_scale_snapshot,"cma_code_sgc2021, size_scope, snapshot_period",123,123,0,0,0,0,0,0,True
+fact_cma_sector_composition_snapshot,"cma_code_sgc2021, naics_sector, snapshot_period",861,861,0,0,0,0,0,0,True
+fact_cma_size_composition_snapshot,"cma_code_sgc2021, size_band_key, snapshot_period",205,205,0,0,0,0,0,0,True
+fact_ised_financing_context,"ised_table, measure_id, segment_dimension, segment_key",1497,1497,0,0,0,0,0,0,True

@@ -1,0 +1,404 @@
+{
+  "source": "Statistics Canada 33-10-1097-01",
+  "metadata": {
+    "cube_title": "Canadian Business Counts, with employees, census metropolitan areas and census subdivisions, December 2025",
+    "product_id": "33101097",
+    "table_page_url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3310109701",
+    "frequency": "Semi-annual",
+    "start_reference_period": "2025-07-01",
+    "end_reference_period": "2025-07-01",
+    "cube_notes": "1;2;3;7",
+    "survey": "1105 Business Register",
+    "dimensions": {
+      "1": {
+        "name": "Geography",
+        "notes": ""
+      },
+      "2": {
+        "name": "Employment size",
+        "notes": "4"
+      },
+      "3": {
+        "name": "North American Industry Classification System (NAICS)",
+        "notes": "5"
+      }
+    },
+    "members_per_dimension": {
+      "1": 3387,
+      "2": 9,
+      "3": 445
+    },
+    "notes": {
+      "1": "Businesses are counted according to the number of \"statistical locations\" they have. For example, a retail business with 10 stores and a head office is counted 11 times in the Canadian business counts. Please consult our guide (opens new window) for more information.",
+      "2": "The data includes active Canadian locations with employees for every census metropolitan area (CMA) and the census subdivisions (CSDs) within them as well as for CSDs that are not part of CMAs, provided they have 10 or more active businesses.",
+      "3": "Fluctuations in these figures from one reference period to another can come from methodological changes (for example, changes to the method for identifying inactive units or in business industrial classification strategies). As a result, these data do not only represent changes in the business population over time. Statistics Canada advises users not to use these data as a time series.",
+      "4": "The employment size ranges provided should not be used to calculate total number of employees.",
+      "5": "The 2022 version of the North American Industry Classification System (NAICS) (opens new window) is used for this table.",
+      "6": "The Unclassified category is composed of units which have not been coded to an industry.",
+      "7": "The 2021 version of the Standard Geographical Classification (SGC) (opens new window) is used for this table."
+    },
+    "notes_raw": {
+      "1": "\"Businesses are counted according to the number of \"statistical locations\" they have. For example, a retail business with 10 stores and a head office is counted 11 times in the Canadian business counts. Please consult our <a href=\"https://www.statcan.gc.ca/eng/statistical-programs/document/1105_D16_V4\"\" rel=\"external noopener noreferrer\" target=\"_blank\">guide (opens new window)</a> for more information.\"",
+      "2": "\"The data includes active Canadian locations with employees for every census metropolitan area (CMA) and the census subdivisions (CSDs) within them as well as for CSDs that are not part of CMAs, provided they have 10 or more active businesses.\"",
+      "3": "\"Fluctuations in these figures from one reference period to another can come from methodological changes (for example, changes to the method for identifying inactive units or in business industrial classification strategies). As a result, these data do not only represent changes in the business population over time. Statistics Canada advises users not to use these data as a time series.\"",
+      "4": "\"The employment size ranges provided should not be used to calculate total number of employees.\"",
+      "5": "\"The 2022 version of the <a href=\"https://www.statcan.gc.ca/en/subjects/standard/naics/2022/v1/index\"\" rel=\"external noopener noreferrer\" target=\"_blank\">North American Industry Classification System (NAICS) (opens new window) </a> is used for this table.\"",
+      "6": "\"The Unclassified category is composed of units which have not been coded to an industry.\"",
+      "7": "\"The 2021 version of the <a href=\"https://www.statcan.gc.ca/en/subjects/standard/sgc/2021/index\"\" rel=\"external noopener noreferrer\" target=\"_blank\">Standard Geographical Classification (SGC) (opens new window)</a> is used for this table.\""
+    },
+    "note_links": {
+      "1": [
+        "https://www.statcan.gc.ca/eng/statistical-programs/document/1105_D16_V4"
+      ],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": [
+        "https://www.statcan.gc.ca/en/subjects/standard/naics/2022/v1/index"
+      ],
+      "6": [],
+      "7": [
+        "https://www.statcan.gc.ca/en/subjects/standard/sgc/2021/index"
+      ]
+    },
+    "notes_split_by_csv_reader": {
+      "1": 3
+    },
+    "legend_symbols_available": [
+      "..",
+      "<LOD",
+      "0s",
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "...",
+      "p",
+      "r",
+      "x",
+      "t"
+    ]
+  },
+  "raw": {
+    "csv_bytes": 188914158,
+    "metadata_bytes": 200580,
+    "csv_sha256": "0f690e9ffbded79a3af15f9b303039c5887a91ba9c71c037deba9d05e8ceaaa7",
+    "has_utf8_bom": true,
+    "line_endings": "LF",
+    "contains_nbsp": false,
+    "contains_replacement_char": false,
+    "blank_encoding": "every field is quoted; empty fields are written as \"\" (no unquoted empties)",
+    "status_counts_raw_parse": {
+      "(blank)": 1050274
+    }
+  },
+  "cache_lineage": {
+    "cache": "data/cache/statcan_33101097.parquet",
+    "source_matches_manifest": true,
+    "ok": true,
+    "action": "reused",
+    "reason": "current"
+  },
+  "cache_lineage_record": {
+    "source_relative_path": "data/raw/statcan_33101097/33101097-eng/33101097.csv",
+    "source_sha256": "0f690e9ffbded79a3af15f9b303039c5887a91ba9c71c037deba9d05e8ceaaa7",
+    "source_bytes": 188914158,
+    "cache_relative_path": "data/cache/statcan_33101097.parquet",
+    "cache_created": "2026-09-27T10:11:19-07:00",
+    "schema_version": "statcan_33101097/v1",
+    "cache_columns": [
+      "REF_DATE",
+      "GEO",
+      "DGUID",
+      "Employment size",
+      "North American Industry Classification System (NAICS)",
+      "UOM",
+      "UOM_ID",
+      "SCALAR_FACTOR",
+      "SCALAR_ID",
+      "VECTOR",
+      "COORDINATE",
+      "VALUE",
+      "STATUS",
+      "SYMBOL",
+      "TERMINATED",
+      "DECIMALS",
+      "value_num",
+      "geo_id",
+      "size_id",
+      "naics_id"
+    ],
+    "raw_rows": 1050274,
+    "cache_rows": 1050274,
+    "raw_content_digest": "d948ff5fb13b44b3",
+    "cache_content_digest": "d948ff5fb13b44b3",
+    "digest_method": "sum mod 2^64 of first 8 bytes of sha256(row fields joined by U+001F); raw parsed with Python csv, cache read with DuckDB",
+    "cache_sha256": "2093d9d9752e27e8cd23d6c9723a93366fbf00c3c5ee2fae9cafa5e4f2aed8c2"
+  },
+  "phase_a_cache_lineage": {
+    "current": true,
+    "reason": "current",
+    "source_sha256": "937bb8de18f29a270f5b613e22aa18a7ebc8f0091e3c677e38f605f1d30bdc8b",
+    "cache_sha256": "a5b7fe363d995dbe77d2827c74373a1b46b0b1480a41f867956df75ec926b03b"
+  },
+  "profile": {
+    "n_rows": 1050274,
+    "n_periods": 1,
+    "ref_date": "2025-07",
+    "geos_with_rows": 3355,
+    "sizes_with_rows": 9,
+    "naics_with_rows": 445,
+    "n_coordinates": 1050274,
+    "n_vectors": 1050274,
+    "n_pairs": 1050274,
+    "n_unit_combos": 1,
+    "unit": "Number / units / decimals=0",
+    "min_value": 1,
+    "max_value": 265469,
+    "published_zeros": 0,
+    "null_values": 0,
+    "non_integer_values": 0,
+    "values_eq_1": 502611,
+    "values_lt_10": 898721,
+    "status_nonblank": 0,
+    "symbol_nonblank": 0,
+    "terminated_nonblank": 0
+  },
+  "geography": {
+    "levels": {
+      "CSD_outside_CMA": 2766,
+      "CSD_in_CMA": 579,
+      "CMA": 41,
+      "grouping_root": 1
+    },
+    "geographies_with_rows": 3355,
+    "cma_csds_without_rows": 31,
+    "csd_outside_cma_min_locations": 10,
+    "cma_csds_with_fewer_than_10_locations": 36,
+    "labels_shared_by_more_than_one_member": 167,
+    "members_with_shared_labels": 353,
+    "csds_labelled_same_as_parent_cma": 36,
+    "cmas_spanning_two_provinces": [
+      "Ottawa - Gatineau"
+    ],
+    "csds_by_province_code": {
+      "10": {
+        "CSD_in_CMA": 14,
+        "CSD_outside_CMA": 184
+      },
+      "11": {
+        "CSD_outside_CMA": 74
+      },
+      "12": {
+        "CSD_in_CMA": 7,
+        "CSD_outside_CMA": 69
+      },
+      "13": {
+        "CSD_in_CMA": 51,
+        "CSD_outside_CMA": 181
+      },
+      "24": {
+        "CSD_in_CMA": 179,
+        "CSD_outside_CMA": 874
+      },
+      "35": {
+        "CSD_in_CMA": 108,
+        "CSD_outside_CMA": 319
+      },
+      "46": {
+        "CSD_in_CMA": 13,
+        "CSD_outside_CMA": 128
+      },
+      "47": {
+        "CSD_in_CMA": 44,
+        "CSD_outside_CMA": 376
+      },
+      "48": {
+        "CSD_in_CMA": 51,
+        "CSD_outside_CMA": 249
+      },
+      "59": {
+        "CSD_in_CMA": 112,
+        "CSD_outside_CMA": 264
+      },
+      "60": {
+        "CSD_outside_CMA": 10
+      },
+      "61": {
+        "CSD_outside_CMA": 19
+      },
+      "62": {
+        "CSD_outside_CMA": 19
+      }
+    }
+  },
+  "naics": {
+    "levels": {
+      "industry_group": 323,
+      "subsector": 99,
+      "sector": 20,
+      "table_total": 1,
+      "unclassified": 1,
+      "classified_subtotal": 1
+    },
+    "labels_reused_across_levels": 22,
+    "members_with_reused_labels": 45,
+    "data_label_format": "metadata name + ' [classification code]'",
+    "metadata_parent_of_all_sectors_subsectors_groups": "Sub-total, classified [3]"
+  },
+  "in_scope_grid_cells": 13560930,
+  "value_states": {
+    "published_positive_count": 1050274,
+    "published_zero": 0,
+    "confidentiality_suppressed": 0,
+    "not_available_for_period": 0,
+    "use_with_caution": 0,
+    "too_unreliable": 0,
+    "omitted_zero_by_reconciliation": 12510656,
+    "unexplained_missing": 0,
+    "out_of_scope_not_in_table": null
+  },
+  "reconciliation": {
+    "size_total_vs_bands": {
+      "compared": 334464,
+      "exact": 334464
+    },
+    "naics_total_vs_unclassified_plus_classified": {
+      "compared": 20976,
+      "exact": 20976
+    },
+    "naics_classified_vs_sectors": {
+      "compared": 20929,
+      "exact": 20929
+    },
+    "naics_sector_vs_subsectors": {
+      "compared": 159695,
+      "exact": 159695
+    },
+    "naics_subsector_vs_industry_groups": {
+      "compared": 321015,
+      "exact": 321015
+    },
+    "geography_cma_vs_its_csds": {
+      "compared": 83563,
+      "exact": 83563
+    }
+  },
+  "compatibility_0722": {
+    "cma_codes_shared": 35,
+    "cma_codes_only_in_1097": [
+      "Fredericton",
+      "Drummondville",
+      "Red Deer",
+      "Kamloops",
+      "Chilliwack",
+      "Nanaimo"
+    ],
+    "cma_labels_differing": [
+      {
+        "cma_code": "421",
+        "geo_0722": "Québec, Quebec ",
+        "geo_1097": "Quebec"
+      },
+      {
+        "cma_code": "522",
+        "geo_0722": "Belleville, Ontario ",
+        "geo_1097": "Belleville - Quinte West"
+      }
+    ],
+    "ratio_sector_list_excl_unclassified_2025_12": {
+      "min": 1.157,
+      "median": 1.252,
+      "max": 1.344
+    },
+    "ratio_sector_list_incl_unclassified_2025_12": {
+      "min": 1.232,
+      "median": 1.346,
+      "max": 1.421
+    },
+    "ratio_all_industries_2025_12": {
+      "min": 1.269,
+      "median": 1.386,
+      "max": 1.468
+    },
+    "ratio_sector_list_excl_unclassified_2025_07": {
+      "min": 1.151,
+      "median": 1.253,
+      "max": 1.339
+    },
+    "ratio_sector_list_incl_unclassified_2025_07": {
+      "min": 1.243,
+      "median": 1.349,
+      "max": 1.415
+    },
+    "ratio_all_industries_2025_07": {
+      "min": 1.28,
+      "median": 1.381,
+      "max": 1.474
+    },
+    "max_abs_change_in_sector_list_ratio_2025_07_vs_2025_12": 0.0232,
+    "pct_unclassified_1097_by_cma": {
+      "min": 4.29,
+      "max": 12.66
+    },
+    "max_pct_naics_113_115_in_sector_list": 1.379,
+    "sector_median_ratio_range_excl_11": {
+      "min": 1.183,
+      "max": 1.637
+    }
+  },
+  "gates": {
+    "raw_files_match_manifest_before": true,
+    "csv_identical_to_zip_member": true,
+    "metadata_identical_to_zip_member": true,
+    "metadata_valid_utf8": true,
+    "metadata_notes_1_to_7_present": true,
+    "note1_complete_statistical_location_example": true,
+    "note5_identifies_naics_2022": true,
+    "note7_identifies_sgc_2021": true,
+    "no_note_truncated_by_embedded_commas_or_quotes": true,
+    "naics_levels_all_recognised": true,
+    "naics_code_hierarchy_complete": true,
+    "employment_bands_contiguous": true,
+    "naics_root_has_unclassified_and_classified_children": true,
+    "cache_lineage_current_or_rebuilt_with_parity": true,
+    "header_matches_expected_columns": true,
+    "raw_rows_equal_newlines_minus_header": true,
+    "cache_rows_equal_independent_parse": true,
+    "cache_content_digest_equals_raw": true,
+    "raw_csv_valid_utf8": true,
+    "no_unquoted_empty_fields_in_raw": true,
+    "no_sql_null_in_any_raw_column": true,
+    "single_reference_period": true,
+    "single_unit_scalar_decimal": true,
+    "one_vector_per_coordinate_no_duplicate_cells": true,
+    "all_values_positive_integers": true,
+    "status_symbol_terminated_all_blank": true,
+    "no_orphan_coordinates": true,
+    "data_labels_match_metadata": true,
+    "dguid_equals_2021_vintage_prefix_plus_code": true,
+    "every_geography_with_rows_has_top_cell": true,
+    "grouping_root_has_no_rows": true,
+    "reconciles_exactly_size_total_vs_bands": true,
+    "reconciles_exactly_naics_total_vs_unclassified_plus_classified": true,
+    "reconciles_exactly_naics_classified_vs_sectors": true,
+    "reconciles_exactly_naics_sector_vs_subsectors": true,
+    "reconciles_exactly_naics_subsector_vs_industry_groups": true,
+    "reconciles_exactly_geography_cma_vs_its_csds": true,
+    "status_counts_match_independent_parse": true,
+    "availability_matrix_accounts_for_every_published_row": true,
+    "availability_matrix_covers_in_scope_grid": true,
+    "csds_outside_cmas_all_have_at_least_10_locations": true,
+    "geographies_without_rows_are_all_cma_components": true,
+    "cma_csds_without_rows_reconcile_to_zero": true,
+    "phase_a_cache_lineage_current": true,
+    "cache_0722_matches_phase_a_row_count": true,
+    "every_1097_band_nests_in_one_0722_band_numerically": true,
+    "every_0722_cma_code_present_in_1097": true,
+    "raw_files_match_manifest_after": true
+  },
+  "all_gates_pass": true,
+  "elapsed_seconds": 13.4
+}

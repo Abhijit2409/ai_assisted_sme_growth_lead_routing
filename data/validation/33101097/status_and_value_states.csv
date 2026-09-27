@@ -1,0 +1,10 @@
+state,status_code,cells,definition,definition_source,share_of_in_scope_grid_pct
+published_positive_count,(blank),1050274,[Blank] or A-D: acceptable or better,StatCan Standard table symbols page (blank not in local legend),7.745
+published_zero,(blank),0,value 0 printed in the file,data,0.0
+confidentiality_suppressed,x,0,suppressed to meet the confidentiality requirements of the Statistics Act,local metadata Symbol Legend,0.0
+not_available_for_period,..,0,not available for a specific reference period,local metadata Symbol Legend,0.0
+use_with_caution,E,0,use with caution,local metadata Symbol Legend,0.0
+too_unreliable,F,0,too unreliable to be published,local metadata Symbol Legend,0.0
+omitted_zero_by_reconciliation,(no row),12510656,"in-scope cell with no row; every published parent equals the sum of its published children, so omitted cells sum to 0",data (reconciliation_summary.csv),92.255
+unexplained_missing,(no row),0,in-scope cell with no row that reconciliation cannot account for,data,0.0
+out_of_scope_not_in_table,(not listed),,"Canada, provinces, territories, and CSDs outside CMAs with fewer than 10 active businesses (Note 2). Not zero; unknown.",local metadata Note 2 + dimension members,

@@ -1,0 +1,13 @@
+area,crosswalk,check,passed,detail
+size,E5,8 detailed bands covered exactly once,True,
+size,E5,no gaps or overlaps,True,
+size,E5,500+ outside ISED scope,True,
+size,E5,rolled bands sum exactly to published totals,True,"334,464 of 334,464 cells"
+scope,E6,every official exclusion has a rule,True,
+scope,E6,precedence deterministic and unique,True,
+scope,E6,"exact, partial and unobservable rules distinguished",True,
+scope,E6,500+ band excluded,True,
+scope,E6,unobservable eligibility rules present,True,
+scope,E6,every excluded 4-digit code exists in 1097,True,
+scope,E6,filter arithmetic reconciles (waterfall = sum of included groups),True,"855,856 vs 855,856"
+scope,E6,approximation never labelled as ISED-eligible SMEs,True,

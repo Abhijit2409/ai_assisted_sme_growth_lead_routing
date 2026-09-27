@@ -1,0 +1,9 @@
+crosswalk,source_members_expected,source_members_with_disposition,status_exact,status_exact code with boundary caveat,status_explicit alias,status_combined category,status_partial mapping,status_target-only,status_source-only,status_non-reconcilable,status_unresolved,status_aggregate,status_total
+E1,41,41,0,35,0,0,0,6,0,0,0,0,0
+E2,24,24,19,0,5,0,0,0,0,0,0,0,0
+E3,32,32,16,0,0,2,7,0,0,10,3,2,0
+E4,18,18,7,0,0,7,1,0,0,8,0,0,0
+E5,9,9,2,0,0,6,0,0,0,0,0,0,1
+E6,26,26,17,0,0,0,1,0,0,8,0,0,0
+E7,28,28,0,0,0,0,0,0,0,28,0,0,0
+E8,10,10,5,0,0,11,0,0,0,0,2,0,0

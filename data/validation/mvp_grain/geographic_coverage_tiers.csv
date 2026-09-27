@@ -1,0 +1,4 @@
+tier,tier_name,cmas,evidence_available,decision_role,rule
+1,Full evidence,24,"0722 momentum (monthly, all-employer), 1097 scale and composition, ISED CMA-row context",Primary decision set,Compare within and with Tier 2 on StatCan measures; ISED only as labelled context
+2,"StatCan evidence, no ISED CMA context",11,"0722 momentum, 1097 scale and composition; ISED at region/national level (E8)",Primary decision set,"Same StatCan comparisons as Tier 1; ISED gap shown, never imputed"
+3,Scale-only,6,1097 scale and composition only; new 2021 CMAs with no 0722 series,"Visible, not ranked with Tiers 1-2",Report scale and composition; never rank on momentum; flag 'no momentum data'

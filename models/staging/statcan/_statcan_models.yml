@@ -1,0 +1,51 @@
+version: 2
+
+models:
+  - name: stg_statcan__business_dynamics
+    description: |
+      StatCan 33-10-0722-01 as typed, renamed columns (view over the lineage-checked cache). One row per geography x industry
+      member x size member x measure x month. No aggregation, no source mixing. `value` is NULL for 'x' and '..'
+      (never zero); `status` keeps the StatCan marker and `value_text` the printed value.
+    columns:
+      - name: source_id
+        description: "StatCan 33-10-0722-01."
+        data_tests: [not_null]
+      - name: ref_month
+        description: "Reference month (YYYY-MM)."
+        data_tests: [not_null]
+      - name: cma_code_sgc2016
+        description: "SGC 2016 CMA code for CMA rows (DGUID prefix 2016S0503); NULL for Canada, provinces and territories."
+      - name: status
+        description: "StatCan STATUS marker: '' (acceptable or better), E (use with caution), x (suppressed), .. (not available)."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["", "E", "x", ".."]
+      - name: value
+        description: "Numeric value; NULL when the status is x or .. (never zero)."
+      - name: value_state
+        description: "published, published_E, suppressed_x or not_available_dotdot."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["published", "published_E", "suppressed_x", "not_available_dotdot"]
+      - name: statistical_unit
+        description: "enterprise"
+
+  - name: stg_statcan__business_locations
+    description: |
+      StatCan 33-10-1097-01 as typed, renamed columns (view over the lineage-checked cache). One row per published geography
+      x size member x NAICS member. Counts are employer locations. Nothing is suppressed and no zero is published.
+    columns:
+      - name: source_id
+        description: "StatCan 33-10-1097-01."
+        data_tests: [not_null]
+      - name: ref_date
+        description: "REF_DATE printed by the table (2025-07 for the December 2025 snapshot)."
+      - name: cma_code_sgc2021
+        description: "SGC 2021 CMA code for CMA rows (DGUID prefix 2021S0503); NULL for CSDs."
+      - name: locations
+        description: "Employer statistical locations."
+        data_tests: [not_null]
+      - name: statistical_unit
+        description: "location"

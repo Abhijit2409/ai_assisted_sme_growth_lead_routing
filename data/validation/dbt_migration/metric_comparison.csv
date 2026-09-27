@@ -1,0 +1,966 @@
+model,column,column_role,data_type,metric,baseline_value,dbt_value,absolute_difference,tolerance,tolerance_reason,passed
+dim_cma,cma_code_sgc2021,geography,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+dim_cma,cma_code_sgc2021,geography,VARCHAR,distinct_count,41,41,0.0,0.0,exact comparison,True
+dim_cma,cma_code_sgc2021,geography,VARCHAR,min,001,001,0.0,0.0,exact comparison,True
+dim_cma,cma_code_sgc2021,geography,VARCHAR,max,938,938,0.0,0.0,exact comparison,True
+dim_cma,cma_code_sgc2021,geography,VARCHAR,category_distribution_md5,1ffa1f1491787e9430c6651ba21035ba,1ffa1f1491787e9430c6651ba21035ba,0.0,0.0,exact comparison,True
+dim_cma,cma_label_sgc2021,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+dim_cma,cma_label_sgc2021,attribute,VARCHAR,distinct_count,41,41,0.0,0.0,exact comparison,True
+dim_cma,cma_label_sgc2021,attribute,VARCHAR,min,Abbotsford - Mission,Abbotsford - Mission,0.0,0.0,exact comparison,True
+dim_cma,cma_label_sgc2021,attribute,VARCHAR,max,Winnipeg,Winnipeg,0.0,0.0,exact comparison,True
+dim_cma,cma_label_sgc2021,attribute,VARCHAR,category_distribution_md5,32788f5e4a8d2d16697c8527f428c222,32788f5e4a8d2d16697c8527f428c222,0.0,0.0,exact comparison,True
+dim_cma,dguid_2021,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+dim_cma,dguid_2021,attribute,VARCHAR,distinct_count,41,41,0.0,0.0,exact comparison,True
+dim_cma,dguid_2021,attribute,VARCHAR,min,2021S0503001,2021S0503001,0.0,0.0,exact comparison,True
+dim_cma,dguid_2021,attribute,VARCHAR,max,2021S0503938,2021S0503938,0.0,0.0,exact comparison,True
+dim_cma,dguid_2021,attribute,VARCHAR,category_distribution_md5,7021e7fb1ec1bb31d794ca368ffab2ec,7021e7fb1ec1bb31d794ca368ffab2ec,0.0,0.0,exact comparison,True
+dim_cma,province_code,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+dim_cma,province_code,attribute,VARCHAR,distinct_count,10,10,0.0,0.0,exact comparison,True
+dim_cma,province_code,attribute,VARCHAR,min,10,10,0.0,0.0,exact comparison,True
+dim_cma,province_code,attribute,VARCHAR,max,59,59,0.0,0.0,exact comparison,True
+dim_cma,province_code,attribute,VARCHAR,category_distribution_md5,7a826cb7e8295c5032fb64934e7460ff,7a826cb7e8295c5032fb64934e7460ff,0.0,0.0,exact comparison,True
+dim_cma,cma_code_sgc2016,geography,VARCHAR,null_count,6,6,0.0,0.0,exact comparison,True
+dim_cma,cma_code_sgc2016,geography,VARCHAR,distinct_count,35,35,0.0,0.0,exact comparison,True
+dim_cma,cma_code_sgc2016,geography,VARCHAR,min,001,001,0.0,0.0,exact comparison,True
+dim_cma,cma_code_sgc2016,geography,VARCHAR,max,935,935,0.0,0.0,exact comparison,True
+dim_cma,cma_code_sgc2016,geography,VARCHAR,category_distribution_md5,d0759e5857579848a17ff38f31c6ea58,d0759e5857579848a17ff38f31c6ea58,0.0,0.0,exact comparison,True
+dim_cma,dguid_2016,attribute,VARCHAR,null_count,6,6,0.0,0.0,exact comparison,True
+dim_cma,dguid_2016,attribute,VARCHAR,distinct_count,35,35,0.0,0.0,exact comparison,True
+dim_cma,dguid_2016,attribute,VARCHAR,min,2016S0503001,2016S0503001,0.0,0.0,exact comparison,True
+dim_cma,dguid_2016,attribute,VARCHAR,max,2016S0503935,2016S0503935,0.0,0.0,exact comparison,True
+dim_cma,dguid_2016,attribute,VARCHAR,category_distribution_md5,1f2002a27b3c561847a5986224307be9,1f2002a27b3c561847a5986224307be9,0.0,0.0,exact comparison,True
+dim_cma,vintage_status,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+dim_cma,vintage_status,attribute,VARCHAR,distinct_count,2,2,0.0,0.0,exact comparison,True
+dim_cma,vintage_status,attribute,VARCHAR,min,exact code with boundary caveat,exact code with boundary caveat,0.0,0.0,exact comparison,True
+dim_cma,vintage_status,attribute,VARCHAR,max,target-only,target-only,0.0,0.0,exact comparison,True
+dim_cma,vintage_status,attribute,VARCHAR,category_distribution_md5,3b087150bb3a9ffdfd61ffa7693e61e3,3b087150bb3a9ffdfd61ffa7693e61e3,0.0,0.0,exact comparison,True
+dim_cma,boundary_change_flag,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+dim_cma,boundary_change_flag,attribute,VARCHAR,distinct_count,7,7,0.0,0.0,exact comparison,True
+dim_cma,boundary_change_flag,attribute,VARCHAR,min,2016 to 2021 boundaries not verified at component level,2016 to 2021 boundaries not verified at component level,0.0,0.0,exact comparison,True
+dim_cma,boundary_change_flag,attribute,VARCHAR,max,"CA in 2016, CMA in 2021","CA in 2016, CMA in 2021",0.0,0.0,exact comparison,True
+dim_cma,boundary_change_flag,attribute,VARCHAR,category_distribution_md5,3042abce7663a91d2591110c1656e232,3042abce7663a91d2591110c1656e232,0.0,0.0,exact comparison,True
+dim_cma,preliminary_csd_additions,measure,BIGINT,null_count,6,6,0.0,0.0,exact comparison,True
+dim_cma,preliminary_csd_additions,measure,BIGINT,distinct_count,5,5,0.0,0.0,exact comparison,True
+dim_cma,preliminary_csd_additions,measure,BIGINT,sum,18.0,18.0,0.0,0.0,exact comparison,True
+dim_cma,preliminary_csd_additions,measure,BIGINT,min,0.0,0.0,0.0,0.0,exact comparison,True
+dim_cma,preliminary_csd_additions,measure,BIGINT,max,6.0,6.0,0.0,0.0,exact comparison,True
+dim_cma,tier,measure,BIGINT,null_count,0,0,0.0,0.0,exact comparison,True
+dim_cma,tier,measure,BIGINT,distinct_count,3,3,0.0,0.0,exact comparison,True
+dim_cma,tier,measure,BIGINT,sum,64.0,64.0,0.0,0.0,exact comparison,True
+dim_cma,tier,measure,BIGINT,min,1.0,1.0,0.0,0.0,exact comparison,True
+dim_cma,tier,measure,BIGINT,max,3.0,3.0,0.0,0.0,exact comparison,True
+dim_cma,in_primary_decision_set,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+dim_cma,in_primary_decision_set,attribute,BOOLEAN,distinct_count,2,2,0.0,0.0,exact comparison,True
+dim_cma,in_primary_decision_set,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+dim_cma,in_primary_decision_set,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+dim_cma,in_primary_decision_set,attribute,BOOLEAN,category_distribution_md5,f1b25173f625a6123d6980e32e29a5f3,f1b25173f625a6123d6980e32e29a5f3,0.0,0.0,exact comparison,True
+dim_cma,momentum_comparison_eligible,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+dim_cma,momentum_comparison_eligible,attribute,BOOLEAN,distinct_count,2,2,0.0,0.0,exact comparison,True
+dim_cma,momentum_comparison_eligible,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+dim_cma,momentum_comparison_eligible,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+dim_cma,momentum_comparison_eligible,attribute,BOOLEAN,category_distribution_md5,f1b25173f625a6123d6980e32e29a5f3,f1b25173f625a6123d6980e32e29a5f3,0.0,0.0,exact comparison,True
+dim_cma,has_momentum_0722,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+dim_cma,has_momentum_0722,attribute,BOOLEAN,distinct_count,2,2,0.0,0.0,exact comparison,True
+dim_cma,has_momentum_0722,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+dim_cma,has_momentum_0722,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+dim_cma,has_momentum_0722,attribute,BOOLEAN,category_distribution_md5,f1b25173f625a6123d6980e32e29a5f3,f1b25173f625a6123d6980e32e29a5f3,0.0,0.0,exact comparison,True
+dim_cma,has_scale_1097,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+dim_cma,has_scale_1097,attribute,BOOLEAN,distinct_count,1,1,0.0,0.0,exact comparison,True
+dim_cma,has_scale_1097,attribute,BOOLEAN,min,true,true,0.0,0.0,exact comparison,True
+dim_cma,has_scale_1097,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+dim_cma,has_scale_1097,attribute,BOOLEAN,category_distribution_md5,c60babb8165f85acd98eeeab6edf2267,c60babb8165f85acd98eeeab6edf2267,0.0,0.0,exact comparison,True
+dim_cma,has_ised_cma_context,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+dim_cma,has_ised_cma_context,attribute,BOOLEAN,distinct_count,2,2,0.0,0.0,exact comparison,True
+dim_cma,has_ised_cma_context,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+dim_cma,has_ised_cma_context,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+dim_cma,has_ised_cma_context,attribute,BOOLEAN,category_distribution_md5,eae068f4982ed303d7901d153635a7b7,eae068f4982ed303d7901d153635a7b7,0.0,0.0,exact comparison,True
+dim_cma,ised_cma_label,attribute,VARCHAR,null_count,17,17,0.0,0.0,exact comparison,True
+dim_cma,ised_cma_label,attribute,VARCHAR,distinct_count,24,24,0.0,0.0,exact comparison,True
+dim_cma,ised_cma_label,attribute,VARCHAR,min,Barrie,Barrie,0.0,0.0,exact comparison,True
+dim_cma,ised_cma_label,attribute,VARCHAR,max,Winnipeg,Winnipeg,0.0,0.0,exact comparison,True
+dim_cma,ised_cma_label,attribute,VARCHAR,category_distribution_md5,aa8feb0b88edcf39830f5e30102db20f,aa8feb0b88edcf39830f5e30102db20f,0.0,0.0,exact comparison,True
+dim_cma,ised_region_key,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+dim_cma,ised_region_key,attribute,VARCHAR,distinct_count,8,8,0.0,0.0,exact comparison,True
+dim_cma,ised_region_key,attribute,VARCHAR,min,10;11;12;13,10;11;12;13,0.0,0.0,exact comparison,True
+dim_cma,ised_region_key,attribute,VARCHAR,max,59;60;61;62,59;60;61;62,0.0,0.0,exact comparison,True
+dim_cma,ised_region_key,attribute,VARCHAR,category_distribution_md5,16d1c390b11710978c0a31f76b7c522a,16d1c390b11710978c0a31f76b7c522a,0.0,0.0,exact comparison,True
+dim_cma,ised_geography_caveat,attribute,VARCHAR,null_count,17,17,0.0,0.0,exact comparison,True
+dim_cma,ised_geography_caveat,attribute,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+dim_cma,ised_geography_caveat,attribute,VARCHAR,min,ISED survey geography vintage not stated; boundaries not claimed equal to SGC 2021,ISED survey geography vintage not stated; boundaries not claimed equal to SGC 2021,0.0,0.0,exact comparison,True
+dim_cma,ised_geography_caveat,attribute,VARCHAR,max,ISED survey geography vintage not stated; boundaries not claimed equal to SGC 2021,ISED survey geography vintage not stated; boundaries not claimed equal to SGC 2021,0.0,0.0,exact comparison,True
+dim_cma,ised_geography_caveat,attribute,VARCHAR,category_distribution_md5,369faa35ec4ae904002e960a4ac3b3e3,369faa35ec4ae904002e960a4ac3b3e3,0.0,0.0,exact comparison,True
+dim_cma,evidence_label,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+dim_cma,evidence_label,attribute,VARCHAR,distinct_count,3,3,0.0,0.0,exact comparison,True
+dim_cma,evidence_label,attribute,VARCHAR,min,momentum + scale + ISED CMA context,momentum + scale + ISED CMA context,0.0,0.0,exact comparison,True
+dim_cma,evidence_label,attribute,VARCHAR,max,scale only (no 0722 momentum); ISED regional context only,scale only (no 0722 momentum); ISED regional context only,0.0,0.0,exact comparison,True
+dim_cma,evidence_label,attribute,VARCHAR,category_distribution_md5,c90d7363621e98611bb2738f449e78c2,c90d7363621e98611bb2738f449e78c2,0.0,0.0,exact comparison,True
+dim_cma,evidence_coverage_description,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+dim_cma,evidence_coverage_description,attribute,VARCHAR,distinct_count,3,3,0.0,0.0,exact comparison,True
+dim_cma,evidence_coverage_description,attribute,VARCHAR,min,"Momentum (0722 enterprises, monthly to 2026-05) + scale and composition (1097 locations, December 2025) + ISED CMA context (2023 survey estimates)","Momentum (0722 enterprises, monthly to 2026-05) + scale and composition (1097 locations, December 2025) + ISED CMA context (2023 survey estimates)",0.0,0.0,exact comparison,True
+dim_cma,evidence_coverage_description,attribute,VARCHAR,max,"Scale and composition only (1097 locations, December 2025); a CA in 2016, so no 0722 momentum series; never compared on momentum with Tiers 1-2","Scale and composition only (1097 locations, December 2025); a CA in 2016, so no 0722 momentum series; never compared on momentum with Tiers 1-2",0.0,0.0,exact comparison,True
+dim_cma,evidence_coverage_description,attribute,VARCHAR,category_distribution_md5,152fed1bb5234c4452e7710a9f578241,152fed1bb5234c4452e7710a9f578241,0.0,0.0,exact comparison,True
+dim_industry,industry_system,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+dim_industry,industry_system,attribute,VARCHAR,distinct_count,3,3,0.0,0.0,exact comparison,True
+dim_industry,industry_system,attribute,VARCHAR,min,ISED_SFGSME_2023,ISED_SFGSME_2023,0.0,0.0,exact comparison,True
+dim_industry,industry_system,attribute,VARCHAR,max,STATCAN_0722,STATCAN_0722,0.0,0.0,exact comparison,True
+dim_industry,industry_system,attribute,VARCHAR,category_distribution_md5,e3308011eacfadaaf7d0b307335af583,e3308011eacfadaaf7d0b307335af583,0.0,0.0,exact comparison,True
+dim_industry,industry_code,industry,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+dim_industry,industry_code,industry,VARCHAR,distinct_count,483,483,0.0,0.0,exact comparison,True
+dim_industry,industry_code,industry,VARCHAR,min,1,1,0.0,0.0,exact comparison,True
+dim_industry,industry_code,industry,VARCHAR,max,UNCLASSIFIED,UNCLASSIFIED,0.0,0.0,exact comparison,True
+dim_industry,industry_code,industry,VARCHAR,category_distribution_md5,3aab06c78eab7679da6746387d930f5b,3aab06c78eab7679da6746387d930f5b,0.0,0.0,exact comparison,True
+dim_industry,industry_label,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+dim_industry,industry_label,attribute,VARCHAR,distinct_count,470,470,0.0,0.0,exact comparison,True
+dim_industry,industry_label,attribute,VARCHAR,min,ALL Tourism,ALL Tourism,0.0,0.0,exact comparison,True
+dim_industry,industry_label,attribute,VARCHAR,max,Wood product manufacturing,Wood product manufacturing,0.0,0.0,exact comparison,True
+dim_industry,industry_label,attribute,VARCHAR,category_distribution_md5,d323f07b2b0581a23399975123442649,d323f07b2b0581a23399975123442649,0.0,0.0,exact comparison,True
+dim_industry,industry_level,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+dim_industry,industry_level,attribute,VARCHAR,distinct_count,12,12,0.0,0.0,exact comparison,True
+dim_industry,industry_level,attribute,VARCHAR,min,business_sector_aggregate,business_sector_aggregate,0.0,0.0,exact comparison,True
+dim_industry,industry_level,attribute,VARCHAR,max,unclassified,unclassified,0.0,0.0,exact comparison,True
+dim_industry,industry_level,attribute,VARCHAR,category_distribution_md5,7664371f6fe8c7abb2ce7235a40582ad,7664371f6fe8c7abb2ce7235a40582ad,0.0,0.0,exact comparison,True
+dim_industry,parent_code,attribute,VARCHAR,null_count,21,21,0.0,0.0,exact comparison,True
+dim_industry,parent_code,attribute,VARCHAR,distinct_count,123,123,0.0,0.0,exact comparison,True
+dim_industry,parent_code,attribute,VARCHAR,min,1,1,0.0,0.0,exact comparison,True
+dim_industry,parent_code,attribute,VARCHAR,max,TOTAL,TOTAL,0.0,0.0,exact comparison,True
+dim_industry,parent_code,attribute,VARCHAR,category_distribution_md5,e691dbf1f284ae209b5b0c35de545dec,e691dbf1f284ae209b5b0c35de545dec,0.0,0.0,exact comparison,True
+dim_industry,in_mvp,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+dim_industry,in_mvp,attribute,BOOLEAN,distinct_count,2,2,0.0,0.0,exact comparison,True
+dim_industry,in_mvp,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+dim_industry,in_mvp,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+dim_industry,in_mvp,attribute,BOOLEAN,category_distribution_md5,bc3f0b1b7dddec3917ce2c2e1693c415,bc3f0b1b7dddec3917ce2c2e1693c415,0.0,0.0,exact comparison,True
+dim_industry,in_business_sector_scope,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+dim_industry,in_business_sector_scope,attribute,BOOLEAN,distinct_count,2,2,0.0,0.0,exact comparison,True
+dim_industry,in_business_sector_scope,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+dim_industry,in_business_sector_scope,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+dim_industry,in_business_sector_scope,attribute,BOOLEAN,category_distribution_md5,0c7b60cbac5b951c27fb05ada340193e,0c7b60cbac5b951c27fb05ada340193e,0.0,0.0,exact comparison,True
+dim_industry,additive_flag,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+dim_industry,additive_flag,attribute,BOOLEAN,distinct_count,2,2,0.0,0.0,exact comparison,True
+dim_industry,additive_flag,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+dim_industry,additive_flag,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+dim_industry,additive_flag,attribute,BOOLEAN,category_distribution_md5,a17bba26ffdde81a2115f0dfa6ce6c9f,a17bba26ffdde81a2115f0dfa6ce6c9f,0.0,0.0,exact comparison,True
+dim_industry,overlap_flag,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+dim_industry,overlap_flag,attribute,BOOLEAN,distinct_count,2,2,0.0,0.0,exact comparison,True
+dim_industry,overlap_flag,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+dim_industry,overlap_flag,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+dim_industry,overlap_flag,attribute,BOOLEAN,category_distribution_md5,0994a662b988dee5cb5fc49a735fe7c1,0994a662b988dee5cb5fc49a735fe7c1,0.0,0.0,exact comparison,True
+dim_industry,mvp_role,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+dim_industry,mvp_role,attribute,VARCHAR,distinct_count,7,7,0.0,0.0,exact comparison,True
+dim_industry,mvp_role,attribute,VARCHAR,min,composition_sector,composition_sector,0.0,0.0,exact comparison,True
+dim_industry,mvp_role,attribute,VARCHAR,max,shown_separately_outside_sme_banking_scope,shown_separately_outside_sme_banking_scope,0.0,0.0,exact comparison,True
+dim_industry,mvp_role,attribute,VARCHAR,category_distribution_md5,6a5f1b340cc11f66a447b2b6af27d469,6a5f1b340cc11f66a447b2b6af27d469,0.0,0.0,exact comparison,True
+dim_industry,naics_codes,attribute,VARCHAR,null_count,23,23,0.0,0.0,exact comparison,True
+dim_industry,naics_codes,attribute,VARCHAR,distinct_count,448,448,0.0,0.0,exact comparison,True
+dim_industry,naics_codes,attribute,VARCHAR,min,11,11,0.0,0.0,exact comparison,True
+dim_industry,naics_codes,attribute,VARCHAR,max,9191,9191,0.0,0.0,exact comparison,True
+dim_industry,naics_codes,attribute,VARCHAR,category_distribution_md5,198fcf4a2ef59bec18699c4a8b049865,198fcf4a2ef59bec18699c4a8b049865,0.0,0.0,exact comparison,True
+dim_industry,classification_vintage,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+dim_industry,classification_vintage,attribute,VARCHAR,distinct_count,3,3,0.0,0.0,exact comparison,True
+dim_industry,classification_vintage,attribute,VARCHAR,min,NAICS 2022 (1097 Note 5),NAICS 2022 (1097 Note 5),0.0,0.0,exact comparison,True
+dim_industry,classification_vintage,attribute,VARCHAR,max,NAICS vintage not stated (0722),NAICS vintage not stated (0722),0.0,0.0,exact comparison,True
+dim_industry,classification_vintage,attribute,VARCHAR,category_distribution_md5,77803e889d2fa3ab51a16e28b7b08166,77803e889d2fa3ab51a16e28b7b08166,0.0,0.0,exact comparison,True
+dim_industry,mapping_status,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+dim_industry,mapping_status,attribute,VARCHAR,distinct_count,7,7,0.0,0.0,exact comparison,True
+dim_industry,mapping_status,attribute,VARCHAR,min,aggregate,aggregate,0.0,0.0,exact comparison,True
+dim_industry,mapping_status,attribute,VARCHAR,max,unresolved,unresolved,0.0,0.0,exact comparison,True
+dim_industry,mapping_status,attribute,VARCHAR,category_distribution_md5,8d1572492d221334033064004e236b91,8d1572492d221334033064004e236b91,0.0,0.0,exact comparison,True
+dim_industry,source_member_id,attribute,VARCHAR,null_count,18,18,0.0,0.0,exact comparison,True
+dim_industry,source_member_id,attribute,VARCHAR,distinct_count,445,445,0.0,0.0,exact comparison,True
+dim_industry,source_member_id,attribute,VARCHAR,min,1,1,0.0,0.0,exact comparison,True
+dim_industry,source_member_id,attribute,VARCHAR,max,99,99,0.0,0.0,exact comparison,True
+dim_industry,source_member_id,attribute,VARCHAR,category_distribution_md5,deab6b404aaba86246091bde1732a352,deab6b404aaba86246091bde1732a352,0.0,0.0,exact comparison,True
+dim_industry,non_additive_rule_id,attribute,VARCHAR,null_count,472,472,0.0,0.0,exact comparison,True
+dim_industry,non_additive_rule_id,attribute,VARCHAR,distinct_count,23,23,0.0,0.0,exact comparison,True
+dim_industry,non_additive_rule_id,attribute,VARCHAR,min,N01,N01,0.0,0.0,exact comparison,True
+dim_industry,non_additive_rule_id,attribute,VARCHAR,max,N23,N23,0.0,0.0,exact comparison,True
+dim_industry,non_additive_rule_id,attribute,VARCHAR,category_distribution_md5,a8d5339b937879f88fa4692eff124f17,a8d5339b937879f88fa4692eff124f17,0.0,0.0,exact comparison,True
+dim_size_band,size_band_key,size band,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+dim_size_band,size_band_key,size band,VARCHAR,distinct_count,6,6,0.0,0.0,exact comparison,True
+dim_size_band,size_band_key,size band,VARCHAR,min,1-4,1-4,0.0,0.0,exact comparison,True
+dim_size_band,size_band_key,size band,VARCHAR,max,TOTAL,TOTAL,0.0,0.0,exact comparison,True
+dim_size_band,size_band_key,size band,VARCHAR,category_distribution_md5,be9fe45f680134a3cffe3af53531ea4c,be9fe45f680134a3cffe3af53531ea4c,0.0,0.0,exact comparison,True
+dim_size_band,size_band_label,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+dim_size_band,size_band_label,attribute,VARCHAR,distinct_count,6,6,0.0,0.0,exact comparison,True
+dim_size_band,size_band_label,attribute,VARCHAR,min,1 to 4 employees,1 to 4 employees,0.0,0.0,exact comparison,True
+dim_size_band,size_band_label,attribute,VARCHAR,max,"Total, all sizes","Total, all sizes",0.0,0.0,exact comparison,True
+dim_size_band,size_band_label,attribute,VARCHAR,category_distribution_md5,b5fd5f672f0fbaa533cac61af0c8d45b,b5fd5f672f0fbaa533cac61af0c8d45b,0.0,0.0,exact comparison,True
+dim_size_band,lower_employees,measure,BIGINT,null_count,1,1,0.0,0.0,exact comparison,True
+dim_size_band,lower_employees,measure,BIGINT,distinct_count,5,5,0.0,0.0,exact comparison,True
+dim_size_band,lower_employees,measure,BIGINT,sum,626.0,626.0,0.0,0.0,exact comparison,True
+dim_size_band,lower_employees,measure,BIGINT,min,1.0,1.0,0.0,0.0,exact comparison,True
+dim_size_band,lower_employees,measure,BIGINT,max,500.0,500.0,0.0,0.0,exact comparison,True
+dim_size_band,upper_employees,measure,BIGINT,null_count,2,2,0.0,0.0,exact comparison,True
+dim_size_band,upper_employees,measure,BIGINT,distinct_count,4,4,0.0,0.0,exact comparison,True
+dim_size_band,upper_employees,measure,BIGINT,sum,621.0,621.0,0.0,0.0,exact comparison,True
+dim_size_band,upper_employees,measure,BIGINT,min,4.0,4.0,0.0,0.0,exact comparison,True
+dim_size_band,upper_employees,measure,BIGINT,max,499.0,499.0,0.0,0.0,exact comparison,True
+dim_size_band,sort_order,measure,BIGINT,null_count,0,0,0.0,0.0,exact comparison,True
+dim_size_band,sort_order,measure,BIGINT,distinct_count,6,6,0.0,0.0,exact comparison,True
+dim_size_band,sort_order,measure,BIGINT,sum,21.0,21.0,0.0,0.0,exact comparison,True
+dim_size_band,sort_order,measure,BIGINT,min,1.0,1.0,0.0,0.0,exact comparison,True
+dim_size_band,sort_order,measure,BIGINT,max,6.0,6.0,0.0,0.0,exact comparison,True
+dim_size_band,is_total,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+dim_size_band,is_total,attribute,BOOLEAN,distinct_count,2,2,0.0,0.0,exact comparison,True
+dim_size_band,is_total,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+dim_size_band,is_total,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+dim_size_band,is_total,attribute,BOOLEAN,category_distribution_md5,2c5d6270a903c57394b367e9d227875c,2c5d6270a903c57394b367e9d227875c,0.0,0.0,exact comparison,True
+dim_size_band,in_sme_scope,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+dim_size_band,in_sme_scope,attribute,BOOLEAN,distinct_count,2,2,0.0,0.0,exact comparison,True
+dim_size_band,in_sme_scope,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+dim_size_band,in_sme_scope,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+dim_size_band,in_sme_scope,attribute,BOOLEAN,category_distribution_md5,fb706c9b026d629c5cca55528788ce7f,fb706c9b026d629c5cca55528788ce7f,0.0,0.0,exact comparison,True
+dim_size_band,source_0722_size_member_id,measure,BIGINT,null_count,0,0,0.0,0.0,exact comparison,True
+dim_size_band,source_0722_size_member_id,measure,BIGINT,distinct_count,6,6,0.0,0.0,exact comparison,True
+dim_size_band,source_0722_size_member_id,measure,BIGINT,sum,21.0,21.0,0.0,0.0,exact comparison,True
+dim_size_band,source_0722_size_member_id,measure,BIGINT,min,1.0,1.0,0.0,0.0,exact comparison,True
+dim_size_band,source_0722_size_member_id,measure,BIGINT,max,6.0,6.0,0.0,0.0,exact comparison,True
+dim_size_band,source_1097_size_member_ids,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+dim_size_band,source_1097_size_member_ids,attribute,VARCHAR,distinct_count,6,6,0.0,0.0,exact comparison,True
+dim_size_band,source_1097_size_member_ids,attribute,VARCHAR,min,1,1,0.0,0.0,exact comparison,True
+dim_size_band,source_1097_size_member_ids,attribute,VARCHAR,max,9,9,0.0,0.0,exact comparison,True
+dim_size_band,source_1097_size_member_ids,attribute,VARCHAR,category_distribution_md5,446b0ba5c8b6bd6d4b4aea24e8fff598,446b0ba5c8b6bd6d4b4aea24e8fff598,0.0,0.0,exact comparison,True
+dim_size_band,ised_segment_label,attribute,VARCHAR,null_count,2,2,0.0,0.0,exact comparison,True
+dim_size_band,ised_segment_label,attribute,VARCHAR,distinct_count,4,4,0.0,0.0,exact comparison,True
+dim_size_band,ised_segment_label,attribute,VARCHAR,min,1 to 4 employees,1 to 4 employees,0.0,0.0,exact comparison,True
+dim_size_band,ised_segment_label,attribute,VARCHAR,max,5 to 19 employees,5 to 19 employees,0.0,0.0,exact comparison,True
+dim_size_band,ised_segment_label,attribute,VARCHAR,category_distribution_md5,232eb55dae2b1b46846c6bf884b8b4ad,232eb55dae2b1b46846c6bf884b8b4ad,0.0,0.0,exact comparison,True
+dim_size_band,unit_basis,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+dim_size_band,unit_basis,attribute,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+dim_size_band,unit_basis,attribute,VARCHAR,min,"classification only; the statistical unit (enterprise, location or survey estimate) is carried on each fact and bridge row","classification only; the statistical unit (enterprise, location or survey estimate) is carried on each fact and bridge row",0.0,0.0,exact comparison,True
+dim_size_band,unit_basis,attribute,VARCHAR,max,"classification only; the statistical unit (enterprise, location or survey estimate) is carried on each fact and bridge row","classification only; the statistical unit (enterprise, location or survey estimate) is carried on each fact and bridge row",0.0,0.0,exact comparison,True
+dim_size_band,unit_basis,attribute,VARCHAR,category_distribution_md5,65ff5143a1176a88f88d6fd9aca87728,65ff5143a1176a88f88d6fd9aca87728,0.0,0.0,exact comparison,True
+bridge_cma_vintage,cma_code_sgc2016,geography,VARCHAR,null_count,6,6,0.0,0.0,exact comparison,True
+bridge_cma_vintage,cma_code_sgc2016,geography,VARCHAR,distinct_count,35,35,0.0,0.0,exact comparison,True
+bridge_cma_vintage,cma_code_sgc2016,geography,VARCHAR,min,001,001,0.0,0.0,exact comparison,True
+bridge_cma_vintage,cma_code_sgc2016,geography,VARCHAR,max,935,935,0.0,0.0,exact comparison,True
+bridge_cma_vintage,cma_code_sgc2016,geography,VARCHAR,category_distribution_md5,d0759e5857579848a17ff38f31c6ea58,d0759e5857579848a17ff38f31c6ea58,0.0,0.0,exact comparison,True
+bridge_cma_vintage,cma_code_sgc2021,geography,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_cma_vintage,cma_code_sgc2021,geography,VARCHAR,distinct_count,41,41,0.0,0.0,exact comparison,True
+bridge_cma_vintage,cma_code_sgc2021,geography,VARCHAR,min,001,001,0.0,0.0,exact comparison,True
+bridge_cma_vintage,cma_code_sgc2021,geography,VARCHAR,max,938,938,0.0,0.0,exact comparison,True
+bridge_cma_vintage,cma_code_sgc2021,geography,VARCHAR,category_distribution_md5,1ffa1f1491787e9430c6651ba21035ba,1ffa1f1491787e9430c6651ba21035ba,0.0,0.0,exact comparison,True
+bridge_cma_vintage,dguid_2016,attribute,VARCHAR,null_count,6,6,0.0,0.0,exact comparison,True
+bridge_cma_vintage,dguid_2016,attribute,VARCHAR,distinct_count,35,35,0.0,0.0,exact comparison,True
+bridge_cma_vintage,dguid_2016,attribute,VARCHAR,min,2016S0503001,2016S0503001,0.0,0.0,exact comparison,True
+bridge_cma_vintage,dguid_2016,attribute,VARCHAR,max,2016S0503935,2016S0503935,0.0,0.0,exact comparison,True
+bridge_cma_vintage,dguid_2016,attribute,VARCHAR,category_distribution_md5,1f2002a27b3c561847a5986224307be9,1f2002a27b3c561847a5986224307be9,0.0,0.0,exact comparison,True
+bridge_cma_vintage,dguid_2021,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_cma_vintage,dguid_2021,attribute,VARCHAR,distinct_count,41,41,0.0,0.0,exact comparison,True
+bridge_cma_vintage,dguid_2021,attribute,VARCHAR,min,2021S0503001,2021S0503001,0.0,0.0,exact comparison,True
+bridge_cma_vintage,dguid_2021,attribute,VARCHAR,max,2021S0503938,2021S0503938,0.0,0.0,exact comparison,True
+bridge_cma_vintage,dguid_2021,attribute,VARCHAR,category_distribution_md5,7021e7fb1ec1bb31d794ca368ffab2ec,7021e7fb1ec1bb31d794ca368ffab2ec,0.0,0.0,exact comparison,True
+bridge_cma_vintage,cma_label_sgc2016,attribute,VARCHAR,null_count,6,6,0.0,0.0,exact comparison,True
+bridge_cma_vintage,cma_label_sgc2016,attribute,VARCHAR,distinct_count,35,35,0.0,0.0,exact comparison,True
+bridge_cma_vintage,cma_label_sgc2016,attribute,VARCHAR,min,"Abbotsford - Mission, British Columbia","Abbotsford - Mission, British Columbia",0.0,0.0,exact comparison,True
+bridge_cma_vintage,cma_label_sgc2016,attribute,VARCHAR,max,"Winnipeg, Manitoba","Winnipeg, Manitoba",0.0,0.0,exact comparison,True
+bridge_cma_vintage,cma_label_sgc2016,attribute,VARCHAR,category_distribution_md5,822ed2fd7f8fb22b07105e57b28e0e56,822ed2fd7f8fb22b07105e57b28e0e56,0.0,0.0,exact comparison,True
+bridge_cma_vintage,cma_label_sgc2021,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_cma_vintage,cma_label_sgc2021,attribute,VARCHAR,distinct_count,41,41,0.0,0.0,exact comparison,True
+bridge_cma_vintage,cma_label_sgc2021,attribute,VARCHAR,min,Abbotsford - Mission,Abbotsford - Mission,0.0,0.0,exact comparison,True
+bridge_cma_vintage,cma_label_sgc2021,attribute,VARCHAR,max,Winnipeg,Winnipeg,0.0,0.0,exact comparison,True
+bridge_cma_vintage,cma_label_sgc2021,attribute,VARCHAR,category_distribution_md5,32788f5e4a8d2d16697c8527f428c222,32788f5e4a8d2d16697c8527f428c222,0.0,0.0,exact comparison,True
+bridge_cma_vintage,mapping_type,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_cma_vintage,mapping_type,attribute,VARCHAR,distinct_count,2,2,0.0,0.0,exact comparison,True
+bridge_cma_vintage,mapping_type,attribute,VARCHAR,min,none,none,0.0,0.0,exact comparison,True
+bridge_cma_vintage,mapping_type,attribute,VARCHAR,max,one-to-one,one-to-one,0.0,0.0,exact comparison,True
+bridge_cma_vintage,mapping_type,attribute,VARCHAR,category_distribution_md5,6b0faa8e2efb4e0e63e9ef3ad34f97a4,6b0faa8e2efb4e0e63e9ef3ad34f97a4,0.0,0.0,exact comparison,True
+bridge_cma_vintage,mapping_status,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_cma_vintage,mapping_status,attribute,VARCHAR,distinct_count,2,2,0.0,0.0,exact comparison,True
+bridge_cma_vintage,mapping_status,attribute,VARCHAR,min,exact code with boundary caveat,exact code with boundary caveat,0.0,0.0,exact comparison,True
+bridge_cma_vintage,mapping_status,attribute,VARCHAR,max,target-only,target-only,0.0,0.0,exact comparison,True
+bridge_cma_vintage,mapping_status,attribute,VARCHAR,category_distribution_md5,3b087150bb3a9ffdfd61ffa7693e61e3,3b087150bb3a9ffdfd61ffa7693e61e3,0.0,0.0,exact comparison,True
+bridge_cma_vintage,boundary_change_flag,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_cma_vintage,boundary_change_flag,attribute,VARCHAR,distinct_count,7,7,0.0,0.0,exact comparison,True
+bridge_cma_vintage,boundary_change_flag,attribute,VARCHAR,min,2016 to 2021 boundaries not verified at component level,2016 to 2021 boundaries not verified at component level,0.0,0.0,exact comparison,True
+bridge_cma_vintage,boundary_change_flag,attribute,VARCHAR,max,"CA in 2016, CMA in 2021","CA in 2016, CMA in 2021",0.0,0.0,exact comparison,True
+bridge_cma_vintage,boundary_change_flag,attribute,VARCHAR,category_distribution_md5,3042abce7663a91d2591110c1656e232,3042abce7663a91d2591110c1656e232,0.0,0.0,exact comparison,True
+bridge_cma_vintage,preliminary_csd_additions,measure,BIGINT,null_count,6,6,0.0,0.0,exact comparison,True
+bridge_cma_vintage,preliminary_csd_additions,measure,BIGINT,distinct_count,5,5,0.0,0.0,exact comparison,True
+bridge_cma_vintage,preliminary_csd_additions,measure,BIGINT,sum,18.0,18.0,0.0,0.0,exact comparison,True
+bridge_cma_vintage,preliminary_csd_additions,measure,BIGINT,min,0.0,0.0,0.0,0.0,exact comparison,True
+bridge_cma_vintage,preliminary_csd_additions,measure,BIGINT,max,6.0,6.0,0.0,0.0,exact comparison,True
+bridge_cma_vintage,has_2016_source,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_cma_vintage,has_2016_source,attribute,BOOLEAN,distinct_count,2,2,0.0,0.0,exact comparison,True
+bridge_cma_vintage,has_2016_source,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+bridge_cma_vintage,has_2016_source,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+bridge_cma_vintage,has_2016_source,attribute,BOOLEAN,category_distribution_md5,f1b25173f625a6123d6980e32e29a5f3,f1b25173f625a6123d6980e32e29a5f3,0.0,0.0,exact comparison,True
+bridge_cma_vintage,exact_boundary_claimed,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_cma_vintage,exact_boundary_claimed,attribute,BOOLEAN,distinct_count,1,1,0.0,0.0,exact comparison,True
+bridge_cma_vintage,exact_boundary_claimed,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+bridge_cma_vintage,exact_boundary_claimed,attribute,BOOLEAN,max,false,false,0.0,0.0,exact comparison,True
+bridge_cma_vintage,exact_boundary_claimed,attribute,BOOLEAN,category_distribution_md5,98e52be4029a927875bf022bbae3e57a,98e52be4029a927875bf022bbae3e57a,0.0,0.0,exact comparison,True
+bridge_cma_vintage,crosswalk_id,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_cma_vintage,crosswalk_id,attribute,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+bridge_cma_vintage,crosswalk_id,attribute,VARCHAR,min,E1_cma_sgc2016_to_sgc2021,E1_cma_sgc2016_to_sgc2021,0.0,0.0,exact comparison,True
+bridge_cma_vintage,crosswalk_id,attribute,VARCHAR,max,E1_cma_sgc2016_to_sgc2021,E1_cma_sgc2016_to_sgc2021,0.0,0.0,exact comparison,True
+bridge_cma_vintage,crosswalk_id,attribute,VARCHAR,category_distribution_md5,f60253ac77719569cd16c50ed40cbcb1,f60253ac77719569cd16c50ed40cbcb1,0.0,0.0,exact comparison,True
+bridge_cma_vintage,evidence_url,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_cma_vintage,evidence_url,attribute,VARCHAR,distinct_count,2,2,0.0,0.0,exact comparison,True
+bridge_cma_vintage,evidence_url,attribute,VARCHAR,min,https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3310072201 ; https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3310109701 ; https://www12.statcan.gc.ca/census-recensement/2021/ref/dict/az/definition-eng.cfm?ID=geo009 ; https://www150.statcan.gc.ca/n1/pub/92f0138m/92f0138m2019002-eng.htm,https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3310072201 ; https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3310109701 ; https://www12.statcan.gc.ca/census-recensement/2021/ref/dict/az/definition-eng.cfm?ID=geo009 ; https://www150.statcan.gc.ca/n1/pub/92f0138m/92f0138m2019002-eng.htm,0.0,0.0,exact comparison,True
+bridge_cma_vintage,evidence_url,attribute,VARCHAR,max,https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3310109701 ; https://www12.statcan.gc.ca/census-recensement/2021/ref/dict/az/definition-eng.cfm?ID=geo009,https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3310109701 ; https://www12.statcan.gc.ca/census-recensement/2021/ref/dict/az/definition-eng.cfm?ID=geo009,0.0,0.0,exact comparison,True
+bridge_cma_vintage,evidence_url,attribute,VARCHAR,category_distribution_md5,f39801a566c8db69ea4f60f429918c2c,f39801a566c8db69ea4f60f429918c2c,0.0,0.0,exact comparison,True
+bridge_industry,source_system,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_industry,source_system,attribute,VARCHAR,distinct_count,2,2,0.0,0.0,exact comparison,True
+bridge_industry,source_system,attribute,VARCHAR,min,ISED_SFGSME_2023,ISED_SFGSME_2023,0.0,0.0,exact comparison,True
+bridge_industry,source_system,attribute,VARCHAR,max,STATCAN_0722,STATCAN_0722,0.0,0.0,exact comparison,True
+bridge_industry,source_system,attribute,VARCHAR,category_distribution_md5,94a67175cc1255aa31baced120c820a5,94a67175cc1255aa31baced120c820a5,0.0,0.0,exact comparison,True
+bridge_industry,source_code,industry,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_industry,source_code,industry,VARCHAR,distinct_count,49,49,0.0,0.0,exact comparison,True
+bridge_industry,source_code,industry,VARCHAR,min,1,1,0.0,0.0,exact comparison,True
+bridge_industry,source_code,industry,VARCHAR,max,AGG-TRANSPORTATION,AGG-TRANSPORTATION,0.0,0.0,exact comparison,True
+bridge_industry,source_code,industry,VARCHAR,category_distribution_md5,44d918b842bb3caa65fa668a366bb33a,44d918b842bb3caa65fa668a366bb33a,0.0,0.0,exact comparison,True
+bridge_industry,source_published_code,attribute,VARCHAR,null_count,26,26,0.0,0.0,exact comparison,True
+bridge_industry,source_published_code,attribute,VARCHAR,distinct_count,29,29,0.0,0.0,exact comparison,True
+bridge_industry,source_published_code,attribute,VARCHAR,min,11,11,0.0,0.0,exact comparison,True
+bridge_industry,source_published_code,attribute,VARCHAR,max,T004,T004,0.0,0.0,exact comparison,True
+bridge_industry,source_published_code,attribute,VARCHAR,category_distribution_md5,0a5810fedf5269b1f3649364bd4ff6c3,0a5810fedf5269b1f3649364bd4ff6c3,0.0,0.0,exact comparison,True
+bridge_industry,source_label,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_industry,source_label,attribute,VARCHAR,distinct_count,50,50,0.0,0.0,exact comparison,True
+bridge_industry,source_label,attribute,VARCHAR,min,ALL Tourism,ALL Tourism,0.0,0.0,exact comparison,True
+bridge_industry,source_label,attribute,VARCHAR,max,Wholesale trade [41],Wholesale trade [41],0.0,0.0,exact comparison,True
+bridge_industry,source_label,attribute,VARCHAR,category_distribution_md5,96e1c0675c7819465057c90e02140f89,96e1c0675c7819465057c90e02140f89,0.0,0.0,exact comparison,True
+bridge_industry,target_system,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_industry,target_system,attribute,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+bridge_industry,target_system,attribute,VARCHAR,min,NAICS2022,NAICS2022,0.0,0.0,exact comparison,True
+bridge_industry,target_system,attribute,VARCHAR,max,NAICS2022,NAICS2022,0.0,0.0,exact comparison,True
+bridge_industry,target_system,attribute,VARCHAR,category_distribution_md5,38be34941850aa606c080c191345364a,38be34941850aa606c080c191345364a,0.0,0.0,exact comparison,True
+bridge_industry,target_code,industry,VARCHAR,null_count,20,20,0.0,0.0,exact comparison,True
+bridge_industry,target_code,industry,VARCHAR,distinct_count,30,30,0.0,0.0,exact comparison,True
+bridge_industry,target_code,industry,VARCHAR,min,11,11,0.0,0.0,exact comparison,True
+bridge_industry,target_code,industry,VARCHAR,max,81,81,0.0,0.0,exact comparison,True
+bridge_industry,target_code,industry,VARCHAR,category_distribution_md5,82361a0ebabfe841b5ee268a9f9123bf,82361a0ebabfe841b5ee268a9f9123bf,0.0,0.0,exact comparison,True
+bridge_industry,target_label,attribute,VARCHAR,null_count,20,20,0.0,0.0,exact comparison,True
+bridge_industry,target_label,attribute,VARCHAR,distinct_count,30,30,0.0,0.0,exact comparison,True
+bridge_industry,target_label,attribute,VARCHAR,min,Accommodation and food services,Accommodation and food services,0.0,0.0,exact comparison,True
+bridge_industry,target_label,attribute,VARCHAR,max,Wholesale trade,Wholesale trade,0.0,0.0,exact comparison,True
+bridge_industry,target_label,attribute,VARCHAR,category_distribution_md5,0e792df6ca4e238f7fa303444d42cf4b,0e792df6ca4e238f7fa303444d42cf4b,0.0,0.0,exact comparison,True
+bridge_industry,mapping_type,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_industry,mapping_type,attribute,VARCHAR,distinct_count,5,5,0.0,0.0,exact comparison,True
+bridge_industry,mapping_type,attribute,VARCHAR,min,aggregate,aggregate,0.0,0.0,exact comparison,True
+bridge_industry,mapping_type,attribute,VARCHAR,max,one-to-one,one-to-one,0.0,0.0,exact comparison,True
+bridge_industry,mapping_type,attribute,VARCHAR,category_distribution_md5,e37d8e983a37240e447a80d48bb045cf,e37d8e983a37240e447a80d48bb045cf,0.0,0.0,exact comparison,True
+bridge_industry,mapping_status,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_industry,mapping_status,attribute,VARCHAR,distinct_count,6,6,0.0,0.0,exact comparison,True
+bridge_industry,mapping_status,attribute,VARCHAR,min,aggregate,aggregate,0.0,0.0,exact comparison,True
+bridge_industry,mapping_status,attribute,VARCHAR,max,unresolved,unresolved,0.0,0.0,exact comparison,True
+bridge_industry,mapping_status,attribute,VARCHAR,category_distribution_md5,0782a5694c4020bf31a19672c022a884,0782a5694c4020bf31a19672c022a884,0.0,0.0,exact comparison,True
+bridge_industry,additive_flag,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_industry,additive_flag,attribute,BOOLEAN,distinct_count,2,2,0.0,0.0,exact comparison,True
+bridge_industry,additive_flag,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+bridge_industry,additive_flag,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+bridge_industry,additive_flag,attribute,BOOLEAN,category_distribution_md5,56bba6ddc83ea1e87a0c19daf567f1cd,56bba6ddc83ea1e87a0c19daf567f1cd,0.0,0.0,exact comparison,True
+bridge_industry,inclusion_type,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_industry,inclusion_type,attribute,VARCHAR,distinct_count,8,8,0.0,0.0,exact comparison,True
+bridge_industry,inclusion_type,attribute,VARCHAR,min,business_sector_aggregate,business_sector_aggregate,0.0,0.0,exact comparison,True
+bridge_industry,inclusion_type,attribute,VARCHAR,max,tourism_component,tourism_component,0.0,0.0,exact comparison,True
+bridge_industry,inclusion_type,attribute,VARCHAR,category_distribution_md5,c73478eaba3afcedddc25d43a3e7db6e,c73478eaba3afcedddc25d43a3e7db6e,0.0,0.0,exact comparison,True
+bridge_industry,excluded_codes_within,attribute,VARCHAR,null_count,60,60,0.0,0.0,exact comparison,True
+bridge_industry,excluded_codes_within,attribute,VARCHAR,distinct_count,3,3,0.0,0.0,exact comparison,True
+bridge_industry,excluded_codes_within,attribute,VARCHAR,min,5321;5324,5321;5324,0.0,0.0,exact comparison,True
+bridge_industry,excluded_codes_within,attribute,VARCHAR,max,8141 (814110),8141 (814110),0.0,0.0,exact comparison,True
+bridge_industry,excluded_codes_within,attribute,VARCHAR,category_distribution_md5,f57f33ecec3d5faa8adba6addf9a8dd5,f57f33ecec3d5faa8adba6addf9a8dd5,0.0,0.0,exact comparison,True
+bridge_industry,confidence,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_industry,confidence,attribute,VARCHAR,distinct_count,4,4,0.0,0.0,exact comparison,True
+bridge_industry,confidence,attribute,VARCHAR,min,high,high,0.0,0.0,exact comparison,True
+bridge_industry,confidence,attribute,VARCHAR,max,n/a,n/a,0.0,0.0,exact comparison,True
+bridge_industry,confidence,attribute,VARCHAR,category_distribution_md5,8a66d1de676e43105a4bb9a4cc2abe12,8a66d1de676e43105a4bb9a4cc2abe12,0.0,0.0,exact comparison,True
+bridge_industry,crosswalk_id,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_industry,crosswalk_id,attribute,VARCHAR,distinct_count,2,2,0.0,0.0,exact comparison,True
+bridge_industry,crosswalk_id,attribute,VARCHAR,min,E3_0722_industry_to_naics2022,E3_0722_industry_to_naics2022,0.0,0.0,exact comparison,True
+bridge_industry,crosswalk_id,attribute,VARCHAR,max,E4_ised_industry_to_naics2022,E4_ised_industry_to_naics2022,0.0,0.0,exact comparison,True
+bridge_industry,crosswalk_id,attribute,VARCHAR,category_distribution_md5,345b73fda6c16ed92138ed78bfc30f0b,345b73fda6c16ed92138ed78bfc30f0b,0.0,0.0,exact comparison,True
+bridge_industry,value_allocation_allowed,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_industry,value_allocation_allowed,attribute,BOOLEAN,distinct_count,1,1,0.0,0.0,exact comparison,True
+bridge_industry,value_allocation_allowed,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+bridge_industry,value_allocation_allowed,attribute,BOOLEAN,max,false,false,0.0,0.0,exact comparison,True
+bridge_industry,value_allocation_allowed,attribute,BOOLEAN,category_distribution_md5,d4e4e46bffe5d3b9634450a6eb85d223,d4e4e46bffe5d3b9634450a6eb85d223,0.0,0.0,exact comparison,True
+bridge_size_band,source_band,size band,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_size_band,source_band,size band,VARCHAR,distinct_count,9,9,0.0,0.0,exact comparison,True
+bridge_size_band,source_band,size band,VARCHAR,min,1,1,0.0,0.0,exact comparison,True
+bridge_size_band,source_band,size band,VARCHAR,max,9,9,0.0,0.0,exact comparison,True
+bridge_size_band,source_band,size band,VARCHAR,category_distribution_md5,fd7b655f670fc3ad589cdd803d767877,fd7b655f670fc3ad589cdd803d767877,0.0,0.0,exact comparison,True
+bridge_size_band,source_label,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_size_band,source_label,attribute,VARCHAR,distinct_count,9,9,0.0,0.0,exact comparison,True
+bridge_size_band,source_label,attribute,VARCHAR,min,1 to 4 employees,1 to 4 employees,0.0,0.0,exact comparison,True
+bridge_size_band,source_label,attribute,VARCHAR,max,"Total, with employees","Total, with employees",0.0,0.0,exact comparison,True
+bridge_size_band,source_label,attribute,VARCHAR,category_distribution_md5,6a7946398e9b2bd207a0a58d0b55c4cb,6a7946398e9b2bd207a0a58d0b55c4cb,0.0,0.0,exact comparison,True
+bridge_size_band,target_band,size band,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_size_band,target_band,size band,VARCHAR,distinct_count,6,6,0.0,0.0,exact comparison,True
+bridge_size_band,target_band,size band,VARCHAR,min,1-4,1-4,0.0,0.0,exact comparison,True
+bridge_size_band,target_band,size band,VARCHAR,max,TOTAL,TOTAL,0.0,0.0,exact comparison,True
+bridge_size_band,target_band,size band,VARCHAR,category_distribution_md5,27489ea0f7fe968a2d2172a5be373005,27489ea0f7fe968a2d2172a5be373005,0.0,0.0,exact comparison,True
+bridge_size_band,target_label,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_size_band,target_label,attribute,VARCHAR,distinct_count,6,6,0.0,0.0,exact comparison,True
+bridge_size_band,target_label,attribute,VARCHAR,min,1 to 4 employees,1 to 4 employees,0.0,0.0,exact comparison,True
+bridge_size_band,target_label,attribute,VARCHAR,max,"Total, all sizes","Total, all sizes",0.0,0.0,exact comparison,True
+bridge_size_band,target_label,attribute,VARCHAR,category_distribution_md5,19d06c99a1a2ffa26ed4273e69d65a4e,19d06c99a1a2ffa26ed4273e69d65a4e,0.0,0.0,exact comparison,True
+bridge_size_band,source_lower,measure,BIGINT,null_count,1,1,0.0,0.0,exact comparison,True
+bridge_size_band,source_lower,measure,BIGINT,distinct_count,8,8,0.0,0.0,exact comparison,True
+bridge_size_band,source_lower,measure,BIGINT,sum,886.0,886.0,0.0,0.0,exact comparison,True
+bridge_size_band,source_lower,measure,BIGINT,min,1.0,1.0,0.0,0.0,exact comparison,True
+bridge_size_band,source_lower,measure,BIGINT,max,500.0,500.0,0.0,0.0,exact comparison,True
+bridge_size_band,source_upper,measure,BIGINT,null_count,2,2,0.0,0.0,exact comparison,True
+bridge_size_band,source_upper,measure,BIGINT,distinct_count,7,7,0.0,0.0,exact comparison,True
+bridge_size_band,source_upper,measure,BIGINT,sum,878.0,878.0,0.0,0.0,exact comparison,True
+bridge_size_band,source_upper,measure,BIGINT,min,4.0,4.0,0.0,0.0,exact comparison,True
+bridge_size_band,source_upper,measure,BIGINT,max,499.0,499.0,0.0,0.0,exact comparison,True
+bridge_size_band,mapping_type,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_size_band,mapping_type,attribute,VARCHAR,distinct_count,2,2,0.0,0.0,exact comparison,True
+bridge_size_band,mapping_type,attribute,VARCHAR,min,many-to-one (numeric),many-to-one (numeric),0.0,0.0,exact comparison,True
+bridge_size_band,mapping_type,attribute,VARCHAR,max,total,total,0.0,0.0,exact comparison,True
+bridge_size_band,mapping_type,attribute,VARCHAR,category_distribution_md5,371fd9aaf034c5dcb34a711d78032e52,371fd9aaf034c5dcb34a711d78032e52,0.0,0.0,exact comparison,True
+bridge_size_band,mapping_status,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_size_band,mapping_status,attribute,VARCHAR,distinct_count,3,3,0.0,0.0,exact comparison,True
+bridge_size_band,mapping_status,attribute,VARCHAR,min,combined category,combined category,0.0,0.0,exact comparison,True
+bridge_size_band,mapping_status,attribute,VARCHAR,max,total,total,0.0,0.0,exact comparison,True
+bridge_size_band,mapping_status,attribute,VARCHAR,category_distribution_md5,caf1720cdafcb692e62b5b8dda4a6a8b,caf1720cdafcb692e62b5b8dda4a6a8b,0.0,0.0,exact comparison,True
+bridge_size_band,unit_basis,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_size_band,unit_basis,attribute,VARCHAR,distinct_count,2,2,0.0,0.0,exact comparison,True
+bridge_size_band,unit_basis,attribute,VARCHAR,min,location,location,0.0,0.0,exact comparison,True
+bridge_size_band,unit_basis,attribute,VARCHAR,max,location (1097),location (1097),0.0,0.0,exact comparison,True
+bridge_size_band,unit_basis,attribute,VARCHAR,category_distribution_md5,c80ee486432be9fb4a528b6f7384f699,c80ee486432be9fb4a528b6f7384f699,0.0,0.0,exact comparison,True
+bridge_size_band,in_ised_scope,attribute,BOOLEAN,null_count,1,1,0.0,0.0,exact comparison,True
+bridge_size_band,in_ised_scope,attribute,BOOLEAN,distinct_count,2,2,0.0,0.0,exact comparison,True
+bridge_size_band,in_ised_scope,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+bridge_size_band,in_ised_scope,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+bridge_size_band,in_ised_scope,attribute,BOOLEAN,category_distribution_md5,1bde00c124543d12f0e19e0eb1388e27,1bde00c124543d12f0e19e0eb1388e27,0.0,0.0,exact comparison,True
+bridge_size_band,crosswalk_id,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+bridge_size_band,crosswalk_id,attribute,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+bridge_size_band,crosswalk_id,attribute,VARCHAR,min,E5_1097_size_to_sme_bands,E5_1097_size_to_sme_bands,0.0,0.0,exact comparison,True
+bridge_size_band,crosswalk_id,attribute,VARCHAR,max,E5_1097_size_to_sme_bands,E5_1097_size_to_sme_bands,0.0,0.0,exact comparison,True
+bridge_size_band,crosswalk_id,attribute,VARCHAR,category_distribution_md5,5836ddf445ffd8fc1a40eaa33d58d6fa,5836ddf445ffd8fc1a40eaa33d58d6fa,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,source_id,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,source_id,attribute,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,source_id,attribute,VARCHAR,min,StatCan 33-10-0722-01,StatCan 33-10-0722-01,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,source_id,attribute,VARCHAR,max,StatCan 33-10-0722-01,StatCan 33-10-0722-01,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,source_id,attribute,VARCHAR,category_distribution_md5,d2487f20fb3cc864a15f819f68fbb6cb,d2487f20fb3cc864a15f819f68fbb6cb,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,cma_code_sgc2016,geography,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,cma_code_sgc2016,geography,VARCHAR,distinct_count,35,35,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,cma_code_sgc2016,geography,VARCHAR,min,001,001,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,cma_code_sgc2016,geography,VARCHAR,max,935,935,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,cma_code_sgc2016,geography,VARCHAR,category_distribution_md5,d14da2ba56ad973bc67088d1f1a1d0f6,d14da2ba56ad973bc67088d1f1a1d0f6,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,cma_code_sgc2021,geography,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,cma_code_sgc2021,geography,VARCHAR,distinct_count,35,35,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,cma_code_sgc2021,geography,VARCHAR,min,001,001,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,cma_code_sgc2021,geography,VARCHAR,max,935,935,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,cma_code_sgc2021,geography,VARCHAR,category_distribution_md5,d14da2ba56ad973bc67088d1f1a1d0f6,d14da2ba56ad973bc67088d1f1a1d0f6,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,ref_month,period,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,ref_month,period,VARCHAR,distinct_count,137,137,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,ref_month,period,VARCHAR,min,2015-01,2015-01,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,ref_month,period,VARCHAR,max,2026-05,2026-05,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,ref_month,period,VARCHAR,category_distribution_md5,e896e2ffd280ac8c3de2d86e5c7329c0,e896e2ffd280ac8c3de2d86e5c7329c0,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,size_band_key,size band,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,size_band_key,size band,VARCHAR,distinct_count,6,6,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,size_band_key,size band,VARCHAR,min,1-4,1-4,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,size_band_key,size band,VARCHAR,max,TOTAL,TOTAL,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,size_band_key,size band,VARCHAR,category_distribution_md5,ae151a39f3e6efafe223748fcd138ca0,ae151a39f3e6efafe223748fcd138ca0,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,industry_code_0722,industry,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,industry_code_0722,industry,VARCHAR,distinct_count,19,19,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,industry_code_0722,industry,VARCHAR,min,1,1,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,industry_code_0722,industry,VARCHAR,max,9,9,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,industry_code_0722,industry,VARCHAR,category_distribution_md5,3e4544fd6b827d57ce295b128b9802b1,3e4544fd6b827d57ce295b128b9802b1,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,measure,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,measure,attribute,VARCHAR,distinct_count,8,8,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,measure,attribute,VARCHAR,min,active,active,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,measure,attribute,VARCHAR,max,openings,openings,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,measure,attribute,VARCHAR,category_distribution_md5,0ba639ecb76769d32df4506661180867,0ba639ecb76769d32df4506661180867,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,measure_label,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,measure_label,attribute,VARCHAR,distinct_count,8,8,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,measure_label,attribute,VARCHAR,min,Active businesses,Active businesses,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,measure_label,attribute,VARCHAR,max,Opening rate,Opening rate,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,measure_label,attribute,VARCHAR,category_distribution_md5,44241a8f870f56f675a98f43059a9af6,44241a8f870f56f675a98f43059a9af6,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,value_origin,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,value_origin,attribute,VARCHAR,distinct_count,2,2,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,value_origin,attribute,VARCHAR,min,derived,derived,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,value_origin,attribute,VARCHAR,max,published,published,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,value_origin,attribute,VARCHAR,category_distribution_md5,0ff1c1101022c479322be8fda0055498,0ff1c1101022c479322be8fda0055498,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,formula,attribute,VARCHAR,null_count,1891432,1891432,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,formula,attribute,VARCHAR,distinct_count,4,4,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,formula,attribute,VARCHAR,min,(openings(t) - closures(t)) / active(t-1),(openings(t) - closures(t)) / active(t-1),0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,formula,attribute,VARCHAR,max,openings(t) / active(t-1),openings(t) / active(t-1),0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,formula,attribute,VARCHAR,category_distribution_md5,11a607f564800f8958e9fcb245e54a0b,11a607f564800f8958e9fcb245e54a0b,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,value,measure,DOUBLE,null_count,3518461,3518461,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,value,measure,DOUBLE,distinct_count,90995,90995,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,value,measure,DOUBLE,sum,517422854.275699,517422854.275699,0.0,0.000517422854275699,relative 1e-12 on a SUM of doubles: summation order is thread-dependent (row values are compared exactly by the full-row check),True
+fact_cma_momentum_monthly,value,measure,DOUBLE,min,-20364.0,-20364.0,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,value,measure,DOUBLE,max,190913.0,190913.0,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,value_available,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,value_available,attribute,BOOLEAN,distinct_count,2,2,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,value_available,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,value_available,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,value_available,attribute,BOOLEAN,category_distribution_md5,a810122973509ccd3afc3213f9eb98b4,a810122973509ccd3afc3213f9eb98b4,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,value_state,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,value_state,attribute,VARCHAR,distinct_count,7,7,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,value_state,attribute,VARCHAR,min,derived,derived,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,value_state,attribute,VARCHAR,max,unavailable_input,unavailable_input,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,value_state,attribute,VARCHAR,category_distribution_md5,2f03a5e86eb2feddecf71c93c3845f64,2f03a5e86eb2feddecf71c93c3845f64,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,status,attribute,VARCHAR,null_count,1891432,1891432,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,status,attribute,VARCHAR,distinct_count,3,3,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,status,attribute,VARCHAR,min,,,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,status,attribute,VARCHAR,max,x,x,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,status,attribute,VARCHAR,category_distribution_md5,9e6479a8279a60900746155cdb21c212,9e6479a8279a60900746155cdb21c212,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,caution_flag,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,caution_flag,attribute,BOOLEAN,distinct_count,2,2,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,caution_flag,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,caution_flag,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,caution_flag,attribute,BOOLEAN,category_distribution_md5,499e285e50c55df7e0901174b0484ccc,499e285e50c55df7e0901174b0484ccc,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,statistical_unit,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,statistical_unit,attribute,VARCHAR,distinct_count,3,3,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,statistical_unit,attribute,VARCHAR,min,enterprise,enterprise,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,statistical_unit,attribute,VARCHAR,max,ratio to active enterprises at t-1,ratio to active enterprises at t-1,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,statistical_unit,attribute,VARCHAR,category_distribution_md5,faf855b235febae8466a533093601349,faf855b235febae8466a533093601349,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,scope_class,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,scope_class,attribute,VARCHAR,distinct_count,4,4,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,scope_class,attribute,VARCHAR,min,SME-specific measure,SME-specific measure,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,scope_class,attribute,VARCHAR,max,small-business measure,small-business measure,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,scope_class,attribute,VARCHAR,category_distribution_md5,5da9fe90c90bade8091920f6626c9ac3,5da9fe90c90bade8091920f6626c9ac3,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,period_label,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,period_label,attribute,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,period_label,attribute,VARCHAR,min,"0722 monthly, seasonally adjusted","0722 monthly, seasonally adjusted",0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,period_label,attribute,VARCHAR,max,"0722 monthly, seasonally adjusted","0722 monthly, seasonally adjusted",0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,period_label,attribute,VARCHAR,category_distribution_md5,776c56fb67345841ce82c7a93e06dab9,776c56fb67345841ce82c7a93e06dab9,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,pandemic_window_flag,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,pandemic_window_flag,attribute,BOOLEAN,distinct_count,2,2,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,pandemic_window_flag,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,pandemic_window_flag,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,pandemic_window_flag,attribute,BOOLEAN,category_distribution_md5,fe57189adea60b2e24b00b0b23da9e4c,fe57189adea60b2e24b00b0b23da9e4c,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,seasonally_adjusted,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,seasonally_adjusted,attribute,BOOLEAN,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,seasonally_adjusted,attribute,BOOLEAN,min,true,true,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,seasonally_adjusted,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,seasonally_adjusted,attribute,BOOLEAN,category_distribution_md5,02ec43c9d9051d8b910cd224767dcf9b,02ec43c9d9051d8b910cd224767dcf9b,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,boundary_change_flag,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,boundary_change_flag,attribute,VARCHAR,distinct_count,6,6,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,boundary_change_flag,attribute,VARCHAR,min,2016 to 2021 boundaries not verified at component level,2016 to 2021 boundaries not verified at component level,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,boundary_change_flag,attribute,VARCHAR,max,2016 to 2021 boundaries not verified at component level; Belleville became Belleville - Quinte West,2016 to 2021 boundaries not verified at component level; Belleville became Belleville - Quinte West,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,boundary_change_flag,attribute,VARCHAR,category_distribution_md5,c2b266a0c911f0c33a734baed859614d,c2b266a0c911f0c33a734baed859614d,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,vector,attribute,VARCHAR,null_count,1891432,1891432,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,vector,attribute,VARCHAR,distinct_count,14096,14096,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,vector,attribute,VARCHAR,min,v1573696325,v1573696325,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,vector,attribute,VARCHAR,max,v1573764673,v1573764673,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,vector,attribute,VARCHAR,category_distribution_md5,f7c5b788dd16857905e7357ef0602c3f,f7c5b788dd16857905e7357ef0602c3f,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,metric_id,attribute,VARCHAR,null_count,3129785,3129785,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,metric_id,attribute,VARCHAR,distinct_count,10,10,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,metric_id,attribute,VARCHAR,min,M01,M01,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,metric_id,attribute,VARCHAR,max,M11,M11,0.0,0.0,exact comparison,True
+fact_cma_momentum_monthly,metric_id,attribute,VARCHAR,category_distribution_md5,6cdb814fc3a3801d0f1e11a16c8ab9ca,6cdb814fc3a3801d0f1e11a16c8ab9ca,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,source_id,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,source_id,attribute,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,source_id,attribute,VARCHAR,min,StatCan 33-10-1097-01,StatCan 33-10-1097-01,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,source_id,attribute,VARCHAR,max,StatCan 33-10-1097-01,StatCan 33-10-1097-01,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,source_id,attribute,VARCHAR,category_distribution_md5,b059be2d767aa2893872ae31de1372b2,b059be2d767aa2893872ae31de1372b2,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,statistical_unit,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,statistical_unit,attribute,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,statistical_unit,attribute,VARCHAR,min,location,location,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,statistical_unit,attribute,VARCHAR,max,location,location,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,statistical_unit,attribute,VARCHAR,category_distribution_md5,04edfc499ded1a170227ee18d0561612,04edfc499ded1a170227ee18d0561612,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,snapshot_period,period,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,snapshot_period,period,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,snapshot_period,period,VARCHAR,min,December 2025,December 2025,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,snapshot_period,period,VARCHAR,max,December 2025,December 2025,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,snapshot_period,period,VARCHAR,category_distribution_md5,13aca6b36c33c0c7c814b1b834f7086b,13aca6b36c33c0c7c814b1b834f7086b,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,source_ref_date,period,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,source_ref_date,period,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,source_ref_date,period,VARCHAR,min,2025-07,2025-07,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,source_ref_date,period,VARCHAR,max,2025-07,2025-07,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,source_ref_date,period,VARCHAR,category_distribution_md5,70f03abd3af6ce36b8450d832f4ad2b8,70f03abd3af6ce36b8450d832f4ad2b8,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,cma_code_sgc2021,geography,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,cma_code_sgc2021,geography,VARCHAR,distinct_count,41,41,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,cma_code_sgc2021,geography,VARCHAR,min,001,001,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,cma_code_sgc2021,geography,VARCHAR,max,938,938,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,cma_code_sgc2021,geography,VARCHAR,category_distribution_md5,96b2fc13825cded5f1c16be9bba9147d,96b2fc13825cded5f1c16be9bba9147d,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,size_scope,size band,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,size_scope,size band,VARCHAR,distinct_count,3,3,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,size_scope,size band,VARCHAR,min,500_plus,500_plus,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,size_scope,size band,VARCHAR,max,sme_1_499,sme_1_499,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,size_scope,size band,VARCHAR,category_distribution_md5,6a6ce99f76be05159e418e8b0b48f072,6a6ce99f76be05159e418e8b0b48f072,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,metric_id,attribute,VARCHAR,null_count,41,41,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,metric_id,attribute,VARCHAR,distinct_count,2,2,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,metric_id,attribute,VARCHAR,min,S01,S01,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,metric_id,attribute,VARCHAR,max,S02,S02,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,metric_id,attribute,VARCHAR,category_distribution_md5,6474ddcd6edf1d86b3d5552646b0dcc4,6474ddcd6edf1d86b3d5552646b0dcc4,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,scope_class,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,scope_class,attribute,VARCHAR,distinct_count,3,3,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,scope_class,attribute,VARCHAR,min,SME-location measure,SME-location measure,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,scope_class,attribute,VARCHAR,max,outside SME scope (500+),outside SME scope (500+),0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,scope_class,attribute,VARCHAR,category_distribution_md5,15feee9cb6d3667cee3d919f1cb9acca,15feee9cb6d3667cee3d919f1cb9acca,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,locations,measure,BIGINT,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,locations,measure,BIGINT,distinct_count,112,112,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,locations,measure,BIGINT,sum,2024242.0,2024242.0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,locations,measure,BIGINT,min,5.0,5.0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,locations,measure,BIGINT,max,265469.0,265469.0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,n_component_cells,measure,BIGINT,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,n_component_cells,measure,BIGINT,distinct_count,2,2,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,n_component_cells,measure,BIGINT,sum,369.0,369.0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,n_component_cells,measure,BIGINT,min,1.0,1.0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,n_component_cells,measure,BIGINT,max,7.0,7.0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,n_published_cells,measure,BIGINT,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,n_published_cells,measure,BIGINT,distinct_count,2,2,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,n_published_cells,measure,BIGINT,sum,369.0,369.0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,n_published_cells,measure,BIGINT,min,1.0,1.0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,n_published_cells,measure,BIGINT,max,7.0,7.0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,n_zero_by_reconciliation_cells,measure,BIGINT,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,n_zero_by_reconciliation_cells,measure,BIGINT,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,n_zero_by_reconciliation_cells,measure,BIGINT,sum,0.0,0.0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,n_zero_by_reconciliation_cells,measure,BIGINT,min,0.0,0.0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,n_zero_by_reconciliation_cells,measure,BIGINT,max,0.0,0.0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,omitted_zero_flag,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,omitted_zero_flag,attribute,BOOLEAN,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,omitted_zero_flag,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,omitted_zero_flag,attribute,BOOLEAN,max,false,false,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,omitted_zero_flag,attribute,BOOLEAN,category_distribution_md5,0681b535afb1a4706911544e6eca8aef,0681b535afb1a4706911544e6eca8aef,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,source_size_member_ids,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,source_size_member_ids,attribute,VARCHAR,distinct_count,3,3,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,source_size_member_ids,attribute,VARCHAR,min,1,1,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,source_size_member_ids,attribute,VARCHAR,max,9,9,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,source_size_member_ids,attribute,VARCHAR,category_distribution_md5,6cc25725bdf99fcfe6b88e1dc013eb2b,6cc25725bdf99fcfe6b88e1dc013eb2b,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,industry_scope,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,industry_scope,attribute,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,industry_scope,attribute,VARCHAR,min,"Total, all industries","Total, all industries",0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,industry_scope,attribute,VARCHAR,max,"Total, all industries","Total, all industries",0.0,0.0,exact comparison,True
+fact_cma_market_scale_snapshot,industry_scope,attribute,VARCHAR,category_distribution_md5,7894d834adbc48fffbf34be29c647030,7894d834adbc48fffbf34be29c647030,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,source_id,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,source_id,attribute,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,source_id,attribute,VARCHAR,min,StatCan 33-10-1097-01,StatCan 33-10-1097-01,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,source_id,attribute,VARCHAR,max,StatCan 33-10-1097-01,StatCan 33-10-1097-01,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,source_id,attribute,VARCHAR,category_distribution_md5,220bdc10f237c036986733d8097b6084,220bdc10f237c036986733d8097b6084,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,statistical_unit,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,statistical_unit,attribute,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,statistical_unit,attribute,VARCHAR,min,location,location,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,statistical_unit,attribute,VARCHAR,max,location,location,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,statistical_unit,attribute,VARCHAR,category_distribution_md5,dc2f86cb0c18d220d761314fc3cb5e06,dc2f86cb0c18d220d761314fc3cb5e06,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,snapshot_period,period,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,snapshot_period,period,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,snapshot_period,period,VARCHAR,min,December 2025,December 2025,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,snapshot_period,period,VARCHAR,max,December 2025,December 2025,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,snapshot_period,period,VARCHAR,category_distribution_md5,f469a17691c2147d144f12e0753b747b,f469a17691c2147d144f12e0753b747b,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,source_ref_date,period,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,source_ref_date,period,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,source_ref_date,period,VARCHAR,min,2025-07,2025-07,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,source_ref_date,period,VARCHAR,max,2025-07,2025-07,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,source_ref_date,period,VARCHAR,category_distribution_md5,d6b34937c0c07ed002b631bb4c8b434e,d6b34937c0c07ed002b631bb4c8b434e,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,cma_code_sgc2021,geography,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,cma_code_sgc2021,geography,VARCHAR,distinct_count,41,41,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,cma_code_sgc2021,geography,VARCHAR,min,001,001,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,cma_code_sgc2021,geography,VARCHAR,max,938,938,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,cma_code_sgc2021,geography,VARCHAR,category_distribution_md5,db3e88b403f2c1f55a419e4386810f32,db3e88b403f2c1f55a419e4386810f32,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,naics_sector,industry,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,naics_sector,industry,VARCHAR,distinct_count,21,21,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,naics_sector,industry,VARCHAR,min,11,11,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,naics_sector,industry,VARCHAR,max,UNCLASSIFIED,UNCLASSIFIED,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,naics_sector,industry,VARCHAR,category_distribution_md5,985a2bbcc669e56c1c1310eb9d11e535,985a2bbcc669e56c1c1310eb9d11e535,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,sector_role,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,sector_role,attribute,VARCHAR,distinct_count,3,3,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,sector_role,attribute,VARCHAR,min,business_sector,business_sector,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,sector_role,attribute,VARCHAR,max,unclassified_separate,unclassified_separate,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,sector_role,attribute,VARCHAR,category_distribution_md5,cc35728d3cf2978729fee430f86c61a4,cc35728d3cf2978729fee430f86c61a4,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,unclassified_separate,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,unclassified_separate,attribute,BOOLEAN,distinct_count,2,2,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,unclassified_separate,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,unclassified_separate,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,unclassified_separate,attribute,BOOLEAN,category_distribution_md5,c8bebc3c3682a91c7f3bfe4ce7fa46c8,c8bebc3c3682a91c7f3bfe4ce7fa46c8,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,excluded_91_flag,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,excluded_91_flag,attribute,BOOLEAN,distinct_count,2,2,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,excluded_91_flag,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,excluded_91_flag,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,excluded_91_flag,attribute,BOOLEAN,category_distribution_md5,c8bebc3c3682a91c7f3bfe4ce7fa46c8,c8bebc3c3682a91c7f3bfe4ce7fa46c8,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,scope_class,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,scope_class,attribute,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,scope_class,attribute,VARCHAR,min,SME-location measure,SME-location measure,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,scope_class,attribute,VARCHAR,max,SME-location measure,SME-location measure,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,scope_class,attribute,VARCHAR,category_distribution_md5,0c60c2ea36c5ee0be86bbc8155a6e013,0c60c2ea36c5ee0be86bbc8155a6e013,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,size_scope,size band,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,size_scope,size band,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,size_scope,size band,VARCHAR,min,1-499,1-499,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,size_scope,size band,VARCHAR,max,1-499,1-499,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,size_scope,size band,VARCHAR,category_distribution_md5,57c9d35f8f22a9e86b02c2fc746e7dca,57c9d35f8f22a9e86b02c2fc746e7dca,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,sme_locations,measure,BIGINT,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,sme_locations,measure,BIGINT,distinct_count,583,583,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,sme_locations,measure,BIGINT,sum,1009239.0,1009239.0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,sme_locations,measure,BIGINT,min,1.0,1.0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,sme_locations,measure,BIGINT,max,44193.0,44193.0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,locations_all_sizes,measure,BIGINT,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,locations_all_sizes,measure,BIGINT,distinct_count,579,579,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,locations_all_sizes,measure,BIGINT,sum,1012121.0,1012121.0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,locations_all_sizes,measure,BIGINT,min,1.0,1.0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,locations_all_sizes,measure,BIGINT,max,44273.0,44273.0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,share_metric_id,attribute,VARCHAR,null_count,41,41,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,share_metric_id,attribute,VARCHAR,distinct_count,2,2,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,share_metric_id,attribute,VARCHAR,min,S03,S03,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,share_metric_id,attribute,VARCHAR,max,S05,S05,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,share_metric_id,attribute,VARCHAR,category_distribution_md5,7d4cb63d87ba5e691fa5646e3ca68ad4,7d4cb63d87ba5e691fa5646e3ca68ad4,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,share,measure,DOUBLE,null_count,41,41,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,share,measure,DOUBLE,distinct_count,815,815,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,share,measure,DOUBLE,sum,43.831518863285794,43.831518863285794,0.0,4.3831518863285795e-11,relative 1e-12 on a SUM of doubles: summation order is thread-dependent (row values are compared exactly by the full-row check),True
+fact_cma_sector_composition_snapshot,share,measure,DOUBLE,min,0.0002459016393442623,0.0002459016393442623,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,share,measure,DOUBLE,max,0.1996075754990616,0.1996075754990616,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,share_denominator_basis,attribute,VARCHAR,null_count,41,41,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,share_denominator_basis,attribute,VARCHAR,distinct_count,2,2,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,share_denominator_basis,attribute,VARCHAR,min,all 1-499 locations (Unclassified share of SME locations),all 1-499 locations (Unclassified share of SME locations),0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,share_denominator_basis,attribute,VARCHAR,max,classified 1-499 locations in the 19 business sectors (excludes 91 and Unclassified),classified 1-499 locations in the 19 business sectors (excludes 91 and Unclassified),0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,share_denominator_basis,attribute,VARCHAR,category_distribution_md5,9050c8ee64094d6cc140dd79d5860f94,9050c8ee64094d6cc140dd79d5860f94,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,share_denominator,measure,BIGINT,null_count,41,41,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,share_denominator,measure,BIGINT,distinct_count,82,82,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,share_denominator,measure,BIGINT,sum,18522128.0,18522128.0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,share_denominator,measure,BIGINT,min,3056.0,3056.0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,share_denominator,measure,BIGINT,max,264670.0,264670.0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,n_published_cells,measure,BIGINT,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,n_published_cells,measure,BIGINT,distinct_count,7,7,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,n_published_cells,measure,BIGINT,sum,5437.0,5437.0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,n_published_cells,measure,BIGINT,min,1.0,1.0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,n_published_cells,measure,BIGINT,max,7.0,7.0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,n_zero_by_reconciliation_cells,measure,BIGINT,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,n_zero_by_reconciliation_cells,measure,BIGINT,distinct_count,7,7,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,n_zero_by_reconciliation_cells,measure,BIGINT,sum,590.0,590.0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,n_zero_by_reconciliation_cells,measure,BIGINT,min,0.0,0.0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,n_zero_by_reconciliation_cells,measure,BIGINT,max,6.0,6.0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,omitted_zero_flag,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,omitted_zero_flag,attribute,BOOLEAN,distinct_count,2,2,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,omitted_zero_flag,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,omitted_zero_flag,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+fact_cma_sector_composition_snapshot,omitted_zero_flag,attribute,BOOLEAN,category_distribution_md5,31c4fffe23698edc55636b95f407e44b,31c4fffe23698edc55636b95f407e44b,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,source_id,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,source_id,attribute,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,source_id,attribute,VARCHAR,min,StatCan 33-10-1097-01,StatCan 33-10-1097-01,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,source_id,attribute,VARCHAR,max,StatCan 33-10-1097-01,StatCan 33-10-1097-01,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,source_id,attribute,VARCHAR,category_distribution_md5,488381231ff039b07430d97d15636b74,488381231ff039b07430d97d15636b74,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,statistical_unit,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,statistical_unit,attribute,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,statistical_unit,attribute,VARCHAR,min,location,location,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,statistical_unit,attribute,VARCHAR,max,location,location,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,statistical_unit,attribute,VARCHAR,category_distribution_md5,af13290d51647d728bb933480c97cf94,af13290d51647d728bb933480c97cf94,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,snapshot_period,period,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,snapshot_period,period,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,snapshot_period,period,VARCHAR,min,December 2025,December 2025,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,snapshot_period,period,VARCHAR,max,December 2025,December 2025,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,snapshot_period,period,VARCHAR,category_distribution_md5,2af43f6c324d4691bf0051d8f047cc88,2af43f6c324d4691bf0051d8f047cc88,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,source_ref_date,period,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,source_ref_date,period,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,source_ref_date,period,VARCHAR,min,2025-07,2025-07,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,source_ref_date,period,VARCHAR,max,2025-07,2025-07,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,source_ref_date,period,VARCHAR,category_distribution_md5,2274d874b956a3d670ed1bace73640a2,2274d874b956a3d670ed1bace73640a2,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,cma_code_sgc2021,geography,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,cma_code_sgc2021,geography,VARCHAR,distinct_count,41,41,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,cma_code_sgc2021,geography,VARCHAR,min,001,001,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,cma_code_sgc2021,geography,VARCHAR,max,938,938,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,cma_code_sgc2021,geography,VARCHAR,category_distribution_md5,3f9ed10fd9de15312f22b1145e9821af,3f9ed10fd9de15312f22b1145e9821af,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,size_band_key,size band,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,size_band_key,size band,VARCHAR,distinct_count,5,5,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,size_band_key,size band,VARCHAR,min,1-4,1-4,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,size_band_key,size band,VARCHAR,max,500-plus,500-plus,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,size_band_key,size band,VARCHAR,category_distribution_md5,35108fcbda267f8a1610186517aba6a9,35108fcbda267f8a1610186517aba6a9,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,in_sme_scope,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,in_sme_scope,attribute,BOOLEAN,distinct_count,2,2,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,in_sme_scope,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,in_sme_scope,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,in_sme_scope,attribute,BOOLEAN,category_distribution_md5,cbca40630a74ff0a399194c297376da5,cbca40630a74ff0a399194c297376da5,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,scope_class,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,scope_class,attribute,VARCHAR,distinct_count,2,2,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,scope_class,attribute,VARCHAR,min,SME-location measure,SME-location measure,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,scope_class,attribute,VARCHAR,max,outside SME scope (500+),outside SME scope (500+),0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,scope_class,attribute,VARCHAR,category_distribution_md5,c5dcdb81a0a7870b5b7b73e6ebeb8d03,c5dcdb81a0a7870b5b7b73e6ebeb8d03,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,locations,measure,BIGINT,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,locations,measure,BIGINT,distinct_count,190,190,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,locations,measure,BIGINT,sum,1012121.0,1012121.0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,locations,measure,BIGINT,min,5.0,5.0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,locations,measure,BIGINT,max,170082.0,170082.0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,share_metric_id,attribute,VARCHAR,null_count,41,41,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,share_metric_id,attribute,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,share_metric_id,attribute,VARCHAR,min,S04,S04,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,share_metric_id,attribute,VARCHAR,max,S04,S04,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,share_metric_id,attribute,VARCHAR,category_distribution_md5,1a8d0e89337753097de46d4aebc4dd38,1a8d0e89337753097de46d4aebc4dd38,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,share_of_sme_locations,measure,DOUBLE,null_count,41,41,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,share_of_sme_locations,measure,DOUBLE,distinct_count,164,164,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,share_of_sme_locations,measure,DOUBLE,sum,41.0,41.0,0.0,4.1e-11,relative 1e-12 on a SUM of doubles: summation order is thread-dependent (row values are compared exactly by the full-row check),True
+fact_cma_size_composition_snapshot,share_of_sme_locations,measure,DOUBLE,min,0.012542759407069556,0.012542759407069556,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,share_of_sme_locations,measure,DOUBLE,max,0.6426191105905468,0.6426191105905468,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,share_denominator,measure,BIGINT,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,share_denominator,measure,BIGINT,distinct_count,41,41,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,share_denominator,measure,BIGINT,sum,5046195.0,5046195.0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,share_denominator,measure,BIGINT,min,3204.0,3204.0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,share_denominator,measure,BIGINT,max,264670.0,264670.0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,location_basis_flag,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,location_basis_flag,attribute,BOOLEAN,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,location_basis_flag,attribute,BOOLEAN,min,true,true,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,location_basis_flag,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,location_basis_flag,attribute,BOOLEAN,category_distribution_md5,ebe9d4db3e14c903906c79874ac20b61,ebe9d4db3e14c903906c79874ac20b61,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,unit_note,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,unit_note,attribute,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,unit_note,attribute,VARCHAR,min,location-based employment-size composition; not enterprise size,location-based employment-size composition; not enterprise size,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,unit_note,attribute,VARCHAR,max,location-based employment-size composition; not enterprise size,location-based employment-size composition; not enterprise size,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,unit_note,attribute,VARCHAR,category_distribution_md5,3e3fa6e70b1b02d21cc56b2ce993c7fc,3e3fa6e70b1b02d21cc56b2ce993c7fc,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,n_published_cells,measure,BIGINT,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,n_published_cells,measure,BIGINT,distinct_count,2,2,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,n_published_cells,measure,BIGINT,sum,328.0,328.0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,n_published_cells,measure,BIGINT,min,1.0,1.0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,n_published_cells,measure,BIGINT,max,2.0,2.0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,n_zero_by_reconciliation_cells,measure,BIGINT,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,n_zero_by_reconciliation_cells,measure,BIGINT,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,n_zero_by_reconciliation_cells,measure,BIGINT,sum,0.0,0.0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,n_zero_by_reconciliation_cells,measure,BIGINT,min,0.0,0.0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,n_zero_by_reconciliation_cells,measure,BIGINT,max,0.0,0.0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,omitted_zero_flag,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,omitted_zero_flag,attribute,BOOLEAN,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,omitted_zero_flag,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,omitted_zero_flag,attribute,BOOLEAN,max,false,false,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,omitted_zero_flag,attribute,BOOLEAN,category_distribution_md5,94f934c16b40a6c881a16d8d77d405de,94f934c16b40a6c881a16d8d77d405de,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,source_size_member_ids,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,source_size_member_ids,attribute,VARCHAR,distinct_count,5,5,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,source_size_member_ids,attribute,VARCHAR,min,2,2,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,source_size_member_ids,attribute,VARCHAR,max,9,9,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,source_size_member_ids,attribute,VARCHAR,category_distribution_md5,ad0ecdcf0ce9501e58a56bffc6d158d0,ad0ecdcf0ce9501e58a56bffc6d158d0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,industry_scope,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,industry_scope,attribute,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,industry_scope,attribute,VARCHAR,min,"Total, all industries","Total, all industries",0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,industry_scope,attribute,VARCHAR,max,"Total, all industries","Total, all industries",0.0,0.0,exact comparison,True
+fact_cma_size_composition_snapshot,industry_scope,attribute,VARCHAR,category_distribution_md5,d346adb2d420b7c18f33245b6d4137fa,d346adb2d420b7c18f33245b6d4137fa,0.0,0.0,exact comparison,True
+fact_ised_financing_context,source_id,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,source_id,attribute,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_ised_financing_context,source_id,attribute,VARCHAR,min,ISED SFGSME 2023,ISED SFGSME 2023,0.0,0.0,exact comparison,True
+fact_ised_financing_context,source_id,attribute,VARCHAR,max,ISED SFGSME 2023,ISED SFGSME 2023,0.0,0.0,exact comparison,True
+fact_ised_financing_context,source_id,attribute,VARCHAR,category_distribution_md5,b3810a8d0093e352124b6ce302812ec4,b3810a8d0093e352124b6ce302812ec4,0.0,0.0,exact comparison,True
+fact_ised_financing_context,survey_year,period,BIGINT,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,survey_year,period,BIGINT,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_ised_financing_context,survey_year,period,BIGINT,sum,3028431.0,3028431.0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,survey_year,period,BIGINT,min,2023.0,2023.0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,survey_year,period,BIGINT,max,2023.0,2023.0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,period_label,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,period_label,attribute,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_ised_financing_context,period_label,attribute,VARCHAR,min,ISED SFGSME 2023 survey (calendar 2023),ISED SFGSME 2023 survey (calendar 2023),0.0,0.0,exact comparison,True
+fact_ised_financing_context,period_label,attribute,VARCHAR,max,ISED SFGSME 2023 survey (calendar 2023),ISED SFGSME 2023 survey (calendar 2023),0.0,0.0,exact comparison,True
+fact_ised_financing_context,period_label,attribute,VARCHAR,category_distribution_md5,13a06a6a37a39fc9e179682ee62c8edb,13a06a6a37a39fc9e179682ee62c8edb,0.0,0.0,exact comparison,True
+fact_ised_financing_context,ised_table,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,ised_table,attribute,VARCHAR,distinct_count,5,5,0.0,0.0,exact comparison,True
+fact_ised_financing_context,ised_table,attribute,VARCHAR,min,1,1,0.0,0.0,exact comparison,True
+fact_ised_financing_context,ised_table,attribute,VARCHAR,max,5,5,0.0,0.0,exact comparison,True
+fact_ised_financing_context,ised_table,attribute,VARCHAR,category_distribution_md5,154ba141cd4b2d089a17d850a4d9db7d,154ba141cd4b2d089a17d850a4d9db7d,0.0,0.0,exact comparison,True
+fact_ised_financing_context,measure_id,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,measure_id,attribute,VARCHAR,distinct_count,53,53,0.0,0.0,exact comparison,True
+fact_ised_financing_context,measure_id,attribute,VARCHAR,min,ISED_T01_M001,ISED_T01_M001,0.0,0.0,exact comparison,True
+fact_ised_financing_context,measure_id,attribute,VARCHAR,max,ISED_T49_M003,ISED_T49_M003,0.0,0.0,exact comparison,True
+fact_ised_financing_context,measure_id,attribute,VARCHAR,category_distribution_md5,ddb98df302ca5cb3e2afbabd5b6cb0f8,ddb98df302ca5cb3e2afbabd5b6cb0f8,0.0,0.0,exact comparison,True
+fact_ised_financing_context,measure_label,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,measure_label,attribute,VARCHAR,distinct_count,53,53,0.0,0.0,exact comparison,True
+fact_ised_financing_context,measure_label,attribute,VARCHAR,min,Debt financing | Debt financing > Overall debt financing > Average amount authorized,Debt financing | Debt financing > Overall debt financing > Average amount authorized,0.0,0.0,exact comparison,True
+fact_ised_financing_context,measure_label,attribute,VARCHAR,max,Weighted Count | Weighted Count,Weighted Count | Weighted Count,0.0,0.0,exact comparison,True
+fact_ised_financing_context,measure_label,attribute,VARCHAR,category_distribution_md5,17f58607dc183036d51bb61a8274a6ef,17f58607dc183036d51bb61a8274a6ef,0.0,0.0,exact comparison,True
+fact_ised_financing_context,estimate_type,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,estimate_type,attribute,VARCHAR,distinct_count,7,7,0.0,0.0,exact comparison,True
+fact_ised_financing_context,estimate_type,attribute,VARCHAR,min,average_monetary,average_monetary,0.0,0.0,exact comparison,True
+fact_ised_financing_context,estimate_type,attribute,VARCHAR,max,weighted_total_monetary,weighted_total_monetary,0.0,0.0,exact comparison,True
+fact_ised_financing_context,estimate_type,attribute,VARCHAR,category_distribution_md5,1bc6b4ebe4fbc88e93ce849b528d1508,1bc6b4ebe4fbc88e93ce849b528d1508,0.0,0.0,exact comparison,True
+fact_ised_financing_context,unit,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,unit,attribute,VARCHAR,distinct_count,4,4,0.0,0.0,exact comparison,True
+fact_ised_financing_context,unit,attribute,VARCHAR,min,Canadian dollars,Canadian dollars,0.0,0.0,exact comparison,True
+fact_ised_financing_context,unit,attribute,VARCHAR,max,respondents,respondents,0.0,0.0,exact comparison,True
+fact_ised_financing_context,unit,attribute,VARCHAR,category_distribution_md5,314d86f7f8f4e1f555f4930aedfbb7ae,314d86f7f8f4e1f555f4930aedfbb7ae,0.0,0.0,exact comparison,True
+fact_ised_financing_context,universe_or_denominator,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,universe_or_denominator,attribute,VARCHAR,distinct_count,8,8,0.0,0.0,exact comparison,True
+fact_ised_financing_context,universe_or_denominator,attribute,VARCHAR,min,All SMEs in the row segment (question applicable to all respondents),All SMEs in the row segment (question applicable to all respondents),0.0,0.0,exact comparison,True
+fact_ised_financing_context,universe_or_denominator,attribute,VARCHAR,max,"Survey respondents in the row segment (unweighted count; sample support, not an estimate)","Survey respondents in the row segment (unweighted count; sample support, not an estimate)",0.0,0.0,exact comparison,True
+fact_ised_financing_context,universe_or_denominator,attribute,VARCHAR,category_distribution_md5,5ae0ae9d3d95849dbd341c3377eb36f7,5ae0ae9d3d95849dbd341c3377eb36f7,0.0,0.0,exact comparison,True
+fact_ised_financing_context,statistical_unit,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,statistical_unit,attribute,VARCHAR,distinct_count,7,7,0.0,0.0,exact comparison,True
+fact_ised_financing_context,statistical_unit,attribute,VARCHAR,min,survey estimate (% of SMEs in segment),survey estimate (% of SMEs in segment),0.0,0.0,exact comparison,True
+fact_ised_financing_context,statistical_unit,attribute,VARCHAR,max,survey respondents (unweighted count),survey respondents (unweighted count),0.0,0.0,exact comparison,True
+fact_ised_financing_context,statistical_unit,attribute,VARCHAR,category_distribution_md5,ad8fc41c085364cc5c98ba8b1793a801,ad8fc41c085364cc5c98ba8b1793a801,0.0,0.0,exact comparison,True
+fact_ised_financing_context,scope_class,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,scope_class,attribute,VARCHAR,distinct_count,2,2,0.0,0.0,exact comparison,True
+fact_ised_financing_context,scope_class,attribute,VARCHAR,min,filtered SME survey measure,filtered SME survey measure,0.0,0.0,exact comparison,True
+fact_ised_financing_context,scope_class,attribute,VARCHAR,max,survey sample size (respondents),survey sample size (respondents),0.0,0.0,exact comparison,True
+fact_ised_financing_context,scope_class,attribute,VARCHAR,category_distribution_md5,54d4a5962cb7ba4e0ff4ea473574c6c8,54d4a5962cb7ba4e0ff4ea473574c6c8,0.0,0.0,exact comparison,True
+fact_ised_financing_context,metric_id,attribute,VARCHAR,null_count,441,441,0.0,0.0,exact comparison,True
+fact_ised_financing_context,metric_id,attribute,VARCHAR,distinct_count,6,6,0.0,0.0,exact comparison,True
+fact_ised_financing_context,metric_id,attribute,VARCHAR,min,I01,I01,0.0,0.0,exact comparison,True
+fact_ised_financing_context,metric_id,attribute,VARCHAR,max,I06,I06,0.0,0.0,exact comparison,True
+fact_ised_financing_context,metric_id,attribute,VARCHAR,category_distribution_md5,71ae27b110a864695c128fc115033fcc,71ae27b110a864695c128fc115033fcc,0.0,0.0,exact comparison,True
+fact_ised_financing_context,segment_dimension,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,segment_dimension,attribute,VARCHAR,distinct_count,5,5,0.0,0.0,exact comparison,True
+fact_ised_financing_context,segment_dimension,attribute,VARCHAR,min,cma,cma,0.0,0.0,exact comparison,True
+fact_ised_financing_context,segment_dimension,attribute,VARCHAR,max,size_band,size_band,0.0,0.0,exact comparison,True
+fact_ised_financing_context,segment_dimension,attribute,VARCHAR,category_distribution_md5,edcdcce122bc153713ec7a0d1b47cd68,edcdcce122bc153713ec7a0d1b47cd68,0.0,0.0,exact comparison,True
+fact_ised_financing_context,segment_key,geography,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,segment_key,geography,VARCHAR,distinct_count,49,49,0.0,0.0,exact comparison,True
+fact_ised_financing_context,segment_key,geography,VARCHAR,min,001,001,0.0,0.0,exact comparison,True
+fact_ised_financing_context,segment_key,geography,VARCHAR,max,CANADA,CANADA,0.0,0.0,exact comparison,True
+fact_ised_financing_context,segment_key,geography,VARCHAR,category_distribution_md5,3b98c64305b87492ddfb7dafc1babf67,3b98c64305b87492ddfb7dafc1babf67,0.0,0.0,exact comparison,True
+fact_ised_financing_context,segment_label_published,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,segment_label_published,attribute,VARCHAR,distinct_count,48,48,0.0,0.0,exact comparison,True
+fact_ised_financing_context,segment_label_published,attribute,VARCHAR,min,1 to 4 employees,1 to 4 employees,0.0,0.0,exact comparison,True
+fact_ised_financing_context,segment_label_published,attribute,VARCHAR,max,Winnipeg,Winnipeg,0.0,0.0,exact comparison,True
+fact_ised_financing_context,segment_label_published,attribute,VARCHAR,category_distribution_md5,96c75634b7336d620b7105557e4f5188,96c75634b7336d620b7105557e4f5188,0.0,0.0,exact comparison,True
+fact_ised_financing_context,segment_level,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,segment_level,attribute,VARCHAR,distinct_count,2,2,0.0,0.0,exact comparison,True
+fact_ised_financing_context,segment_level,attribute,VARCHAR,min,category,category,0.0,0.0,exact comparison,True
+fact_ised_financing_context,segment_level,attribute,VARCHAR,max,subcategory,subcategory,0.0,0.0,exact comparison,True
+fact_ised_financing_context,segment_level,attribute,VARCHAR,category_distribution_md5,9eda6d549aa414a553b9bb115e46c339,9eda6d549aa414a553b9bb115e46c339,0.0,0.0,exact comparison,True
+fact_ised_financing_context,nested_region_flag,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,nested_region_flag,attribute,BOOLEAN,distinct_count,2,2,0.0,0.0,exact comparison,True
+fact_ised_financing_context,nested_region_flag,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+fact_ised_financing_context,nested_region_flag,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+fact_ised_financing_context,nested_region_flag,attribute,BOOLEAN,category_distribution_md5,5e4c12f6cf0e9c9a082ade3343455e3b,5e4c12f6cf0e9c9a082ade3343455e3b,0.0,0.0,exact comparison,True
+fact_ised_financing_context,non_additive_rule_id,attribute,VARCHAR,null_count,1357,1357,0.0,0.0,exact comparison,True
+fact_ised_financing_context,non_additive_rule_id,attribute,VARCHAR,distinct_count,5,5,0.0,0.0,exact comparison,True
+fact_ised_financing_context,non_additive_rule_id,attribute,VARCHAR,min,N24,N24,0.0,0.0,exact comparison,True
+fact_ised_financing_context,non_additive_rule_id,attribute,VARCHAR,max,N28,N28,0.0,0.0,exact comparison,True
+fact_ised_financing_context,non_additive_rule_id,attribute,VARCHAR,category_distribution_md5,a26eab7c79b8ab360717791d28efb8b4,a26eab7c79b8ab360717791d28efb8b4,0.0,0.0,exact comparison,True
+fact_ised_financing_context,geography_caveat,attribute,VARCHAR,null_count,545,545,0.0,0.0,exact comparison,True
+fact_ised_financing_context,geography_caveat,attribute,VARCHAR,distinct_count,2,2,0.0,0.0,exact comparison,True
+fact_ised_financing_context,geography_caveat,attribute,VARCHAR,min,ISED region; never replicated to or split among provinces (E8),ISED region; never replicated to or split among provinces (E8),0.0,0.0,exact comparison,True
+fact_ised_financing_context,geography_caveat,attribute,VARCHAR,max,ISED survey geography vintage not stated; boundaries not claimed equal to SGC 2021,ISED survey geography vintage not stated; boundaries not claimed equal to SGC 2021,0.0,0.0,exact comparison,True
+fact_ised_financing_context,geography_caveat,attribute,VARCHAR,category_distribution_md5,3324b11d3005e373b321d0081a8e058f,3324b11d3005e373b321d0081a8e058f,0.0,0.0,exact comparison,True
+fact_ised_financing_context,value_published,measure,DOUBLE,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,value_published,measure,DOUBLE,distinct_count,689,689,0.0,0.0,exact comparison,True
+fact_ised_financing_context,value_published,measure,DOUBLE,sum,693758517281.9,693758517281.9,0.0,0.6937585172819,relative 1e-12 on a SUM of doubles: summation order is thread-dependent (row values are compared exactly by the full-row check),True
+fact_ised_financing_context,value_published,measure,DOUBLE,min,0.0,0.0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,value_published,measure,DOUBLE,max,93955715680.0,93955715680.0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,value_state,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,value_state,attribute,VARCHAR,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_ised_financing_context,value_state,attribute,VARCHAR,min,numeric,numeric,0.0,0.0,exact comparison,True
+fact_ised_financing_context,value_state,attribute,VARCHAR,max,numeric,numeric,0.0,0.0,exact comparison,True
+fact_ised_financing_context,value_state,attribute,VARCHAR,category_distribution_md5,39281ac8078617916028cc309b3e7cfa,39281ac8078617916028cc309b3e7cfa,0.0,0.0,exact comparison,True
+fact_ised_financing_context,quality_code,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,quality_code,attribute,VARCHAR,distinct_count,6,6,0.0,0.0,exact comparison,True
+fact_ised_financing_context,quality_code,attribute,VARCHAR,min,A,A,0.0,0.0,exact comparison,True
+fact_ised_financing_context,quality_code,attribute,VARCHAR,max,F,F,0.0,0.0,exact comparison,True
+fact_ised_financing_context,quality_code,attribute,VARCHAR,category_distribution_md5,8d4f7624927ea2e4963b91fd0917cd8c,8d4f7624927ea2e4963b91fd0917cd8c,0.0,0.0,exact comparison,True
+fact_ised_financing_context,error_value,measure,DOUBLE,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,error_value,measure,DOUBLE,distinct_count,1302,1302,0.0,0.0,exact comparison,True
+fact_ised_financing_context,error_value,measure,DOUBLE,sum,6395.161830000008,6395.161830000008,0.0,6.3951618300000084e-09,relative 1e-12 on a SUM of doubles: summation order is thread-dependent (row values are compared exactly by the full-row check),True
+fact_ised_financing_context,error_value,measure,DOUBLE,min,0.0,0.0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,error_value,measure,DOUBLE,max,67.61664,67.61664,0.0,0.0,exact comparison,True
+fact_ised_financing_context,se_or_cv,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,se_or_cv,attribute,VARCHAR,distinct_count,2,2,0.0,0.0,exact comparison,True
+fact_ised_financing_context,se_or_cv,attribute,VARCHAR,min,CV,CV,0.0,0.0,exact comparison,True
+fact_ised_financing_context,se_or_cv,attribute,VARCHAR,max,SE,SE,0.0,0.0,exact comparison,True
+fact_ised_financing_context,se_or_cv,attribute,VARCHAR,category_distribution_md5,7ad20044798376a671bbe445f392dec1,7ad20044798376a671bbe445f392dec1,0.0,0.0,exact comparison,True
+fact_ised_financing_context,caution_flag,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,caution_flag,attribute,BOOLEAN,distinct_count,2,2,0.0,0.0,exact comparison,True
+fact_ised_financing_context,caution_flag,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+fact_ised_financing_context,caution_flag,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+fact_ised_financing_context,caution_flag,attribute,BOOLEAN,category_distribution_md5,9947318d853bfb17c16d69fa28e622e9,9947318d853bfb17c16d69fa28e622e9,0.0,0.0,exact comparison,True
+fact_ised_financing_context,excluded_quality_f,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,excluded_quality_f,attribute,BOOLEAN,distinct_count,2,2,0.0,0.0,exact comparison,True
+fact_ised_financing_context,excluded_quality_f,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+fact_ised_financing_context,excluded_quality_f,attribute,BOOLEAN,max,true,true,0.0,0.0,exact comparison,True
+fact_ised_financing_context,excluded_quality_f,attribute,BOOLEAN,category_distribution_md5,7c1aae03cf7c0144c3d59d966a7a1cd0,7c1aae03cf7c0144c3d59d966a7a1cd0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,dotdot_flag,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,dotdot_flag,attribute,BOOLEAN,distinct_count,1,1,0.0,0.0,exact comparison,True
+fact_ised_financing_context,dotdot_flag,attribute,BOOLEAN,min,false,false,0.0,0.0,exact comparison,True
+fact_ised_financing_context,dotdot_flag,attribute,BOOLEAN,max,false,false,0.0,0.0,exact comparison,True
+fact_ised_financing_context,dotdot_flag,attribute,BOOLEAN,category_distribution_md5,ee38e3bbdcb88010cbcebfc885f36806,ee38e3bbdcb88010cbcebfc885f36806,0.0,0.0,exact comparison,True
+fact_ised_financing_context,mvp_use_status,attribute,VARCHAR,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,mvp_use_status,attribute,VARCHAR,distinct_count,3,3,0.0,0.0,exact comparison,True
+fact_ised_financing_context,mvp_use_status,attribute,VARCHAR,min,excluded_quality_F,excluded_quality_F,0.0,0.0,exact comparison,True
+fact_ised_financing_context,mvp_use_status,attribute,VARCHAR,max,usable_with_caution_E,usable_with_caution_E,0.0,0.0,exact comparison,True
+fact_ised_financing_context,mvp_use_status,attribute,VARCHAR,category_distribution_md5,f8f3260c6ae5b1e423611c91516e437d,f8f3260c6ae5b1e423611c91516e437d,0.0,0.0,exact comparison,True
+fact_ised_financing_context,source_stub_row,measure,BIGINT,null_count,0,0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,source_stub_row,measure,BIGINT,distinct_count,49,49,0.0,0.0,exact comparison,True
+fact_ised_financing_context,source_stub_row,measure,BIGINT,sum,58627.0,58627.0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,source_stub_row,measure,BIGINT,min,17.0,17.0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,source_stub_row,measure,BIGINT,max,65.0,65.0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,value_usable,measure,DOUBLE,null_count,35,35,0.0,0.0,exact comparison,True
+fact_ised_financing_context,value_usable,measure,DOUBLE,distinct_count,662,662,0.0,0.0,exact comparison,True
+fact_ised_financing_context,value_usable,measure,DOUBLE,sum,642213226946.0,642213226946.0,0.0,0.642213226946,relative 1e-12 on a SUM of doubles: summation order is thread-dependent (row values are compared exactly by the full-row check),True
+fact_ised_financing_context,value_usable,measure,DOUBLE,min,0.0,0.0,0.0,0.0,exact comparison,True
+fact_ised_financing_context,value_usable,measure,DOUBLE,max,93955715680.0,93955715680.0,0.0,0.0,exact comparison,True

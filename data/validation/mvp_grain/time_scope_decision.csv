@@ -1,0 +1,6 @@
+layer_measures,frequency,available_period,latest_eligible,window_rule,caveat,report_label
+"0722 active, openings, continuing, closings",monthly,2015-01 to 2026-05,2026-05,primary: trailing 12 months ending 2026-05; supporting: trailing 36 months,"pandemic window 2020-03-2021-12 flagged (E-flag peak 2020-03 to 2020-07); excluded from baselines, not deleted","'0722 monthly, seasonally adjusted, <window>'"
+"0722 exits, temporary closures",monthly,to 2025-11,2025-11,not in CMA MVP,six-month lag (Note 10),"'0722 national context, to <month>'"
+0722 sector detail (8 CMAs),monthly,2018-01 onward,2026-05,trailing 12 months,starts 2018-01,"'0722 sector view, 8 CMAs'"
+1097 locations,snapshot,December 2025 counts,December 2025,none,not a time series (Note 3),"'1097 locations, December 2025'"
+ISED financing context,single cycle,calendar 2023,2023,none,about two years older than 1097,'ISED survey 2023'

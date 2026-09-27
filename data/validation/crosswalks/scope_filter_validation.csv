@@ -1,0 +1,34 @@
+rule_id,precedence,rule_type,code,label,observable_in_1097,applicability_grain,exactness,employer_locations,unit,not_comparable_to
+R01,1.0,employment size,500+,500 or more employees,yes,size band,exact,,,
+R02,2.0,employment size,0,0 employees,yes,table scope,exact,,,
+R03,3.0,industry sector,22,NAICS 22,yes,sector,exact,,,
+R04,4.0,industry sector,52,NAICS 52,yes,sector,exact,,,
+R05,5.0,industry sector,55,NAICS 55,yes,sector,exact,,,
+R06,6.0,industry sector,61,NAICS 61,yes,sector,exact,,,
+R07,7.0,industry sector,91,NAICS 91,yes,sector,exact,,,
+R08,8.0,industry group,5321,NAICS 5321,yes,4-digit industry group,exact,,,
+R09,9.0,industry group,5324,NAICS 5324,yes,4-digit industry group,exact,,,
+R10,10.0,industry group,6214,NAICS 6214,yes,4-digit industry group,exact,,,
+R11,11.0,industry group,6215,NAICS 6215,yes,4-digit industry group,exact,,,
+R12,12.0,industry group,6219,NAICS 6219,yes,4-digit industry group,exact,,,
+R13,13.0,industry group,6221,NAICS 6221,yes,4-digit industry group,exact,,,
+R14,14.0,industry group,6222,NAICS 6222,yes,4-digit industry group,exact,,,
+R15,15.0,industry group,6223,NAICS 6223,yes,4-digit industry group,exact,,,
+R16,16.0,industry group,6242,NAICS 6242,yes,4-digit industry group,exact,,,
+R17,17.0,industry (6-digit),814110,NAICS 814110 via 8141,yes,4-digit industry group,exact,,,
+R18,18.0,industry,Unclassified,Unclassified locations,partial,NAICS total,partial,,,
+R19,19.0,eligibility (unobservable),,"Gross revenue >= $30,000",no,not in 1097,unobservable,,,
+R20,20.0,eligibility (unobservable),,Non-profit organizations,no,not in 1097,unobservable,,,
+R21,21.0,eligibility (unobservable),,Joint ventures,no,not in 1097,unobservable,,,
+R22,22.0,eligibility (unobservable),,Government agencies,no,not in 1097,unobservable,,,
+R23,23.0,eligibility (unobservable),,Subsidiaries (workbook Notes),no,not in 1097,unobservable,,,
+R24,24.0,eligibility (unobservable),,Financing and leasing companies beyond the NAICS exclusions,no,not in 1097,unobservable,,,
+R25,25.0,eligibility (unobservable),,Enterprise (not location) as the unit,no,not in 1097,unobservable,,,
+R26,26.0,eligibility (unobservable),,Other survey eligibility and response conditions,no,not in 1097,unobservable,,,
+,,diagnostic waterfall,,"employer locations, all sizes (41 CMAs)",,,,1012121.0,"locations (1097, December 2025)","ISED weighted SME count (enterprises, national, revenue and form filters, 2023)"
+,,diagnostic waterfall,,excluded: 500+ band,,,,2882.0,"locations (1097, December 2025)","ISED weighted SME count (enterprises, national, revenue and form filters, 2023)"
+,,diagnostic waterfall,,"employer locations, 1-499 employees",,,,1009239.0,"locations (1097, December 2025)","ISED weighted SME count (enterprises, national, revenue and form filters, 2023)"
+,,diagnostic waterfall,,carried separately: Unclassified,,,,84721.0,"locations (1097, December 2025)","ISED weighted SME count (enterprises, national, revenue and form filters, 2023)"
+,,diagnostic waterfall,,"excluded: sectors 22, 52, 55, 61, 91",,,,53019.0,"locations (1097, December 2025)","ISED weighted SME count (enterprises, national, revenue and form filters, 2023)"
+,,diagnostic waterfall,,"excluded: 4-digit groups (5321, 5324, 6214, 6215, 6219, 6221, 6222, 6223, 6242, 8141)",,,,15643.0,"locations (1097, December 2025)","ISED weighted SME count (enterprises, national, revenue and form filters, 2023)"
+,,diagnostic waterfall,,approximate ISED-scope employer locations (41 CMAs; not ISED-eligible SMEs),,,,855856.0,"locations (1097, December 2025)","ISED weighted SME count (enterprises, national, revenue and form filters, 2023)"

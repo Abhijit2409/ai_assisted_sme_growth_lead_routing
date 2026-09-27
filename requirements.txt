@@ -1,0 +1,9 @@
+# dbt transformation environment (isolated virtual environment: .venv, Python 3.11).
+# Kept separate from the Anaconda analysis environment so installing dbt cannot change the
+# packages the validated Python scripts depend on. DuckDB is pinned to the analysis
+# environment's version so both environments can open the same warehouse file.
+dbt-core==1.12.5
+dbt-duckdb==1.11.0
+dbt-adapters==1.24.5
+dbt-common==1.39.0
+duckdb==1.5.3

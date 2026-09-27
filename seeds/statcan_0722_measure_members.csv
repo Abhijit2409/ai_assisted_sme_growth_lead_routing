@@ -1,0 +1,9 @@
+measure_member_id,measure,published_label,in_cma_momentum_scope
+1,active,Active businesses,True
+2,openings,Opening businesses,True
+3,continuing,Continuing businesses,True
+4,closures,Closing businesses,True
+5,reopenings,Reopening businesses,False
+6,entrants,Entrants,False
+7,temporary_closures,Temporary closures,False
+8,exits,Exits,False

@@ -1,0 +1,5 @@
+source,frequency,reference_period,seasonally_adjusted,valid_within_source_trend_period,presentation_label,use_as_other_source_denominator
+0722,monthly,2015-01 to 2026-05,"Yes, seasonally adjusted","2015-01 onward (Canada, provinces, CMA T004); 2018-01 onward for CMA sector detail; exits end 6 months before the latest month",Label as monthly (SA); state the window,No: not a denominator for 1097 or ISED
+1097,semi-annual snapshot,December 2025 (REF_DATE 2025-07),No,None (single snapshot; Note 3),Label 'December 2025 counts',No: not a historical denominator for 0722 flows
+ISED,single survey cycle,2023 (collected Feb-Jun 2024),No,None (one cycle in this workbook),Label '2023 survey',No: percentages are not counts
+presentation,side-by-side,0722 2025-12 with 1097 December 2025; ISED 2023 as context,n/a,n/a,Every panel carries its own period and unit label,The three are never one observation period

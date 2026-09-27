@@ -1,0 +1,12 @@
+model,baseline_rows,dbt_rows,baseline_columns,dbt_columns,schema_matches,rows_only_in_baseline,rows_only_in_dbt,baseline_row_checksum,dbt_row_checksum,checksum_matches,keys_match,column_metrics_match,passed
+dim_cma,41,41,20,20,True,0,0,342546460638582729954,342546460638582729954,True,True,True,True
+dim_industry,495,495,15,15,True,0,0,4474648297856351123622,4474648297856351123622,True,True,True,True
+dim_size_band,6,6,11,11,True,0,0,54136927859633872442,54136927859633872442,True,True,True,True
+bridge_cma_vintage,41,41,14,14,True,0,0,324347599975273071813,324347599975273071813,True,True,True,True
+bridge_industry,63,63,15,15,True,0,0,661519508243852677020,661519508243852677020,True,True,True,True
+bridge_size_band,9,9,11,11,True,0,0,97775798891392039874,97775798891392039874,True,True,True,True
+fact_cma_momentum_monthly,3782864,3782864,23,23,True,0,0,34886137211420949803712708,34886137211420949803712708,True,True,True,True
+fact_cma_market_scale_snapshot,123,123,15,15,True,0,0,1125854368314942963952,1125854368314942963952,True,True,True,True
+fact_cma_sector_composition_snapshot,861,861,20,20,True,0,0,7948237645467977118966,7948237645467977118966,True,True,True,True
+fact_cma_size_composition_snapshot,205,205,19,19,True,0,0,1967866542060272379171,1967866542060272379171,True,True,True,True
+fact_ised_financing_context,1497,1497,30,30,True,0,0,14041518759209926256247,14041518759209926256247,True,True,True,True

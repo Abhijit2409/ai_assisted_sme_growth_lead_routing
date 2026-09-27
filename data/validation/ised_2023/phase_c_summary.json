@@ -1,0 +1,523 @@
+{
+  "source": "Survey on Financing and Growth of Small and Medium Enterprises, 2023 - data tables",
+  "raw_file": "data/raw/ised_sme_financing_2023/sfgsme-efcpme-tables-2023-eng.xlsx",
+  "bytes": 2482697,
+  "sha256": "ca980683072639145bd0a3ad27e39bcbb7a435fe1d20f83781f0983627a860ba",
+  "file_modified_local": "2026-09-27T05:05:35-07:00",
+  "provenance": {
+    "producer": "Statistics Canada, in collaboration with ISED Small Business Branch (cover page)",
+    "release_date_cover": "February 20, 2025",
+    "portal_resource_url": "https://open.canada.ca/data/en/dataset/c3c9f361-c7d3-4c87-8be0-64c2b62521ee/resource/56f10b18-2aeb-4734-b0ad-8450bdf25d08",
+    "portal_file_bytes": 2482697,
+    "manifest_title": "Survey on Financing and Growth of Small and Medium Enterprises, 2023 - Data tables",
+    "manifest_reference_period": "2023 (survey reference year; collection 2024-02-22 to 2024-06-24)",
+    "retrieval_date": "not recorded"
+  },
+  "package": {
+    "zip_parts": 405,
+    "custom_workbook_views": 11,
+    "external_link_parts": 0,
+    "pivot_parts": 0,
+    "chart_parts": 0,
+    "table_parts": 0,
+    "comment_parts": 0,
+    "drawing_parts": 1,
+    "media_parts": 3,
+    "vba_parts": 0,
+    "app_titles_of_parts": 55,
+    "app_company": "stc",
+    "core_creator": "Monia Bergeron",
+    "core_last_modified_by": "Rivard2, Patrice (ISED/ISDE)",
+    "core_created": "2015-04-09T17:23:13Z",
+    "core_modified": "2025-06-24T17:28:28Z"
+  },
+  "defined_names_by_kind": {
+    "autofilter_range": 18,
+    "custom_view_filter_data": 193
+  },
+  "sheet_states": {
+    "visible": 55
+  },
+  "formulas": 0,
+  "facts": {
+    "worksheets": 55,
+    "table_sheets": 51,
+    "front_sheets": 4,
+    "blocks": 108,
+    "measures": 617,
+    "value_cells": 79876,
+    "numeric_values": 78789,
+    "dotdot_values": 987,
+    "blank_values": 100,
+    "dotdot_definitional": 339,
+    "dotdot_undocumented": 648,
+    "quality_coded_values": 77489,
+    "quality_E": 4122,
+    "quality_F": 3167,
+    "quality_A_to_D": 70200,
+    "workbook_threshold_agreement": 77489,
+    "imdb_threshold_agreement": 75922,
+    "weighted_smes": 863533,
+    "respondents": 11210,
+    "notes_sample": 29100,
+    "notes_responses": 11210,
+    "notes_response_rate": 51.1,
+    "stub_rows_main": 132,
+    "stub_rows_t50": 20,
+    "cmas": 24,
+    "industry_groups": 10,
+    "industry_special_aggregates": 8,
+    "size_bands": 4,
+    "provinces_individual": 5,
+    "owner_demographic_rows": 33,
+    "defined_names": 211,
+    "merged_ranges": 1281,
+    "core_tables": 6,
+    "contextual_tables": 19,
+    "out_of_scope_tables": 26,
+    "reconciliation_tests": 35,
+    "reconciliation_consistent": 34,
+    "reconciliation_findings": 1,
+    "cma_labels_matching_1097": 23,
+    "table_a_coverage_pct": 89.8,
+    "t49_incorporated_pct": 91.7,
+    "percentage_measures": 556,
+    "conditional_format_rules": 20,
+    "conditional_format_rules_x": 20,
+    "x_cells": 0,
+    "custom_views": 11,
+    "index_title_mismatches": 4,
+    "zeros_published": 3501,
+    "zeros_definitional": 30,
+    "annotated_measures": 282,
+    "nonprofit_se_weighted": 940,
+    "nonprofit_se_pct_of_all": 0.11,
+    "t49_share_rows_matching": 126,
+    "t49_share_rows_other_base": 6,
+    "t05_cma_pct_A_to_D": 25.2,
+    "t05_cma_pct_F": 54.5,
+    "t05_industry_pct_F": 18.8,
+    "t01_cma_pct_A_to_D": 97.9,
+    "t03_cma_pct_A_to_D": 94.6,
+    "t04_cma_pct_F": 8.3
+  },
+  "estimate_types": {
+    "percentage_of_universe": 545,
+    "average_monetary": 20,
+    "weighted_total_monetary": 15,
+    "weighted_count": 15,
+    "ratio_of_totals": 6,
+    "average_duration": 5,
+    "median_monetary": 5,
+    "average_rate": 4,
+    "unweighted_respondent_count": 1,
+    "percentage_share_of_total": 1
+  },
+  "value_states": {
+    "numeric": 78789,
+    "dotdot": 987,
+    "blank": 100
+  },
+  "dotdot_by_context": {
+    "unavailable_reason_undocumented": 648,
+    "not_applicable_by_definition": 339
+  },
+  "quality_error_ranges": [
+    {
+      "error_type": "CV",
+      "quality": "A",
+      "count": 876,
+      "min": 0.0,
+      "max": 4.99127
+    },
+    {
+      "error_type": "CV",
+      "quality": "B",
+      "count": 650,
+      "min": 5.00215,
+      "max": 9.99139
+    },
+    {
+      "error_type": "CV",
+      "quality": "C",
+      "count": 778,
+      "min": 10.00282,
+      "max": 14.99242
+    },
+    {
+      "error_type": "CV",
+      "quality": "D",
+      "count": 700,
+      "min": 15.04863,
+      "max": 19.98917
+    },
+    {
+      "error_type": "CV",
+      "quality": "E",
+      "count": 1030,
+      "min": 20.00707,
+      "max": 29.99234
+    },
+    {
+      "error_type": "CV",
+      "quality": "F",
+      "count": 1476,
+      "min": 30.00418,
+      "max": 117.98447
+    },
+    {
+      "error_type": "SE",
+      "quality": "A",
+      "count": 41144,
+      "min": 0.0,
+      "max": 2.49993
+    },
+    {
+      "error_type": "SE",
+      "quality": "B",
+      "count": 16193,
+      "min": 2.50014,
+      "max": 4.99995
+    },
+    {
+      "error_type": "SE",
+      "quality": "C",
+      "count": 6750,
+      "min": 5.00027,
+      "max": 7.4997
+    },
+    {
+      "error_type": "SE",
+      "quality": "D",
+      "count": 3109,
+      "min": 7.5001,
+      "max": 9.99885
+    },
+    {
+      "error_type": "SE",
+      "quality": "E",
+      "count": 3092,
+      "min": 10.0009,
+      "max": 14.99417
+    },
+    {
+      "error_type": "SE",
+      "quality": "F",
+      "count": 1691,
+      "min": 15.00486,
+      "max": 35.61944
+    }
+  ],
+  "number_formats": {
+    "# | #,##0": 444,
+    "# | 0.0": 100,
+    "$ | #,##0": 3960,
+    "% | #,##0.0": 3554,
+    "% | 0.0": 69838,
+    "Average | #,##0": 660,
+    "Average | 0": 264,
+    "Median | #,##0": 660,
+    "Months | 0": 264,
+    "average | 0": 132
+  },
+  "dimension_counts_main_stub": {
+    "geography_cma": 24,
+    "ownership_demographics": 16,
+    "industry_naics_group": 10,
+    "geography_region": 10,
+    "industry_special_aggregate": 8,
+    "sales_growth": 7,
+    "innovation": 6,
+    "owner_education": 5,
+    "intellectual_property": 5,
+    "female_ownership": 5,
+    "owner_age": 5,
+    "employment_size": 4,
+    "business_age": 4,
+    "legal_status": 3,
+    "social_enterprises": 3,
+    "owner_birthplace": 2,
+    "export_status": 2,
+    "expansion_intention": 2,
+    "rural_urban": 2,
+    "all_smes": 1,
+    "international_activity": 1,
+    "ecommerce": 1,
+    "technology_adoption": 1,
+    "potential_borrowers": 1,
+    "procurement": 1,
+    "rejected_borrowers": 1,
+    "clean_tech": 1,
+    "cooperatives": 1
+  },
+  "core_reliability_pct": {
+    "ISED_T01|employment_size": {
+      "A_to_D": 100.0,
+      "E": 0.0,
+      "F": 0.0,
+      "estimates": 32
+    },
+    "ISED_T01|geography_cma": {
+      "A_to_D": 97.9,
+      "E": 2.1,
+      "F": 0.0,
+      "estimates": 192
+    },
+    "ISED_T01|geography_region": {
+      "A_to_D": 100.0,
+      "E": 0.0,
+      "F": 0.0,
+      "estimates": 24
+    },
+    "ISED_T01|industry_naics_group": {
+      "A_to_D": 100.0,
+      "E": 0.0,
+      "F": 0.0,
+      "estimates": 80
+    },
+    "ISED_T01|province": {
+      "A_to_D": 100.0,
+      "E": 0.0,
+      "F": 0.0,
+      "estimates": 40
+    },
+    "ISED_T03|employment_size": {
+      "A_to_D": 100.0,
+      "E": 0.0,
+      "F": 0.0,
+      "estimates": 28
+    },
+    "ISED_T03|geography_cma": {
+      "A_to_D": 94.6,
+      "E": 4.8,
+      "F": 0.6,
+      "estimates": 168
+    },
+    "ISED_T03|geography_region": {
+      "A_to_D": 100.0,
+      "E": 0.0,
+      "F": 0.0,
+      "estimates": 21
+    },
+    "ISED_T03|industry_naics_group": {
+      "A_to_D": 100.0,
+      "E": 0.0,
+      "F": 0.0,
+      "estimates": 70
+    },
+    "ISED_T03|province": {
+      "A_to_D": 100.0,
+      "E": 0.0,
+      "F": 0.0,
+      "estimates": 35
+    },
+    "ISED_T04|employment_size": {
+      "A_to_D": 97.5,
+      "E": 2.5,
+      "F": 0.0,
+      "estimates": 40
+    },
+    "ISED_T04|geography_cma": {
+      "A_to_D": 82.9,
+      "E": 8.8,
+      "F": 8.3,
+      "estimates": 240
+    },
+    "ISED_T04|geography_region": {
+      "A_to_D": 96.7,
+      "E": 3.3,
+      "F": 0.0,
+      "estimates": 30
+    },
+    "ISED_T04|industry_naics_group": {
+      "A_to_D": 96.0,
+      "E": 4.0,
+      "F": 0.0,
+      "estimates": 100
+    },
+    "ISED_T04|province": {
+      "A_to_D": 100.0,
+      "E": 0.0,
+      "F": 0.0,
+      "estimates": 50
+    },
+    "ISED_T05|employment_size": {
+      "A_to_D": 70.0,
+      "E": 16.0,
+      "F": 14.0,
+      "estimates": 100
+    },
+    "ISED_T05|geography_cma": {
+      "A_to_D": 25.2,
+      "E": 20.3,
+      "F": 54.5,
+      "estimates": 600
+    },
+    "ISED_T05|geography_region": {
+      "A_to_D": 52.0,
+      "E": 18.7,
+      "F": 29.3,
+      "estimates": 75
+    },
+    "ISED_T05|industry_naics_group": {
+      "A_to_D": 54.0,
+      "E": 27.2,
+      "F": 18.8,
+      "estimates": 250
+    },
+    "ISED_T05|province": {
+      "A_to_D": 43.2,
+      "E": 32.0,
+      "F": 24.8,
+      "estimates": 125
+    },
+    "ISED_T49|employment_size": {
+      "A_to_D": 100.0,
+      "E": 0.0,
+      "F": 0.0,
+      "estimates": 12
+    },
+    "ISED_T49|geography_cma": {
+      "A_to_D": 100.0,
+      "E": 0.0,
+      "F": 0.0,
+      "estimates": 72
+    },
+    "ISED_T49|geography_region": {
+      "A_to_D": 100.0,
+      "E": 0.0,
+      "F": 0.0,
+      "estimates": 9
+    },
+    "ISED_T49|industry_naics_group": {
+      "A_to_D": 100.0,
+      "E": 0.0,
+      "F": 0.0,
+      "estimates": 30
+    },
+    "ISED_T49|province": {
+      "A_to_D": 100.0,
+      "E": 0.0,
+      "F": 0.0,
+      "estimates": 15
+    },
+    "ISED_T50|geography_region": {
+      "A_to_D": 91.7,
+      "E": 8.3,
+      "F": 0.0,
+      "estimates": 12
+    },
+    "ISED_T50|industry_naics_group": {
+      "A_to_D": 92.9,
+      "E": 7.1,
+      "F": 0.0,
+      "estimates": 140
+    },
+    "ISED_T50|province": {
+      "A_to_D": 85.0,
+      "E": 10.0,
+      "F": 5.0,
+      "estimates": 20
+    }
+  },
+  "cma_labels_unmatched_1097": [
+    "Sudbury"
+  ],
+  "relevance_counts": {
+    "Out of scope": 26,
+    "Contextual": 19,
+    "Core": 6
+  },
+  "doc_claims": {
+    "worksheets": "**55** worksheets",
+    "table_sheets": "**51** table sheets",
+    "blocks": "**108** in total",
+    "measures": "Blocks contain **617** measures",
+    "numeric_values": "There are 78,789 numeric values",
+    "quality_coded_values": "**77,489** of them carry a quality code",
+    "quality_A_to_D": "| A–D | **70,200** |",
+    "quality_E": "| E | **4,122** |",
+    "quality_F": "| F | **3,167** |",
+    "dotdot_values": "| `..` | **987** |",
+    "blank_values": "| blank | **100** |",
+    "zeros_published": "| 0 | **3,501** |",
+    "dotdot_definitional": "**339** cells fall in segments",
+    "dotdot_undocumented": "**648** cells are unavailable",
+    "imdb_threshold_agreement": "only **75,922**",
+    "weighted_smes": "**863,533** SMEs in the target population",
+    "respondents": "(**11,210**) are sample support",
+    "notes_sample": "**29,100** enterprises",
+    "notes_response_rate": "gives **51.1%**",
+    "stub_rows_main": "(**132** rows)",
+    "cmas": "| CMA | **24** |",
+    "industry_groups": "| Industry, NAICS-based | **10** |",
+    "relevance": "**6** Core, **19** Contextual and **26** out of scope",
+    "reconciliation_tests": "There are **35** tests",
+    "reconciliation_results": "**34** consistent and **1** finding",
+    "cma_labels_matching_1097": "**23** of 24 CMA labels",
+    "defined_names": "all **211** are hidden",
+    "custom_views": "**11** saved custom views",
+    "merged_ranges": "**Merged ranges:** **1,281**",
+    "conditional_format_rules": "**20** rules",
+    "percentage_measures": "**556** are percentages",
+    "annotated_measures": "All **282** measures",
+    "t49_share": "for **126** of 132 rows. **6** special-population rows",
+    "t01_cma": "Table 1 is **97.9%** A–D",
+    "t03_cma": "Table 3 is **94.6%** A–D",
+    "t04_cma": "**8.3%** of estimates are F",
+    "t05_cma": "only **25.2%** of estimates are A–D and **54.5%** are F",
+    "t05_industry": "By industry, **18.8%** are F",
+    "nonprofit_bound": "total **940** (**0.11%** of the All-SMEs count)",
+    "portal_bytes": "**2,482,697 bytes**"
+  },
+  "gates": {
+    "workbook_listed_once_in_manifest": true,
+    "workbook_sha256_matches_manifest_before": true,
+    "workbook_size_matches_open_government_portal": true,
+    "manifest_provenance_recorded_for_workbook": true,
+    "sheet_count_consistent_xml_app_openpyxl": true,
+    "sheet_names_and_order_match_xml": true,
+    "all_sheets_inventoried_including_hidden": true,
+    "no_external_links_pivots_charts_tables_macros": true,
+    "no_user_named_ranges": true,
+    "no_formulas": true,
+    "formula_and_cached_value_reads_identical": true,
+    "every_table_sheet_has_title_unit_row_and_footnotes": true,
+    "sheet_name_matches_title_number": true,
+    "index_lists_every_table_and_only_those": true,
+    "every_table_and_measure_has_stable_unique_id": true,
+    "row_stub_identical_across_tables_1_to_49_and_A": true,
+    "stub_labels_unique_within_each_table": true,
+    "every_data_column_belongs_to_exactly_one_measure_role": true,
+    "measure_column_ranges_do_not_overlap": true,
+    "every_value_column_has_header_path": true,
+    "no_merged_range_intersects_data_area": true,
+    "every_measure_in_tables_1_to_50_has_quality_and_error_columns": true,
+    "all_sheet_used_ranges_contain_nonempty_cells": true,
+    "percent_values_stored_on_0_to_100_scale": true,
+    "no_percent_number_format_on_values": true,
+    "no_display_scaling_in_number_formats": true,
+    "no_numbers_stored_as_text": true,
+    "every_stub_row_classified": true,
+    "every_numeric_estimate_has_quality_code_and_error": true,
+    "every_unavailable_or_blank_value_has_no_quality_or_error": true,
+    "only_known_value_states_present": true,
+    "quality_codes_follow_workbook_notes_thresholds": true,
+    "all_blank_values_are_table_50_region_by_region_block": true,
+    "conditional_formatting_only_highlights_x_and_no_x_present": true,
+    "every_quality_marker_classified": true,
+    "documented_header_anomalies_present_in_source": true,
+    "every_relevant_measure_has_estimate_type_and_unit": true,
+    "every_relevant_measure_denominator_annotated": true,
+    "every_percentage_denominator_identified_or_marked_unresolved": true,
+    "revenue_band_dimension_absent_in_every_table": true,
+    "reconciliations_use_only_declared_compatible_categories": true,
+    "every_reconciliation_executed": true,
+    "every_table_classified_for_relevance": true,
+    "documentation_numbers_reproduced_by_outputs": true,
+    "workbook_sha256_matches_manifest_after": true,
+    "workbook_size_and_mtime_unchanged": true
+  },
+  "all_gates_pass": true,
+  "elapsed_seconds": 13.2
+}

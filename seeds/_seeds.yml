@@ -1,0 +1,313 @@
+version: 2
+
+# Every seed column is loaded as text so codes such as '001' and '10;11;12;13' keep their exact form;
+# typing happens in the staging layer. Empty cells load as NULL (tested against the CSV files).
+
+seeds:
+  - name: cma_sgc2016_to_sgc2021
+    description: "Reviewed crosswalk E1: SGC 2016 CMA codes (table 0722) to SGC 2021 CMA codes (table 1097). 35 shared codes carry a boundary caveat; 6 CMAs are target-only (CAs in 2016)."
+    config:
+      column_types:
+        crosswalk_id: varchar
+        source_system: varchar
+        source_dimension: varchar
+        source_code: varchar
+        source_label: varchar
+        source_vintage: varchar
+        target_system: varchar
+        target_dimension: varchar
+        target_code: varchar
+        target_label: varchar
+        target_vintage: varchar
+        mapping_type: varchar
+        mapping_status: varchar
+        match_method: varchar
+        boundary_change_flag: varchar
+        include_flag: varchar
+        exclusion_reason: varchar
+        evidence_source: varchar
+        evidence_url: varchar
+        confidence: varchar
+        notes: varchar
+        source_dguid: varchar
+        target_dguid: varchar
+        preliminary_csd_additions: varchar
+  - name: crosswalk_schema
+    description: "Column dictionary for the reviewed crosswalks."
+    config:
+      column_types:
+        crosswalk: varchar
+        file: varchar
+        column: varchar
+        column_group: varchar
+  - name: crosswalk_sources
+    description: "Official sources cited by the reviewed crosswalks."
+    config:
+      column_types:
+        source_id: varchar
+        organization: varchar
+        title: varchar
+        classification_or_concordance: varchar
+        url: varchar
+        release_or_vintage: varchar
+        used_by: varchar
+        claim_supported: varchar
+        access_date: varchar
+  - name: ised_cma_to_sgc2021
+    description: "Reviewed crosswalk E2: ISED CMA row labels (source_label is the key; ISED publishes no codes) to SGC 2021 CMA codes. ISED geography vintage is not stated."
+    config:
+      column_types:
+        crosswalk_id: varchar
+        source_system: varchar
+        source_dimension: varchar
+        source_code: varchar
+        source_label: varchar
+        source_vintage: varchar
+        target_system: varchar
+        target_dimension: varchar
+        target_code: varchar
+        target_label: varchar
+        target_vintage: varchar
+        mapping_type: varchar
+        mapping_status: varchar
+        match_method: varchar
+        boundary_change_flag: varchar
+        include_flag: varchar
+        exclusion_reason: varchar
+        evidence_source: varchar
+        evidence_url: varchar
+        confidence: varchar
+        notes: varchar
+        ised_row_context: varchar
+        official_province_codes: varchar
+  - name: ised_industry_to_naics2022
+    description: "Reviewed crosswalk E4: ISED industry groups and special aggregates (source_label is the key) to NAICS 2022 sectors."
+    config:
+      column_types:
+        crosswalk_id: varchar
+        source_system: varchar
+        source_dimension: varchar
+        source_code: varchar
+        source_label: varchar
+        source_vintage: varchar
+        target_system: varchar
+        target_dimension: varchar
+        target_code: varchar
+        target_label: varchar
+        target_vintage: varchar
+        mapping_type: varchar
+        mapping_status: varchar
+        match_method: varchar
+        boundary_change_flag: varchar
+        include_flag: varchar
+        exclusion_reason: varchar
+        evidence_source: varchar
+        evidence_url: varchar
+        confidence: varchar
+        notes: varchar
+        inclusion_type: varchar
+        excluded_codes_within: varchar
+        additive_flag: varchar
+  - name: ised_region_province_crosswalk
+    description: "Reviewed crosswalk E8: ISED region/province labels (source_label is the key) to SGC province codes; regional values are never replicated to provinces."
+    config:
+      column_types:
+        crosswalk_id: varchar
+        source_system: varchar
+        source_dimension: varchar
+        source_code: varchar
+        source_label: varchar
+        source_vintage: varchar
+        target_system: varchar
+        target_dimension: varchar
+        target_code: varchar
+        target_label: varchar
+        target_vintage: varchar
+        mapping_type: varchar
+        mapping_status: varchar
+        match_method: varchar
+        boundary_change_flag: varchar
+        include_flag: varchar
+        exclusion_reason: varchar
+        evidence_source: varchar
+        evidence_url: varchar
+        confidence: varchar
+        notes: varchar
+        dimension_type: varchar
+        sgc_region: varchar
+        replicate_to_provinces: varchar
+  - name: ised_scope_approximation_rules
+    description: "Reviewed rules E6: observable and unobservable ISED survey-scope filters (diagnostic only)."
+    config:
+      column_types:
+        crosswalk_id: varchar
+        source_system: varchar
+        source_dimension: varchar
+        source_code: varchar
+        source_label: varchar
+        source_vintage: varchar
+        target_system: varchar
+        target_dimension: varchar
+        target_code: varchar
+        target_label: varchar
+        target_vintage: varchar
+        mapping_type: varchar
+        mapping_status: varchar
+        match_method: varchar
+        boundary_change_flag: varchar
+        include_flag: varchar
+        exclusion_reason: varchar
+        evidence_source: varchar
+        evidence_url: varchar
+        confidence: varchar
+        notes: varchar
+        rule_id: varchar
+        precedence: varchar
+        rule_type: varchar
+        observable_in_1097: varchar
+        applicability_grain: varchar
+        exactness: varchar
+  - name: non_additive_category_rules
+    description: "Reviewed rules E7: categories that must never be summed as mutually exclusive groups or allocated."
+    config:
+      column_types:
+        crosswalk_id: varchar
+        source_system: varchar
+        source_dimension: varchar
+        source_code: varchar
+        source_label: varchar
+        source_vintage: varchar
+        target_system: varchar
+        target_dimension: varchar
+        target_code: varchar
+        target_label: varchar
+        target_vintage: varchar
+        mapping_type: varchar
+        mapping_status: varchar
+        match_method: varchar
+        boundary_change_flag: varchar
+        include_flag: varchar
+        exclusion_reason: varchar
+        evidence_source: varchar
+        evidence_url: varchar
+        confidence: varchar
+        notes: varchar
+        rule_id: varchar
+        category_system: varchar
+        treatment: varchar
+        additive_allowed: varchar
+        denominator_effect: varchar
+  - name: statcan_0722_industry_to_naics2022
+    description: "Reviewed crosswalk E3: table 0722 industry members (source_member_id) to NAICS 2022 codes; one row per member-code relationship."
+    config:
+      column_types:
+        crosswalk_id: varchar
+        source_system: varchar
+        source_dimension: varchar
+        source_code: varchar
+        source_label: varchar
+        source_vintage: varchar
+        target_system: varchar
+        target_dimension: varchar
+        target_code: varchar
+        target_label: varchar
+        target_vintage: varchar
+        mapping_type: varchar
+        mapping_status: varchar
+        match_method: varchar
+        boundary_change_flag: varchar
+        include_flag: varchar
+        exclusion_reason: varchar
+        evidence_source: varchar
+        evidence_url: varchar
+        confidence: varchar
+        notes: varchar
+        source_member_id: varchar
+        source_parent_id: varchar
+        source_class: varchar
+        sector_rollup_flag: varchar
+  - name: statcan_1097_size_to_sme_bands
+    description: "Reviewed crosswalk E5: table 1097 employment-size members to broad size bands (location basis)."
+    config:
+      column_types:
+        crosswalk_id: varchar
+        source_system: varchar
+        source_dimension: varchar
+        source_code: varchar
+        source_label: varchar
+        source_vintage: varchar
+        target_system: varchar
+        target_dimension: varchar
+        target_code: varchar
+        target_label: varchar
+        target_vintage: varchar
+        mapping_type: varchar
+        mapping_status: varchar
+        match_method: varchar
+        boundary_change_flag: varchar
+        include_flag: varchar
+        exclusion_reason: varchar
+        evidence_source: varchar
+        evidence_url: varchar
+        confidence: varchar
+        notes: varchar
+        source_lower: varchar
+        source_upper: varchar
+        target_lower: varchar
+        target_upper: varchar
+        unit_basis: varchar
+        in_ised_scope: varchar
+  - name: broad_size_band_order
+    description: "Reviewed map: display order and SME-scope flag of the broad size bands."
+    config:
+      column_types:
+        size_band_key: varchar
+        sort_order: varchar
+        in_sme_scope: varchar
+  - name: ised_industry_aggregate_codes
+    description: "Reviewed map: project codes for the 8 ISED special industry aggregates (they have no published code)."
+    config:
+      column_types:
+        published_label: varchar
+        industry_code: varchar
+  - name: ised_segment_scope
+    description: "Reviewed scope: which ISED tables and one-way segment dimensions enter the financing-context fact (Table 5 national and size band only; Table 50 excluded as a two-way cross)."
+    config:
+      column_types:
+        table_no: varchar
+        dimension_class: varchar
+        segment_dimension: varchar
+  - name: ised_size_segments
+    description: "Reviewed map: ISED employment-size row label to broad size-band key."
+    config:
+      column_types:
+        published_label: varchar
+        size_band_key: varchar
+  - name: ised_subprovincial_region_keys
+    description: "Reviewed map: segment keys for ISED sub-provincial regions whose components ISED does not document."
+    config:
+      column_types:
+        published_label: varchar
+        region_key: varchar
+  - name: non_additive_rule_links
+    description: "Reviewed map: links each E7 non-additive rule to the coded member it governs (E7 rules carry labels only; each link is verified by exact label in a test)."
+    config:
+      column_types:
+        rule_id: varchar
+        industry_system: varchar
+        industry_code: varchar
+  - name: statcan_0722_measure_members
+    description: "Reviewed map: table 0722 business-dynamics measure member id to measure code; in_cma_momentum_scope marks the four measures published for CMAs."
+    config:
+      column_types:
+        measure_member_id: varchar
+        measure: varchar
+        published_label: varchar
+        in_cma_momentum_scope: varchar
+  - name: statcan_0722_size_members
+    description: "Reviewed map (constant in the Python analytical layer): table 0722 employment-size member id to broad size-band key, with the published label it was verified against."
+    config:
+      column_types:
+        size_member_id: varchar
+        size_band_key: varchar
+        published_label: varchar

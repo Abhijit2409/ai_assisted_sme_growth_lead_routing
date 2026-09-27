@@ -1,0 +1,7 @@
+size_band_key,sort_order,in_sme_scope
+1-4,1,True
+5-19,2,True
+20-99,3,True
+100-499,4,True
+500-plus,5,False
+TOTAL,6,False

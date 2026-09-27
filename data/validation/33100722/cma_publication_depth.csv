@@ -1,0 +1,36 @@
+geo_id,geo,naics_sectors_with_values,size_bands_with_values_T004,T004_first_valued_month,sector_detail_first_month,measures_with_values_T004_all_sizes
+11,"Montréal, Quebec",18,6,2015-01,2018-01,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+31,"Toronto, Ontario",18,6,2015-01,2018-01,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+45,"Vancouver, British Columbia",18,6,2015-01,2018-01,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+23,"Hamilton, Ontario",16,6,2015-01,2018-01,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+34,"Winnipeg, Manitoba",16,6,2015-01,2018-01,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+25,"Kitchener - Cambridge - Waterloo, Ontario",15,6,2015-01,2018-01,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+22,"Guelph, Ontario",15,3,2015-01,2018-01,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+27,"Oshawa, Ontario",15,3,2015-01,2018-01,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+39,"Calgary, Alberta",0,6,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+40,"Edmonton, Alberta",0,6,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+6,"Halifax, Nova Scotia",0,6,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+26,"London, Ontario",0,6,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+8,"Moncton, New Brunswick",0,6,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+17,"Ottawa - Gatineau, Ontario/Quebec",0,6,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+12,"Québec, Quebec",0,6,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+36,"Regina, Saskatchewan",0,6,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+37,"Saskatoon, Saskatchewan",0,6,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+29,"St. Catharines - Niagara, Ontario",0,6,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+46,"Victoria, British Columbia",0,6,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+32,"Windsor, Ontario",0,6,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+43,"Abbotsford - Mission, British Columbia",0,3,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+18,"Barrie, Ontario",0,3,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+19,"Belleville, Ontario",0,3,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+20,"Brantford, Ontario",0,3,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+21,"Greater Sudbury, Ontario",0,3,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+44,"Kelowna, British Columbia",0,3,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+24,"Kingston, Ontario",0,3,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+41,"Lethbridge, Alberta",0,3,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+28,"Peterborough, Ontario",0,3,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+13,"Saguenay, Quebec",0,3,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+9,"Saint John, New Brunswick",0,3,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+14,"Sherbrooke, Quebec",0,3,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+3,"St. John's, Newfoundland and Labrador",0,3,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+30,"Thunder Bay, Ontario",0,3,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses
+15,"Trois-Rivières, Quebec",0,3,2015-01,,Active businesses; Opening businesses; Continuing businesses; Closing businesses

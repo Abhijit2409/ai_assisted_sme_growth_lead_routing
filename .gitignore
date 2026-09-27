@@ -1,0 +1,22 @@
+# Raw source files: too large for git (33100722.csv is 1.69 GB). Re-download from source.
+data/raw/
+
+# Local validation cache (Parquet / DuckDB temp). Disposable, rebuilt from data/raw.
+data/cache/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# dbt and the local DuckDB warehouse (generated; rebuilt by run_analytical_pipeline.ps1)
+target/
+logs/
+dbt_packages/
+.user.yml
+profiles.yml
+data/warehouse/*.duckdb
+data/warehouse/*.duckdb.wal
+data/warehouse/*.wal
+*.duckdb.wal
+.env

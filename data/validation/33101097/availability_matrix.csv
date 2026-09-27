@@ -1,0 +1,163 @@
+geo_level,naics_level,size_id,employment_size,possible_cells,published_cells,zero_by_reconciliation_cells,pct_cells_published,pct_published_eq_1,pct_published_ge_10,median_published_value,possible_blocks,blocks_fully_published,blocks_partially_published,blocks_all_zero
+CMA,table_total,1,"Total, with employees",41,41,0,100.0,0.0,100.0,8010.0,41,41,0,0
+CMA,table_total,2,1 to 4 employees,41,41,0,100.0,0.0,100.0,4231.0,41,41,0,0
+CMA,table_total,3,5 to 9 employees,41,41,0,100.0,0.0,100.0,1478.0,41,41,0,0
+CMA,table_total,4,10 to 19 employees,41,41,0,100.0,0.0,100.0,1049.0,41,41,0,0
+CMA,table_total,5,20 to 49 employees,41,41,0,100.0,0.0,100.0,740.0,41,41,0,0
+CMA,table_total,6,50 to 99 employees,41,41,0,100.0,0.0,100.0,228.0,41,41,0,0
+CMA,table_total,7,100 to 199 employees,41,41,0,100.0,0.0,100.0,89.0,41,41,0,0
+CMA,table_total,8,200 to 499 employees,41,41,0,100.0,0.0,100.0,42.0,41,41,0,0
+CMA,table_total,9,500 plus employees,41,41,0,100.0,0.0,80.49,21.0,41,41,0,0
+CMA,unclassified,1,"Total, with employees",41,41,0,100.0,0.0,100.0,457.0,41,41,0,0
+CMA,unclassified,2,1 to 4 employees,41,41,0,100.0,0.0,100.0,337.0,41,41,0,0
+CMA,unclassified,3,5 to 9 employees,41,41,0,100.0,0.0,100.0,65.0,41,41,0,0
+CMA,unclassified,4,10 to 19 employees,41,41,0,100.0,0.0,97.56,28.0,41,41,0,0
+CMA,unclassified,5,20 to 49 employees,41,40,1,97.56,0.0,67.5,14.0,41,40,0,1
+CMA,unclassified,6,50 to 99 employees,41,41,0,100.0,19.51,19.51,5.0,41,41,0,0
+CMA,unclassified,7,100 to 199 employees,41,25,16,60.98,40.0,16.0,2.0,41,25,0,16
+CMA,unclassified,8,200 to 499 employees,41,9,32,21.95,55.56,22.22,1.0,41,9,0,32
+CMA,unclassified,9,500 plus employees,41,4,37,9.76,75.0,0.0,1.0,41,4,0,37
+CMA,classified_subtotal,1,"Total, with employees",41,41,0,100.0,0.0,100.0,6996.0,41,41,0,0
+CMA,classified_subtotal,2,1 to 4 employees,41,41,0,100.0,0.0,100.0,3486.0,41,41,0,0
+CMA,classified_subtotal,3,5 to 9 employees,41,41,0,100.0,0.0,100.0,1399.0,41,41,0,0
+CMA,classified_subtotal,4,10 to 19 employees,41,41,0,100.0,0.0,100.0,1014.0,41,41,0,0
+CMA,classified_subtotal,5,20 to 49 employees,41,41,0,100.0,0.0,100.0,721.0,41,41,0,0
+CMA,classified_subtotal,6,50 to 99 employees,41,41,0,100.0,0.0,100.0,226.0,41,41,0,0
+CMA,classified_subtotal,7,100 to 199 employees,41,41,0,100.0,0.0,100.0,88.0,41,41,0,0
+CMA,classified_subtotal,8,200 to 499 employees,41,41,0,100.0,0.0,100.0,42.0,41,41,0,0
+CMA,classified_subtotal,9,500 plus employees,41,41,0,100.0,0.0,80.49,21.0,41,41,0,0
+CMA,sector,1,"Total, with employees",820,820,0,100.0,0.12,95.37,292.5,41,41,0,0
+CMA,sector,2,1 to 4 employees,820,815,5,99.39,1.96,87.24,123.0,41,36,5,0
+CMA,sector,3,5 to 9 employees,820,791,29,96.46,3.79,85.46,56.0,41,22,19,0
+CMA,sector,4,10 to 19 employees,820,796,24,97.07,3.77,80.78,40.0,41,22,19,0
+CMA,sector,5,20 to 49 employees,820,789,31,96.22,3.3,75.54,30.0,41,19,22,0
+CMA,sector,6,50 to 99 employees,820,767,53,93.54,8.21,54.89,11.0,41,11,30,0
+CMA,sector,7,100 to 199 employees,820,668,152,81.46,15.57,36.08,5.5,41,5,36,0
+CMA,sector,8,200 to 499 employees,820,573,247,69.88,26.0,22.86,3.0,41,4,37,0
+CMA,sector,9,500 plus employees,820,410,410,50.0,33.9,16.1,2.0,41,0,41,0
+CMA,subsector,1,"Total, with employees",4059,3777,282,93.05,5.22,72.84,31.0,41,2,39,0
+CMA,subsector,2,1 to 4 employees,4059,3427,632,84.43,9.98,58.04,14.0,41,0,41,0
+CMA,subsector,3,5 to 9 employees,4059,3157,902,77.78,13.18,49.16,9.0,41,0,41,0
+CMA,subsector,4,10 to 19 employees,4059,3052,1007,75.19,15.01,45.74,8.0,41,0,41,0
+CMA,subsector,5,20 to 49 employees,4059,3002,1057,73.96,15.62,39.54,6.0,41,0,41,0
+CMA,subsector,6,50 to 99 employees,4059,2455,1604,60.48,25.82,23.42,3.0,41,0,41,0
+CMA,subsector,7,100 to 199 employees,4059,1816,2243,44.74,36.56,15.8,2.0,41,0,41,0
+CMA,subsector,8,200 to 499 employees,4059,1267,2792,31.21,42.54,10.89,2.0,41,0,41,0
+CMA,subsector,9,500 plus employees,4059,744,3315,18.33,47.31,7.53,2.0,41,0,41,0
+CMA,industry_group,1,"Total, with employees",13243,10892,2351,82.25,11.65,52.48,11.0,41,0,41,0
+CMA,industry_group,2,1 to 4 employees,13243,8974,4269,67.76,20.09,39.07,6.0,41,0,41,0
+CMA,industry_group,3,5 to 9 employees,13243,7900,5343,59.65,23.94,30.91,4.0,41,0,41,0
+CMA,industry_group,4,10 to 19 employees,13243,7411,5832,55.96,25.76,26.66,4.0,41,0,41,0
+CMA,industry_group,5,20 to 49 employees,13243,7056,6187,53.28,27.86,21.43,3.0,41,0,41,0
+CMA,industry_group,6,50 to 99 employees,13243,4873,8370,36.8,41.56,12.48,2.0,41,0,41,0
+CMA,industry_group,7,100 to 199 employees,13243,3168,10075,23.92,50.16,8.52,1.0,41,0,41,0
+CMA,industry_group,8,200 to 499 employees,13243,2030,11213,15.33,54.33,5.67,1.0,41,0,41,0
+CMA,industry_group,9,500 plus employees,13243,1112,12131,8.4,59.53,3.51,1.0,41,0,41,0
+CSD_in_CMA,table_total,1,"Total, with employees",579,548,31,94.65,1.28,93.43,215.0,579,548,0,31
+CSD_in_CMA,table_total,2,1 to 4 employees,579,540,39,93.26,2.59,89.26,123.0,579,540,0,39
+CSD_in_CMA,table_total,3,5 to 9 employees,579,530,49,91.54,4.34,73.58,41.0,579,530,0,49
+CSD_in_CMA,table_total,4,10 to 19 employees,579,518,61,89.46,6.56,67.76,25.0,579,518,0,61
+CSD_in_CMA,table_total,5,20 to 49 employees,579,501,78,86.53,10.98,61.08,19.0,579,501,0,78
+CSD_in_CMA,table_total,6,50 to 99 employees,579,413,166,71.33,17.43,49.88,9.0,579,413,0,166
+CSD_in_CMA,table_total,7,100 to 199 employees,579,358,221,61.83,19.55,38.83,5.0,579,358,0,221
+CSD_in_CMA,table_total,8,200 to 499 employees,579,284,295,49.05,29.58,32.39,4.0,579,284,0,295
+CSD_in_CMA,table_total,9,500 plus employees,579,188,391,32.47,28.19,26.06,4.0,579,188,0,391
+CSD_in_CMA,unclassified,1,"Total, with employees",579,488,91,84.28,9.43,62.91,18.0,579,488,0,91
+CSD_in_CMA,unclassified,2,1 to 4 employees,579,471,108,81.35,9.98,60.93,16.0,579,471,0,108
+CSD_in_CMA,unclassified,3,5 to 9 employees,579,365,214,63.04,25.48,31.51,4.0,579,365,0,214
+CSD_in_CMA,unclassified,4,10 to 19 employees,579,284,295,49.05,30.63,26.76,3.0,579,284,0,295
+CSD_in_CMA,unclassified,5,20 to 49 employees,579,218,361,37.65,40.37,16.97,2.0,579,218,0,361
+CSD_in_CMA,unclassified,6,50 to 99 employees,579,124,455,21.42,47.58,8.06,2.0,579,124,0,455
+CSD_in_CMA,unclassified,7,100 to 199 employees,579,52,527,8.98,59.62,7.69,1.0,579,52,0,527
+CSD_in_CMA,unclassified,8,200 to 499 employees,579,19,560,3.28,63.16,5.26,1.0,579,19,0,560
+CSD_in_CMA,unclassified,9,500 plus employees,579,5,574,0.86,100.0,0.0,1.0,579,5,0,574
+CSD_in_CMA,classified_subtotal,1,"Total, with employees",579,545,34,94.13,1.1,92.84,200.0,579,545,0,34
+CSD_in_CMA,classified_subtotal,2,1 to 4 employees,579,539,40,93.09,2.6,88.13,112.0,579,539,0,40
+CSD_in_CMA,classified_subtotal,3,5 to 9 employees,579,527,52,91.02,4.17,73.43,39.0,579,527,0,52
+CSD_in_CMA,classified_subtotal,4,10 to 19 employees,579,514,65,88.77,6.03,67.32,25.0,579,514,0,65
+CSD_in_CMA,classified_subtotal,5,20 to 49 employees,579,498,81,86.01,11.24,60.64,18.5,579,498,0,81
+CSD_in_CMA,classified_subtotal,6,50 to 99 employees,579,412,167,71.16,18.45,49.27,9.0,579,412,0,167
+CSD_in_CMA,classified_subtotal,7,100 to 199 employees,579,358,221,61.83,19.83,38.83,5.0,579,358,0,221
+CSD_in_CMA,classified_subtotal,8,200 to 499 employees,579,283,296,48.88,29.33,32.51,4.0,579,283,0,296
+CSD_in_CMA,classified_subtotal,9,500 plus employees,579,188,391,32.47,28.19,26.06,4.0,579,188,0,391
+CSD_in_CMA,sector,1,"Total, with employees",11580,8311,3269,71.77,16.41,50.28,10.0,579,123,422,34
+CSD_in_CMA,sector,2,1 to 4 employees,11580,7093,4487,61.25,18.02,45.33,8.0,579,35,504,40
+CSD_in_CMA,sector,3,5 to 9 employees,11580,5751,5829,49.66,24.62,34.99,5.0,579,19,508,52
+CSD_in_CMA,sector,4,10 to 19 employees,11580,5181,6399,44.74,27.97,30.96,4.0,579,12,502,65
+CSD_in_CMA,sector,5,20 to 49 employees,11580,4521,7059,39.04,29.37,28.36,3.0,579,12,486,81
+CSD_in_CMA,sector,6,50 to 99 employees,11580,3071,8509,26.52,34.94,20.48,2.0,579,6,406,167
+CSD_in_CMA,sector,7,100 to 199 employees,11580,2173,9407,18.77,43.76,13.58,2.0,579,4,354,221
+CSD_in_CMA,sector,8,200 to 499 employees,11580,1440,10140,12.44,49.86,9.93,2.0,579,1,282,296
+CSD_in_CMA,sector,9,500 plus employees,11580,853,10727,7.37,52.99,6.8,1.0,579,0,188,391
+CSD_in_CMA,subsector,1,"Total, with employees",57321,24402,32919,42.57,27.4,32.16,4.0,579,0,545,34
+CSD_in_CMA,subsector,2,1 to 4 employees,57321,18772,38549,32.75,32.2,25.92,3.0,579,0,539,40
+CSD_in_CMA,subsector,3,5 to 9 employees,57321,13935,43386,24.31,36.85,20.03,2.0,579,0,527,52
+CSD_in_CMA,subsector,4,10 to 19 employees,57321,12138,45183,21.18,39.12,18.1,2.0,579,0,514,65
+CSD_in_CMA,subsector,5,20 to 49 employees,57321,10539,46782,18.39,41.13,15.64,2.0,579,0,498,81
+CSD_in_CMA,subsector,6,50 to 99 employees,57321,6502,50819,11.34,47.79,9.0,2.0,579,0,412,167
+CSD_in_CMA,subsector,7,100 to 199 employees,57321,4097,53224,7.15,57.19,5.39,1.0,579,0,358,221
+CSD_in_CMA,subsector,8,200 to 499 employees,57321,2440,54881,4.26,62.58,3.81,1.0,579,0,283,296
+CSD_in_CMA,subsector,9,500 plus employees,57321,1249,56072,2.18,64.93,2.96,1.0,579,0,188,391
+CSD_in_CMA,industry_group,1,"Total, with employees",187017,51917,135100,27.76,34.65,22.88,3.0,579,0,545,34
+CSD_in_CMA,industry_group,2,1 to 4 employees,187017,37122,149895,19.85,39.95,18.46,2.0,579,0,539,40
+CSD_in_CMA,industry_group,3,5 to 9 employees,187017,25916,161101,13.86,45.98,12.4,2.0,579,0,527,52
+CSD_in_CMA,industry_group,4,10 to 19 employees,187017,21615,165402,11.56,47.72,10.66,2.0,579,0,514,65
+CSD_in_CMA,industry_group,5,20 to 49 employees,187017,18264,168753,9.77,50.92,8.62,1.0,579,0,498,81
+CSD_in_CMA,industry_group,6,50 to 99 employees,187017,10001,177016,5.35,58.57,4.81,1.0,579,0,412,167
+CSD_in_CMA,industry_group,7,100 to 199 employees,187017,5707,181310,3.05,66.46,2.98,1.0,579,0,358,221
+CSD_in_CMA,industry_group,8,200 to 499 employees,187017,3219,183798,1.72,69.96,2.02,1.0,579,0,283,296
+CSD_in_CMA,industry_group,9,500 plus employees,187017,1613,185404,0.86,72.91,1.24,1.0,579,0,188,391
+CSD_outside_CMA,table_total,1,"Total, with employees",2766,2766,0,100.0,0.0,100.0,47.0,2766,2766,0,0
+CSD_outside_CMA,table_total,2,1 to 4 employees,2766,2761,5,99.82,0.25,86.35,28.0,2766,2761,0,5
+CSD_outside_CMA,table_total,3,5 to 9 employees,2766,2716,50,98.19,5.04,49.74,9.0,2766,2716,0,50
+CSD_outside_CMA,table_total,4,10 to 19 employees,2766,2583,183,93.38,11.07,36.78,6.0,2766,2583,0,183
+CSD_outside_CMA,table_total,5,20 to 49 employees,2766,2246,520,81.2,20.26,27.38,4.0,2766,2246,0,520
+CSD_outside_CMA,table_total,6,50 to 99 employees,2766,1570,1196,56.76,34.39,13.82,2.0,2766,1570,0,1196
+CSD_outside_CMA,table_total,7,100 to 199 employees,2766,1076,1690,38.9,46.47,6.69,2.0,2766,1076,0,1690
+CSD_outside_CMA,table_total,8,200 to 499 employees,2766,679,2087,24.55,56.11,2.65,1.0,2766,679,0,2087
+CSD_outside_CMA,table_total,9,500 plus employees,2766,330,2436,11.93,63.94,1.21,1.0,2766,330,0,2436
+CSD_outside_CMA,unclassified,1,"Total, with employees",2766,2250,516,81.34,21.47,22.93,4.0,2766,2250,0,516
+CSD_outside_CMA,unclassified,2,1 to 4 employees,2766,2116,650,76.5,26.13,19.8,3.0,2766,2116,0,650
+CSD_outside_CMA,unclassified,3,5 to 9 employees,2766,1042,1724,37.67,52.21,3.74,1.0,2766,1042,0,1724
+CSD_outside_CMA,unclassified,4,10 to 19 employees,2766,620,2146,22.42,67.58,1.13,1.0,2766,620,0,2146
+CSD_outside_CMA,unclassified,5,20 to 49 employees,2766,303,2463,10.95,72.61,0.0,1.0,2766,303,0,2463
+CSD_outside_CMA,unclassified,6,50 to 99 employees,2766,87,2679,3.15,91.95,0.0,1.0,2766,87,0,2679
+CSD_outside_CMA,unclassified,7,100 to 199 employees,2766,18,2748,0.65,94.44,0.0,1.0,2766,18,0,2748
+CSD_outside_CMA,unclassified,8,200 to 499 employees,2766,7,2759,0.25,100.0,0.0,1.0,2766,7,0,2759
+CSD_outside_CMA,unclassified,9,500 plus employees,2766,0,2766,0.0,,,,2766,0,0,2766
+CSD_outside_CMA,classified_subtotal,1,"Total, with employees",2766,2766,0,100.0,0.0,97.79,44.0,2766,2766,0,0
+CSD_outside_CMA,classified_subtotal,2,1 to 4 employees,2766,2760,6,99.78,0.43,83.01,26.0,2766,2760,0,6
+CSD_outside_CMA,classified_subtotal,3,5 to 9 employees,2766,2713,53,98.08,5.71,48.4,9.0,2766,2713,0,53
+CSD_outside_CMA,classified_subtotal,4,10 to 19 employees,2766,2573,193,93.02,11.35,36.34,6.0,2766,2573,0,193
+CSD_outside_CMA,classified_subtotal,5,20 to 49 employees,2766,2237,529,80.87,20.52,27.31,4.0,2766,2237,0,529
+CSD_outside_CMA,classified_subtotal,6,50 to 99 employees,2766,1565,1201,56.58,34.44,13.74,2.0,2766,1565,0,1201
+CSD_outside_CMA,classified_subtotal,7,100 to 199 employees,2766,1074,1692,38.83,46.74,6.7,2.0,2766,1074,0,1692
+CSD_outside_CMA,classified_subtotal,8,200 to 499 employees,2766,678,2088,24.51,56.19,2.65,1.0,2766,678,0,2088
+CSD_outside_CMA,classified_subtotal,9,500 plus employees,2766,330,2436,11.93,63.94,1.21,1.0,2766,330,0,2436
+CSD_outside_CMA,sector,1,"Total, with employees",55320,34882,20438,63.05,28.91,22.37,3.0,2766,121,2645,0
+CSD_outside_CMA,sector,2,1 to 4 employees,55320,27137,28183,49.05,35.22,16.34,2.0,2766,10,2750,6
+CSD_outside_CMA,sector,3,5 to 9 employees,55320,18315,37005,33.11,45.41,8.03,2.0,2766,2,2711,53
+CSD_outside_CMA,sector,4,10 to 19 employees,55320,14807,40513,26.77,52.65,5.58,1.0,2766,2,2571,193
+CSD_outside_CMA,sector,5,20 to 49 employees,55320,10515,44805,19.01,58.03,4.79,1.0,2766,3,2234,529
+CSD_outside_CMA,sector,6,50 to 99 employees,55320,4952,50368,8.95,67.91,1.19,1.0,2766,0,1565,1201
+CSD_outside_CMA,sector,7,100 to 199 employees,55320,2446,52874,4.42,76.33,0.2,1.0,2766,0,1074,1692
+CSD_outside_CMA,sector,8,200 to 499 employees,55320,1279,54041,2.31,82.8,0.08,1.0,2766,0,678,2088
+CSD_outside_CMA,sector,9,500 plus employees,55320,539,54781,0.97,89.05,0.0,1.0,2766,0,330,2436
+CSD_outside_CMA,subsector,1,"Total, with employees",273834,73970,199864,27.01,46.86,9.83,2.0,2766,0,2766,0
+CSD_outside_CMA,subsector,2,1 to 4 employees,273834,48669,225165,17.77,52.49,7.28,1.0,2766,0,2760,6
+CSD_outside_CMA,subsector,3,5 to 9 employees,273834,30663,243171,11.2,61.37,2.81,1.0,2766,0,2713,53
+CSD_outside_CMA,subsector,4,10 to 19 employees,273834,23468,250366,8.57,67.3,1.79,1.0,2766,0,2573,193
+CSD_outside_CMA,subsector,5,20 to 49 employees,273834,15837,257997,5.78,70.49,1.38,1.0,2766,0,2237,529
+CSD_outside_CMA,subsector,6,50 to 99 employees,273834,6638,267196,2.42,80.31,0.2,1.0,2766,0,1565,1201
+CSD_outside_CMA,subsector,7,100 to 199 employees,273834,2976,270858,1.09,86.42,0.0,1.0,2766,0,1074,1692
+CSD_outside_CMA,subsector,8,200 to 499 employees,273834,1461,272373,0.53,92.27,0.0,1.0,2766,0,678,2088
+CSD_outside_CMA,subsector,9,500 plus employees,273834,562,273272,0.21,91.81,0.0,1.0,2766,0,330,2436
+CSD_outside_CMA,industry_group,1,"Total, with employees",893418,116007,777411,12.98,57.02,5.03,1.0,2766,0,2766,0
+CSD_outside_CMA,industry_group,2,1 to 4 employees,893418,72264,821154,8.09,62.15,3.62,1.0,2766,0,2760,6
+CSD_outside_CMA,industry_group,3,5 to 9 employees,893418,40911,852507,4.58,71.54,1.01,1.0,2766,0,2713,53
+CSD_outside_CMA,industry_group,4,10 to 19 employees,893418,29454,863964,3.3,75.6,0.6,1.0,2766,0,2573,193
+CSD_outside_CMA,industry_group,5,20 to 49 employees,893418,18990,874428,2.13,78.24,0.62,1.0,2766,0,2237,529
+CSD_outside_CMA,industry_group,6,50 to 99 employees,893418,7237,886181,0.81,85.42,0.14,1.0,2766,0,1565,1201
+CSD_outside_CMA,industry_group,7,100 to 199 employees,893418,3152,890266,0.35,91.05,0.0,1.0,2766,0,1074,1692
+CSD_outside_CMA,industry_group,8,200 to 499 employees,893418,1514,891904,0.17,94.39,0.0,1.0,2766,0,678,2088
+CSD_outside_CMA,industry_group,9,500 plus employees,893418,588,892830,0.07,94.9,0.0,1.0,2766,0,330,2436

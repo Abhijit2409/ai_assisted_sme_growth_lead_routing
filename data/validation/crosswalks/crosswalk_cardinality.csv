@@ -1,0 +1,9 @@
+crosswalk,rows,source_keys,max_targets_per_source,sources_with_multiple_targets,multi_target_sources_declared,accidental_duplicates,mapping_types
+E1,41,41,1,0,True,0,one-to-one=35; none=6
+E2,24,24,1,0,True,0,many-to-one (label to code)=24
+E3,40,32,4,4,True,0,one-to-one=16; one-to-many=12; none=10; aggregate=2
+E4,23,18,5,2,True,0,one-to-one=8; none=8; many-to-one (sector to group)=7
+E5,9,9,1,0,True,0,many-to-one (numeric)=8; total=1
+E6,26,26,1,0,True,0,filter=26
+E7,28,28,1,0,True,0,rule=28
+E8,18,10,4,3,True,0,one-to-many (region membership)=11; one-to-one=7

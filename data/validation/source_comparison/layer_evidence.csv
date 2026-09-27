@@ -1,0 +1,10 @@
+layer,evidence_check,supported,value
+momentum_0722,"0722 publishes Active, Opening and Closing for every CMA (business sector, all sizes)",True,35 of 35 CMAs
+momentum_0722,0722 CMA business-sector series start in 2015-01 (long trend window),True,35 of 35 CMAs
+scale_1097,1097 covers every CMA with all sectors and size bands,True,41 of 41 CMAs
+scale_1097,1097 has no unexplained missing cells,True,0
+financing_ised,ISED financing-demand estimates are A-D for most CMA cells (Table 1 >= 90%),True,97.9%
+financing_ised,ISED debt request/approval estimates are A-D for most CMA cells (Table 3 >= 90%),True,94.6%
+separation,0722 and 1097 cannot share denominators (location/enterprise ratio varies by CMA),True,1.157-1.344
+separation,"ISED CMAs are labels only and not all match 1097, so a cell-level join is unsafe",True,23 of 24 match
+financing_ised,ISED deal size is not usable at CMA level (Table 5: most CMA estimates are F),True,54.5% F

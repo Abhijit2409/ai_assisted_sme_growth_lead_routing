@@ -1,0 +1,129 @@
+version: 2
+
+# Typed views over the reviewed crosswalk seeds and the validated source profiles.
+# Crosswalk tests check key uniqueness, cardinality, null targets and valid status values.
+
+models:
+  - name: stg_reference__cma_sgc2016_to_sgc2021
+    description: "Reviewed crosswalk E1 (SGC 2016 -> 2021 CMA). One row per 2021 CMA; 35 shared codes and 6 target-only."
+    data_tests:
+      - row_count_equals:
+          arguments:
+            expected: 41
+    columns:
+      - name: target_code
+        description: "SGC 2021 CMA code."
+        data_tests: [unique, not_null]
+      - name: source_code
+        description: "SGC 2016 CMA code; NULL for target-only CMAs."
+        data_tests: [unique]
+      - name: mapping_status
+        description: "exact code with boundary caveat, or target-only."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["exact code with boundary caveat", "target-only"]
+  - name: stg_reference__ised_cma_to_sgc2021
+    description: "Reviewed crosswalk E2 (ISED CMA row text -> SGC 2021 CMA code). One row per ISED CMA row."
+    data_tests:
+      - row_count_equals:
+          arguments:
+            expected: 24
+    columns:
+      - name: source_label
+        description: "Verbatim ISED CMA row text (the crosswalk key; ISED publishes no codes)."
+        data_tests: [unique, not_null]
+      - name: target_code
+        description: "SGC 2021 CMA code."
+        data_tests: [unique, not_null]
+  - name: stg_reference__statcan_0722_industry_to_naics2022
+    description: "Reviewed crosswalk E3. One row per 0722 member x NAICS target (one-to-many rows are declared)."
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["source_member_id", "target_code"]
+      - row_count_equals:
+          arguments:
+            expected: 40
+    columns:
+      - name: source_member_id
+        description: "0722 industry member id."
+        data_tests: [not_null]
+  - name: stg_reference__ised_industry_to_naics2022
+    description: "Reviewed crosswalk E4. One row per ISED group or aggregate x NAICS sector."
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["source_label", "target_code"]
+      - row_count_equals:
+          arguments:
+            expected: 23
+    columns:
+      - name: source_label
+        description: "Verbatim ISED industry row text (the crosswalk key)."
+        data_tests: [not_null]
+  - name: stg_reference__statcan_1097_size_to_sme_bands
+    description: "Reviewed crosswalk E5. One row per 1097 size member."
+    data_tests:
+      - row_count_equals:
+          arguments:
+            expected: 9
+    columns:
+      - name: source_code
+        description: "1097 size member id."
+        data_tests: [unique, not_null]
+      - name: target_code
+        description: "Broad size-band key."
+        data_tests: [not_null]
+  - name: stg_reference__ised_region_province_crosswalk
+    description: "Reviewed crosswalk E8. One row per ISED region label x SGC province code."
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["source_label", "target_code"]
+    columns:
+      - name: target_code
+        description: "SGC province or territory code."
+        data_tests: [not_null]
+      - name: replicate_to_provinces
+        description: "Always False: regional estimates are never replicated to provinces."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["False"]
+  - name: stg_reference__non_additive_category_rules
+    description: "Reviewed rules E7 (28 non-additive categories)."
+    data_tests:
+      - row_count_equals:
+          arguments:
+            expected: 28
+    columns:
+      - name: rule_id
+        description: "Rule identifier."
+        data_tests: [unique, not_null]
+      - name: additive_allowed
+        description: "Always False."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["False"]
+  - name: stg_validated__naics_profile_1097
+    description: "1097 NAICS 2022 members with level and derived parent (validated profile)."
+    columns:
+      - name: naics_member_id
+        description: "1097 NAICS member id."
+        data_tests: [unique, not_null]
+  - name: stg_validated__geography_profile_1097
+    description: "1097 geographies with code, level, DGUID and province code(s) (validated profile)."
+  - name: stg_validated__employment_size_profile_1097
+    description: "1097 size members with 41-CMA reconciliation totals (validated profile)."
+  - name: stg_validated__industry_classification_0722
+    description: "0722 industry members with class and parent (validated profile)."
+  - name: stg_validated__ised_estimate_definitions
+    description: "ISED measure definitions (validated profile)."
+    columns:
+      - name: measure_id
+        description: "ISED measure identifier."
+        data_tests: [unique, not_null]
+  - name: stg_validated__selected_reporting_spine
+    description: "Approved 41-CMA reporting spine (validated decision output); used only to test the tiers dbt derives."

@@ -1,0 +1,186 @@
+{
+  "source": "Statistics Canada 33-10-0722-01",
+  "raw_file": "data/raw/statcan_33100722/33100722-eng/33100722.csv",
+  "raw_file_bytes": 1818179589,
+  "cache_file": "data/cache/statcan_33100722.parquet",
+  "cache_lineage": {
+    "cache": "data/cache/statcan_33100722.parquet",
+    "source_matches_manifest": true,
+    "ok": true,
+    "action": "reused",
+    "reason": "current"
+  },
+  "cache_lineage_record": {
+    "source_relative_path": "data/raw/statcan_33100722/33100722-eng/33100722.csv",
+    "source_sha256": "937bb8de18f29a270f5b613e22aa18a7ebc8f0091e3c677e38f605f1d30bdc8b",
+    "source_bytes": 1818179589,
+    "cache_relative_path": "data/cache/statcan_33100722.parquet",
+    "cache_created": "2026-09-27T10:13:09-07:00",
+    "schema_version": "statcan_33100722/v1",
+    "cache_columns": [
+      "REF_DATE",
+      "GEO",
+      "DGUID",
+      "Industry",
+      "Employment size",
+      "Business dynamics measure",
+      "UOM",
+      "UOM_ID",
+      "SCALAR_FACTOR",
+      "SCALAR_ID",
+      "VECTOR",
+      "COORDINATE",
+      "VALUE",
+      "STATUS",
+      "SYMBOL",
+      "TERMINATED",
+      "DECIMALS",
+      "value_num",
+      "geo_id",
+      "industry_id",
+      "size_id",
+      "measure_id",
+      "ref_year"
+    ],
+    "raw_rows": 8575672,
+    "cache_rows": 8575672,
+    "raw_content_digest": "b56bc579ba28e6a8",
+    "cache_content_digest": "b56bc579ba28e6a8",
+    "digest_method": "sum mod 2^64 of first 8 bytes of sha256(row fields joined by U+001F); raw parsed with Python csv, cache read with DuckDB",
+    "cache_sha256": "a5b7fe363d995dbe77d2827c74373a1b46b0b1480a41f867956df75ec926b03b"
+  },
+  "profile": {
+    "row_count": 8575672,
+    "status_sql_null": 0,
+    "status_empty_string": 627970,
+    "value_uncastable": 0,
+    "n_coordinates": 63904,
+    "n_vectors": 63904,
+    "n_coord_vector_pairs": 63904,
+    "n_series_months": 8575672,
+    "n_months": 137,
+    "min_ref_date": "2015-01",
+    "max_ref_date": "2026-05",
+    "symbol_nonblank": 0,
+    "terminated_nonblank": 0,
+    "n_unit_combos": 1,
+    "unit_combo": "Number / units / decimals=0"
+  },
+  "status_counts": {
+    "(blank)": 627970,
+    "E": 9896,
+    "..": 94108,
+    "x": 7843698
+  },
+  "series_grid": {
+    "expected_series": 75264,
+    "present_series": 63904,
+    "present_series_missing_months": 6832,
+    "expected_rows_full_grid": 10311168,
+    "valued_rows_in_series_missing_months": 0
+  },
+  "absent_blocks_by_measures_absent": [
+    {
+      "n_measures_absent": 0,
+      "blocks": 7988
+    },
+    {
+      "n_measures_absent": 8,
+      "blocks": 1420
+    }
+  ],
+  "months_with_usable_values": 137,
+  "never_valued_by_status": [
+    {
+      "never_valued_status": "all_x",
+      "series": 43322
+    },
+    {
+      "never_valued_status": "mix_x_and_dotdot",
+      "series": 15572
+    }
+  ],
+  "valued_cells_per_month_by_period": [
+    {
+      "period": "2015-01..2017-12",
+      "months": 36,
+      "distinct_valued_counts": 1,
+      "valued_cells_per_month": 3705
+    },
+    {
+      "period": "2018-01..2025-11",
+      "months": 95,
+      "distinct_valued_counts": 1,
+      "valued_cells_per_month": 5010
+    },
+    {
+      "period": "2025-12..2026-05",
+      "months": 6,
+      "distinct_valued_counts": 1,
+      "valued_cells_per_month": 4756
+    }
+  ],
+  "dotdot_by_note10_window": [
+    {
+      "window": "before_last_6_months",
+      "series_class": "never_valued",
+      "rows_dotdot": 120
+    },
+    {
+      "window": "last_6_months",
+      "series_class": "never_valued",
+      "rows_dotdot": 92464
+    },
+    {
+      "window": "last_6_months",
+      "series_class": "partially_valued",
+      "rows_dotdot": 1524
+    }
+  ],
+  "blocks_by_measures_with_values": [
+    {
+      "n_measures_with_values": 0,
+      "blocks": 7221
+    },
+    {
+      "n_measures_with_values": 1,
+      "blocks": 1412
+    },
+    {
+      "n_measures_with_values": 4,
+      "blocks": 647
+    },
+    {
+      "n_measures_with_values": 6,
+      "blocks": 7
+    },
+    {
+      "n_measures_with_values": 8,
+      "blocks": 121
+    }
+  ],
+  "gates": {
+    "raw_source_matches_manifest": true,
+    "cache_lineage_current_or_rebuilt_with_parity": true,
+    "row_count_matches_profile": true,
+    "status_counts_match_profile": true,
+    "no_sql_null_status": true,
+    "all_nonblank_values_numeric": true,
+    "one_vector_per_coordinate": true,
+    "no_duplicate_series_months": true,
+    "single_unit_scalar_decimal": true,
+    "geo_levels_all_classified": true,
+    "industries_all_classified": true,
+    "no_orphan_coordinates": true,
+    "series_missing_months_carry_no_values": true,
+    "every_month_has_usable_values": true,
+    "measure_groups_published_together": true,
+    "opening_never_published_without_active": true,
+    "valued_cells_constant_within_each_period": true,
+    "partially_valued_series_are_single_contiguous_runs": true,
+    "raw_source_unchanged_after_run": true
+  },
+  "failed_gates": [],
+  "all_gates_pass": true,
+  "elapsed_seconds": 8.7
+}

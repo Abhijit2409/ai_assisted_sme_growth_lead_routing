@@ -1,0 +1,106 @@
+check,view,passed,detail
+upstream_phase_A_passes,general,True,19 of 19
+upstream_phase_B_passes,general,True,48 of 48
+upstream_phase_C_passes,general,True,46 of 46
+upstream_phase_D_passes,general,True,21 of 21
+upstream_phase_E_passes,general,True,26 of 26
+upstream_phase_F_passes,general,True,34 of 34
+raw_files_match_manifest_before,general,True,7 files
+cache_lineage_current_statcan_33100722,general,True,current
+cache_lineage_current_statcan_33101097,general,True,current
+all_eight_crosswalks_exist_and_pass,general,True,52 of 52 crosswalk checks
+ised_cache_matches_phase_c,general,True,"79,876 cells; {'numeric': 78789, 'dotdot': 987, 'blank': 100}"
+phase_f_specifies_the_11_views,general,True,11 views
+dim_cma__primary_key_unique_and_complete,dim_cma,True,41 rows; 0 duplicate keys; 0 null required key parts
+dim_industry__primary_key_unique_and_complete,dim_industry,True,495 rows; 0 duplicate keys; 0 null required key parts
+dim_size_band__primary_key_unique_and_complete,dim_size_band,True,6 rows; 0 duplicate keys; 0 null required key parts
+fact_cma_momentum_monthly__primary_key_unique_and_complete,fact_cma_momentum_monthly,True,"3,782,864 rows; 0 duplicate keys; 0 null required key parts"
+fact_cma_market_scale_snapshot__primary_key_unique_and_complete,fact_cma_market_scale_snapshot,True,123 rows; 0 duplicate keys; 0 null required key parts
+fact_cma_sector_composition_snapshot__primary_key_unique_and_complete,fact_cma_sector_composition_snapshot,True,861 rows; 0 duplicate keys; 0 null required key parts
+fact_cma_size_composition_snapshot__primary_key_unique_and_complete,fact_cma_size_composition_snapshot,True,205 rows; 0 duplicate keys; 0 null required key parts
+fact_ised_financing_context__primary_key_unique_and_complete,fact_ised_financing_context,True,"1,497 rows; 0 duplicate keys; 0 null required key parts"
+bridge_cma_vintage__primary_key_unique_and_complete,bridge_cma_vintage,True,41 rows; 0 duplicate keys; 0 null required key parts; declared nullable: ['cma_code_sgc2016']
+bridge_industry__primary_key_unique_and_complete,bridge_industry,True,63 rows; 0 duplicate keys; 0 null required key parts; declared nullable: ['target_code']
+bridge_size_band__primary_key_unique_and_complete,bridge_size_band,True,9 rows; 0 duplicate keys; 0 null required key parts
+dim_cma__has_spec_flag_and_period_columns,dim_cma,True,4 columns
+dim_industry__has_spec_flag_and_period_columns,dim_industry,True,2 columns
+dim_size_band__has_spec_flag_and_period_columns,dim_size_band,True,1 columns
+fact_cma_momentum_monthly__has_spec_flag_and_period_columns,fact_cma_momentum_monthly,True,5 columns
+fact_cma_market_scale_snapshot__has_spec_flag_and_period_columns,fact_cma_market_scale_snapshot,True,2 columns
+fact_cma_sector_composition_snapshot__has_spec_flag_and_period_columns,fact_cma_sector_composition_snapshot,True,3 columns
+fact_cma_size_composition_snapshot__has_spec_flag_and_period_columns,fact_cma_size_composition_snapshot,True,2 columns
+fact_ised_financing_context__has_spec_flag_and_period_columns,fact_ised_financing_context,True,5 columns
+bridge_cma_vintage__has_spec_flag_and_period_columns,bridge_cma_vintage,True,1 columns
+bridge_industry__has_spec_flag_and_period_columns,bridge_industry,True,2 columns
+bridge_size_band__has_spec_flag_and_period_columns,bridge_size_band,True,1 columns
+no_join_uses_a_label_or_name,general,True,12 code-keyed joins
+ised_text_lookups_exact_context_qualified_and_declared,general,True,"1,497 in-scope ISED cells, each resolved exactly once"
+dim_cma__41_rows_unique_2021_code,dim_cma,True,
+dim_cma__tiers_24_11_6,dim_cma,True,"{1: 24, 2: 11, 3: 6}"
+dim_cma__35_in_primary_decision_set,dim_cma,True,
+dim_cma__tier3_has_no_momentum_flag_or_2016_code,dim_cma,True,
+dim_cma__ised_cma_context_equals_tier1,dim_cma,True,
+dim_cma__dguids_agree_across_spine_E1_and_1097,dim_cma,True,
+dim_cma__every_cma_has_province_region_key_and_description,dim_cma,True,multi-province: {'505': '24|35'}
+dim_industry__systems_445_32_18,dim_industry,True,"{'NAICS2022_1097': 445, 'STATCAN_0722': 32, 'ISED_SFGSME_2023': 18}"
+dim_industry__1097_mvp_is_19_sectors_plus_91_and_unclassified,dim_industry,True,
+dim_industry__1097_parents_resolve,dim_industry,True,
+dim_industry__0722_mvp_is_T004_plus_18_sectors,dim_industry,True,
+dim_industry__ised_10_groups_in_mvp_8_aggregates_not,dim_industry,True,
+dim_industry__overlapping_members_never_additive,dim_industry,True,
+dim_industry__all_28_E7_rules_linked_and_label_verified,dim_industry,True,28 verified; 23 industry rules + 5 region rules
+dim_industry__0722_member_ids_equal_phase_a_classification,dim_industry,True,
+dim_size_band__5_bands_plus_total,dim_size_band,True,
+dim_size_band__sme_bands_contiguous_1_to_499,dim_size_band,True,
+dim_size_band__0722_size_and_measure_maps_verified_against_member_labels,dim_size_band,True,
+dim_size_band__ised_size_labels_verified,dim_size_band,True,"['1 to 4 employees', '100 to 499 employees', '20 to 99 employees', '5 to 19 employees']"
+dim_size_band__carries_no_statistical_unit,dim_size_band,True,
+bridge_cma_vintage__35_plus_6_target_only,bridge_cma_vintage,True,
+bridge_industry__40_plus_23_rows_no_allocation,bridge_industry,True,
+bridge_size_band__8_bands_plus_total,bridge_size_band,True,
+momentum__scope_reconciles_to_all_cma_rows_in_cache,fact_cma_momentum_monthly,True,"6,015,632 CMA rows = 1,891,432 included + 3,007,816 excluded measures + 1,116,384 excluded industries"
+momentum__excluded_measures_have_no_cma_values,fact_cma_momentum_monthly,True,"reopening, entrants, temporary closures, exits"
+momentum__35_cmas_all_in_bridge_none_tier3,fact_cma_momentum_monthly,True,
+momentum__foreign_keys_resolve_to_dim_industry_and_dim_size_band,fact_cma_momentum_monthly,True,19 members; 6 size scopes
+momentum__published_values_status_and_vector_equal_cache,fact_cma_momentum_monthly,True,"1,891,432 rows matched; 0 mismatches"
+momentum__unavailable_preserved_never_zero_filled,fact_cma_momentum_monthly,True,"{'suppressed_x': 1739725, 'published': 148984, 'published_E': 2723}"
+momentum__derived_M04_M07_match_independent_recomputation,fact_cma_momentum_monthly,True,"19,180 derived values; 0 differences"
+momentum__latest_month_2026_05_and_first_month_has_no_rate,fact_cma_momentum_monthly,True,2026-05
+momentum__derived_rows_carry_own_unit_and_formula,fact_cma_momentum_monthly,True,"1,891,432 derived rows"
+momentum__all_size_series_labelled_all_employer_context,fact_cma_momentum_monthly,True,
+scale__123_rows_41_cmas_3_scopes,fact_cma_market_scale_snapshot,True,
+scale__all_sizes_is_the_published_top_cell_for_every_cma,fact_cma_market_scale_snapshot,True,
+scale__sme_equals_total_minus_500_plus_exactly,fact_cma_market_scale_snapshot,True,0 CMAs differ
+scale__41_cma_total_reproduces_phase_b,fact_cma_market_scale_snapshot,True,"1,012,121 vs 1,012,121"
+sector__861_rows_full_grid,fact_cma_sector_composition_snapshot,True,41 CMAs x (19 sectors + 91 + Unclassified)
+sector__sectors_plus_91_plus_unclassified_equal_sme_total,fact_cma_sector_composition_snapshot,True,0 CMAs differ
+sector__19_sector_shares_sum_to_one,fact_cma_sector_composition_snapshot,True,max deviation 2.2e-16
+sector__unclassified_and_total_reproduce_phase_b,fact_cma_sector_composition_snapshot,True,"Unclassified 84,726; all 1,012,121"
+sector__unclassified_and_91_never_in_share_denominator_and_codes_in_dim_industry,fact_cma_sector_composition_snapshot,True,
+size__205_rows_full_grid,fact_cma_size_composition_snapshot,True,
+size__bands_reconcile_to_scale_snapshot,fact_cma_size_composition_snapshot,True,0 CMAs differ
+size__sme_band_shares_sum_to_one_500_plus_outside,fact_cma_size_composition_snapshot,True,max deviation 1.1e-16
+fact_cma_market_scale_snapshot__foreign_keys_resolve_to_dims,fact_cma_market_scale_snapshot,True,
+fact_cma_sector_composition_snapshot__foreign_keys_resolve_to_dims,fact_cma_sector_composition_snapshot,True,
+fact_cma_size_composition_snapshot__foreign_keys_resolve_to_dims,fact_cma_size_composition_snapshot,True,
+1097__zeros_come_only_from_omitted_in_scope_cells,general,True,342 rows include at least one zero-by-reconciliation cell; no published zeros
+ised__rows_and_distinct_keys_per_dimension_are_exact,fact_ised_financing_context,True,"rows {'cma': 672, 'industry_group': 280, 'region': 280, 'size_band': 212, 'national': 53}; keys {'cma': 24, 'industry_group': 10, 'national': 1, 'region': 10, 'size_band': 4}"
+ised__in_scope_plus_excluded_reconcile_to_cache,fact_ised_financing_context,True,"1,497 in scope + 78,379 excluded = 79,876"
+ised__cma_segments_are_the_24_tier1_codes_table5_national_size_only,fact_ised_financing_context,True,
+ised__quebec_province_row_never_resolves_to_cma,fact_ised_financing_context,True,
+ised__segment_keys_resolve_to_dimensions,fact_ised_financing_context,True,
+ised__published_values_and_quality_equal_cache,fact_ised_financing_context,True,"1,497 matched; 0 mismatches"
+ised__F_excluded_dotdot_never_zero,fact_ised_financing_context,True,
+ised__national_weighted_smes_and_respondents_reproduce_phase_c,fact_ised_financing_context,True,"863,533 weighted SMEs; 11,210 respondents"
+ised__nested_region_rows_flagged_with_E7_rule,fact_ised_financing_context,True,140 nested rows
+fact_cma_momentum_monthly__single_source_with_unit_period_scope_on_every_row,fact_cma_momentum_monthly,True,0 incomplete rows
+fact_cma_market_scale_snapshot__single_source_with_unit_period_scope_on_every_row,fact_cma_market_scale_snapshot,True,0 incomplete rows
+fact_cma_sector_composition_snapshot__single_source_with_unit_period_scope_on_every_row,fact_cma_sector_composition_snapshot,True,0 incomplete rows
+fact_cma_size_composition_snapshot__single_source_with_unit_period_scope_on_every_row,fact_cma_size_composition_snapshot,True,0 incomplete rows
+fact_ised_financing_context__single_source_with_unit_period_scope_on_every_row,fact_ised_financing_context,True,0 incomplete rows
+no_nan_stored_in_any_view,general,True,0 NaN values
+published_files_match_manifest_checksums,general,True,11 views
+documentation_numbers_reproduced_by_outputs,general,True,36 of 36 claims
+phase_g_linked_from_data_sources_doc,general,True,
+no_protected_input_changed,general,True,"86 files (caches, crosswalks, Phase A-F outputs)"
+no_raw_file_changed,general,True,7 files

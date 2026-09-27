@@ -1,0 +1,24 @@
+rule_id,use,classification,rationale
+U01,0722 openings / 0722 active businesses,Valid within source,"Same source, unit, geography, industry, size and period"
+U02,0722 net formation / 0722 active businesses,Valid within source,Valid where Opening/Closing are published for the selected series and period
+U03,1097 sector locations / 1097 total locations,Valid within source,Exactly additive; Unclassified reported separately
+U04,1097 size-band locations / 1097 total locations,Valid within source,Exactly additive
+U05,0722 flows / 1097 locations,Prohibited or misleading,Unit mismatch: location/enterprise ratio varies 1.157-1.344 across CMAs
+U06,ISED percentages used as direct counts of businesses,Prohibited or misleading,"Prevalence within an applicable population, not a count"
+U07,ISED weighted SME counts treated as register counts,Prohibited or misleading,Survey estimate of a filtered population with sampling error
+U08,Multiplying one-way ISED percentages into CMA x industry x size cells,Prohibited or misleading,Assumes independence the survey does not support
+U09,Turning aggregate public records into identifiable leads,Prohibited or misleading,Aggregates never identify businesses (a count of 1 is still an aggregate)
+U10,Ranking or scoring ISED estimates coded F,Prohibited or misleading,"Source: not reliable, do not use"
+U11,Using ISED estimates coded E,Contextual overlay only,Permitted only with an explicit caution flag and a sensitivity check
+U12,Comparing ISED segments without their printed SE or CV,Prohibited or misleading,Misleading: differences within ~2 combined SE cannot rank segments
+U13,ISED 2023 context shown alongside 1097 December 2025 scale,Valid side-by-side with explicit labels,Permitted only with both periods labelled
+U14,Summing overlapping tourism or special-industry aggregates,Prohibited or misleading,Aggregates overlap sectors (source footnotes)
+U15,Joining geography records by names alone,Prohibited or misleading,"Names collide (Quebec) and differ (Sudbury, Belleville)"
+U16,Joining shared CMA codes across 2016 and 2021 vintages without qualification,Requires Phase E crosswalk,Codes match but boundaries may differ
+U17,0722 active enterprises and 1097 locations shown side by side for one CMA,Valid side-by-side with explicit labels,Different units and periods; label both
+U18,Summing 0722 industries or CMAs to build a total,Prohibited or misleading,Enterprises counted in each industry/region (Note 2)
+U19,Building provincial totals by summing 1097 CSDs,Prohibited or misleading,Small non-CMA CSDs are excluded (Note 2)
+U20,"Zero-filling 0722 'x'/'..', ISED '..' or out-of-scope 1097 geographies",Prohibited or misleading,Unavailable is not zero
+U21,ISED financing-propensity attributes attached to 1097/0722 CMAs,Requires Phase E crosswalk,Requires ISED CMA label-to-code mapping and vintage qualification
+U22,Using 1097 as a time series,Prohibited or misleading,Single snapshot; StatCan advises against time-series use (Note 3)
+U23,Owner-demographic segments used for targeting or routing,Prohibited or misleading,Project decision (Phase C)

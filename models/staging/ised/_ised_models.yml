@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: stg_ised__financing_context
+    description: |
+      ISED SFGSME 2023 value cells as typed, renamed columns (view over the parsed workbook cache). One row per table x
+      measure x stub row. Keeps the verbatim stub text, the quality code, the printed SE or CV and the value state.
+      '..' and blank cells have a NULL value (never zero).
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["measure_id", "stub_row"]
+      - row_count_equals:
+          arguments:
+            expected: 79876
+    columns:
+      - name: source_id
+        description: "ISED SFGSME 2023."
+      - name: value_state
+        description: "numeric, dotdot or blank."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["numeric", "dotdot", "blank"]
+      - name: quality_code
+        description: "ISED quality code A-F; NULL where none is printed."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["A", "B", "C", "D", "E", "F"]
+      - name: value_published
+        description: "Published estimate; NULL for '..' and blank cells."

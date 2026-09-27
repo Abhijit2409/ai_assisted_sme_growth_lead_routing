@@ -1,0 +1,5 @@
+geo_level,total_rows,rows_with_value,rows_without_value,pct_with_value,expected_rows_full_grid,rows_absent_from_file,pct_of_full_grid_with_value,status_blank,status_e,status_x,status_dotdot,expected_series,series_always_valued,series_partially_valued,series_never_valued,series_absent_from_file
+CMA,6015632,191400,5824232,3.18,7365120,1349488,2.6,187810,3590,5758198,66034,53760,435,1305,43228,8792
+Canada,210432,92445,117987,43.93,210432,0,43.93,90804,1641,115683,2304,1536,539,142,855,0
+Province,1940008,334430,1605578,17.24,2104320,164312,15.89,329812,4618,1584340,21238,15360,2334,112,11850,1064
+Territory,409600,19591,390009,4.78,631296,221696,3.1,19544,47,385477,4532,4608,143,0,2961,1504

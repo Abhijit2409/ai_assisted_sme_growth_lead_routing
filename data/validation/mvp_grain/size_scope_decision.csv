@@ -1,0 +1,6 @@
+band,scope,support_0722,support_1097_locations,support_ised,cma_x_sector_cells_ge_10_1097
+1-4,SME,35 CMAs (active); 22 (flows),all 41 CMAs (exact),national/one-way,89.5%
+5-19,SME,35 CMAs (active); 22 (flows),all 41 CMAs (from 5-9 + 10-19),national/one-way,88.7%
+20-99,SME,18 CMAs (active only),all 41 CMAs (from 20-49 + 50-99),national/one-way,80.5%
+100-499,SME,18 CMAs (active only),all 41 CMAs (from 100-199 + 200-499),national/one-way,37.4%
+500+,outside SME scope (shown separately),18 CMAs (active only),all 41 CMAs,not in ISED,

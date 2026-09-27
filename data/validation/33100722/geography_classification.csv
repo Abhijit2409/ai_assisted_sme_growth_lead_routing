@@ -1,0 +1,50 @@
+geo_id,geo,dguid,geo_level,parent_geo_id,raw_name_has_trailing_nbsp,parent_geo
+1,Canada,2016A000011124,Canada,,False,
+2,Newfoundland and Labrador,2016A000210,Province,1.0,True,Canada
+3,"St. John's, Newfoundland and Labrador",2016S0503001,CMA,2.0,True,Newfoundland and Labrador
+4,Prince Edward Island,2016A000211,Province,1.0,True,Canada
+5,Nova Scotia,2016A000212,Province,1.0,True,Canada
+6,"Halifax, Nova Scotia",2016S0503205,CMA,5.0,True,Nova Scotia
+7,New Brunswick,2016A000213,Province,1.0,True,Canada
+8,"Moncton, New Brunswick",2016S0503305,CMA,7.0,True,New Brunswick
+9,"Saint John, New Brunswick",2016S0503310,CMA,7.0,True,New Brunswick
+10,Quebec,2016A000224,Province,1.0,True,Canada
+11,"Montréal, Quebec",2016S0503462,CMA,10.0,True,Quebec
+12,"Québec, Quebec",2016S0503421,CMA,10.0,True,Quebec
+13,"Saguenay, Quebec",2016S0503408,CMA,10.0,True,Quebec
+14,"Sherbrooke, Quebec",2016S0503433,CMA,10.0,True,Quebec
+15,"Trois-Rivières, Quebec",2016S0503442,CMA,10.0,True,Quebec
+16,Ontario,2016A000235,Province,1.0,True,Canada
+17,"Ottawa - Gatineau, Ontario/Quebec",2016S0503505,CMA,16.0,False,Ontario
+18,"Barrie, Ontario",2016S0503568,CMA,16.0,True,Ontario
+19,"Belleville, Ontario",2016S0503522,CMA,16.0,True,Ontario
+20,"Brantford, Ontario",2016S0503543,CMA,16.0,True,Ontario
+21,"Greater Sudbury, Ontario",2016S0503580,CMA,16.0,True,Ontario
+22,"Guelph, Ontario",2016S0503550,CMA,16.0,True,Ontario
+23,"Hamilton, Ontario",2016S0503537,CMA,16.0,True,Ontario
+24,"Kingston, Ontario",2016S0503521,CMA,16.0,True,Ontario
+25,"Kitchener - Cambridge - Waterloo, Ontario",2016S0503541,CMA,16.0,True,Ontario
+26,"London, Ontario",2016S0503555,CMA,16.0,True,Ontario
+27,"Oshawa, Ontario",2016S0503532,CMA,16.0,True,Ontario
+28,"Peterborough, Ontario",2016S0503529,CMA,16.0,True,Ontario
+29,"St. Catharines - Niagara, Ontario",2016S0503539,CMA,16.0,True,Ontario
+30,"Thunder Bay, Ontario",2016S0503595,CMA,16.0,True,Ontario
+31,"Toronto, Ontario",2016S0503535,CMA,16.0,True,Ontario
+32,"Windsor, Ontario",2016S0503559,CMA,16.0,True,Ontario
+33,Manitoba,2016A000246,Province,1.0,True,Canada
+34,"Winnipeg, Manitoba",2016S0503602,CMA,33.0,True,Manitoba
+35,Saskatchewan,2016A000247,Province,1.0,True,Canada
+36,"Regina, Saskatchewan",2016S0503705,CMA,35.0,True,Saskatchewan
+37,"Saskatoon, Saskatchewan",2016S0503725,CMA,35.0,True,Saskatchewan
+38,Alberta,2016A000248,Province,1.0,True,Canada
+39,"Calgary, Alberta",2016S0503825,CMA,38.0,True,Alberta
+40,"Edmonton, Alberta",2016S0503835,CMA,38.0,True,Alberta
+41,"Lethbridge, Alberta",2016S0503810,CMA,38.0,True,Alberta
+42,British Columbia,2016A000259,Province,1.0,True,Canada
+43,"Abbotsford - Mission, British Columbia",2016S0503932,CMA,42.0,True,British Columbia
+44,"Kelowna, British Columbia",2016S0503915,CMA,42.0,True,British Columbia
+45,"Vancouver, British Columbia",2016S0503933,CMA,42.0,True,British Columbia
+46,"Victoria, British Columbia",2016S0503935,CMA,42.0,True,British Columbia
+47,Yukon,2016A000260,Territory,1.0,False,Canada
+48,Northwest Territories,2016A000261,Territory,1.0,False,Canada
+49,Nunavut,2016A000262,Territory,1.0,False,Canada

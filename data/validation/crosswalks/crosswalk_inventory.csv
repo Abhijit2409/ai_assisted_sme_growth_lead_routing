@@ -1,0 +1,9 @@
+crosswalk,requirement_id,file,rows,columns,schema_matches
+E1,E1_cma_sgc2016_to_sgc2021,data/reference/crosswalks/cma_sgc2016_to_sgc2021.csv,41,24,True
+E2,E2_ised_cma_labels_to_codes,data/reference/crosswalks/ised_cma_to_sgc2021.csv,24,23,True
+E3,E3_0722_industry_to_naics2022,data/reference/crosswalks/statcan_0722_industry_to_naics2022.csv,40,25,True
+E4,E4_ised_industry_to_naics2022,data/reference/crosswalks/ised_industry_to_naics2022.csv,23,24,True
+E5,E5_1097_size_to_sme_bands,data/reference/crosswalks/statcan_1097_size_to_sme_bands.csv,9,27,True
+E6,E6_ised_scope_approximation,data/reference/crosswalks/ised_scope_approximation_rules.csv,26,27,True
+E7,E7_unclassified_and_overlapping_aggregates,data/reference/crosswalks/non_additive_category_rules.csv,28,26,True
+E8,E8_ised_regions_to_province_codes,data/reference/crosswalks/ised_region_province_crosswalk.csv,18,24,True

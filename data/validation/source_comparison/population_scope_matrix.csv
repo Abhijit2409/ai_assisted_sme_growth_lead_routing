@@ -1,0 +1,12 @@
+criterion,t_0722,t_1097,ised_2023,comparability,evidence_label
+employer requirement,Employer enterprises only (>= 1 employee),Locations with employees only,Enterprises with 1-499 employees,Similar in intent; different units,FACT: SOURCE
+SME employment limit,None (all sizes),None (all sizes),1-499 employees,ISED is a subset by size,FACT: SOURCE
+500+ employee businesses,Included (own band),Included (500 plus band),Excluded,Remove 500+ from StatCan totals before any scale comparison,FACT: SOURCE
+minimum revenue,None,None,">= $30,000 gross revenue",Not reconcilable from StatCan tables (no revenue dimension),FACT: SOURCE
+excluded industries,Business sector only; 61/62 partial; [11] scope undocumented,None (all industries),"NAICS 22, 52, 55, 61, 91; 5321, 5324, 6214-6223, 6242, 814110",Approximable on 1097 NAICS codes; not on 0722's coarse members,FACT: SOURCE
+excluded organizational forms,Not documented,Not documented,"Non-profits, joint ventures, government, subsidiaries, financing and leasing companies",Not reconcilable from StatCan tables,FACT: SOURCE
+public administration (91),Excluded (business sector),Included,Excluded,Exclude 91 from 1097 for comparisons,FACT: SOURCE
+unclassified businesses,Not documented,Separate member; 4.29-12.66% of CMA locations,Not documented,Must be carried separately; never allocated to sectors,FACT: DATA
+non-employer businesses,Excluded,Excluded (with employees),Excluded (1+ employees),Consistently excluded,FACT: SOURCE
+supplementary survey populations,None,None,"Oversamples (ICT, co-ops, charities/non-profits, CSBFP users...); non-profit rows are 0.11% of the weighted total",Inclusion in All-SMEs total unresolved; immaterial to scale,FACT: DATA
+geographic coverage,"Canada, provinces, territories, 35 CMAs",41 CMAs and CSDs; small non-CMA CSDs (< 10 businesses) out of scope,"Canada, regions, 5 provinces, 24 named CMAs",No common geography except CMAs,FACT: DATA

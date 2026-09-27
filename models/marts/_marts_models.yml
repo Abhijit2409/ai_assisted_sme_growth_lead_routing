@@ -1,0 +1,734 @@
+version: 2
+
+models:
+  - name: dim_cma
+    description: |
+      Business purpose: the reporting spine. Every CMA with its evidence tier, vintage alignment and ISED-context availability.
+      Row grain: one row per SGC 2021 CMA. Primary key: cma_code_sgc2021.
+      Upstream: reviewed crosswalks E1, E2 and E8; 1097 geography profile; 0722 and 1097 source coverage. Tiers are derived in dbt and tested against the approved spine.
+      Statistical unit: CMA (reference entity). Period: not applicable (classification; SGC 2021 with the 2016 code where it exists).
+      Geographic coverage: 41 CMAs (24 Tier 1, 11 Tier 2, 6 Tier 3). Industry and size coverage: not applicable.
+      Exclusions: provinces, territories and CSDs are not in the spine.
+      Missing values: 2016 code and DGUID are NULL for the 6 target-only CMAs; ISED CMA fields are NULL outside Tier 1 (regional values are never copied onto a CMA).
+      Limitations: 2016 and 2021 boundaries are not verified at component level; ISED does not state its geography vintage. Tier 3 CMAs are scale-only and not eligible for momentum comparisons.
+      Public aggregates only: rows describe markets, never individual businesses, prospects or leads.
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["cma_code_sgc2021"]
+      - row_count_equals:
+          arguments:
+            expected: 41
+    columns:
+      - name: cma_code_sgc2021
+        description: "SGC 2021 census metropolitan area code (3 digits). Code-based key; labels are never join keys."
+        data_tests:
+          - unique
+          - not_null
+      - name: cma_label_sgc2021
+        description: "SGC 2021 CMA name (display only)."
+      - name: dguid_2021
+        description: "SGC 2021 DGUID of the CMA."
+        data_tests:
+          - not_null
+      - name: province_code
+        description: "SGC province code(s) of the CMA; a CMA spanning two provinces lists both, separated by ';'."
+        data_tests:
+          - not_null
+      - name: cma_code_sgc2016
+        description: "SGC 2016 CMA code used by table 0722; aligned to 2021 only through the reviewed bridge (E1). NULL for the 6 target-only CMAs."
+      - name: dguid_2016
+        description: "SGC 2016 DGUID of the CMA (table 0722)."
+      - name: vintage_status
+        description: "E1 mapping status: 'exact code with boundary caveat' or 'target-only' (a CA in 2016)."
+      - name: boundary_change_flag
+        description: "Reviewed 2016-to-2021 boundary caveat from E1; boundaries are never claimed to be identical."
+      - name: preliminary_csd_additions
+        description: "Number of CSDs added to the CMA in the preliminary 2021 delineation (E1 evidence)."
+      - name: tier
+        description: "Evidence tier: 1 = momentum + scale + ISED CMA context; 2 = momentum + scale; 3 = scale only (no 0722 history)."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3]
+          - not_null
+      - name: in_primary_decision_set
+        description: "True for the 35 Tier 1 and Tier 2 CMAs."
+      - name: momentum_comparison_eligible
+        description: "True where 0722 momentum exists (Tiers 1-2). Tier 3 is never compared on momentum."
+      - name: has_momentum_0722
+        description: "The CMA has a table 0722 history (derived from the source data through E1)."
+      - name: has_scale_1097
+        description: "The CMA has table 1097 location counts."
+      - name: has_ised_cma_context
+        description: "ISED publishes a CMA row for this CMA (via E2). False means ISED context exists only at region or national level."
+      - name: ised_cma_label
+        description: "Verbatim ISED CMA row text (display and audit only)."
+      - name: ised_region_key
+        description: "Key of the ISED region/province row giving regional context ('|' separates keys for a two-province CMA). Regional values are never copied onto the CMA."
+      - name: ised_geography_caveat
+        description: "E2 caveat: ISED does not state its geography vintage."
+      - name: evidence_label
+        description: "Short evidence-coverage label."
+      - name: evidence_coverage_description
+        description: "Plain-language description of the evidence available for the CMA."
+  - name: dim_industry
+    description: |
+      Business purpose: industry members of every source system with their scope, additivity and overlap flags, so overlapping categories are never summed.
+      Row grain: one row per industry system x industry code. Primary key: industry_system, industry_code.
+      Upstream: 1097 NAICS profile (hierarchy from the table metadata), reviewed crosswalks E3 and E4, non-additive rules E7 (linked through a reviewed map).
+      Statistical unit: classification. Period: not applicable.
+      Coverage: 445 NAICS 2022 members (1097), 32 table-0722 members, 18 ISED groups and special aggregates.
+      Exclusions: none; out-of-scope members stay visible with in_mvp = false.
+      Missing values: parent_code, naics_codes and source_member_id are NULL where they do not exist.
+      Limitations: the 0722 NAICS vintage is not stated; 0722 member [11] is unresolved and 61/62 are partial; ISED special aggregates are non-reconcilable.
+      Public aggregates only: rows describe markets, never individual businesses, prospects or leads.
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["industry_system", "industry_code"]
+      - row_count_equals:
+          arguments:
+            expected: 495
+    columns:
+      - name: industry_system
+        description: "Classification system: NAICS2022_1097, STATCAN_0722 or ISED_SFGSME_2023."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["NAICS2022_1097", "STATCAN_0722", "ISED_SFGSME_2023"]
+      - name: industry_code
+        description: "Code within the system: NAICS code (or TOTAL/UNCLASSIFIED/CLASSIFIED_SUBTOTAL), 0722 member id, or ISED group code / reviewed aggregate code."
+      - name: industry_label
+        description: "Published industry label."
+      - name: industry_level
+        description: "Level within the system (sector, subsector, industry_group, naics_sector, tourism_component, special_aggregate, ...)."
+      - name: parent_code
+        description: "Code of the parent member in the same system, where one exists."
+      - name: in_mvp
+        description: "The member appears in an analytical view (business sectors, public administration and Unclassified shown separately, 0722 momentum members, ISED groups)."
+      - name: in_business_sector_scope
+        description: "The member lies inside the business sector (excludes NAICS 91, Unclassified and 1097 totals)."
+      - name: additive_flag
+        description: "Members may be summed within their level. False for totals, overlapping aggregates and Unclassified."
+      - name: overlap_flag
+        description: "The member overlaps others in the same system (aggregates, tourism members, subsectors); never summed with them."
+      - name: mvp_role
+        description: "How the member is used in the views."
+      - name: naics_codes
+        description: "NAICS 2022 code(s) the member covers (';'-separated)."
+      - name: classification_vintage
+        description: "Classification vintage of the member."
+      - name: mapping_status
+        description: "Reviewed mapping status (exact, partial mapping, combined category, unresolved, aggregate, non-reconcilable, native, ...)."
+      - name: source_member_id
+        description: "Published member id in the source table, where one exists."
+      - name: non_additive_rule_id
+        description: "E7 rule governing the member or region (never summed as a mutually exclusive group)."
+  - name: dim_size_band
+    description: |
+      Business purpose: the broad employment-size bands shared by all sources.
+      Row grain: one row per band. Primary key: size_band_key.
+      Upstream: reviewed crosswalk E5 and reviewed size maps for tables 0722 and ISED.
+      Statistical unit: classification only (enterprises in 0722 and ISED, locations in 1097: the unit is stated on each fact row).
+      Period: not applicable. Coverage: 1-4, 5-19, 20-99, 100-499, 500+ and the total.
+      Exclusions: non-employer businesses (no source covers them).
+      Missing values: upper bound NULL for 500+ and the total; ised_segment_label NULL where ISED has no such band.
+      Limitations: size ranges must not be used to calculate employment (1097 Note 4).
+      Public aggregates only: rows describe markets, never individual businesses, prospects or leads.
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["size_band_key"]
+      - row_count_equals:
+          arguments:
+            expected: 6
+    columns:
+      - name: size_band_key
+        description: "Broad size-band key: 1-4, 5-19, 20-99, 100-499, 500-plus or TOTAL."
+        data_tests:
+          - unique
+          - not_null
+      - name: size_band_label
+        description: "Broad size-band label."
+        data_tests:
+          - not_null
+      - name: lower_employees
+        description: "Lower bound of the band (employees)."
+      - name: upper_employees
+        description: "Upper bound of the band (employees); NULL for 500+ and the total."
+      - name: sort_order
+        description: "Display order of the band."
+      - name: is_total
+        description: "True for the all-sizes total."
+      - name: in_sme_scope
+        description: "True for the four SME bands (1-499 employees)."
+      - name: source_0722_size_member_id
+        description: "Table 0722 employment-size member id of the band."
+      - name: source_1097_size_member_ids
+        description: "Table 1097 size member ids that roll up into the band (';'-separated)."
+      - name: ised_segment_label
+        description: "ISED employment-size row label for the band, where ISED publishes it."
+      - name: unit_basis
+        description: "Unit basis: the size band itself carries no unit; the unit is stated on each fact and bridge row."
+  - name: bridge_cma_vintage
+    description: |
+      Business purpose: aligns table-0722 CMAs (SGC 2016) with SGC 2021 CMAs; the only permitted path between the two vintages.
+      Row grain: one row per CMA pair. Primary key: cma_code_sgc2016, cma_code_sgc2021 (cma_code_sgc2016 is a declared nullable key part for 6 target-only CMAs).
+      Upstream: reviewed crosswalk E1. Statistical unit: classification. Period: SGC 2016 to SGC 2021.
+      Coverage: 35 shared CMA codes plus 6 target-only CMAs.
+      Exclusions: none. Missing values: 2016 fields are NULL for target-only CMAs.
+      Limitations: shared codes carry a boundary caveat; 2016 observations are not recalculated onto 2021 boundaries.
+      Public aggregates only: rows describe markets, never individual businesses, prospects or leads.
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["cma_code_sgc2016", "cma_code_sgc2021"]
+      - row_count_equals:
+          arguments:
+            expected: 41
+    columns:
+      - name: cma_code_sgc2016
+        description: "SGC 2016 CMA code used by table 0722; aligned to 2021 only through the reviewed bridge (E1). NULL for the 6 target-only CMAs."
+      - name: cma_code_sgc2021
+        description: "SGC 2021 census metropolitan area code (3 digits). Code-based key; labels are never join keys."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_cma')
+                field: cma_code_sgc2021
+      - name: dguid_2016
+        description: "SGC 2016 DGUID of the CMA (table 0722)."
+      - name: dguid_2021
+        description: "SGC 2021 DGUID of the CMA."
+      - name: cma_label_sgc2016
+        description: "SGC 2016 CMA name as published by table 0722 (display only)."
+      - name: cma_label_sgc2021
+        description: "SGC 2021 CMA name (display only)."
+      - name: mapping_type
+        description: "Reviewed mapping type (one-to-one, one-to-many, many-to-one, aggregate, ...)."
+      - name: mapping_status
+        description: "Reviewed mapping status (exact, partial mapping, combined category, unresolved, aggregate, non-reconcilable, native, ...)."
+      - name: boundary_change_flag
+        description: "Reviewed 2016-to-2021 boundary caveat from E1; boundaries are never claimed to be identical."
+      - name: preliminary_csd_additions
+        description: "Number of CSDs added to the CMA in the preliminary 2021 delineation (E1 evidence)."
+      - name: has_2016_source
+        description: "True where the CMA exists in SGC 2016 (table 0722)."
+      - name: exact_boundary_claimed
+        description: "Always false: shared codes are never treated as exact historical boundaries."
+      - name: crosswalk_id
+        description: "Reviewed crosswalk identifier (E1-E8)."
+      - name: evidence_url
+        description: "Official evidence URL for the mapping."
+  - name: bridge_industry
+    description: |
+      Business purpose: maps table-0722 members and ISED industry groups to NAICS 2022 for side-by-side reporting.
+      Row grain: one row per source member x NAICS 2022 target. Primary key: source_system, source_code, target_code (target_code is a declared nullable key part for aggregates and non-reconcilable members).
+      Upstream: reviewed crosswalks E3 (40 rows) and E4 (23 rows). Statistical unit: classification. Period: not applicable.
+      Exclusions: none; non-reconcilable members stay visible with no target.
+      Missing values: target_code is NULL where no NAICS target exists.
+      Limitations: values are never allocated across one-to-many rows; 0722 [11] is unresolved and 61/62 are partial.
+      Public aggregates only: rows describe markets, never individual businesses, prospects or leads.
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["source_system", "source_code", "target_code"]
+      - row_count_equals:
+          arguments:
+            expected: 63
+    columns:
+      - name: source_system
+        description: "Source classification system of the mapping row."
+      - name: source_code
+        description: "Source code: 0722 member id or ISED group code / reviewed aggregate code."
+      - name: source_published_code
+        description: "Code as printed in the 0722 member label, where one exists."
+      - name: source_label
+        description: "Published source label (audit only)."
+      - name: target_system
+        description: "Target classification system (NAICS 2022)."
+      - name: target_code
+        description: "Target NAICS 2022 code; NULL for aggregates and non-reconcilable members (declared nullable key part)."
+      - name: target_label
+        description: "Target label."
+      - name: mapping_type
+        description: "Reviewed mapping type (one-to-one, one-to-many, many-to-one, aggregate, ...)."
+      - name: mapping_status
+        description: "Reviewed mapping status (exact, partial mapping, combined category, unresolved, aggregate, non-reconcilable, native, ...)."
+      - name: additive_flag
+        description: "Members may be summed within their level. False for totals, overlapping aggregates and Unclassified."
+      - name: inclusion_type
+        description: "Source class or inclusion type (complete sector, partial sector with survey exclusions, overlapping aggregate, ...)."
+      - name: excluded_codes_within
+        description: "ISED survey exclusions inside a partially covered sector."
+      - name: confidence
+        description: "Reviewer confidence in the mapping."
+      - name: crosswalk_id
+        description: "Reviewed crosswalk identifier (E1-E8)."
+      - name: value_allocation_allowed
+        description: "Always false: values are never split across one-to-many mapping rows."
+  - name: bridge_size_band
+    description: |
+      Business purpose: rolls the 8 table-1097 size bands into the broad bands (exact rollup).
+      Row grain: one row per 1097 size member. Primary key: source_band, target_band.
+      Upstream: reviewed crosswalk E5. Statistical unit: location basis. Period: not applicable.
+      Coverage: 8 bands plus the total. Exclusions: none. Missing values: bounds NULL for the total; 500+ has no upper bound.
+      Limitations: location-based only; not enterprise size.
+      Public aggregates only: rows describe markets, never individual businesses, prospects or leads.
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["source_band", "target_band"]
+      - row_count_equals:
+          arguments:
+            expected: 9
+    columns:
+      - name: source_band
+        description: "Table 1097 size member id."
+      - name: source_label
+        description: "Published source label (audit only)."
+      - name: target_band
+        description: "Broad size-band key."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_size_band')
+                field: size_band_key
+      - name: target_label
+        description: "Target label."
+      - name: source_lower
+        description: "Lower bound of the 1097 band (employees)."
+      - name: source_upper
+        description: "Upper bound of the 1097 band (employees)."
+      - name: mapping_type
+        description: "Reviewed mapping type (one-to-one, one-to-many, many-to-one, aggregate, ...)."
+      - name: mapping_status
+        description: "Reviewed mapping status (exact, partial mapping, combined category, unresolved, aggregate, non-reconcilable, native, ...)."
+      - name: unit_basis
+        description: "Unit basis: the size band itself carries no unit; the unit is stated on each fact and bridge row."
+      - name: in_ised_scope
+        description: "True where the band lies inside ISED's 1-499 scope; NULL for the total."
+      - name: crosswalk_id
+        description: "Reviewed crosswalk identifier (E1-E8)."
+  - name: fact_cma_momentum_monthly
+    description: |
+      Business purpose: monthly employer-business momentum per CMA (active enterprises, openings, continuing, closures and the derived net formation and rates).
+      Row grain: one row per CMA x month x size scope x industry member x measure. Primary key: cma_code_sgc2016, ref_month, size_band_key, industry_code_0722, measure.
+      Upstream: StatCan 33-10-0722-01 only (lineage-checked cache), aligned to SGC 2021 through bridge_cma_vintage.
+      Statistical unit: enterprise (counts); net count; ratio to the same series' active enterprises at t-1 (rates). No 1097 or ISED value is used, including as a denominator.
+      Period: monthly, seasonally adjusted, 2015-01 to 2026-05; pandemic months 2020-03 to 2021-12 flagged and retained.
+      Geographic coverage: the 35 CMAs with 0722 history (Tiers 1-2); Tier 3 has no rows.
+      Industry coverage: business-sector total (T004) and 18 sector members (sector detail is published for 8 CMAs from 2018-01).
+      Size coverage: all sizes, 1-4, 5-19, 20-99, 100-499, 500+ (active only for the three larger bands, in 18 CMAs).
+      Exclusions: reopenings, entrants, temporary closures and exits (no CMA values published); tourism members, subsectors 311/312 and the second business-sector aggregate (overlap sectors).
+      Missing values: 'x' and '..' stay NULL; a derived value exists only when every input is available; the first month has no prior month.
+      Limitations: all-size momentum is all-employer-business context, not SME-specific; 1-4 and 5-19 are small-business measures, not an SME total; enterprises are counted in each region and industry they operate in (not additive across CMAs or industries).
+      Public aggregates only: rows describe markets, never individual businesses, prospects or leads.
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["cma_code_sgc2016", "ref_month", "size_band_key", "industry_code_0722", "measure"]
+      - row_count_equals:
+          arguments:
+            expected: 3782864
+    columns:
+      - name: source_id
+        description: "Source identity of the row (one source per fact table)."
+        data_tests:
+          - not_null
+      - name: cma_code_sgc2016
+        description: "SGC 2016 CMA code used by table 0722; aligned to 2021 only through the reviewed bridge (E1). NULL for the 6 target-only CMAs."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('bridge_cma_vintage')
+                field: cma_code_sgc2016
+      - name: cma_code_sgc2021
+        description: "SGC 2021 census metropolitan area code (3 digits). Code-based key; labels are never join keys."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_cma')
+                field: cma_code_sgc2021
+      - name: ref_month
+        description: "Reference month (YYYY-MM)."
+        data_tests:
+          - not_null
+      - name: size_band_key
+        description: "Broad size-band key: 1-4, 5-19, 20-99, 100-499, 500-plus or TOTAL."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_size_band')
+                field: size_band_key
+      - name: industry_code_0722
+        description: "Table 0722 industry member id (1 = business-sector total T004; 18 sector members)."
+      - name: measure
+        description: "Measure code: active, openings, continuing, closures (published) or net_formation, opening_rate, closure_rate, net_formation_rate (derived)."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["active", "openings", "continuing", "closures", "net_formation", "opening_rate", "closure_rate", "net_formation_rate"]
+      - name: measure_label
+        description: "Measure label."
+      - name: value_origin
+        description: "'published' (from StatCan) or 'derived' (computed from published inputs of the same series)."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["published", "derived"]
+      - name: formula
+        description: "Formula of a derived measure; NULL for published rows."
+      - name: value
+        description: "Value: enterprises (counts), net count, or ratio to active enterprises at t-1. NULL when unavailable (x, .., missing input, no prior month); never zero-filled."
+      - name: value_available
+        description: "True when value is not NULL."
+      - name: value_state
+        description: "published, published_E, suppressed_x, not_available_dotdot, derived, derived_E, unavailable_input or no_prior_month."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["published", "published_E", "suppressed_x", "not_available_dotdot", "derived", "derived_E", "unavailable_input", "no_prior_month"]
+      - name: status
+        description: "StatCan STATUS on published rows ('' = acceptable or better, E, x, ..); NULL on derived rows."
+      - name: caution_flag
+        description: "True where the value, or any input of a derived value, is flagged E (use with caution)."
+      - name: statistical_unit
+        description: "Statistical unit of the value on this row."
+        data_tests:
+          - not_null
+      - name: scope_class
+        description: "Scope label: all-employer-business context, small-business measure, SME-specific measure, SME-location measure, outside SME scope (500+), filtered SME survey measure, ..."
+        data_tests:
+          - not_null
+      - name: period_label
+        description: "Period basis of the row."
+        data_tests:
+          - not_null
+      - name: pandemic_window_flag
+        description: "True for months 2020-03 to 2021-12 (flagged and retained, never deleted)."
+      - name: seasonally_adjusted
+        description: "Table 0722 series are seasonally adjusted."
+      - name: boundary_change_flag
+        description: "Reviewed 2016-to-2021 boundary caveat from E1; boundaries are never claimed to be identical."
+      - name: vector
+        description: "StatCan vector id of a published row."
+      - name: metric_id
+        description: "Metric identifier from the approved metric list, where the row serves one."
+  - name: fact_cma_market_scale_snapshot
+    description: |
+      Business purpose: size of the employer-location base per CMA (all sizes, SME 1-499, and 500+ separately).
+      Row grain: one row per CMA x size scope. Primary key: cma_code_sgc2021, size_scope, snapshot_period.
+      Upstream: StatCan 33-10-1097-01 only. Statistical unit: employer statistical location (not businesses, clients or prospects).
+      Period: December 2025 snapshot (REF_DATE 2025-07). Geographic coverage: all 41 CMAs. Industry coverage: total, all industries.
+      Size coverage: all sizes, 1-499 (exact rollup of 7 bands), 500+.
+      Exclusions: CSD detail; non-employer businesses.
+      Missing values: omitted cells inside a CMA are zero by reconciliation and counted in n_zero_by_reconciliation_cells.
+      Limitations: not a denominator for 0722 momentum; StatCan advises against using 1097 as a time series.
+      Public aggregates only: rows describe markets, never individual businesses, prospects or leads.
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["cma_code_sgc2021", "size_scope", "snapshot_period"]
+      - row_count_equals:
+          arguments:
+            expected: 123
+    columns:
+      - name: source_id
+        description: "Source identity of the row (one source per fact table)."
+        data_tests:
+          - not_null
+      - name: statistical_unit
+        description: "Statistical unit of the value on this row."
+        data_tests:
+          - not_null
+      - name: snapshot_period
+        description: "Snapshot label of table 1097 (December 2025)."
+        data_tests:
+          - not_null
+      - name: source_ref_date
+        description: "REF_DATE printed by table 1097 for the December 2025 snapshot (2025-07)."
+      - name: cma_code_sgc2021
+        description: "SGC 2021 census metropolitan area code (3 digits). Code-based key; labels are never join keys."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_cma')
+                field: cma_code_sgc2021
+      - name: size_scope
+        description: "Size scope of the row."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["all_sizes", "sme_1_499", "500_plus"]
+      - name: metric_id
+        description: "Metric identifier from the approved metric list, where the row serves one."
+      - name: scope_class
+        description: "Scope label: all-employer-business context, small-business measure, SME-specific measure, SME-location measure, outside SME scope (500+), filtered SME survey measure, ..."
+      - name: locations
+        description: "Employer statistical locations (not businesses, clients or prospects)."
+        data_tests:
+          - not_null
+      - name: n_component_cells
+        description: "Number of 1097 cells summed into the row."
+      - name: n_published_cells
+        description: "Component cells that are published counts."
+      - name: n_zero_by_reconciliation_cells
+        description: "Component cells omitted by StatCan inside the CMA and zero by reconciliation."
+      - name: omitted_zero_flag
+        description: "True when at least one component cell is zero by reconciliation."
+      - name: source_size_member_ids
+        description: "Table 1097 size member ids summed into the row."
+      - name: industry_scope
+        description: "Industry scope of the row."
+  - name: fact_cma_sector_composition_snapshot
+    description: |
+      Business purpose: SME-location composition by NAICS sector per CMA.
+      Row grain: one row per CMA x sector (19 business sectors, public administration 91 and Unclassified). Primary key: cma_code_sgc2021, naics_sector, snapshot_period.
+      Upstream: StatCan 33-10-1097-01 only. Statistical unit: employer location (1-499 employees).
+      Period: December 2025 (REF_DATE 2025-07). Geographic coverage: 41 CMAs (full grid). Industry coverage: NAICS 2022 sectors.
+      Size coverage: 1-499 (all-size locations kept for reference).
+      Exclusions: 91 and Unclassified are excluded from the sector-share denominator and shown separately; Unclassified is never allocated.
+      Missing values: omitted cells are zero by reconciliation and counted; 91 has no share.
+      Limitations: small sectors in small CMAs have unstable shares; no ISED or 0722 values.
+      Public aggregates only: rows describe markets, never individual businesses, prospects or leads.
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["cma_code_sgc2021", "naics_sector", "snapshot_period"]
+      - row_count_equals:
+          arguments:
+            expected: 861
+    columns:
+      - name: source_id
+        description: "Source identity of the row (one source per fact table)."
+        data_tests:
+          - not_null
+      - name: statistical_unit
+        description: "Statistical unit of the value on this row."
+        data_tests:
+          - not_null
+      - name: snapshot_period
+        description: "Snapshot label of table 1097 (December 2025)."
+        data_tests:
+          - not_null
+      - name: source_ref_date
+        description: "REF_DATE printed by table 1097 for the December 2025 snapshot (2025-07)."
+      - name: cma_code_sgc2021
+        description: "SGC 2021 census metropolitan area code (3 digits). Code-based key; labels are never join keys."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_cma')
+                field: cma_code_sgc2021
+      - name: naics_sector
+        description: "NAICS 2022 sector code, '91' (shown separately) or 'UNCLASSIFIED' (never allocated)."
+      - name: sector_role
+        description: "business_sector, public_administration_separate or unclassified_separate."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["business_sector", "public_administration_separate", "unclassified_separate"]
+      - name: unclassified_separate
+        description: "True for the Unclassified row."
+      - name: excluded_91_flag
+        description: "True for public administration (outside the SME banking scope and the share denominator)."
+      - name: scope_class
+        description: "Scope label: all-employer-business context, small-business measure, SME-specific measure, SME-location measure, outside SME scope (500+), filtered SME survey measure, ..."
+      - name: size_scope
+        description: "Size scope of the row."
+      - name: sme_locations
+        description: "SME employer locations (1-499 employees)."
+        data_tests:
+          - not_null
+      - name: locations_all_sizes
+        description: "Employer locations, all sizes (reference only)."
+      - name: share_metric_id
+        description: "Share metric: S03 sector share, S05 Unclassified share, S04 size-band share."
+      - name: share
+        description: "Share of SME locations (S03: of classified 19-sector SME locations; S05: of all SME locations). NULL for NAICS 91."
+      - name: share_denominator_basis
+        description: "Denominator used for the share."
+      - name: share_denominator
+        description: "Denominator value (locations)."
+      - name: n_published_cells
+        description: "Component cells that are published counts."
+      - name: n_zero_by_reconciliation_cells
+        description: "Component cells omitted by StatCan inside the CMA and zero by reconciliation."
+      - name: omitted_zero_flag
+        description: "True when at least one component cell is zero by reconciliation."
+  - name: fact_cma_size_composition_snapshot
+    description: |
+      Business purpose: SME-location composition by broad employment-size band per CMA.
+      Row grain: one row per CMA x band. Primary key: cma_code_sgc2021, size_band_key, snapshot_period.
+      Upstream: StatCan 33-10-1097-01 only (bands rolled up with bridge_size_band). Statistical unit: employer location.
+      Period: December 2025 (REF_DATE 2025-07). Geographic coverage: 41 CMAs. Industry coverage: total, all industries.
+      Size coverage: 1-4, 5-19, 20-99, 100-499 and 500+ (500+ outside the SME share).
+      Exclusions: none. Missing values: omitted cells are zero by reconciliation and counted.
+      Limitations: location-based employment-size composition, not enterprise size.
+      Public aggregates only: rows describe markets, never individual businesses, prospects or leads.
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["cma_code_sgc2021", "size_band_key", "snapshot_period"]
+      - row_count_equals:
+          arguments:
+            expected: 205
+    columns:
+      - name: source_id
+        description: "Source identity of the row (one source per fact table)."
+        data_tests:
+          - not_null
+      - name: statistical_unit
+        description: "Statistical unit of the value on this row."
+        data_tests:
+          - not_null
+      - name: snapshot_period
+        description: "Snapshot label of table 1097 (December 2025)."
+        data_tests:
+          - not_null
+      - name: source_ref_date
+        description: "REF_DATE printed by table 1097 for the December 2025 snapshot (2025-07)."
+      - name: cma_code_sgc2021
+        description: "SGC 2021 census metropolitan area code (3 digits). Code-based key; labels are never join keys."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_cma')
+                field: cma_code_sgc2021
+      - name: size_band_key
+        description: "Broad size-band key: 1-4, 5-19, 20-99, 100-499, 500-plus or TOTAL."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_size_band')
+                field: size_band_key
+      - name: in_sme_scope
+        description: "True for the four SME bands (1-499 employees)."
+      - name: scope_class
+        description: "Scope label: all-employer-business context, small-business measure, SME-specific measure, SME-location measure, outside SME scope (500+), filtered SME survey measure, ..."
+      - name: locations
+        description: "Employer statistical locations (not businesses, clients or prospects)."
+        data_tests:
+          - not_null
+      - name: share_metric_id
+        description: "Share metric: S03 sector share, S05 Unclassified share, S04 size-band share."
+      - name: share_of_sme_locations
+        description: "Band locations / SME locations (1-499). NULL for 500+ (outside SME scope)."
+      - name: share_denominator
+        description: "Denominator value (locations)."
+      - name: location_basis_flag
+        description: "Always true: location-based composition, not enterprise size."
+      - name: unit_note
+        description: "Unit reminder."
+      - name: n_published_cells
+        description: "Component cells that are published counts."
+      - name: n_zero_by_reconciliation_cells
+        description: "Component cells omitted by StatCan inside the CMA and zero by reconciliation."
+      - name: omitted_zero_flag
+        description: "True when at least one component cell is zero by reconciliation."
+      - name: source_size_member_ids
+        description: "Table 1097 size member ids summed into the row."
+      - name: industry_scope
+        description: "Industry scope of the row."
+  - name: fact_ised_financing_context
+    description: |
+      Business purpose: survey context on SME financing demand, outcomes and deal size. Contextual evidence only; never a market-score input.
+      Row grain: one row per ISED table x measure x one-way segment. Primary key: ised_table, measure_id, segment_dimension, segment_key.
+      Upstream: ISED SFGSME 2023 only (parsed workbook cache), segments coded through reviewed crosswalks E2, E4 and E8.
+      Statistical unit: weighted survey estimates (percentages, dollars, weighted SME counts) and unweighted respondent counts.
+      Period: calendar 2023. Geographic coverage: national, 10 ISED regions/provinces, 24 Tier 1 CMAs. Industry coverage: 10 ISED industry groups.
+      Size coverage: 4 ISED SME bands (1-499 overall). Population: SMEs with 1-499 employees and at least $30,000 revenue, with survey industry exclusions.
+      Exclusions: Tables 1, 3, 4, 49 by national, size, CMA, region and industry group; Table 5 (deal size) national and size band only; special aggregates and Table 50 (a two-way cross) excluded.
+      Missing values: '..' and blank stay NULL; F estimates keep their published value for audit but have no usable value; E estimates carry a caution flag.
+      Limitations: percentages are never converted into counts; one-way segments are never multiplied into CMA x industry x size cells; regional values are never attached to CMAs.
+      Public aggregates only: rows describe markets, never individual businesses, prospects or leads.
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["ised_table", "measure_id", "segment_dimension", "segment_key"]
+      - row_count_equals:
+          arguments:
+            expected: 1497
+    columns:
+      - name: source_id
+        description: "Source identity of the row (one source per fact table)."
+        data_tests:
+          - not_null
+      - name: survey_year
+        description: "Survey reference year (2023)."
+        data_tests:
+          - not_null
+      - name: period_label
+        description: "Period basis of the row."
+      - name: ised_table
+        description: "ISED table number."
+      - name: measure_id
+        description: "ISED measure identifier (table and column block)."
+      - name: measure_label
+        description: "Measure label."
+      - name: estimate_type
+        description: "Estimate type (percentage_of_universe, weighted_count, average_monetary, ...)."
+      - name: unit
+        description: "Published unit of the estimate."
+      - name: universe_or_denominator
+        description: "Population the estimate refers to (all SMEs in the segment, requesters, ...)."
+      - name: statistical_unit
+        description: "Statistical unit of the value on this row."
+        data_tests:
+          - not_null
+      - name: scope_class
+        description: "Scope label: all-employer-business context, small-business measure, SME-specific measure, SME-location measure, outside SME scope (500+), filtered SME survey measure, ..."
+      - name: metric_id
+        description: "Metric identifier from the approved metric list, where the row serves one."
+      - name: segment_dimension
+        description: "One-way segment dimension: national, size_band, cma, region or industry_group."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["national", "size_band", "cma", "region", "industry_group"]
+      - name: segment_key
+        description: "Code of the segment: CANADA, size-band key, SGC 2021 CMA code (Tier 1 only), region key or ISED industry code."
+        data_tests:
+          - not_null
+      - name: segment_label_published
+        description: "Verbatim ISED row text (audit only)."
+      - name: segment_level
+        description: "ISED row level (category or subcategory)."
+      - name: nested_region_flag
+        description: "True for regions nested inside another region row (never added to it)."
+      - name: non_additive_rule_id
+        description: "E7 rule governing the member or region (never summed as a mutually exclusive group)."
+      - name: geography_caveat
+        description: "Geography caveat of the segment."
+      - name: value_published
+        description: "Published estimate; NULL for '..' and blank cells."
+      - name: value_state
+        description: "published, published_E, suppressed_x, not_available_dotdot, derived, derived_E, unavailable_input or no_prior_month."
+      - name: quality_code
+        description: "ISED quality code A-F (NULL where none is printed)."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["A", "B", "C", "D", "E", "F"]
+      - name: error_value
+        description: "Printed standard error or coefficient of variation."
+      - name: se_or_cv
+        description: "Whether error_value is a standard error (SE) or a coefficient of variation (CV)."
+      - name: caution_flag
+        description: "True where the value, or any input of a derived value, is flagged E (use with caution)."
+      - name: excluded_quality_f
+        description: "True for F estimates (CV 30%+): excluded from usable comparisons."
+      - name: dotdot_flag
+        description: "True for '..' (unavailable; never zero)."
+      - name: mvp_use_status
+        description: "usable_A_to_D, usable_with_caution_E, excluded_quality_F, unavailable_dotdot or unavailable_blank."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["usable_A_to_D", "usable_with_caution_E", "excluded_quality_F", "unavailable_dotdot", "unavailable_blank", "published_without_quality_code"]
+      - name: source_stub_row
+        description: "Worksheet stub row of the cell (lineage)."
+      - name: value_usable
+        description: "Estimate usable for descriptive comparison (A-E); NULL for F, '..' and blank."

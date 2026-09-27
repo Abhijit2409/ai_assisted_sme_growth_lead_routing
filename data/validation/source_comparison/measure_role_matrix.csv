@@ -1,0 +1,20 @@
+layer,measure,source,estimate_type,available_grain,valid_source,constraint
+market momentum,Active employer enterprises,0722,enterprise count (SA),"Canada, provinces, all 35 CMAs (T004, from 2015-01); sector detail in 8 CMAs from 2018-01",0722,Not additive across industries/CMAs
+market momentum,Openings,0722,enterprise count (SA),as Active (Opening/Continuing/Closing published together),0722,Published only where the measure group is published
+market momentum,Closures,0722,enterprise count (SA),as Openings,0722,Size basis = prior-12-month average (Note 11)
+market momentum,Net formation (openings - closures),0722,derived count,as Openings,0722,"Same period, same series"
+market momentum,Opening rate = openings / active,0722,derived rate,as Openings,0722,Own denominator only; declare lag convention
+market momentum,Net formation rate = (openings - closures) / active,0722,derived rate,as Openings,0722,Own denominator only
+market momentum,Exits and temporary closures,0722,enterprise count,Canada/provinces only; never CMAs,0722,Unavailable for latest 6 months (Note 10)
+market momentum,Rolling trends (e.g. 12-month averages),0722,derived,as Active/Openings,0722,"Seasonally adjusted, experimental; CMA sector trends only from 2018-01"
+market scale,Employer locations,1097,location count,41 CMAs and CSDs x NAICS 2022 x 8 bands,1097,"Locations, not enterprises or clients; snapshot"
+market composition,Sector share of a CMA's locations,1097,derived share,CMA/CSD x sector,1097,Unclassified shown separately
+market composition,Size-band share of a CMA's locations,1097,derived share,CMA/CSD x band,1097,Location size basis
+market composition,CMA and CSD market structure,1097,location count,CSD within CMA,1097,Small counts at CSD x industry level
+market scale (survey),Weighted in-scope SME count,ISED,weighted survey count,One-way segments; Table 50 two-way crosses,ISED,Survey estimate of a filtered population; not a register count
+financing propensity,External-financing request rate,ISED,prevalence %,One-way segments incl. 24 CMAs,ISED,CMA estimates 97.9% A-D; rank only beyond ~2 combined SE
+financing propensity,Debt request and approval rates,ISED,prevalence %,One-way segments,ISED,CMA estimates 94.6% A-D
+financing propensity,Product demand by instrument,ISED,prevalence %,One-way segments,ISED,Instruments overlap (multiple requests)
+typical financing needs,Deal size (amounts requested/authorized),ISED,monetary,National and size-band only,ISED,54.5% of CMA estimates are F
+typical financing needs,"Growth expectations, obstacles, succession",ISED,prevalence %,One-way segments,ISED,Contextual only
+sales process,"Lead volume, conversion, RM capacity, SLA",synthetic CRM (future),internal,Not in any external source,synthetic CRM (future),Never derived from public data

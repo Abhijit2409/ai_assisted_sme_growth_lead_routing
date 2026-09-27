@@ -1,0 +1,9 @@
+# Copy to profiles.yml in the repository root (git-ignored) or to ~/.dbt/profiles.yml.
+# No credentials are needed: the warehouse is a local DuckDB file, relative to the repository root.
+sme_banking:
+  target: local
+  outputs:
+    local:
+      type: duckdb
+      path: data/warehouse/sme_banking.duckdb
+      threads: 4

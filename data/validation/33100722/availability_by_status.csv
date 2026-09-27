@@ -1,0 +1,5 @@
+status,total_rows,rows_with_value,rows_without_value,pct_with_value,pct_of_all_rows,definition,definition_source,value_behaviour
+x,7843698,0,7843698,0.0,91.46,suppressed to meet the confidentiality requirements of the Statistics Act,local metadata Symbol Legend,replaces value
+(blank),627970,627970,0,100.0,7.32,[Blank] or A-D: acceptable or better,StatCan Standard table symbols page (NOT defined in local metadata),accompanies value
+..,94108,0,94108,0.0,1.1,not available for a specific reference period,local metadata Symbol Legend,replaces value
+E,9896,9896,0,100.0,0.12,use with caution,local metadata Symbol Legend,accompanies value

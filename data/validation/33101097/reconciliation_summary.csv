@@ -1,0 +1,9 @@
+test,parent,children,status,parent_cells_compared,exact_matches,parent_greater,parent_smaller,parent_omitted_children_published,parent_published_children_omitted,max_abs_difference,sum_parent_values,sum_child_values,pct_exact,children_mutually_exclusive_basis
+size_total_vs_bands,"Total, with employees",8 employment-size bands,tested,334464,334464,0,0,0,0,0,11328104,11328104,100,Bands 1-4 ... 500+ are contiguous and non-overlapping; each location has one employment figure.
+naics_total_vs_unclassified_plus_classified,"Total, all industries [1]","Unclassified [2] + Sub-total, classified [3]",tested,20976,20976,0,0,0,0,0,4760420,4760420,100,Metadata children of [1]; a unit either has a NAICS code or not (Note 6).
+naics_classified_vs_sectors,"Sub-total, classified [3]",20 NAICS sectors,tested,20929,20929,0,0,0,0,0,4378456,4378456,100,NAICS 2022 sectors partition classified units (Note 5).
+naics_sector_vs_subsectors,each NAICS sector,its 3-digit subsectors (by code),tested,159695,159695,0,0,0,0,0,4378456,4378456,100,NAICS code prefix hierarchy; metadata parent IDs are flat below [3].
+naics_subsector_vs_industry_groups,each 3-digit subsector,its 4-digit industry groups (by code),tested,321015,321015,0,0,0,0,0,4378456,4378456,100,NAICS code prefix hierarchy; metadata parent IDs are flat below [3].
+geography_cma_vs_its_csds,each CMA,its CSDs (metadata parent),tested,83563,83563,0,0,0,0,0,9612854,9612854,100,SGC 2021 CSDs partition a CMA; a location resides in one smallest geographic area.
+geography_province_vs_components,province / territory,CMAs and CSDs,not_testable,,,,,,,,,,,"No province, territory or Canada members exist in this table."
+geography_other_csd_group_vs_csds,Other Census Subdivisions,CSDs outside CMAs,not_testable,,,,,,,,,,,Grouping member has no data rows; it is not a geography with a total.

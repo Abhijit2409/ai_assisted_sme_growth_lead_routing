@@ -1,0 +1,10 @@
+size_id,employment_size,metadata_parent_id,lower_employees,upper_employees,published_cells,locations_all_41_cmas,unclassified_all_41_cmas,pct_unclassified_41_cmas,contained_in_0722_band_numeric
+1,"Total, with employees",,,,334464,1012121,84726,8.37,
+2,1 to 4 employees,1,1,4,233583,578492,69160,11.96,1 to 4 employees
+3,5 to 9 employees,1,5,9,155355,176954,8533,4.82,5 to 19 employees
+4,10 to 19 employees,1,10,19,125137,120560,4254,3.53,5 to 19 employees
+5,20 to 49 employees,1,20,49,95638,84545,2025,2.4,20 to 99 employees
+6,50 to 99 employees,1,50,99,50790,29806,559,1.88,20 to 99 employees
+7,100 to 199 employees,1,100,199,29246,12628,149,1.18,100 to 499 employees
+8,200 to 499 employees,1,200,499,17264,6254,41,0.66,100 to 499 employees
+9,500 plus employees,1,500,,8797,2882,5,0.17,500 employees or more
