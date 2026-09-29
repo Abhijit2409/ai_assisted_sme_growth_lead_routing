@@ -1,0 +1,20 @@
+check,passed,detail
+"terminal statuses are exactly CONVERTED, CLOSED_LOST, INVALID, MERGED, WITHDRAWN",True,"['CLOSED_LOST', 'CONVERTED', 'INVALID', 'MERGED', 'WITHDRAWN']"
+every transition uses catalogued statuses,True,29 transitions
+every transition is triggered by a catalogued event,True,
+"no duplicate (from, to) transition pairs",True,
+terminal statuses leave only through audited reopening,True,"['T-28', 'T-29']"
+"audited reopening requires approver role, reason and approval time and is audit-flagged",True,"['T-28', 'T-29']"
+every transition into a terminal status requires a disposition,True,15 transitions
+terminal statuses require a disposition in the status catalog; non-terminal do not,True,
+every terminal status has at least one disposition and every disposition applies to a terminal status,True,"{'CLOSED_LOST': 5, 'INVALID': 5, 'WITHDRAWN': 2, 'CONVERTED': 1, 'MERGED': 1}"
+every status is reachable from NEW through ordinary transitions,True,all reachable
+every non-terminal status can reach a terminal status,True,no dead ends
+named invalid transitions are not allowed,True,7 blocked
+invalid-transition examples of type pair_not_allowed are absent from the transition table,True,5 examples
+invalid-transition examples of type guard_not_met are prevented by a required-field guard,True,['IT-04']
+CONVERTED only from QUALIFIED; ASSIGNED only from READY_FOR_ASSIGNMENT; CONTACTED only from ASSIGNED or NURTURING,True,
+status catalog entry events and SLA references resolve,True,
+assignment statuses: allowed next statuses resolve; terminal statuses have none,True,8 statuses
+"active assignment statuses are exactly QUEUED, ASSIGNED, ACKNOWLEDGED, REASSIGNMENT_PENDING",True,
+every assignment status is reachable from QUEUED or ASSIGNED,True,all reachable

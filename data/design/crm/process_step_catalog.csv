@@ -1,0 +1,21 @@
+step_id,step_order,step_name,description,lead_status_after,owner_role,rule_references,related_requirements
+PS-01,1,Lead capture,A lead is created from one of five channels with its source touch recorded.,NEW,System (channel intake),CH-DIG;CH-BRN;CH-MKT;CH-PTR;CH-RMP,DR-006;NFR-002
+PS-02,2,Required-field validation,Channel-specific required fields and formats are checked.,VALIDATION_PENDING or NEW,System; intake operations,RT-E01,FR-001
+PS-03,3,Duplicate screening,Tiered duplicate rules compare the lead with open and recent leads and prospects.,"DUPLICATE_REVIEW, MERGED or unchanged",System; intake operations,DUP-01;DUP-02;DUP-03;DUP-04;DUP-05;DUP-06,BR-008;FR-002
+PS-04,4,SME eligibility assessment,"Employee band 1-499, operating in Canada, not an existing relationship, not public administration.",INVALID or unchanged,System,RT-E03,BR-012;FR-003
+PS-05,5,Geographic and territory resolution,"Synthetic FSA resolves to an SGC 2021 CMA or provincial remainder, then to a territory.",unchanged,System,TER-01;TER-02;TER-03;TER-04;TER-05;TER-06,BR-005;FR-004
+PS-06,6,Segment and industry identification,Employee band maps to a segment; NAICS 2022 sector resolves specialist need.,unchanged,System,SPC-01;SPC-02;SPC-04;SPC-05,DR-004
+PS-07,7,Priority-input preparation,"Lead, market-context and operational inputs are assembled (no score in this design).",READY_FOR_ASSIGNMENT,System,PI-01;PI-11;PI-15;TER-03,BR-009;DR-005
+PS-08,8,Routing eligibility,"Only valid, unique, eligible leads in READY_FOR_ASSIGNMENT enter routing.",unchanged,Routing service,RT-E01;RT-E02;RT-E03;RT-E04,BR-002;BR-011;FR-005;FR-016;DR-003;NFR-001
+PS-09,9,RM capacity evaluation,"Candidate RMs are filtered by availability and hard capacity, then balanced by workload.",unchanged,Routing service,CAP-01;CAP-02;CAP-03;CAP-04;CAP-05;CAP-06;CAP-07;CAP-08;CAP-10,BR-004;FR-013;DR-007;RR-003
+PS-10,10,Assignment,One active primary assignment (or an approved queue) is created with rule version and reason.,ASSIGNED,Routing service,RT-P01;RT-P02;RT-P03;RT-X01;RT-X02;RT-X03;RT-L01;RT-L02;RT-F01;RT-F02;RT-F03,BR-001;FR-015;DQ-002
+PS-11,11,Assignment acknowledgement,The RM acknowledges ownership within the acknowledgement SLA.,ASSIGNED,Relationship Manager,SLA-05,FR-006
+PS-12,12,First-contact tracking,Contact attempts and the first two-way contact are recorded as activities.,CONTACTED,Relationship Manager,SLA-06A;SLA-06B;SLA-06C;SLA-06D,BR-003;FR-007;DQ-006
+PS-13,13,Ongoing activity tracking,"Follow-up activities, nurturing tasks and outcomes are recorded.",CONTACTED or NURTURING,Relationship Manager,SLA-07;SLA-08A;SLA-08B,FR-014
+PS-14,14,SLA monitoring,"Every SLA clock is started, warned, breached or met and recorded as an SLA event.",unchanged,System; Regional Sales Manager,SLA-01;SLA-02;SLA-03;SLA-04A;SLA-05,FR-008;DQ-003;RR-002;NFR-005
+PS-15,15,Reassignment,"Missed acknowledgement, inactivity, unavailability or manager decision ends the assignment and creates a new one.",ASSIGNED,System; Regional Sales Manager,RT-O01;SLA-09,BR-006;FR-009;DR-001;NFR-003
+PS-16,16,Escalation,"Breaches and queue ageing escalate to the Regional Sales Manager, then to the Director.",unchanged,Regional Sales Manager,RT-O02;SLA-10,FR-010
+PS-17,17,Qualification,"The RM confirms need, fit and intent; qualification opens an opportunity.",QUALIFIED,Relationship Manager,T-16,FR-012
+PS-18,18,Opportunity creation,An opportunity record tracks the qualified pursuit separately from the lead.,QUALIFIED,Relationship Manager,T-16,DR-008
+PS-19,19,Conversion or closure,The opportunity is won (lead converted) or the lead closes with a disposition.,"CONVERTED, CLOSED_LOST or WITHDRAWN",Relationship Manager,T-19;T-20;T-21;T-22;T-23;T-24;T-25;T-26;T-27,FR-011;DQ-001
+PS-20,20,Final disposition and reporting,"Terminal leads carry a valid disposition; KPIs are reported by channel, market, segment and RM.",terminal,Data and Analytics,KPI-O04;KPI-F08;KPI-D05,BR-007;BR-010;DR-002;DQ-004;DQ-005;RR-001;RR-004;RR-005;NFR-004;NFR-006

@@ -1,8 +1,8 @@
 <#
 .SYNOPSIS
     Runs the analytical data platform end to end: input verification, dbt transformation layer,
-    mart-to-baseline reconciliation, market-exploration regression, the market opportunity framework
-    and dbt documentation.
+    mart-to-baseline reconciliation, market-exploration regression, the market opportunity framework,
+    validation of the hypothetical CRM acquisition-process design and dbt documentation.
 
 .DESCRIPTION
     Safe to launch from any directory: it resolves the repository from its own location.
@@ -10,11 +10,16 @@
     must succeed; the script stops at the first failure and exits with a nonzero code.
 
 .PARAMETER Scope
-    Full (default): the validated base analytical layer, then the market opportunity framework, then dbt docs.
+    Full (default): the validated base analytical layer, then the market opportunity framework, then the
+          CRM acquisition-process design validation, then dbt docs.
     Base: only the validated base analytical layer (inputs, dbt base models and tests, reconciliation,
           market-exploration regression).
     Opportunity: only the market opportunity framework, after confirming that the base marts are current
           and the framework configuration is unchanged since it was declared.
+    CRMDesign: only the validation of the hypothetical CRM acquisition-process design (catalogs in
+          data/design/crm and the two CRM design documents), after confirming that the analytical platform
+          is current and the market opportunity validation passed. Builds no dbt models, rebuilds no caches,
+          generates no CRM records and skips dbt docs.
 
 .PARAMETER AnalysisPython
     Python interpreter of the analysis environment (pandas, DuckDB 1.5.3). Defaults to
@@ -24,10 +29,12 @@
     powershell -ExecutionPolicy Bypass -File .\run_analytical_pipeline.ps1
 .EXAMPLE
     powershell -ExecutionPolicy Bypass -File .\run_analytical_pipeline.ps1 -Scope Opportunity
+.EXAMPLE
+    powershell -ExecutionPolicy Bypass -File .\run_analytical_pipeline.ps1 -Scope CRMDesign
 #>
 [CmdletBinding()]
 param(
-    [ValidateSet('Full', 'Base', 'Opportunity')][string]$Scope = 'Full',
+    [ValidateSet('Full', 'Base', 'Opportunity', 'CRMDesign')][string]$Scope = 'Full',
     [string]$AnalysisPython
 )
 
@@ -104,7 +111,23 @@ if ($Scope -in @('Full', 'Opportunity')) {
     }
 }
 
-Invoke-Step 'Generate dbt documentation' { & $Dbt docs generate --profiles-dir $Root }
+if ($Scope -in @('Full', 'CRMDesign')) {
+    Write-Host ''
+    Write-Host '--- CRM acquisition-process design (hypothetical; no CRM records) ---' -ForegroundColor Yellow
+    Invoke-Step 'C1. Confirm the analytical platform is current (base marts and opportunity configuration)' {
+        & $AnalysisPython 'src\validation\14_validate_market_opportunity_framework.py' --preconditions-only
+    }
+    Invoke-Step 'C2. Confirm the market opportunity validation passed and the design catalogs are present' {
+        & $AnalysisPython 'src\validation\15_validate_crm_design.py' --preconditions-only
+    }
+    Invoke-Step 'C3. CRM design validation (catalogs, state machine, references, traceability, scenarios, documents, privacy)' {
+        & $AnalysisPython 'src\validation\15_validate_crm_design.py'
+    }
+}
+
+if ($Scope -ne 'CRMDesign') {
+    Invoke-Step 'Generate dbt documentation' { & $Dbt docs generate --profiles-dir $Root }
+}
 
 Write-Host ''
 Write-Host "Analytical pipeline completed (scope: $Scope): every step passed." -ForegroundColor Green

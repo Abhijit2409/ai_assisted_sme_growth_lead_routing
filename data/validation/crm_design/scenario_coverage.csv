@@ -1,0 +1,44 @@
+check,passed,detail
+all 32 required scenario conditions are covered,True,32 of 32
+SC-01 path uses valid transitions,True,NEW>READY_FOR_ASSIGNMENT>ASSIGNED>CONTACTED
+SC-02 path uses valid transitions,True,NEW>READY_FOR_ASSIGNMENT>ASSIGNED>CONTACTED
+SC-03 path uses valid transitions,True,NEW>READY_FOR_ASSIGNMENT>ASSIGNED>CONTACTED
+SC-04 path uses valid transitions,True,NEW>READY_FOR_ASSIGNMENT>ASSIGNED>CONTACTED
+SC-05 path uses valid transitions,True,NEW>READY_FOR_ASSIGNMENT>ASSIGNED>CONTACTED
+SC-06 path uses valid transitions,True,NEW>VALIDATION_PENDING>READY_FOR_ASSIGNMENT>ASSIGNED
+SC-07 path uses valid transitions,True,NEW>INVALID
+SC-08 path uses valid transitions,True,NEW>MERGED
+SC-09 path uses valid transitions,True,NEW>DUPLICATE_REVIEW>MERGED
+SC-10 path uses valid transitions,True,NEW>READY_FOR_ASSIGNMENT>ASSIGNED
+SC-11 path uses valid transitions,True,NEW>READY_FOR_ASSIGNMENT>ASSIGNED
+SC-12 path uses valid transitions,True,ASSIGNED (unchanged)
+SC-13 path uses valid transitions,True,NEW>READY_FOR_ASSIGNMENT>ASSIGNED
+SC-14 path uses valid transitions,True,NEW>READY_FOR_ASSIGNMENT>ASSIGNED
+SC-15 path uses valid transitions,True,NEW>READY_FOR_ASSIGNMENT>ASSIGNED
+SC-16 path uses valid transitions,True,ASSIGNED (unchanged)
+SC-17 path uses valid transitions,True,ASSIGNED>CONTACTED
+SC-18 path uses valid transitions,True,ASSIGNED>CLOSED_LOST
+SC-19 path uses valid transitions,True,CONTACTED (unchanged)
+SC-20 path uses valid transitions,True,ASSIGNED (unchanged)
+SC-21 path uses valid transitions,True,ASSIGNED (unchanged)
+SC-22 path uses valid transitions,True,CONTACTED>NURTURING>CONTACTED
+SC-23 path uses valid transitions,True,CONTACTED>QUALIFIED
+SC-24 path uses valid transitions,True,QUALIFIED>CONVERTED
+SC-25 path uses valid transitions,True,CONTACTED>CLOSED_LOST
+SC-26 path uses valid transitions,True,ASSIGNED>WITHDRAWN
+SC-27 path uses valid transitions,True,NEW>READY_FOR_ASSIGNMENT>ASSIGNED
+SC-28 path uses valid transitions,True,NEW>READY_FOR_ASSIGNMENT>ASSIGNED
+SC-29 path uses valid transitions,True,NEW>READY_FOR_ASSIGNMENT>ASSIGNED
+SC-30 path uses valid transitions,True,NEW>READY_FOR_ASSIGNMENT>ASSIGNED
+SC-31 path uses valid transitions,True,ASSIGNED (unchanged)
+SC-32 path uses valid transitions,True,NEW>MERGED
+SC-33 path uses valid transitions,True,CLOSED_LOST>READY_FOR_ASSIGNMENT>ASSIGNED
+every scenario status path uses only valid transitions matching its declared transition IDs,True,33 scenarios
+"scenario rule, KPI and acceptance-criterion references resolve",True,88 references
+every channel is exercised by a scenario,True,"['CH-BRN', 'CH-DIG', 'CH-MKT', 'CH-PTR', 'CH-RMP']"
+every terminal status is reached by at least one scenario,True,"['CLOSED_LOST', 'CONVERTED', 'INVALID', 'MERGED', 'WITHDRAWN']"
+the audited reopening transition is exercised,True,['T-28']
+every routing-rule category is exercised by a scenario,True,6 of 6
+"scenarios exercise acknowledgement, first-contact, follow-up, inactivity and reassignment SLAs",True,"['SLA-01', 'SLA-02', 'SLA-03', 'SLA-04A', 'SLA-04B', 'SLA-04C', 'SLA-05', 'SLA-06B', 'SLA-06D', 'SLA-07', 'SLA-08A', 'SLA-08B', 'SLA-09']"
+scenarios mix normal and exception paths,True,52% exception scenarios
+scenarios feed every KPI family,True,"['data quality', 'flow', 'outcome', 'routing and capacity', 'speed']"

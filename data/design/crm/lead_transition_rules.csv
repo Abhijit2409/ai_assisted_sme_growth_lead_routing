@@ -1,0 +1,30 @@
+transition_id,from_status,to_status,trigger_event,transition_type,guard_condition,required_fields,actor_role,requires_disposition,audit_required
+T-01,NEW,VALIDATION_PENDING,VALIDATION_FAILED,ordinary,At least one channel-required field missing or invalid,validation_failure_reason,System,false,false
+T-02,NEW,DUPLICATE_REVIEW,PROBABLE_DUPLICATE_FLAGGED,ordinary,Review-required duplicate rule matched,duplicate_group_id,System,false,false
+T-03,NEW,MERGED,DUPLICATE_CONFIRMED,ordinary,Exact or high-confidence duplicate; survivor chosen by DUP-07,duplicate_group_id;surviving_lead_id;disposition_code,System,true,false
+T-04,NEW,INVALID,LEAD_INVALIDATED,ordinary,Fails SME eligibility (RT-E03) or out of footprint (TER-06),disposition_code,System,true,false
+T-05,NEW,READY_FOR_ASSIGNMENT,LEAD_ROUTABLE,ordinary,"Validation passed, no duplicate, eligible",cma_code_sgc2021 or province_code;employee_band,System,false,false
+T-06,VALIDATION_PENDING,READY_FOR_ASSIGNMENT,LEAD_ROUTABLE,ordinary,Data corrected and duplicate and eligibility checks passed,cma_code_sgc2021 or province_code;employee_band,System,false,false
+T-07,VALIDATION_PENDING,DUPLICATE_REVIEW,PROBABLE_DUPLICATE_FLAGGED,ordinary,Corrected data matches a review-required duplicate rule,duplicate_group_id,System,false,false
+T-08,VALIDATION_PENDING,INVALID,LEAD_INVALIDATED,ordinary,"Not corrected within SLA-02, or ineligible after correction",disposition_code,System; intake operations,true,false
+T-09,VALIDATION_PENDING,WITHDRAWN,PROSPECT_WITHDREW,ordinary,Prospect withdrew before validation completed,disposition_code,Intake operations,true,false
+T-10,DUPLICATE_REVIEW,READY_FOR_ASSIGNMENT,DUPLICATE_REJECTED,ordinary,Reviewer rejects the duplicate match and lead is eligible,duplicate_review_decision,Intake operations,false,false
+T-11,DUPLICATE_REVIEW,MERGED,DUPLICATE_CONFIRMED,ordinary,Reviewer confirms the duplicate,surviving_lead_id;disposition_code,Intake operations,true,false
+T-12,READY_FOR_ASSIGNMENT,ASSIGNED,ASSIGNMENT_CREATED,ordinary,Routing eligibility passed (RT-E01..RT-E04) and an eligible RM has capacity or an override is approved,assignment_id;routing_decision_id;rule_version_id,Routing service,false,false
+T-13,READY_FOR_ASSIGNMENT,WITHDRAWN,PROSPECT_WITHDREW,ordinary,Prospect withdrew while queued,disposition_code,Queue owner,true,false
+T-14,ASSIGNED,CONTACTED,FIRST_TWO_WAY_CONTACT,ordinary,Active assignment exists and a two-way contact activity is logged by the owner,activity_id,Assigned RM,false,false
+T-15,ASSIGNED,READY_FOR_ASSIGNMENT,ASSIGNMENT_RELEASED,ordinary,Assignment ended and no eligible RM remains; lead returns to an approved queue,assignment_end_reason,Routing service,false,false
+T-16,CONTACTED,QUALIFIED,LEAD_QUALIFIED,ordinary,Qualification criteria confirmed; opportunity record created,opportunity_id;qualified_at,Assigned RM,false,false
+T-17,CONTACTED,NURTURING,NURTURE_SCHEDULED,ordinary,Prospect not ready; next contact date set,next_contact_due_at,Assigned RM,false,false
+T-18,NURTURING,CONTACTED,NURTURE_REENGAGED,ordinary,Prospect re-engaged through a two-way contact,activity_id,Assigned RM,false,false
+T-19,QUALIFIED,CONVERTED,OPPORTUNITY_WON,ordinary,Opportunity won,opportunity_id;disposition_code,Assigned RM,true,false
+T-20,ASSIGNED,CLOSED_LOST,LEAD_CLOSED_LOST,ordinary,Maximum contact attempts reached (disposition DSP-NO-RESPONSE),disposition_code,Assigned RM,true,false
+T-21,CONTACTED,CLOSED_LOST,LEAD_CLOSED_LOST,ordinary,Not qualified or not interested,disposition_code,Assigned RM,true,false
+T-22,NURTURING,CLOSED_LOST,LEAD_CLOSED_LOST,ordinary,Nurturing ended without re-engagement,disposition_code,Assigned RM,true,false
+T-23,QUALIFIED,CLOSED_LOST,OPPORTUNITY_LOST,ordinary,Opportunity lost,opportunity_id;disposition_code,Assigned RM,true,false
+T-24,ASSIGNED,WITHDRAWN,PROSPECT_WITHDREW,ordinary,Prospect withdrew interest or consent,disposition_code,Assigned RM,true,false
+T-25,CONTACTED,WITHDRAWN,PROSPECT_WITHDREW,ordinary,Prospect withdrew interest or consent,disposition_code,Assigned RM,true,false
+T-26,NURTURING,WITHDRAWN,PROSPECT_WITHDREW,ordinary,Prospect withdrew interest or consent,disposition_code,Assigned RM,true,false
+T-27,QUALIFIED,WITHDRAWN,PROSPECT_WITHDREW,ordinary,Prospect withdrew interest or consent,disposition_code,Assigned RM,true,false
+T-28,CLOSED_LOST,READY_FOR_ASSIGNMENT,LEAD_REOPENED,audited_reopening,Manager-approved reopening within 180 days of closure; prior disposition retained in history,reopen_reason;approver_role;approved_at,Regional Sales Manager,false,true
+T-29,WITHDRAWN,READY_FOR_ASSIGNMENT,LEAD_REOPENED,audited_reopening,Prospect re-requests contact with renewed consent; manager-approved within 180 days,reopen_reason;approver_role;approved_at;consent_to_contact_flag,Regional Sales Manager,false,true

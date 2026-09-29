@@ -1,0 +1,26 @@
+input_id,input_family,input_name,source,may_affect_priority,may_affect_routing_eligibility,may_affect_sla,context_only,never_use,note
+PI-01,lead-level,Acquisition channel,crm_lead_source_touch.channel_code,true,false,true,false,false,Channel sets SLA targets; may influence priority
+PI-02,lead-level,Stated product interest,crm_lead.stated_product_interest,true,false,false,false,false,
+PI-03,lead-level,Employee-size band,crm_business_prospect.employee_band,true,true,false,false,false,Eligibility (1-499) and segment routing
+PI-04,lead-level,Industry (NAICS 2022 code),crm_business_prospect.industry_code,true,true,false,false,false,Specialist eligibility; exclusions
+PI-05,lead-level,Requested contact,crm_lead.consent_to_contact_flag,true,true,false,false,false,No contact without consent
+PI-06,lead-level,Data completeness,validation outcome,false,true,false,false,false,"Gate, not a priority input"
+PI-07,lead-level,Referral type,"crm_lead_source_touch (CH-BRN, CH-PTR)",true,false,true,false,false,Referral SLAs
+PI-08,lead-level,Engagement activity,crm_lead_activity,true,false,false,false,false,
+PI-09,lead-level,Age of lead,crm_lead.captured_at,true,false,false,false,false,
+PI-10,lead-level,Prior contact outcome,crm_lead_activity.activity_outcome,true,false,false,false,false,
+PI-11,market-context,Market-opportunity score (selected scenario),analytics.mart_cma_opportunity_framework.opportunity_score,true,false,false,false,false,"Never overrides validity, duplicate, eligibility, SLA, capacity or compliance controls"
+PI-12,market-context,Market classification,analytics.mart_cma_opportunity_framework.opportunity_classification,true,false,false,false,false,External signal only
+PI-13,market-context,Sensitivity flag (stability group),analytics.mart_cma_opportunity_sensitivity.stability_group,false,false,false,true,false,Explains how robust the market signal is
+PI-14,market-context,Scale-only eligibility,analytics.mart_cma_scale_only_context.full_score_eligible,false,false,false,true,false,Tier 3 has no score; flag only
+PI-15,market-context,Evidence-quality flag,crm_lead.market_evidence_flag,false,false,false,true,false,Missing context must not block processing
+PI-16,operational,Current assignment,crm_lead_assignment,false,true,false,false,false,Routing eligibility
+PI-17,operational,RM capacity,crm_rm_capacity_snapshot,false,true,false,false,false,Hard limit is a control
+PI-18,operational,Specialist availability,crm_rm_specialization; capacity,false,true,false,false,false,
+PI-19,operational,SLA age,crm_sla_event,true,false,true,false,false,Ageing may raise priority
+PI-20,operational,Duplicate status,crm_duplicate_group,false,true,false,false,false,Gate
+PI-21,operational,Escalation state,crm_sla_event.escalation_level,true,false,true,false,false,
+PI-22,prohibited,Inferred language from name or location,none,false,false,false,false,true,Only explicitly stated language may be used
+PI-23,prohibited,"Owner gender, age, ethnicity, religion or other personal characteristics",none,false,false,false,false,true,Never collected or inferred
+PI-24,prohibited,Contact person name or personal contact details,crm_lead fictional contact fields,false,false,false,false,true,Excluded from all decisions and marts
+PI-25,prohibited,Neighbourhood-level demographics,none,false,false,false,false,true,Could proxy protected characteristics

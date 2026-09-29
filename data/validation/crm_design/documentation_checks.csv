@@ -1,0 +1,17 @@
+check,passed,detail
+both design documents exist,True,"['crm_acquisition_process_and_requirements.md', 'crm_data_model_and_dictionary.md']"
+both documents and the README section carry the hypothetical-design disclaimer,True,
+documents state that later CRM data will be entirely synthetic,True,
+"six titled Mermaid diagrams (current state, target state, state machine, routing, SLA escalation, ERD)",True,6 of 6
+state-machine diagram shows exactly the catalogued transitions,True,29 transitions
+ERD shows every catalogued entity and no others,True,18 entities
+routing flow diagram shows every routing rule,True,21 rules
+target-state diagram shows all 20 process steps,True,20 of 20
+current-state diagram is labelled hypothetical and shows all 13 illustrative problems,True,13 of 13
+"SLA escalation diagram references acknowledgement, first-contact, reassignment and escalation SLAs",True,
+process document counts reproduced by the catalogs,True,36 of 36
+data-model document counts reproduced by the catalogs,True,3 of 3
+every identifier cited in the documents exists in the catalogs,True,397 identifiers
+data-model document describes every entity,True,18 entities
+documents make no factual claim about a real bank's internal process,True,none
+README documents the CRMDesign pipeline scope and links both design documents,True,

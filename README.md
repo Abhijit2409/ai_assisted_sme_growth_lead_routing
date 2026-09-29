@@ -46,6 +46,8 @@ The dbt marts in the `analytics` schema are the authoritative analytical relatio
 | [docs/05_external_market_exploration.md](docs/05_external_market_exploration.md) | Descriptive market exploration and candidate indicators |
 | [docs/dbt_transformation_layer.md](docs/dbt_transformation_layer.md) | dbt transformation layer, tests and reconciliation |
 | [docs/market_opportunity_framework.md](docs/market_opportunity_framework.md) | Market opportunity framework: indicators, scenarios, scores, sensitivity and limitations |
+| [docs/crm_acquisition_process_and_requirements.md](docs/crm_acquisition_process_and_requirements.md) | Hypothetical CRM acquisition process: statuses, routing, SLAs, capacity, duplicates, KPIs, requirements and synthetic scenarios |
+| [docs/crm_data_model_and_dictionary.md](docs/crm_data_model_and_dictionary.md) | Logical CRM data model, entity catalog and field dictionary (design only; no records) |
 
 ## Installation
 
@@ -88,7 +90,8 @@ The script works from any directory. It never downloads data or deletes files, a
 5. Reconcile the 11 marts with the baseline Parquet views: `src/validation/11_reconcile_dbt_marts.py`.
 6. Run the market exploration from the dbt marts twice into scratch folders. Compare the runs with each other and with the recorded baseline, then refresh in place: `src/validation/12_verify_market_exploration_regression.py`.
 7. The market opportunity framework (`-Scope Opportunity` runs only this part): preconditions, opportunity dbt models and tests, `src/analysis/13_analyze_market_opportunity_framework.py`, and `src/validation/14_validate_market_opportunity_framework.py`.
-8. `dbt docs generate`.
+8. The CRM acquisition-process design validation (`-Scope CRMDesign` runs only this part): confirm that the analytical platform is current and that the market opportunity validation passed, then run `src/validation/15_validate_crm_design.py`.
+9. `dbt docs generate` (skipped by `-Scope CRMDesign`).
 
 `-Scope Base` runs steps 1-6 and then the dbt documentation step.
 
@@ -116,6 +119,18 @@ C:/Users/abhij/anaconda3/python.exe src/analysis/10_explore_market_opportunity.p
 
 ```bash
 .venv/Scripts/dbt.exe docs serve --profiles-dir .
+```
+
+## CRM acquisition process design
+
+This is a **hypothetical design for a fictional bank**. It specifies a target-state SME acquisition process, CRM requirements and control rules for later lead prioritization and relationship-manager routing. Nothing in it describes the internal process of any real Canadian bank, and the later CRM data will be entirely synthetic. No CRM records, CRM dbt models, priority or routing scores, dashboards or machine-learning models exist yet.
+
+- **Documents:** [docs/crm_acquisition_process_and_requirements.md](docs/crm_acquisition_process_and_requirements.md) and [docs/crm_data_model_and_dictionary.md](docs/crm_data_model_and_dictionary.md).
+- **Design catalogs:** `data/design/crm/`. These include assumptions, stakeholder needs, channels, lead statuses and transitions, assignment statuses, routing, territory, specialist, capacity, SLA and duplicate rules, the entity catalog and field dictionary, KPIs, requirements, acceptance criteria, traceability, synthetic scenarios and volumes. They are reviewed design inputs, not dbt seeds and not raw data.
+- **Validation:** `src/validation/15_validate_crm_design.py` writes its evidence to `data/validation/crm_design/`.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\run_analytical_pipeline.ps1 -Scope CRMDesign
 ```
 
 ## Limitations

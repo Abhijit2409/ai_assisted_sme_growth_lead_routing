@@ -1,0 +1,19 @@
+item,recommended_value,range_low,range_high,unit,basis,synthetic_assumption_flag
+synthetic operating period,2025-06-01 to 2026-05-31,,,date range,Aligned with the trailing 12 months of the momentum evidence (2025-06 to 2026-05),true
+business prospects,14000,12000,16000,prospects,Enough for CMA-level analysis across 41 CMAs while running locally,true
+leads,18000,15000,20000,leads,About 1.3 leads per prospect to exercise duplicates and repeat interest,true
+relationship managers,140,120,160,RMs,"About 4 per scored CMA plus national, remote and specialist pools",true
+territories,55,50,60,territories,41 CMA territories + provincial remainders + remote-service and national specialist,true
+assignments,22000,18000,26000,assignments,"Includes queue entries, reassignments and specialist-support rows",true
+activities,75000,60000,90000,activities,About 4 activities per assigned lead,true
+capacity snapshots,36000,30000,42000,RM-days,One per RM per business day (about 250 business days),true
+routing decisions,21000,18000,25000,decisions,Initial routing plus reroutes,true
+SLA events,80000,65000,95000,SLA clocks,Several clocks per lead,true
+campaigns,40,30,50,campaigns,About three to four per month,true
+duplicate rate,5%,4%,7%,share of leads merged,"Synthetic design assumption for test coverage, not a benchmark",true
+invalid-lead rate,4.5%,3%,6%,share of leads invalid,"Synthetic design assumption, not a benchmark",true
+reassignment rate,11%,8%,14%,share of assigned leads reassigned,"Synthetic design assumption, not a benchmark",true
+first-contact SLA-breach rate,14%,10%,18%,share of first-contact clocks breached,"Synthetic design assumption, not a benchmark",true
+lead-to-conversion rate,9%,6%,12%,share of valid leads converted,"Synthetic design assumption, not a benchmark",true
+random seed,20260929,,,seed,Fixed seed for deterministic generation,true
+geographic distribution,proportional to SME employer locations (table 1097) with a floor per CMA,,,rule,Uses analytics.fact_cma_market_scale_snapshot; Tier 3 and out-of-CMA leads included,true

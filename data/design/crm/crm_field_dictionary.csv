@@ -1,0 +1,240 @@
+table_name,column_name,ordinal_position,data_type,nullable,accepted_values,description,fictional_example,privacy_class,validation_rule,field_category,foreign_key,is_primary_key
+crm_business_prospect,prospect_id,1,varchar,false,,Surrogate key of the synthetic prospect.,PRS-000123,synthetic identifier,Unique; pattern PRS-######,identifier,,true
+crm_business_prospect,synthetic_business_id,2,varchar,false,,Synthetic business identifier used for exact duplicate matching (never a real business number).,SYN-BIZ-004521,synthetic identifier,Unique; pattern SYN-BIZ-######,identifier,,false
+crm_business_prospect,legal_name,3,varchar,false,,Fictional legal business name.,Fictional Prospect 00123 Ltd. (fictional),synthetic business attribute,Generated from a fictional-name pattern; never a real business,attribute,,false
+crm_business_prospect,normalized_legal_name,4,varchar,false,,"Legal name normalized for duplicate matching (case, punctuation, legal suffix removed).",fictional prospect 00123,derived,Deterministic normalization of legal_name,derived,,false
+crm_business_prospect,operating_name,5,varchar,true,,Fictional operating name if different.,Northwind Fictional Supply (fictional),synthetic business attribute,Null or fictional pattern,attribute,,false
+crm_business_prospect,employee_band,6,varchar,false,1-4;5-19;20-99;100-499;500-plus;unknown,Employee-size band stated or estimated at capture.,20-99,business attribute,In accepted values,attribute,size band -> analytics.dim_size_band,false
+crm_business_prospect,industry_system,7,varchar,true,NAICS2022_1097,Industry classification system.,NAICS2022_1097,business attribute,Equals NAICS2022_1097 when industry_code present,attribute,analytics.dim_industry.industry_system,false
+crm_business_prospect,industry_code,8,varchar,true,,Reviewed NAICS 2022 sector code from analytics.dim_industry.,23,business attribute,Exists in analytics.dim_industry for NAICS2022_1097; null means unresolved,attribute,analytics.dim_industry.industry_code,false
+crm_business_prospect,country_code,9,varchar,false,CA;other,Country of operation.,CA,business attribute,In accepted values,attribute,,false
+crm_business_prospect,existing_relationship_flag,10,boolean,false,true;false,Prospect already holds a synthetic banking relationship (excluded from acquisition).,false,business attribute,Boolean,attribute,,false
+crm_business_prospect,created_at,11,timestamp,false,,Time the record was created (UTC).,2025-07-14T15:02:11Z,operational,Not null; not in the future relative to the load date,audit,,false
+crm_business_prospect,updated_at,12,timestamp,true,,Time the record was last updated (UTC); null for immutable event rows.,2025-07-15T09:30:00Z,operational,>= created_at when present,audit,,false
+crm_business_prospect,record_source,13,varchar,false,synthetic_generator,System that produced the record; always the synthetic generator.,synthetic_generator,operational,Must equal synthetic_generator,audit,,false
+crm_lead,lead_id,1,varchar,false,,Surrogate key of the lead.,LED-0004521,synthetic identifier,Unique; pattern LED-#######,identifier,,true
+crm_lead,prospect_id,2,varchar,false,,Prospect the lead refers to.,PRS-000123,synthetic identifier,Resolves to crm_business_prospect,foreign key,crm_business_prospect.prospect_id,false
+crm_lead,captured_at,3,timestamp,false,,Lead capture time (UTC).,2025-07-14T15:02:11Z,operational,Within the synthetic period,event timestamp,,false
+crm_lead,first_channel_code,4,varchar,false,CH-DIG;CH-BRN;CH-MKT;CH-PTR;CH-RMP,Channel of the first source touch.,CH-DIG,operational,In channel catalog,attribute,crm_acquisition_channel.channel_code,false
+crm_lead,contact_role,5,varchar,true,owner;finance lead;operations lead;other,Role of the (fictional) contact person; no name stored in analytical models.,owner,synthetic contact attribute,In accepted values,attribute,,false
+crm_lead,contact_email_fictional,6,varchar,true,,Fictional contact email on a reserved .example domain; excluded from analytical marts.,contact@fictional-prospect-00123.example,synthetic contact (fictional),Must end in .example; never a real domain; excluded from marts,attribute,,false
+crm_lead,contact_phone_fictional,7,varchar,true,,Fictional phone number using exchange 555 with line 0100-0199 (reserved for fictional use); excluded from analytical marts.,+1-613-555-0123,synthetic contact (fictional),Must match +1-NXX-555-01##; excluded from marts,attribute,,false
+crm_lead,postal_fsa,8,varchar,true,,"Forward sortation area of the business location (geography, not an address).",T2P,business location (aggregate),Three characters: letter-digit-letter; null triggers TER-05,attribute,,false
+crm_lead,province_code,9,varchar,true,10;11;12;13;24;35;46;47;48;59;60;61;62,SGC province or territory code from the address.,48,business location (aggregate),In accepted values when present,attribute,,false
+crm_lead,cma_code_sgc2021,10,varchar,true,,Resolved SGC 2021 CMA code; null outside the 41-CMA spine.,825,business location (aggregate),Exists in analytics.dim_cma when present,attribute,analytics.dim_cma.cma_code_sgc2021,false
+crm_lead,territory_id,11,varchar,true,,Resolved territory.,TER-CMA-825,operational,Resolves to crm_territory when present,foreign key,crm_territory.territory_id,false
+crm_lead,geography_status,12,varchar,false,resolved_cma;resolved_province_remainder;missing;conflict;out_of_footprint,Outcome of geographic resolution.,resolved_cma,operational,In accepted values,derived,,false
+crm_lead,market_evidence_flag,13,varchar,false,full_framework;scale_only_limited_evidence;no_market_context,Market-context availability for the lead's CMA.,full_framework,operational,full_framework iff CMA is Tier 1-2; scale_only iff Tier 3; else no_market_context,derived,,false
+crm_lead,stated_product_interest,14,varchar,true,operating account;credit;cash management;merchant services;not stated,Product interest stated at capture.,credit,business attribute,In accepted values,attribute,,false
+crm_lead,stated_service_language,15,varchar,true,en;fr;not stated,Service language explicitly stated by the prospect; never inferred.,not stated,stated preference,In accepted values; must be not stated unless explicitly provided,attribute,,false
+crm_lead,consent_to_contact_flag,16,boolean,false,true;false,Prospect consented to be contacted.,true,consent,Must be true for any contact activity,attribute,,false
+crm_lead,priority_band,17,varchar,false,P1;P2;P3,Priority band from a later model; default P2 until the model exists.,P2,operational,In accepted values,attribute,,false
+crm_lead,current_lead_status,18,varchar,false,NEW;VALIDATION_PENDING;DUPLICATE_REVIEW;READY_FOR_ASSIGNMENT;ASSIGNED;CONTACTED;NURTURING;QUALIFIED;CONVERTED;CLOSED_LOST;INVALID;MERGED;WITHDRAWN,"Current lead status, derived from the latest status-history row.",ASSIGNED,operational,Equals the latest crm_lead_status_history.to_status,derived,,false
+crm_lead,disposition_code,19,varchar,true,,Disposition for terminal leads.,DSP-NO-RESPONSE,operational,Required when status is terminal; must apply to that status,attribute,,false
+crm_lead,duplicate_group_id,20,varchar,true,,"Duplicate group, if any.",DUPG-000077,synthetic identifier,Resolves to crm_duplicate_group when present,foreign key,crm_duplicate_group.duplicate_group_id,false
+crm_lead,surviving_lead_id,21,varchar,true,,Survivor for MERGED leads.,LED-0004400,synthetic identifier,Required iff status MERGED,foreign key,crm_lead.lead_id,false
+crm_lead,synthetic_scenario_id,22,varchar,true,,Synthetic scenario that generated this lead (for test traceability).,SC-01,operational,Exists in the synthetic scenario catalog,attribute,,false
+crm_lead,created_at,23,timestamp,false,,Time the record was created (UTC).,2025-07-14T15:02:11Z,operational,Not null; not in the future relative to the load date,audit,,false
+crm_lead,updated_at,24,timestamp,true,,Time the record was last updated (UTC); null for immutable event rows.,2025-07-15T09:30:00Z,operational,>= created_at when present,audit,,false
+crm_lead,record_source,25,varchar,false,synthetic_generator,System that produced the record; always the synthetic generator.,synthetic_generator,operational,Must equal synthetic_generator,audit,,false
+crm_lead_source_touch,source_touch_id,1,varchar,false,,Surrogate key of the source touch.,TCH-0009012,synthetic identifier,Unique,identifier,,true
+crm_lead_source_touch,lead_id,2,varchar,false,,Lead that currently holds the touch (the survivor after a merge).,LED-0004400,synthetic identifier,Resolves to crm_lead,foreign key,crm_lead.lead_id,false
+crm_lead_source_touch,original_lead_id,3,varchar,false,,Lead originally created by the touch; never changed by merges.,LED-0004521,synthetic identifier,Resolves to crm_lead,foreign key,crm_lead.lead_id,false
+crm_lead_source_touch,channel_code,4,varchar,false,CH-DIG;CH-BRN;CH-MKT;CH-PTR;CH-RMP,Acquisition channel of the touch.,CH-MKT,operational,In channel catalog,foreign key,crm_acquisition_channel.channel_code,false
+crm_lead_source_touch,touched_at,5,timestamp,false,,Time of the touch.,2025-07-14T15:02:11Z,operational,Not after the lead's terminal time,event timestamp,,false
+crm_lead_source_touch,campaign_id,6,varchar,true,,Campaign for CH-MKT touches.,CMP-0012,synthetic identifier,Required for CH-MKT; resolves to crm_campaign,foreign key,crm_campaign.campaign_id,false
+crm_lead_source_touch,partner_code,7,varchar,true,,Fictional partner code for CH-PTR touches.,PTN-FICT-031,synthetic identifier,Required for CH-PTR,attribute,,false
+crm_lead_source_touch,referring_branch_code,8,varchar,true,,Fictional branch code for CH-BRN touches.,BRN-FICT-114,synthetic identifier,Required for CH-BRN,attribute,,false
+crm_lead_source_touch,prospecting_rm_id,9,varchar,true,,Prospecting RM for CH-RMP touches.,RM-0042,synthetic identifier,Required for CH-RMP; resolves to crm_relationship_manager,foreign key,crm_relationship_manager.rm_id,false
+crm_lead_source_touch,is_first_touch,10,boolean,false,true;false,First touch of the surviving lead (first-touch attribution).,true,derived,Exactly one true per surviving lead,derived,,false
+crm_lead_source_touch,created_at,11,timestamp,false,,Time the record was created (UTC).,2025-07-14T15:02:11Z,operational,Not null; not in the future relative to the load date,audit,,false
+crm_lead_source_touch,updated_at,12,timestamp,true,,Time the record was last updated (UTC); null for immutable event rows.,2025-07-15T09:30:00Z,operational,>= created_at when present,audit,,false
+crm_lead_source_touch,record_source,13,varchar,false,synthetic_generator,System that produced the record; always the synthetic generator.,synthetic_generator,operational,Must equal synthetic_generator,audit,,false
+crm_acquisition_channel,channel_code,1,varchar,false,CH-DIG;CH-BRN;CH-MKT;CH-PTR;CH-RMP,Channel code from the acquisition channel catalog.,CH-BRN,reference,Unique; in catalog,identifier,,true
+crm_acquisition_channel,channel_name,2,varchar,false,,Business name of the channel.,Branch referral,reference,Not null,attribute,,false
+crm_acquisition_channel,default_assignment_sla_id,3,varchar,false,SLA-04A;SLA-04B;SLA-04C,Assignment SLA applied to the channel.,SLA-04B,reference,Exists in sla_rule_catalog,attribute,,false
+crm_acquisition_channel,created_at,4,timestamp,false,,Time the record was created (UTC).,2025-07-14T15:02:11Z,operational,Not null; not in the future relative to the load date,audit,,false
+crm_acquisition_channel,updated_at,5,timestamp,true,,Time the record was last updated (UTC); null for immutable event rows.,2025-07-15T09:30:00Z,operational,>= created_at when present,audit,,false
+crm_acquisition_channel,record_source,6,varchar,false,synthetic_generator,System that produced the record; always the synthetic generator.,synthetic_generator,operational,Must equal synthetic_generator,audit,,false
+crm_campaign,campaign_id,1,varchar,false,,Surrogate key.,CMP-0012,synthetic identifier,Unique,identifier,,true
+crm_campaign,campaign_code,2,varchar,false,,Fictional campaign code.,CMP-FICT-2025-Q3-07,synthetic identifier,Unique,identifier,,false
+crm_campaign,campaign_name,3,varchar,false,,Fictional campaign name.,Fictional autumn cash-flow webinar,synthetic attribute,Not null,attribute,,false
+crm_campaign,target_segment,4,varchar,true,micro;established;all,Target SME segment.,established,operational,In accepted values,attribute,,false
+crm_campaign,campaign_start_date,5,date,false,,Start date.,2025-09-01,operational,<= campaign_end_date,effective date,,false
+crm_campaign,campaign_end_date,6,date,false,,End date.,2025-10-15,operational,>= campaign_start_date,effective date,,false
+crm_campaign,created_at,7,timestamp,false,,Time the record was created (UTC).,2025-07-14T15:02:11Z,operational,Not null; not in the future relative to the load date,audit,,false
+crm_campaign,updated_at,8,timestamp,true,,Time the record was last updated (UTC); null for immutable event rows.,2025-07-15T09:30:00Z,operational,>= created_at when present,audit,,false
+crm_campaign,record_source,9,varchar,false,synthetic_generator,System that produced the record; always the synthetic generator.,synthetic_generator,operational,Must equal synthetic_generator,audit,,false
+crm_relationship_manager,rm_id,1,varchar,false,,Surrogate key of the synthetic RM (no real employee).,RM-0042,synthetic identifier,Unique,identifier,,true
+crm_relationship_manager,rm_code,2,varchar,false,,Fictional RM code; no names are stored.,RM-FICT-0042,synthetic identifier,Unique,identifier,,false
+crm_relationship_manager,rm_segment,3,varchar,false,small_business;commercial,Segment the RM serves.,commercial,operational,In accepted values,attribute,,false
+crm_relationship_manager,home_territory_id,4,varchar,false,,Primary territory.,TER-CMA-825,operational,Resolves to crm_territory,foreign key,crm_territory.territory_id,false
+crm_relationship_manager,supported_service_languages,5,varchar,false,en;fr;en|fr,Service languages the RM supports (for explicitly stated preferences only).,en|fr,operational,In accepted values,attribute,,false
+crm_relationship_manager,base_capacity_points,6,"decimal(6,2)",false,,Base weighted capacity (CAP-05; configurable).,40.00,operational,> 0,attribute,,false
+crm_relationship_manager,employment_start_date,7,date,false,,Synthetic start date.,2021-03-01,operational,Not null,effective date,,false
+crm_relationship_manager,employment_end_date,8,date,true,,Synthetic end date; null if active.,2026-03-31 (null while employed),operational,>= employment_start_date when present,effective date,,false
+crm_relationship_manager,active_flag,9,boolean,false,true;false,Currently active.,true,operational,Boolean,current-state,,false
+crm_relationship_manager,created_at,10,timestamp,false,,Time the record was created (UTC).,2025-07-14T15:02:11Z,operational,Not null; not in the future relative to the load date,audit,,false
+crm_relationship_manager,updated_at,11,timestamp,true,,Time the record was last updated (UTC); null for immutable event rows.,2025-07-15T09:30:00Z,operational,>= created_at when present,audit,,false
+crm_relationship_manager,record_source,12,varchar,false,synthetic_generator,System that produced the record; always the synthetic generator.,synthetic_generator,operational,Must equal synthetic_generator,audit,,false
+crm_territory,territory_id,1,varchar,false,,Surrogate key.,TER-CMA-825,reference,Unique,identifier,,true
+crm_territory,territory_code,2,varchar,false,,Business code.,CMA-825,reference,Unique,identifier,,false
+crm_territory,territory_type,3,varchar,false,cma;province_remainder;remote_service;national_specialist,Territory type (TER rules).,cma,reference,In accepted values,attribute,,false
+crm_territory,cma_code_sgc2021,4,varchar,true,,SGC 2021 CMA code for cma territories.,825,reference,Exists in analytics.dim_cma; required iff type = cma,foreign key,analytics.dim_cma.cma_code_sgc2021,false
+crm_territory,province_code,5,varchar,true,,Province code for province_remainder territories.,48,reference,Required iff type = province_remainder,attribute,,false
+crm_territory,sales_region,6,varchar,false,Atlantic;Quebec;Ontario;Prairies;British Columbia and North;National,Hypothetical sales region grouping.,Prairies,reference,In accepted values,attribute,,false
+crm_territory,evidence_tier,7,integer,true,1;2;3,Evidence tier of the CMA (from analytics.dim_cma).,1,reference,Equals analytics.dim_cma.tier for cma territories,derived,,false
+crm_territory,created_at,8,timestamp,false,,Time the record was created (UTC).,2025-07-14T15:02:11Z,operational,Not null; not in the future relative to the load date,audit,,false
+crm_territory,updated_at,9,timestamp,true,,Time the record was last updated (UTC); null for immutable event rows.,2025-07-15T09:30:00Z,operational,>= created_at when present,audit,,false
+crm_territory,record_source,10,varchar,false,synthetic_generator,System that produced the record; always the synthetic generator.,synthetic_generator,operational,Must equal synthetic_generator,audit,,false
+crm_rm_territory,rm_territory_id,1,varchar,false,,Surrogate key.,RMT-000311,synthetic identifier,Unique,identifier,,true
+crm_rm_territory,rm_id,2,varchar,false,,RM.,RM-0042,synthetic identifier,Resolves to crm_relationship_manager,foreign key,crm_relationship_manager.rm_id,false
+crm_rm_territory,territory_id,3,varchar,false,,Territory covered.,TER-CMA-825,reference,Resolves to crm_territory,foreign key,crm_territory.territory_id,false
+crm_rm_territory,coverage_role,4,varchar,false,primary;backup,Coverage role.,primary,operational,In accepted values,attribute,,false
+crm_rm_territory,valid_from,5,date,false,,Coverage start.,2025-06-01,operational,Not null,effective date,,false
+crm_rm_territory,valid_to,6,date,true,,Coverage end; null if open.,2025-12-31 (null while current),operational,>= valid_from; periods for the same RM and territory do not overlap,effective date,,false
+crm_rm_territory,created_at,7,timestamp,false,,Time the record was created (UTC).,2025-07-14T15:02:11Z,operational,Not null; not in the future relative to the load date,audit,,false
+crm_rm_territory,updated_at,8,timestamp,true,,Time the record was last updated (UTC); null for immutable event rows.,2025-07-15T09:30:00Z,operational,>= created_at when present,audit,,false
+crm_rm_territory,record_source,9,varchar,false,synthetic_generator,System that produced the record; always the synthetic generator.,synthetic_generator,operational,Must equal synthetic_generator,audit,,false
+crm_rm_specialization,rm_specialization_id,1,varchar,false,,Surrogate key.,RMS-000088,synthetic identifier,Unique,identifier,,true
+crm_rm_specialization,rm_id,2,varchar,false,,RM.,RM-0042,synthetic identifier,Resolves to crm_relationship_manager,foreign key,crm_relationship_manager.rm_id,false
+crm_rm_specialization,industry_system,3,varchar,false,NAICS2022_1097,Industry system.,NAICS2022_1097,reference,Equals NAICS2022_1097,attribute,analytics.dim_industry.industry_system,false
+crm_rm_specialization,industry_code,4,varchar,false,,Reviewed NAICS 2022 sector code (SPC catalog).,11,reference,Exists in analytics.dim_industry and in specialist_rule_catalog,foreign key,analytics.dim_industry.industry_code,false
+crm_rm_specialization,specialist_type,5,varchar,false,,Specialist type from the specialist rule catalog.,agriculture specialist,operational,In specialist_rule_catalog,attribute,,false
+crm_rm_specialization,valid_from,6,date,false,,Start.,2025-06-01,operational,Not null,effective date,,false
+crm_rm_specialization,valid_to,7,date,true,,End; null if open.,2026-02-28 (null while current),operational,>= valid_from,effective date,,false
+crm_rm_specialization,created_at,8,timestamp,false,,Time the record was created (UTC).,2025-07-14T15:02:11Z,operational,Not null; not in the future relative to the load date,audit,,false
+crm_rm_specialization,updated_at,9,timestamp,true,,Time the record was last updated (UTC); null for immutable event rows.,2025-07-15T09:30:00Z,operational,>= created_at when present,audit,,false
+crm_rm_specialization,record_source,10,varchar,false,synthetic_generator,System that produced the record; always the synthetic generator.,synthetic_generator,operational,Must equal synthetic_generator,audit,,false
+crm_rm_capacity_snapshot,capacity_snapshot_id,1,varchar,false,,Surrogate key.,CAPS-0120044,synthetic identifier,Unique,identifier,,true
+crm_rm_capacity_snapshot,rm_id,2,varchar,false,,RM.,RM-0042,synthetic identifier,Resolves to crm_relationship_manager; unique with snapshot_date,foreign key,crm_relationship_manager.rm_id,false
+crm_rm_capacity_snapshot,snapshot_date,3,date,false,,Business date of the snapshot.,2025-10-06,operational,Within the synthetic period,snapshot date,,false
+crm_rm_capacity_snapshot,availability_status,4,varchar,false,available;partial;planned_leave;unavailable,Availability on the date.,available,operational,In accepted values,attribute,,false
+crm_rm_capacity_snapshot,available_capacity_points,5,"decimal(6,2)",false,,Capacity after availability pro-rating (CAP-08).,40.00,operational,>= 0; 0 when planned_leave or unavailable,derived,,false
+crm_rm_capacity_snapshot,weighted_workload_points,6,"decimal(6,2)",false,,Weighted workload (CAP-01..CAP-04).,31.50,operational,>= 0; recomputable from assignments and weights,derived,,false
+crm_rm_capacity_snapshot,utilization_ratio,7,"decimal(6,4)",true,,Workload / available capacity; null when capacity is 0.,0.7875,operational,Null iff available_capacity_points = 0,derived,,false
+crm_rm_capacity_snapshot,capacity_state,8,varchar,false,below_warning;warning;at_or_above_hard_limit;approved_exception;unavailable,State against CAP-06/CAP-09.,below_warning,operational,Consistent with utilization_ratio and thresholds,derived,,false
+crm_rm_capacity_snapshot,rule_version_id,9,varchar,false,,Capacity rule version applied.,RV-CAPACITY-001,reference,Resolves to crm_rule_version,foreign key,crm_rule_version.rule_version_id,false
+crm_rm_capacity_snapshot,created_at,10,timestamp,false,,Time the record was created (UTC).,2025-07-14T15:02:11Z,operational,Not null; not in the future relative to the load date,audit,,false
+crm_rm_capacity_snapshot,updated_at,11,timestamp,true,,Time the record was last updated (UTC); null for immutable event rows.,2025-07-15T09:30:00Z,operational,>= created_at when present,audit,,false
+crm_rm_capacity_snapshot,record_source,12,varchar,false,synthetic_generator,System that produced the record; always the synthetic generator.,synthetic_generator,operational,Must equal synthetic_generator,audit,,false
+crm_routing_decision,routing_decision_id,1,varchar,false,,Surrogate key.,RTD-0007710,synthetic identifier,Unique,identifier,,true
+crm_routing_decision,lead_id,2,varchar,false,,Lead routed.,LED-0004521,synthetic identifier,Resolves to crm_lead,foreign key,crm_lead.lead_id,false
+crm_routing_decision,decided_at,3,timestamp,false,,Decision time.,2025-07-14T15:40:00Z,operational,>= lead ready time,event timestamp,,false
+crm_routing_decision,lead_status_at_decision,4,varchar,false,READY_FOR_ASSIGNMENT,Lead status when decided (RT-E04).,READY_FOR_ASSIGNMENT,operational,Must equal READY_FOR_ASSIGNMENT,attribute,,false
+crm_routing_decision,routing_outcome,5,varchar,false,assigned_rm;queued_regional;queued_national;queued_specialist;queued_manual_review;self_assigned;override_assigned,Outcome.,assigned_rm,operational,In accepted values,attribute,,false
+crm_routing_decision,selected_rm_id,6,varchar,true,,Selected RM; null for queue outcomes.,RM-0042,synthetic identifier,Resolves to crm_relationship_manager when present,foreign key,crm_relationship_manager.rm_id,false
+crm_routing_decision,candidate_count,7,integer,false,,Eligible candidates after exclusions.,4,operational,>= 0,attribute,,false
+crm_routing_decision,excluded_rm_count,8,integer,false,,RMs excluded by RT-X rules.,2,operational,>= 0,attribute,,false
+crm_routing_decision,territory_match_flag,9,boolean,true,true;false,Selected RM covers the lead territory.,true,operational,Null for queue outcomes,attribute,,false
+crm_routing_decision,segment_match_flag,10,boolean,true,true;false,Segment matched (RT-P02).,true,operational,Null for queue outcomes,attribute,,false
+crm_routing_decision,specialist_match_flag,11,boolean,true,true;false,Specialist matched when required or preferred.,true,operational,Null when no specialist need,attribute,,false
+crm_routing_decision,language_match_flag,12,boolean,true,true;false,Stated language matched; null when not stated.,true (null when no language stated),operational,Null unless stated_service_language is en or fr,attribute,,false
+crm_routing_decision,capacity_utilization_at_decision,13,"decimal(6,4)",true,,Selected RM's utilization at decision time.,0.7875,operational,< hard limit unless manual_override_flag,attribute,,false
+crm_routing_decision,tie_break_applied_flag,14,boolean,false,true;false,Tie-breaking rule used (RT-L02).,false,operational,Boolean,attribute,,false
+crm_routing_decision,rule_trace,15,varchar,false,,"Ordered rule IDs evaluated, with outcome codes.",RT-E01:pass|RT-E02:pass|...|RT-L01:selected,operational,Every referenced rule exists in routing_rule_catalog,attribute,,false
+crm_routing_decision,manual_review_reason,16,varchar,true,geography_conflict;missing_geography;conflict_of_interest;other,Reason for manual review.,geography_conflict,operational,Required iff outcome = queued_manual_review,attribute,,false
+crm_routing_decision,market_scenario_id,17,varchar,true,balanced;scale_led;growth_led;stability_aware,Market-opportunity scenario used as context.,balanced,operational,Null when market_evidence_flag = no_market_context,attribute,,false
+crm_routing_decision,rule_version_id,18,varchar,false,,Routing rule version.,RV-ROUTING-001,reference,Resolves to crm_rule_version,foreign key,crm_rule_version.rule_version_id,false
+crm_routing_decision,created_at,19,timestamp,false,,Time the record was created (UTC).,2025-07-14T15:02:11Z,operational,Not null; not in the future relative to the load date,audit,,false
+crm_routing_decision,updated_at,20,timestamp,true,,Time the record was last updated (UTC); null for immutable event rows.,2025-07-15T09:30:00Z,operational,>= created_at when present,audit,,false
+crm_routing_decision,record_source,21,varchar,false,synthetic_generator,System that produced the record; always the synthetic generator.,synthetic_generator,operational,Must equal synthetic_generator,audit,,false
+crm_lead_assignment,assignment_id,1,varchar,false,,Surrogate key.,ASG-0006120,synthetic identifier,Unique,identifier,,true
+crm_lead_assignment,lead_id,2,varchar,false,,Lead.,LED-0004521,synthetic identifier,Resolves to crm_lead,foreign key,crm_lead.lead_id,false
+crm_lead_assignment,rm_id,3,varchar,true,,Assigned RM; null for QUEUED assignments.,RM-0042,synthetic identifier,Required unless assignment_status = QUEUED,foreign key,crm_relationship_manager.rm_id,false
+crm_lead_assignment,queue_code,4,varchar,true,regional;national;specialist;manual_review,Queue for QUEUED assignments.,Q-REGIONAL-ON,operational,Required iff assignment_status = QUEUED,attribute,,false
+crm_lead_assignment,assignment_role,5,varchar,false,primary;specialist_support,Primary owner or specialist support.,primary,operational,At most one active primary per lead,attribute,,false
+crm_lead_assignment,assignment_status,6,varchar,false,QUEUED;ASSIGNED;ACKNOWLEDGED;DECLINED;REASSIGNMENT_PENDING;REASSIGNED;COMPLETED;CANCELLED,Assignment status.,ACKNOWLEDGED,operational,In accepted values,current-state,,false
+crm_lead_assignment,active_flag,7,boolean,false,true;false,"Assignment active (QUEUED, ASSIGNED, ACKNOWLEDGED or REASSIGNMENT_PENDING).",true,derived,Consistent with assignment_status,derived,,false
+crm_lead_assignment,assigned_at,8,timestamp,false,,Assignment (or queue) time.,2025-07-14T15:41:00Z,operational,>= routing decision time,event timestamp,,false
+crm_lead_assignment,assignment_reason,9,varchar,false,routing_rule;self_assignment;reassignment;override;queue_fallback,Why the assignment exists.,routing_rule,operational,In accepted values,attribute,,false
+crm_lead_assignment,routing_decision_id,10,varchar,true,,Routing decision that produced it.,RTD-0007710,synthetic identifier,Required unless assignment_reason = override,foreign key,crm_routing_decision.routing_decision_id,false
+crm_lead_assignment,rule_version_id,11,varchar,false,,Rule version used.,RV-ROUTING-001,reference,Resolves to crm_rule_version,foreign key,crm_rule_version.rule_version_id,false
+crm_lead_assignment,prior_assignment_id,12,varchar,true,,Assignment it replaced (reassignment).,ASG-0006001,synthetic identifier,Required iff assignment_reason = reassignment,foreign key,crm_lead_assignment.assignment_id,false
+crm_lead_assignment,prior_rm_id,13,varchar,true,,"Previous owner, when reassigned.",RM-0017,synthetic identifier,Required iff prior_assignment_id present,foreign key,crm_relationship_manager.rm_id,false
+crm_lead_assignment,acknowledged_at,14,timestamp,true,,Acknowledgement time.,2025-07-14T17:05:00Z,operational,>= assigned_at,event timestamp,,false
+crm_lead_assignment,declined_at,15,timestamp,true,,Decline time.,2025-07-14T16:10:00Z,operational,>= assigned_at; requires decline_reason,event timestamp,,false
+crm_lead_assignment,decline_reason,16,varchar,true,capacity;conflict;wrong_territory;wrong_segment;other,Decline reason.,conflict_of_interest,operational,Required iff declined_at present,attribute,,false
+crm_lead_assignment,reassignment_triggered_at,17,timestamp,true,,When a reassignment condition occurred.,2025-07-15T13:00:00Z,operational,>= assigned_at,event timestamp,,false
+crm_lead_assignment,reassignment_reason,18,varchar,true,acknowledgement_breach;first_contact_breach;inactivity;rm_unavailable;decline;manager_decision,Why reassignment happened.,acknowledgement_sla_breach,operational,Required iff reassignment_triggered_at present,attribute,,false
+crm_lead_assignment,ended_at,19,timestamp,true,,End time for ended assignments.,2025-07-15T14:05:00Z,operational,Required iff active_flag = false,event timestamp,,false
+crm_lead_assignment,manual_override_flag,20,boolean,false,true;false,Created or ended by a manager override (RT-O01).,false,operational,Boolean,attribute,,false
+crm_lead_assignment,override_reason_code,21,varchar,true,client_relationship;specialist_need;capacity_rebalancing;territory_correction;other,Override reason.,client_relationship_continuity,operational,Required iff manual_override_flag,attribute,,false
+crm_lead_assignment,override_user_role,22,varchar,true,"Regional Sales Manager;Director, Business Banking Sales Strategy",Role that applied the override.,Regional Sales Manager,operational,Required iff manual_override_flag,attribute,,false
+crm_lead_assignment,capacity_exception_flag,23,boolean,false,true;false,Assignment made above the hard limit under CAP-09.,false,operational,True only with manual_override_flag,attribute,,false
+crm_lead_assignment,created_at,24,timestamp,false,,Time the record was created (UTC).,2025-07-14T15:02:11Z,operational,Not null; not in the future relative to the load date,audit,,false
+crm_lead_assignment,updated_at,25,timestamp,true,,Time the record was last updated (UTC); null for immutable event rows.,2025-07-15T09:30:00Z,operational,>= created_at when present,audit,,false
+crm_lead_assignment,record_source,26,varchar,false,synthetic_generator,System that produced the record; always the synthetic generator.,synthetic_generator,operational,Must equal synthetic_generator,audit,,false
+crm_lead_activity,activity_id,1,varchar,false,,Surrogate key.,ACT-0031004,synthetic identifier,Unique,identifier,,true
+crm_lead_activity,lead_id,2,varchar,false,,Lead.,LED-0004521,synthetic identifier,Resolves to crm_lead,foreign key,crm_lead.lead_id,false
+crm_lead_activity,assignment_id,3,varchar,false,,Assignment under which the activity happened.,ASG-0006120,synthetic identifier,Resolves to an assignment active at activity_at,foreign key,crm_lead_assignment.assignment_id,false
+crm_lead_activity,rm_id,4,varchar,false,,RM who performed it.,RM-0042,synthetic identifier,Equals the assignment's RM,foreign key,crm_relationship_manager.rm_id,false
+crm_lead_activity,activity_at,5,timestamp,false,,Time of the activity.,2025-07-15T14:00:00Z,operational,>= assignment assigned_at,event timestamp,,false
+crm_lead_activity,activity_type,6,varchar,false,call_attempt;email_attempt;conversation;meeting;nurture_task;note,Activity type.,call_attempt,operational,In accepted values,attribute,,false
+crm_lead_activity,activity_outcome,7,varchar,false,no_answer;left_message;two_way_contact;meeting_held;scheduled;completed,Outcome.,no_answer,operational,two_way_contact or meeting_held counts as contact,attribute,,false
+crm_lead_activity,counts_as_contact_attempt,8,boolean,false,true;false,Counts toward first-contact and attempt limits.,true,derived,"True for call_attempt, email_attempt, conversation, meeting",derived,,false
+crm_lead_activity,next_contact_due_at,9,timestamp,true,,Next scheduled contact (nurturing).,2025-09-15,operational,> activity_at when present,attribute,,false
+crm_lead_activity,created_at,10,timestamp,false,,Time the record was created (UTC).,2025-07-14T15:02:11Z,operational,Not null; not in the future relative to the load date,audit,,false
+crm_lead_activity,updated_at,11,timestamp,true,,Time the record was last updated (UTC); null for immutable event rows.,2025-07-15T09:30:00Z,operational,>= created_at when present,audit,,false
+crm_lead_activity,record_source,12,varchar,false,synthetic_generator,System that produced the record; always the synthetic generator.,synthetic_generator,operational,Must equal synthetic_generator,audit,,false
+crm_lead_status_history,status_history_id,1,varchar,false,,Surrogate key.,LSH-0019002,synthetic identifier,Unique,identifier,,true
+crm_lead_status_history,lead_id,2,varchar,false,,Lead.,LED-0004521,synthetic identifier,Resolves to crm_lead,foreign key,crm_lead.lead_id,false
+crm_lead_status_history,from_status,3,varchar,true,NEW;VALIDATION_PENDING;DUPLICATE_REVIEW;READY_FOR_ASSIGNMENT;ASSIGNED;CONTACTED;NURTURING;QUALIFIED;CONVERTED;CLOSED_LOST;INVALID;MERGED;WITHDRAWN,Previous status; null for the first row (NEW).,READY_FOR_ASSIGNMENT,operational,Null only on the first row,attribute,,false
+crm_lead_status_history,to_status,4,varchar,false,NEW;VALIDATION_PENDING;DUPLICATE_REVIEW;READY_FOR_ASSIGNMENT;ASSIGNED;CONTACTED;NURTURING;QUALIFIED;CONVERTED;CLOSED_LOST;INVALID;MERGED;WITHDRAWN,New status.,ASSIGNED,operational,"(from_status, to_status) exists in lead_transition_rules",attribute,,false
+crm_lead_status_history,transition_id,5,varchar,true,,Transition rule applied; null for the first row.,T-12,reference,Exists in lead_transition_rules,foreign key,lead_transition_rules.transition_id,false
+crm_lead_status_history,event_code,6,varchar,false,,Triggering event.,ASSIGNMENT_CREATED,reference,Exists in crm_event_catalog and matches the transition,attribute,,false
+crm_lead_status_history,changed_at,7,timestamp,false,,Time of the change.,2025-07-14T15:41:00Z,operational,Non-decreasing within a lead,event timestamp,,false
+crm_lead_status_history,disposition_code,8,varchar,true,,Disposition when to_status is terminal.,DSP-NO-RESPONSE,operational,Required iff to_status is terminal,attribute,,false
+crm_lead_status_history,actor_role,9,varchar,false,,Role or system that made the change.,Routing service,operational,Matches the transition actor role,attribute,,false
+crm_lead_status_history,reopen_approver_role,10,varchar,true,"Regional Sales Manager;Director, Business Banking Sales Strategy",Approver for audited reopenings.,Regional Sales Manager,operational,Required iff transition type is audited_reopening,attribute,,false
+crm_lead_status_history,created_at,11,timestamp,false,,Time the record was created (UTC).,2025-07-14T15:02:11Z,operational,Not null; not in the future relative to the load date,audit,,false
+crm_lead_status_history,updated_at,12,timestamp,true,,Time the record was last updated (UTC); null for immutable event rows.,2025-07-15T09:30:00Z,operational,>= created_at when present,audit,,false
+crm_lead_status_history,record_source,13,varchar,false,synthetic_generator,System that produced the record; always the synthetic generator.,synthetic_generator,operational,Must equal synthetic_generator,audit,,false
+crm_sla_event,sla_event_id,1,varchar,false,,Surrogate key.,SLE-0040011,synthetic identifier,Unique,identifier,,true
+crm_sla_event,lead_id,2,varchar,false,,Lead.,LED-0004521,synthetic identifier,Resolves to crm_lead,foreign key,crm_lead.lead_id,false
+crm_sla_event,assignment_id,3,varchar,true,,"Assignment, for RM SLAs.",ASG-0006120,synthetic identifier,Required for SLA-05..SLA-09,foreign key,crm_lead_assignment.assignment_id,false
+crm_sla_event,sla_id,4,varchar,false,,SLA rule from the SLA catalog.,SLA-06B,reference,Exists in sla_rule_catalog,attribute,,false
+crm_sla_event,started_at,5,timestamp,false,,Clock start (start event time).,2025-07-14T15:41:00Z,operational,Equals the start event time,event timestamp,,false
+crm_sla_event,target_at,6,timestamp,false,,Breach time computed on the SLA's time basis.,2025-07-16T15:41:00Z,derived,"Recomputable from started_at, target and calendar",derived,,false
+crm_sla_event,warning_at,7,timestamp,false,,Warning time.,2025-07-15T15:41:00Z,derived,started_at <= warning_at <= target_at,derived,,false
+crm_sla_event,stopped_at,8,timestamp,true,,Clock stop (stop event time); null while open.,2025-07-15T14:00:00Z,operational,>= started_at,event timestamp,,false
+crm_sla_event,stop_event_code,9,varchar,true,,Event that stopped the clock.,CONTACT_ATTEMPTED,reference,One of the SLA's stop events,attribute,,false
+crm_sla_event,sla_outcome,10,varchar,false,open;met;warning_open;breached_open;breached_closed;not_applicable,Outcome.,met,derived,"Consistent with stopped_at, warning_at and target_at",derived,,false
+crm_sla_event,paused_minutes,11,integer,false,,Business minutes paused under the SLA's pause conditions.,0,operational,>= 0,attribute,,false
+crm_sla_event,escalation_level,12,integer,false,0;1;2,Highest escalation reached.,0,operational,In accepted values,attribute,,false
+crm_sla_event,rule_version_id,13,varchar,false,,SLA rule version.,RV-SLA-001,reference,Resolves to crm_rule_version,foreign key,crm_rule_version.rule_version_id,false
+crm_sla_event,created_at,14,timestamp,false,,Time the record was created (UTC).,2025-07-14T15:02:11Z,operational,Not null; not in the future relative to the load date,audit,,false
+crm_sla_event,updated_at,15,timestamp,true,,Time the record was last updated (UTC); null for immutable event rows.,2025-07-15T09:30:00Z,operational,>= created_at when present,audit,,false
+crm_sla_event,record_source,16,varchar,false,synthetic_generator,System that produced the record; always the synthetic generator.,synthetic_generator,operational,Must equal synthetic_generator,audit,,false
+crm_duplicate_group,duplicate_group_id,1,varchar,false,,Surrogate key.,DUPG-000077,synthetic identifier,Unique,identifier,,true
+crm_duplicate_group,match_rule_id,2,varchar,false,,Duplicate rule that matched.,DUP-03,reference,Exists in duplicate_rule_catalog,attribute,,false
+crm_duplicate_group,match_tier,3,varchar,false,exact;high_confidence;review,Tier.,high_confidence,reference,Consistent with match_rule_id,attribute,,false
+crm_duplicate_group,review_decision,4,varchar,true,confirmed;rejected,Human decision for review-tier groups.,confirmed_duplicate,operational,Required for review tier once resolved,attribute,,false
+crm_duplicate_group,surviving_lead_id,5,varchar,true,,Surviving lead (DUP-07).,LED-0004400,synthetic identifier,Required when confirmed; resolves to crm_lead,foreign key,crm_lead.lead_id,false
+crm_duplicate_group,member_count,6,integer,false,,Leads in the group.,2,derived,>= 2,derived,,false
+crm_duplicate_group,flagged_at,7,timestamp,false,,Time the match was flagged.,2025-07-14T15:10:00Z,operational,Not null,event timestamp,,false
+crm_duplicate_group,resolved_at,8,timestamp,true,,Time resolved.,2025-07-15T10:00:00Z,operational,>= flagged_at,event timestamp,,false
+crm_duplicate_group,created_at,9,timestamp,false,,Time the record was created (UTC).,2025-07-14T15:02:11Z,operational,Not null; not in the future relative to the load date,audit,,false
+crm_duplicate_group,updated_at,10,timestamp,true,,Time the record was last updated (UTC); null for immutable event rows.,2025-07-15T09:30:00Z,operational,>= created_at when present,audit,,false
+crm_duplicate_group,record_source,11,varchar,false,synthetic_generator,System that produced the record; always the synthetic generator.,synthetic_generator,operational,Must equal synthetic_generator,audit,,false
+crm_opportunity_outcome,opportunity_id,1,varchar,false,,Surrogate key.,OPP-0001203,synthetic identifier,Unique,identifier,,true
+crm_opportunity_outcome,lead_id,2,varchar,false,,Qualified lead (one opportunity per lead).,LED-0004521,synthetic identifier,Unique; lead passed through QUALIFIED,foreign key,crm_lead.lead_id,false
+crm_opportunity_outcome,rm_id,3,varchar,false,,Owning RM.,RM-0042,synthetic identifier,Resolves to crm_relationship_manager,foreign key,crm_relationship_manager.rm_id,false
+crm_opportunity_outcome,opened_at,4,timestamp,false,,Opened at qualification.,2025-08-02T16:00:00Z,operational,Equals the QUALIFIED status time,event timestamp,,false
+crm_opportunity_outcome,opportunity_status,5,varchar,false,open;won;lost;withdrawn,Opportunity status (separate from lead status).,won,operational,In accepted values,current-state,,false
+crm_opportunity_outcome,primary_product,6,varchar,true,operating account;credit;cash management;merchant services,Main product pursued.,credit,business attribute,In accepted values,attribute,,false
+crm_opportunity_outcome,closed_at,7,timestamp,true,,Outcome time.,2025-09-12T13:00:00Z,operational,"Required iff status in won, lost, withdrawn",event timestamp,,false
+crm_opportunity_outcome,outcome_reason,8,varchar,true,,Disposition code for lost or withdrawn outcomes.,DSP-WON,operational,Exists in lead_disposition_catalog,attribute,,false
+crm_opportunity_outcome,created_at,9,timestamp,false,,Time the record was created (UTC).,2025-07-14T15:02:11Z,operational,Not null; not in the future relative to the load date,audit,,false
+crm_opportunity_outcome,updated_at,10,timestamp,true,,Time the record was last updated (UTC); null for immutable event rows.,2025-07-15T09:30:00Z,operational,>= created_at when present,audit,,false
+crm_opportunity_outcome,record_source,11,varchar,false,synthetic_generator,System that produced the record; always the synthetic generator.,synthetic_generator,operational,Must equal synthetic_generator,audit,,false
+crm_rule_version,rule_version_id,1,varchar,false,,Surrogate key.,RV-ROUTING-001,reference,Unique,identifier,,true
+crm_rule_version,rule_set,2,varchar,false,routing;sla;capacity;duplicate;territory;specialist,Rule set.,routing,reference,In accepted values,attribute,,false
+crm_rule_version,version_number,3,integer,false,,Version within the rule set.,1,reference,>= 1; unique with rule_set,attribute,,false
+crm_rule_version,effective_from,4,timestamp,false,,Start of validity.,2025-06-01T00:00:00Z,reference,Not null,effective date,,false
+crm_rule_version,effective_to,5,timestamp,true,,End of validity; null if current.,2025-11-30 (null while current),reference,> effective_from; versions of a rule set do not overlap,effective date,,false
+crm_rule_version,config_sha256,6,varchar,false,,Hash of the rule catalog content used.,3f5a...(64 hex),reference,64 hex characters,attribute,,false
+crm_rule_version,approved_by_role,7,varchar,false,"Director, Business Banking Sales Strategy",Approving role.,"Director, Business Banking Sales Strategy",reference,Equals the primary owner,attribute,,false
+crm_rule_version,created_at,8,timestamp,false,,Time the record was created (UTC).,2025-07-14T15:02:11Z,operational,Not null; not in the future relative to the load date,audit,,false
+crm_rule_version,updated_at,9,timestamp,true,,Time the record was last updated (UTC); null for immutable event rows.,2025-07-15T09:30:00Z,operational,>= created_at when present,audit,,false
+crm_rule_version,record_source,10,varchar,false,synthetic_generator,System that produced the record; always the synthetic generator.,synthetic_generator,operational,Must equal synthetic_generator,audit,,false

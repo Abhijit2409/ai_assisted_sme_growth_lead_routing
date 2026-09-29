@@ -1,0 +1,43 @@
+check,passed,detail
+every required catalog has its required columns,True,26 catalogs
+catalog identifiers are unique,True,25 keyed catalogs
+no blank identifiers,True,none blank
+"catalogs are UTF-8 without BOM, LF line endings",True,26 files
+20 target-state process steps in order,True,20 steps
+13 hypothetical current-state problems,True,13
+five acquisition channels with every field populated,True,"CH-DIG, CH-BRN, CH-MKT, CH-PTR, CH-RMP"
+lead status catalog contains the minimum status set,True,13 statuses
+"separate lead, assignment, activity, SLA and opportunity status domains",True,five status fields in the data model
+routing rules cover all six categories with every field populated,True,"{'eligibility': 6, 'preference': 5, 'exclusion': 3, 'fallback': 3, 'load_balancing': 2, 'override': 2}"
+routing decision order is contiguous and unique,True,1..21
+"routing rules contain no priority score, market score or scoring weights",True,only workload weights (capacity) are configurable
+"SLA catalog: every SLA configurable with positive target, warning below breach, responsible role and escalation",True,16 SLAs
+"capacity rules: positive weights, warning < hard limit < exception ceiling, positive base capacity",True,"warning 0.8, hard 1.0, exception 1.1, base 40 points"
+"duplicate rules are tiered (exact, high-confidence, review, merge behaviour, non-match); only exact and high-confidence auto-merge",True,"['exact', 'high_confidence', 'merge_behavior', 'non_match', 'review']"
+at least 16 entities; every entity has a field contract whose count matches the entity catalog,True,"18 entities, 239 fields"
+every entity primary key is defined in the field dictionary,True,
+"every entity carries the audit columns created_at, updated_at, record_source",True,
+"every field has type, nullability, description, fictional example, privacy class, validation and category",True,complete
+"assignment history preserves prior owner, reasons, override, rule version and timestamps",True,19 fields
+KPI tree covers the five families with every definition field populated,True,"{'routing and capacity': 9, 'outcome': 8, 'flow': 8, 'speed': 7, 'data quality': 6}"
+KPI targets are not presented as production targets,True,baseline to be measured on synthetic data
+"requirements use BR, FR, DR, DQ, RR and NFR prefixes with MoSCoW priorities",True,"{'FR': 16, 'BR': 12, 'DR': 8, 'DQ': 6, 'NFR': 6, 'RR': 5}; {'Must': 42, 'Should': 10, ""Won't for current scope"": 1}"
+every acceptance criterion is measurable and names a future test,True,35 criteria
+volume specification: recommended value within its range for every ranged item,True,15 ranged items
+"synthetic rates are labelled as design assumptions, not benchmarks",True,5 rates
+"rule catalogs, current-state problems and assumptions are flagged hypothetical",True,8 catalogs
+every current-state problem is worded as a hypothetical scenario or illustrative control gap,True,
+"SLA durations, capacity and specialist coverage are marked as requiring approval",True,
+no synthetic CRM record files exist anywhere under data/,True,none
+"no CRM dbt models, seeds, tests or snapshots exist",True,none
+no CRM tables exist in the warehouse,True,none
+design catalogs are not placed in data/raw or dbt seeds,True,data/design/crm only
+design directory holds only the declared catalogs,True,26 files
+every email-like value uses a reserved .example domain,True,['contact@fictional-prospect-00123.example']
+every phone-like value uses the reserved fictional 555-01xx range,True,['+1-613-555-0123']
+"no social-insurance, business-number or account-number patterns",True,none
+business-name examples are labelled fictional,True,
+contact fields are fictional-only and excluded from future marts,True,"['contact_email_fictional', 'contact_phone_fictional']"
+service language is stated-only (default 'not stated'); no inferred personal characteristic fields,True,
+no real bank or credit-union names in the design artifacts,True,25 names screened
+no internal project phase labels in new file names or content,True,none

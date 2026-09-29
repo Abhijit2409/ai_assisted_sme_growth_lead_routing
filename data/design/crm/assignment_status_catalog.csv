@@ -1,0 +1,9 @@
+status_code,status_name,definition,is_active,is_terminal,allowed_next_statuses,required_timestamp,owner_role
+QUEUED,Queued,Held in an approved fallback queue with a named queue owner; no RM yet.,true,false,ASSIGNED;CANCELLED,queued_at,Queue owner (Regional Sales Manager)
+ASSIGNED,Assigned,"Active assignment to an RM, awaiting acknowledgement.",true,false,ACKNOWLEDGED;DECLINED;REASSIGNMENT_PENDING;CANCELLED,assigned_at,Assigned RM
+ACKNOWLEDGED,Acknowledged,RM accepted ownership.,true,false,REASSIGNMENT_PENDING;COMPLETED;CANCELLED,acknowledged_at,Assigned RM
+DECLINED,Declined,RM declined with a reason; a new routing decision follows.,false,true,,declined_at,Assigned RM
+REASSIGNMENT_PENDING,Reassignment pending,A reassignment condition occurred; the current RM remains accountable until a new assignment exists.,true,false,REASSIGNED;ACKNOWLEDGED,reassignment_triggered_at,Regional Sales Manager
+REASSIGNED,Reassigned,Ended because ownership moved to a new assignment.,false,true,,ended_at,Regional Sales Manager
+COMPLETED,Completed,Ended because the lead reached a terminal status while owned.,false,true,,ended_at,Assigned RM
+CANCELLED,Cancelled,"Ended because the lead became invalid, merged or withdrawn before work, or the queue entry was replaced.",false,true,,ended_at,System

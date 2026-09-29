@@ -1,0 +1,7 @@
+example_id,from_status,to_status,why_invalid,preventing_control,violation_type
+IT-01,CLOSED_LOST,ASSIGNED,Terminal lead returning to active work without a reopening event,Only T-28 (audited reopening to READY_FOR_ASSIGNMENT) leaves CLOSED_LOST,pair_not_allowed
+IT-02,CONTACTED,CONVERTED,Conversion without qualification,CONVERTED is reachable only from QUALIFIED (T-19),pair_not_allowed
+IT-03,NEW,ASSIGNED,Assignment without eligibility,ASSIGNED is reachable only from READY_FOR_ASSIGNMENT (T-12),pair_not_allowed
+IT-04,ASSIGNED,CLOSED_LOST,Closure without a disposition,Every transition into a terminal status requires disposition_code,guard_not_met
+IT-05,READY_FOR_ASSIGNMENT,CONTACTED,Contact before assignment,CONTACTED is reachable only from ASSIGNED (T-14) or NURTURING (T-18),pair_not_allowed
+IT-06,MERGED,READY_FOR_ASSIGNMENT,Reactivating a merged duplicate,MERGED and INVALID have no outgoing transitions; work continues on the survivor,pair_not_allowed

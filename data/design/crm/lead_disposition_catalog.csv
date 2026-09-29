@@ -1,0 +1,15 @@
+disposition_code,disposition_name,applies_to_status,description,reporting_group
+DSP-WON,Opportunity won,CONVERTED,Opportunity won; prospect onboarded as a synthetic client.,converted
+DSP-NOT-QUALIFIED,Not qualified,CLOSED_LOST,"Contacted but no fit, need or intent.",lost - fit
+DSP-NO-RESPONSE,No response,CLOSED_LOST,Maximum contact attempts reached without two-way contact.,lost - reach
+DSP-LOST-COMPETITOR,Lost to another provider,CLOSED_LOST,Prospect chose another provider.,lost - competition
+DSP-NOT-INTERESTED,Not interested,CLOSED_LOST,Prospect declined after contact.,lost - interest
+DSP-TIMING,Timing not right,CLOSED_LOST,Nurturing ended without re-engagement.,lost - timing
+DSP-INELIGIBLE-SIZE,Outside SME size scope,INVALID,Employee band outside 1-499 or non-employer.,invalid - eligibility
+DSP-INELIGIBLE-SECTOR,Outside SME banking scope,INVALID,Public administration or other excluded sector.,invalid - eligibility
+DSP-OUT-OF-FOOTPRINT,Outside Canada,INVALID,Business does not operate in Canada.,invalid - geography
+DSP-EXISTING-RELATIONSHIP,Existing relationship,INVALID,Business already has a synthetic banking relationship; redirected to its owner.,invalid - existing client
+DSP-INVALID-DATA,Invalid or uncorrected data,INVALID,"Required data not corrected within the validation SLA, or test/bot submission.",invalid - data
+DSP-DUPLICATE-MERGED,Duplicate merged,MERGED,Merged into a surviving lead.,duplicate
+DSP-PROSPECT-WITHDREW,Prospect withdrew,WITHDRAWN,Prospect withdrew interest.,withdrawn
+DSP-CONSENT-WITHDRAWN,Consent withdrawn,WITHDRAWN,Prospect withdrew consent to be contacted.,withdrawn

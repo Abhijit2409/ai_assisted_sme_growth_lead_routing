@@ -1,0 +1,198 @@
+{
+  "purpose": "Validation of the hypothetical CRM acquisition-process and requirements design (no CRM records exist)",
+  "run_timestamp_utc": "2026-09-29T12:05:23+00:00",
+  "validation_script_sha256": "3e92456bae3d4b10af1b1c68cd3073a9f40f13e2fc2cae2b2862c49f00fb1dd3",
+  "opportunity_validation": {
+    "checks_passed": 28,
+    "checks_total": 28
+  },
+  "design_counts": {
+    "assumptions": 18,
+    "stakeholder_needs": 12,
+    "process_steps": 20,
+    "current_state_problems": 13,
+    "channels": 5,
+    "lead_statuses": 13,
+    "terminal_statuses": [
+      "CLOSED_LOST",
+      "CONVERTED",
+      "INVALID",
+      "MERGED",
+      "WITHDRAWN"
+    ],
+    "transitions": 29,
+    "audited_reopening_transitions": 2,
+    "dispositions": 14,
+    "events": 35,
+    "assignment_statuses": 8,
+    "routing_rules": {
+      "eligibility": 6,
+      "exclusion": 3,
+      "fallback": 3,
+      "load_balancing": 2,
+      "override": 2,
+      "preference": 5
+    },
+    "territory_rules": 10,
+    "specialist_rules": 8,
+    "capacity_rules": 10,
+    "sla_rules": 16,
+    "duplicate_rules": 10,
+    "entities": 18,
+    "fields": 239,
+    "fields_by_entity": {
+      "crm_acquisition_channel": 6,
+      "crm_business_prospect": 13,
+      "crm_campaign": 9,
+      "crm_duplicate_group": 11,
+      "crm_lead": 25,
+      "crm_lead_activity": 12,
+      "crm_lead_assignment": 26,
+      "crm_lead_source_touch": 13,
+      "crm_lead_status_history": 13,
+      "crm_opportunity_outcome": 11,
+      "crm_relationship_manager": 12,
+      "crm_rm_capacity_snapshot": 12,
+      "crm_rm_specialization": 10,
+      "crm_rm_territory": 9,
+      "crm_routing_decision": 21,
+      "crm_rule_version": 10,
+      "crm_sla_event": 16,
+      "crm_territory": 10
+    },
+    "kpis": {
+      "data quality": 6,
+      "flow": 8,
+      "outcome": 8,
+      "routing and capacity": 9,
+      "speed": 7
+    },
+    "requirements": {
+      "BR": 12,
+      "DQ": 6,
+      "DR": 8,
+      "FR": 16,
+      "NFR": 6,
+      "RR": 5
+    },
+    "requirements_by_priority": {
+      "Must": 42,
+      "Should": 10,
+      "Won't for current scope": 1
+    },
+    "acceptance_criteria": 35,
+    "scenarios": 33,
+    "priority_inputs": 25
+  },
+  "doc_claims": {
+    "steps": "**20** process steps",
+    "problems": "**13** hypothetical current-state problems",
+    "channels": "**5** acquisition channels",
+    "lead_statuses": "**13** lead statuses",
+    "terminal": "**5** terminal statuses",
+    "transitions": "**29** allowed transitions",
+    "reopening": "**2** audited reopening transitions",
+    "dispositions": "**14** dispositions",
+    "events": "**35** lifecycle events",
+    "assignment_statuses": "**8** assignment statuses",
+    "routing_rules": "**21** routing rules",
+    "territory_rules": "**10** territory rules",
+    "specialist_rules": "**8** specialist rules",
+    "capacity_rules": "**10** capacity rules",
+    "sla_rules": "**16** SLA rules",
+    "duplicate_rules": "**10** duplicate rules",
+    "assumptions": "**18** assumptions",
+    "kpis": "**38** KPIs",
+    "requirements": "**53** requirements",
+    "must": "**42** Must",
+    "acceptance": "**35** acceptance criteria",
+    "scenarios": "**33** synthetic scenarios",
+    "priority_inputs": "**25** candidate priority inputs",
+    "capacity_limits": "warning at **0.80**, hard limit at **1.00**, exception ceiling **1.10**",
+    "base_capacity": "**40** workload points",
+    "kpi_data_quality": "**6** data quality KPIs",
+    "kpi_flow": "**8** flow KPIs",
+    "kpi_outcome": "**8** outcome KPIs",
+    "kpi_routing_and_capacity": "**9** routing and capacity KPIs",
+    "kpi_speed": "**7** speed KPIs",
+    "req_BR": "BR: **12**",
+    "req_DQ": "DQ: **6**",
+    "req_DR": "DR: **8**",
+    "req_FR": "FR: **16**",
+    "req_NFR": "NFR: **6**",
+    "req_RR": "RR: **5**",
+    "entities": "**18** entities",
+    "fields": "**239** fields",
+    "widest_table_fields": "**26** fields in the widest table"
+  },
+  "catalog_sha256": {
+    "data/design/crm/acceptance_criteria.csv": "7edb2e0862fc8ac5624d1ac35b37c5749d00aacf50a2436802e1b655e7cdb044",
+    "data/design/crm/acquisition_channel_catalog.csv": "49baa53ffcee5e9d3df84793e9e678d7195e03d40a04be51da40d4fdfcd10316",
+    "data/design/crm/assignment_status_catalog.csv": "4af0041512a6e82ca09a061be213a690ec936cb02adbad16cb23f51fd34086bf",
+    "data/design/crm/assumption_register.csv": "98ad31a4c5704a7e1076ffeabe69203333ed849399be79856057335c3ecb2194",
+    "data/design/crm/business_requirements.csv": "367f469505a7f9c785b01b3323f3e723d6b465ed2c378204542f2e0d092fda38",
+    "data/design/crm/crm_entity_catalog.csv": "636239a1480b042cd5359d489736c7a5a4f143193ef61ae2e8d00aa8ac7fdc3b",
+    "data/design/crm/crm_event_catalog.csv": "ae13f5fa9a911c323f4806d935018fb0660ebab9d36987d05168061170c0a2d1",
+    "data/design/crm/crm_field_dictionary.csv": "07e5033a6144937c4e29b27ff4e004d94e89f8d8f6acebe40f56dfb32af199d1",
+    "data/design/crm/current_state_problem_catalog.csv": "e3f8b45630d380b5afd8c34cc98e4abb05a730f4c309a7665fd0c6a2ad41afa9",
+    "data/design/crm/duplicate_rule_catalog.csv": "eb302221a4ab887c3250186e9c7089125c7225335da094dca350e0f1644714e8",
+    "data/design/crm/invalid_transition_examples.csv": "88dcc5b803d8b36c2cb8ff575561c203ce2892f227cb48e5ecf403a191e3340f",
+    "data/design/crm/kpi_definition_catalog.csv": "3eff7936cf2ebc13b2bd7e89b392bcabed9589115e188e422729756ca82b027e",
+    "data/design/crm/lead_disposition_catalog.csv": "a5f2224332aff25db8d2d48be8f2d892f4ec428c80245c951dbde7329910a2a8",
+    "data/design/crm/lead_priority_input_catalog.csv": "df64802be8fbfbbe29262ea8ca8b4b0b16ef192feaf556d37a8a6fba569deddf",
+    "data/design/crm/lead_status_catalog.csv": "ed65566b24b8bbc4177c0bfddec722043e9e26a8efaab72816d62c1a5ae81e6e",
+    "data/design/crm/lead_transition_rules.csv": "a5af7236803faa49c9266791025ef7274ff32ca195ae38746c49524679c8f853",
+    "data/design/crm/process_step_catalog.csv": "ee8576367d2e1e336b9d8dd6736fadb404b8a515329e719c56a7779f4701c14f",
+    "data/design/crm/requirements_traceability.csv": "f3415641f62a0569217aa264feba25b04c222535bb0b76b089cca1be07fbab48",
+    "data/design/crm/rm_capacity_rule_catalog.csv": "260cd2303ee95eec755a0f62a64db767082eb1e162446cbf8a478345e8d4f1cc",
+    "data/design/crm/routing_rule_catalog.csv": "94d5f099bcfad79352b1b49c58619484bf8042053b5c959bc68a36936cdb5d11",
+    "data/design/crm/sla_rule_catalog.csv": "28f73145ec0a63a660ef2b550c5a6921fd275e26821da31a9a829ee2e73ebe87",
+    "data/design/crm/specialist_rule_catalog.csv": "0d76533f43b6c5699f13f1ad83f81e7058d0586c5353f1f7011b23e740d74f50",
+    "data/design/crm/stakeholder_needs.csv": "71eda0bb986bb6f1a68cfb31d3918c24f902c06936fce86a53755bf20587d3f1",
+    "data/design/crm/synthetic_scenario_catalog.csv": "ca3cd6cf0875c91edf1588825d7dc298592ff92b0372ef21bbce0399126ff001",
+    "data/design/crm/synthetic_volume_specification.csv": "a66de1b52b3b92bfe920456b7930b1cfa2a7bbc1b4016f6ad522b697cc4b95b6",
+    "data/design/crm/territory_rule_catalog.csv": "cc5512c8c5dc5a7c58320961dfa491be83b4fa7cc18ae583a84797a00048d83e"
+  },
+  "document_sha256": {
+    "docs/crm_acquisition_process_and_requirements.md": "33e821a7beca50ba693359fe007a3b6cf192092f9600d004430afce313990504",
+    "docs/crm_data_model_and_dictionary.md": "39c3f70bd776e623f1108c853671ed4fd1e0bd0799e2773f5f2d038a6026f9df"
+  },
+  "evidence_sha256": {
+    "data/validation/crm_design/design_completeness_checks.csv": "c183f32c693846fbb2877ec79b3bda469f1d3b2621b986b67a3a83da1ef77954",
+    "data/validation/crm_design/transition_validation.csv": "1efdb09cb971d568fd972c4b4d323b8be1d51fe113b30e2b9f35d89c04e0efee",
+    "data/validation/crm_design/rule_reference_validation.csv": "550a85849ec41cc3015aa5059daf3aebb3ab4ad3754b4256425b6a18a48b5bf2",
+    "data/validation/crm_design/requirements_coverage.csv": "9b8db85c733d4ef1d7aa2cdc8fce7c25ee48fc76e97b1744e56b57c764d3bdc2",
+    "data/validation/crm_design/scenario_coverage.csv": "a49d3691b37a2c238439330a7fe34964741fee924f831661375700bba6f09ef1",
+    "data/validation/crm_design/documentation_checks.csv": "dc2eca15719fb97f4e55174093b2b613da18c435353c820d1b347a728ef45753"
+  },
+  "checks_by_file": {
+    "design_completeness_checks": {
+      "passed": 42,
+      "total": 42
+    },
+    "transition_validation": {
+      "passed": 19,
+      "total": 19
+    },
+    "rule_reference_validation": {
+      "passed": 17,
+      "total": 17
+    },
+    "requirements_coverage": {
+      "passed": 64,
+      "total": 64
+    },
+    "scenario_coverage": {
+      "passed": 43,
+      "total": 43
+    },
+    "documentation_checks": {
+      "passed": 16,
+      "total": 16
+    }
+  },
+  "checks_passed": 201,
+  "checks_total": 201,
+  "failed_checks": [],
+  "all_checks_pass": true
+}

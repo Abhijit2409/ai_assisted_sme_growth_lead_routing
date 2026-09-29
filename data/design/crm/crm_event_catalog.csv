@@ -1,0 +1,36 @@
+event_code,event_name,description,source_entity
+LEAD_CAPTURED,Lead captured,Lead record created from a channel intake.,crm_lead
+VALIDATION_PASSED,Validation passed,All channel-required fields present and valid.,crm_lead_status_history
+VALIDATION_FAILED,Validation failed,One or more required fields missing or invalid.,crm_lead_status_history
+DATA_CORRECTED,Data corrected,Missing or invalid data corrected by the capturing channel.,crm_lead_status_history
+PROBABLE_DUPLICATE_FLAGGED,Probable duplicate flagged,A review-required duplicate rule matched.,crm_duplicate_group
+DUPLICATE_CONFIRMED,Duplicate confirmed,Duplicate confirmed and merged into a survivor.,crm_duplicate_group
+DUPLICATE_REJECTED,Duplicate rejected,Reviewer decided the records are different businesses.,crm_duplicate_group
+LEAD_ROUTABLE,Lead routable,"Valid, unique and eligible: enters READY_FOR_ASSIGNMENT.",crm_lead_status_history
+LEAD_INVALIDATED,Lead invalidated,Lead closed as invalid with a disposition.,crm_lead_status_history
+ROUTING_DECIDED,Routing decided,Routing decision recorded with rule version and outcome.,crm_routing_decision
+QUEUE_ASSIGNED,Queue assigned,Lead placed in an approved fallback queue.,crm_lead_assignment
+ASSIGNMENT_CREATED,Assignment created,Active RM assignment created.,crm_lead_assignment
+ASSIGNMENT_ACKNOWLEDGED,Assignment acknowledged,RM accepted ownership.,crm_lead_assignment
+ASSIGNMENT_DECLINED,Assignment declined,RM declined with a reason.,crm_lead_assignment
+REASSIGNMENT_TRIGGERED,Reassignment triggered,"A reassignment condition occurred (breach, unavailability, decline, override).",crm_lead_assignment
+REASSIGNMENT_COMPLETED,Reassignment completed,New active assignment created; prior one ended.,crm_lead_assignment
+ASSIGNMENT_RELEASED,Assignment released to queue,Assignment ended with no eligible RM; lead returns to the queue.,crm_lead_assignment
+CONTACT_ATTEMPTED,Contact attempted,Outbound attempt without two-way contact.,crm_lead_activity
+FIRST_TWO_WAY_CONTACT,First two-way contact,First conversation with the prospect.,crm_lead_activity
+FOLLOW_UP_ACTIVITY,Follow-up activity,Any later logged activity.,crm_lead_activity
+NURTURE_SCHEDULED,Nurture scheduled,Nurturing started with a next-contact date.,crm_lead_activity
+NURTURE_REENGAGED,Nurture re-engaged,Prospect re-engaged from nurturing.,crm_lead_activity
+LEAD_QUALIFIED,Lead qualified,Qualification recorded and opportunity opened.,crm_opportunity_outcome
+OPPORTUNITY_WON,Opportunity won,Opportunity won; lead converted.,crm_opportunity_outcome
+OPPORTUNITY_LOST,Opportunity lost,Opportunity lost.,crm_opportunity_outcome
+LEAD_CLOSED_LOST,Lead closed lost,Lead closed without conversion with a disposition.,crm_lead_status_history
+PROSPECT_WITHDREW,Prospect withdrew,Prospect withdrew interest or consent.,crm_lead_status_history
+LEAD_REOPENED,Lead reopened,"Audited, manager-approved reopening of a closed-lost or withdrawn lead.",crm_lead_status_history
+SLA_WARNING,SLA warning,SLA clock reached its warning threshold.,crm_sla_event
+SLA_BREACHED,SLA breached,SLA clock reached its breach threshold.,crm_sla_event
+ESCALATION_RAISED,Escalation raised,Escalation raised to a manager.,crm_sla_event
+ESCALATION_RESOLVED,Escalation resolved,Escalation closed with an action.,crm_sla_event
+OVERRIDE_APPLIED,Manual override applied,Manager override with reason and role.,crm_routing_decision
+RM_UNAVAILABLE,RM unavailable,RM becomes unavailable (leave or absence).,crm_rm_capacity_snapshot
+LEAD_TERMINATED,Lead reached terminal status,Any terminal status; stops open lead SLAs.,crm_lead_status_history

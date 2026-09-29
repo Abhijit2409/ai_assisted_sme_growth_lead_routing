@@ -1,0 +1,65 @@
+check,passed,detail
+every requirement appears once in the traceability matrix,True,53 rows
+"every Must requirement traces to a process step, entity, acceptance criterion, scenario and future test",True,42 Must requirements
+traceability future tests match the acceptance-criteria catalog,True,consistent
+requirement and traceability acceptance criteria agree,True,
+every acceptance criterion is used by at least one requirement,True,35 criteria
+every acceptance criterion's primary requirement exists,True,
+every process step is covered by at least one requirement,True,20 of 20
+requirements reference at least 12 of the entities,True,12 entities
+requirement KPIs exist in the KPI catalog,True,23 KPIs
+every stakeholder named in the needs register supports at least one requirement,True,
+"production integration, ML and dashboards are explicitly out of scope",True,['NFR-006']
+trace BR-001,True,Must; PS-10; crm_lead_assignment; AC-001; SC-01;SC-10;SC-31
+trace BR-002,True,Must; PS-08; crm_rule_version; AC-002; SC-01;SC-21
+trace BR-003,True,Must; PS-12; crm_sla_event; AC-005; SC-01;SC-17
+trace BR-004,True,Must; PS-09; crm_rm_capacity_snapshot; AC-007; SC-11;SC-30
+trace BR-005,True,Must; PS-05; crm_routing_decision; AC-008; SC-13;SC-14
+trace BR-006,True,Must; PS-15; crm_lead_assignment; AC-003; SC-21;SC-20
+trace BR-007,True,Must; PS-20; crm_lead; AC-009; SC-25;SC-26
+trace BR-008,True,Must; PS-03; crm_lead_source_touch; AC-010; SC-32;SC-08
+trace BR-009,True,Must; PS-07; crm_lead; AC-011; SC-28;SC-29
+trace BR-010,True,Should; PS-20; crm_lead_source_touch; AC-019; SC-02;SC-04
+trace BR-011,True,Must; PS-08; crm_routing_decision; AC-012; SC-15
+trace BR-012,True,Should; PS-04; crm_business_prospect; AC-020; SC-07
+trace FR-001,True,Must; PS-02; crm_lead; AC-013; SC-06
+trace FR-002,True,Must; PS-03; crm_duplicate_group; AC-014; SC-08;SC-09
+trace FR-003,True,Must; PS-04; crm_lead; AC-009; SC-07
+trace FR-004,True,Must; PS-05; crm_lead; AC-015; SC-27;SC-13
+trace FR-005,True,Must; PS-08; crm_routing_decision; AC-002; SC-01;SC-10
+trace FR-006,True,Must; PS-11; crm_lead_assignment; AC-016; SC-16;SC-20
+trace FR-007,True,Must; PS-12; crm_lead_activity; AC-017; SC-18
+trace FR-008,True,Must; PS-14; crm_sla_event; AC-004; SC-17;SC-19
+trace FR-009,True,Must; PS-15; crm_lead_assignment; AC-006; SC-20;SC-12
+trace FR-010,True,Must; PS-16; crm_sla_event; AC-018; SC-19;SC-10
+trace FR-011,True,Must; PS-19; crm_lead_status_history; AC-021; SC-25;SC-33
+trace FR-012,True,Must; PS-17; crm_opportunity_outcome; AC-022; SC-23;SC-24
+trace FR-013,True,Must; PS-09; crm_lead_assignment; AC-008; SC-14
+trace FR-014,True,Should; PS-13; crm_lead_activity; AC-023; SC-22
+trace FR-015,True,Should; PS-10; crm_lead_assignment; AC-024; SC-05
+trace FR-016,True,Should; PS-08; crm_routing_decision; AC-012; SC-15
+trace DR-001,True,Must; PS-15; crm_lead_assignment; AC-006; SC-31;SC-20
+trace DR-002,True,Must; PS-20; crm_lead_status_history; AC-021; SC-01;SC-25
+trace DR-003,True,Must; PS-08; crm_rule_version; AC-002; SC-01;SC-21
+trace DR-004,True,Must; PS-06; crm_lead; AC-025; SC-14;SC-27
+trace DR-005,True,Must; PS-07; crm_lead; AC-011; SC-28;SC-29
+trace DR-006,True,Must; PS-01; crm_lead; AC-026; SC-01
+trace DR-007,True,Should; PS-09; crm_rm_capacity_snapshot; AC-027; SC-11;SC-12
+trace DR-008,True,Must; PS-18; crm_opportunity_outcome; AC-022; SC-23;SC-24
+trace DQ-001,True,Must; PS-19; crm_lead_status_history; AC-021; SC-01;SC-25
+trace DQ-002,True,Must; PS-10; crm_lead_assignment; AC-001; SC-31
+trace DQ-003,True,Must; PS-14; crm_sla_event; AC-004; SC-25;SC-26
+trace DQ-004,True,Must; PS-20; crm_lead; AC-009; SC-25;SC-26;SC-07
+trace DQ-005,True,Must; PS-20; crm_lead; AC-025; SC-01;SC-27
+trace DQ-006,True,Must; PS-12; crm_lead_status_history; AC-028; SC-01;SC-24
+trace RR-001,True,Must; PS-20; crm_lead; AC-029; SC-24;SC-25
+trace RR-002,True,Must; PS-14; crm_sla_event; AC-004; SC-17;SC-19
+trace RR-003,True,Must; PS-09; crm_routing_decision; AC-030; SC-11;SC-21
+trace RR-004,True,Should; PS-20; crm_lead; AC-011; SC-28;SC-29
+trace RR-005,True,Should; PS-20; crm_lead; AC-031; SC-06;SC-09
+trace NFR-001,True,Must; PS-08; crm_rule_version; AC-032; SC-01
+trace NFR-002,True,Must; PS-01; crm_lead; AC-026; SC-01
+trace NFR-003,True,Must; PS-15; crm_lead_status_history; AC-003; SC-21;SC-33
+trace NFR-004,True,Should; PS-20; crm_lead; AC-033; SC-01
+trace NFR-005,True,Should; PS-14; crm_sla_event; AC-034; SC-17
+trace NFR-006,True,Won't for current scope; PS-20; crm_rule_version; AC-035; SC-01
