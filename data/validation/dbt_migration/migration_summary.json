@@ -1,6 +1,6 @@
 {
   "purpose": "Reconciliation of the dbt marts with the validated analytical-view baseline",
-  "run_timestamp_utc": "2026-09-27T23:15:00+00:00",
+  "run_timestamp_utc": "2026-09-29T11:25:02+00:00",
   "warehouse": "data/warehouse/sme_banking.duckdb",
   "warehouse_schema": "analytics",
   "baseline": "data/processed/analytical_views",
@@ -11,7 +11,15 @@
   "column_metrics_compared": 965,
   "metric_checks_passed": 965,
   "tolerance_policy": "exact for rows, keys, counts, distinct counts, min, max and category distributions; relative 1e-12 only on SUM of DOUBLE columns (thread-dependent summation order)",
-  "tolerance_applied": [],
+  "tolerance_applied": [
+    {
+      "model": "fact_cma_momentum_monthly",
+      "column": "value",
+      "metric": "sum",
+      "absolute_difference": 6.556510925292969e-07,
+      "tolerance": 0.0005174228542756988
+    }
+  ],
   "differences_documented": [],
   "baseline_parquet_unchanged": true,
   "dbt_tests": {
@@ -19,13 +27,13 @@
     "tests": 151,
     "tests_passed": 151,
     "singular_tests": 20,
-    "generated_at": "2026-09-27T23:11:43.570206Z"
+    "generated_at": "2026-09-29T11:21:15.989560Z"
   },
   "dbt_project": {
     "models_by_layer": {
       "staging": 16,
-      "intermediate": 12,
-      "marts": 11
+      "intermediate": 18,
+      "marts": 14
     },
     "seeds": 18,
     "crosswalk_seeds": 10,
@@ -56,10 +64,10 @@
   ],
   "documentation_claims": {
     "README.md": {
-      "tests": "`dbt test` (151 tests)"
+      "tests": "base analytical layer: 151 dbt tests"
     },
     "docs/dbt_transformation_layer.md": {
-      "tests": "`dbt test` runs **151 tests**",
+      "tests": "The base analytical layer has **151 tests**",
       "singular": "(`tests/singular/`, 20 files)",
       "metrics": "all 965 column metrics pass",
       "crosswalk_seeds": "10 reviewed crosswalks (read in place",

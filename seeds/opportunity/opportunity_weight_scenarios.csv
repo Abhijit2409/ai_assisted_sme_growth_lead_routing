@@ -1,0 +1,31 @@
+scenario_id,scenario_name,scenario_role,pillar,pillar_weight,business_interpretation
+balanced,Balanced,core,scale,0.250,"Equal emphasis on addressable scale, momentum, dynamism and commercial fit; stability is shown as confidence context, not scored."
+balanced,Balanced,core,momentum,0.250,"Equal emphasis on addressable scale, momentum, dynamism and commercial fit; stability is shown as confidence context, not scored."
+balanced,Balanced,core,dynamism,0.250,"Equal emphasis on addressable scale, momentum, dynamism and commercial fit; stability is shown as confidence context, not scored."
+balanced,Balanced,core,commercial_fit,0.250,"Equal emphasis on addressable scale, momentum, dynamism and commercial fit; stability is shown as confidence context, not scored."
+balanced,Balanced,core,stability,0.000,"Equal emphasis on addressable scale, momentum, dynamism and commercial fit; stability is shown as confidence context, not scored."
+balanced,Balanced,core,stability_unadjusted,0.000,"Equal emphasis on addressable scale, momentum, dynamism and commercial fit; stability is shown as confidence context, not scored."
+scale_led,Scale-led,core,scale,0.500,A strategy that values the size of the addressable SME location base most (coverage and volume first).
+scale_led,Scale-led,core,momentum,0.200,A strategy that values the size of the addressable SME location base most (coverage and volume first).
+scale_led,Scale-led,core,dynamism,0.150,A strategy that values the size of the addressable SME location base most (coverage and volume first).
+scale_led,Scale-led,core,commercial_fit,0.150,A strategy that values the size of the addressable SME location base most (coverage and volume first).
+scale_led,Scale-led,core,stability,0.000,A strategy that values the size of the addressable SME location base most (coverage and volume first).
+scale_led,Scale-led,core,stability_unadjusted,0.000,A strategy that values the size of the addressable SME location base most (coverage and volume first).
+growth_led,Growth-led,core,scale,0.200,A strategy that values expanding employer-business populations most (recent net formation and its 36-month trend).
+growth_led,Growth-led,core,momentum,0.500,A strategy that values expanding employer-business populations most (recent net formation and its 36-month trend).
+growth_led,Growth-led,core,dynamism,0.150,A strategy that values expanding employer-business populations most (recent net formation and its 36-month trend).
+growth_led,Growth-led,core,commercial_fit,0.150,A strategy that values expanding employer-business populations most (recent net formation and its 36-month trend).
+growth_led,Growth-led,core,stability,0.000,A strategy that values expanding employer-business populations most (recent net formation and its 36-month trend).
+growth_led,Growth-led,core,stability_unadjusted,0.000,A strategy that values expanding employer-business populations most (recent net formation and its 36-month trend).
+stability_aware,Stability-aware,core,scale,0.225,"Balanced emphasis with a limited 10% weight on scale-adjusted stability, so erratic markets are tempered without the pillar dominating."
+stability_aware,Stability-aware,core,momentum,0.225,"Balanced emphasis with a limited 10% weight on scale-adjusted stability, so erratic markets are tempered without the pillar dominating."
+stability_aware,Stability-aware,core,dynamism,0.225,"Balanced emphasis with a limited 10% weight on scale-adjusted stability, so erratic markets are tempered without the pillar dominating."
+stability_aware,Stability-aware,core,commercial_fit,0.225,"Balanced emphasis with a limited 10% weight on scale-adjusted stability, so erratic markets are tempered without the pillar dominating."
+stability_aware,Stability-aware,core,stability,0.100,"Balanced emphasis with a limited 10% weight on scale-adjusted stability, so erratic markets are tempered without the pillar dominating."
+stability_aware,Stability-aware,core,stability_unadjusted,0.000,"Balanced emphasis with a limited 10% weight on scale-adjusted stability, so erratic markets are tempered without the pillar dominating."
+volatility_penalty_unadjusted,Unadjusted volatility penalty (comparison),sensitivity_only,scale,0.225,"Comparison only: as stability-aware, but penalising raw volatility, which also penalises small markets; used to measure that double penalty."
+volatility_penalty_unadjusted,Unadjusted volatility penalty (comparison),sensitivity_only,momentum,0.225,"Comparison only: as stability-aware, but penalising raw volatility, which also penalises small markets; used to measure that double penalty."
+volatility_penalty_unadjusted,Unadjusted volatility penalty (comparison),sensitivity_only,dynamism,0.225,"Comparison only: as stability-aware, but penalising raw volatility, which also penalises small markets; used to measure that double penalty."
+volatility_penalty_unadjusted,Unadjusted volatility penalty (comparison),sensitivity_only,commercial_fit,0.225,"Comparison only: as stability-aware, but penalising raw volatility, which also penalises small markets; used to measure that double penalty."
+volatility_penalty_unadjusted,Unadjusted volatility penalty (comparison),sensitivity_only,stability,0.000,"Comparison only: as stability-aware, but penalising raw volatility, which also penalises small markets; used to measure that double penalty."
+volatility_penalty_unadjusted,Unadjusted volatility penalty (comparison),sensitivity_only,stability_unadjusted,0.100,"Comparison only: as stability-aware, but penalising raw volatility, which also penalises small markets; used to measure that double penalty."

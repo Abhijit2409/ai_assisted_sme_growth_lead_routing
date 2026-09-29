@@ -188,7 +188,7 @@ Every mart's YAML description gives its business purpose, grain, primary key, up
 
 ## 8. Tests
 
-`dbt test` runs **151 tests**, and all pass. Every numerical tolerance is documented in its test.
+The base analytical layer has **151 tests**, and all pass. The market opportunity framework adds its own tagged tests (see [market_opportunity_framework.md](market_opportunity_framework.md)). Every numerical tolerance is documented in its test.
 
 - **Generic tests** (`tests/generic/`, plus the built-in ones):
   - `unique_key_combination`: one row per declared grain for every mart, crosswalk and intermediate model;
@@ -287,3 +287,9 @@ C:/Users/abhij/anaconda3/python.exe src/validation/11_reconcile_dbt_marts.py
 ```bash
 .venv/Scripts/dbt.exe docs serve --profiles-dir .
 ```
+
+---
+
+## Market opportunity framework models
+
+The framework extends the project without changing the base layer. Its seeds (`seeds/opportunity/`), models (`models/intermediate/opportunity/`, `models/marts/opportunity_framework/`) and tests (`tests/opportunity/`, plus generic tests on its models) are tagged `opportunity`, so the base layer builds and tests on its own with `--exclude tag:opportunity`. The marts `mart_cma_opportunity_framework`, `mart_cma_opportunity_sensitivity` and `mart_cma_scale_only_context` live in the `analytics` schema. Details: [market_opportunity_framework.md](market_opportunity_framework.md).

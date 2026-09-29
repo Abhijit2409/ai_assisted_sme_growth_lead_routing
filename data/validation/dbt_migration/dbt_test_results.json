@@ -1,7 +1,7 @@
 {
   "available": true,
   "dbt_version": "1.12.5",
-  "generated_at": "2026-09-27T23:11:43.570206Z",
+  "generated_at": "2026-09-29T11:21:15.989560Z",
   "command": "test",
   "tests": 151,
   "tests_passed": 151,
@@ -11,907 +11,907 @@
       "unique_id": "test.sme_market_intelligence.accepted_values_dim_cma_tier__1__2__3.7430d913b3",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.488
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.accepted_values_fact_cma_market_scale_snapshot_size_scope__all_sizes__sme_1_499__500_plus.60051a8322",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.49
+      "execution_time": 0.24
     },
     {
       "unique_id": "test.sme_market_intelligence.accepted_values_dim_industry_industry_system__NAICS2022_1097__STATCAN_0722__ISED_SFGSME_2023.48f225735a",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.496
+      "execution_time": 0.238
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.accepted_values_fact_cma_market_scale_snapshot_size_scope__all_sizes__sme_1_499__500_plus.60051a8322",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.242
     },
     {
       "unique_id": "test.sme_market_intelligence.accepted_values_fact_cma_momentum_monthly_measure__active__openings__continuing__closures__net_formation__opening_rate__closure_rate__net_formation_rate.4771f1f6a8",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.606
+      "execution_time": 0.373
     },
     {
       "unique_id": "test.sme_market_intelligence.accepted_values_fact_cma_sector_composition_snapshot_sector_role__business_sector__public_administration_separate__unclassified_separate.3a1da497f5",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.293
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.accepted_values_fact_cma_momentum_monthly_value_origin__published__derived.1f6e488055",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.329
+      "execution_time": 0.276
     },
     {
       "unique_id": "test.sme_market_intelligence.accepted_values_fact_ised_financing_context_mvp_use_status__usable_A_to_D__usable_with_caution_E__excluded_quality_F__unavailable_dotdot__unavailable_blank__published_without_quality_code.2404efa056",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.213
+      "execution_time": 0.228
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.accepted_values_fact_cma_momentum_monthly_value_origin__published__derived.1f6e488055",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.387
     },
     {
       "unique_id": "test.sme_market_intelligence.accepted_values_fact_cma_momentum_monthly_value_state__published__published_E__suppressed_x__not_available_dotdot__derived__derived_E__unavailable_input__no_prior_month.f74ec44bdb",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.412
+      "execution_time": 0.387
     },
     {
       "unique_id": "test.sme_market_intelligence.accepted_values_fact_ised_financing_context_quality_code__A__B__C__D__E__F.eec875fa48",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.26
+      "execution_time": 0.201
     },
     {
       "unique_id": "test.sme_market_intelligence.accepted_values_fact_ised_financing_context_segment_dimension__national__size_band__cma__region__industry_group.b161f32f4f",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.237
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.accepted_values_stg_ised__financing_context_value_state__numeric__dotdot__blank.bf06abcde4",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.228
+      "execution_time": 0.186
     },
     {
       "unique_id": "test.sme_market_intelligence.accepted_values_stg_ised__financing_context_quality_code__A__B__C__D__E__F.5f888d595f",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.234
+      "execution_time": 0.139
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.accepted_values_stg_ised__financing_context_value_state__numeric__dotdot__blank.bf06abcde4",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.139
     },
     {
       "unique_id": "test.sme_market_intelligence.accepted_values_stg_reference__cma_sgc2016_to_sgc2021_mapping_status__exact_code_with_boundary_caveat__target_only.96faf5613d",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.212
+      "execution_time": 0.145
     },
     {
       "unique_id": "test.sme_market_intelligence.accepted_values_stg_reference__ised_region_province_crosswalk_replicate_to_provinces__False.ae09c91796",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.174
+      "execution_time": 0.117
     },
     {
       "unique_id": "test.sme_market_intelligence.accepted_values_stg_reference__non_additive_category_rules_additive_allowed__False.49faf0eeac",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.165
+      "execution_time": 0.11
     },
     {
       "unique_id": "test.sme_market_intelligence.accepted_values_stg_statcan__business_dynamics_status____E__x___.050e7dd3dc",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.169
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.assert_1097_zeros_only_from_omitted_cells",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.152
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.assert_crosswalk_cardinality",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.144
+      "execution_time": 0.128
     },
     {
       "unique_id": "test.sme_market_intelligence.accepted_values_stg_statcan__business_dynamics_value_state__published__published_E__suppressed_x__not_available_dotdot.e0c827c99e",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.24
+      "execution_time": 0.161
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.assert_1097_zeros_only_from_omitted_cells",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.115
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.assert_crosswalk_cardinality",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.115
     },
     {
       "unique_id": "test.sme_market_intelligence.assert_ised_percentages_not_counts",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.085
+      "execution_time": 0.107
     },
     {
       "unique_id": "test.sme_market_intelligence.assert_crosswalk_keys_resolve",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.265
+      "execution_time": 0.209
     },
     {
       "unique_id": "test.sme_market_intelligence.assert_facts_carry_source_period_unit",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.135
+      "execution_time": 0.137
     },
     {
       "unique_id": "test.sme_market_intelligence.assert_derived_tiers_match_approved_spine",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.156
+      "execution_time": 0.139
     },
     {
       "unique_id": "test.sme_market_intelligence.assert_ised_regional_values_not_on_cmas",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.127
+      "execution_time": 0.125
     },
     {
       "unique_id": "test.sme_market_intelligence.assert_non_additive_categories_preserved",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.223
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.assert_net_formation_equals_openings_minus_closures",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.697
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.assert_no_crosswalk_fanout",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.773
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.assert_non_additive_rule_links_verified",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.372
+      "execution_time": 0.065
     },
     {
       "unique_id": "test.sme_market_intelligence.assert_momentum_scope_labels",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.805
+      "execution_time": 0.302
     },
     {
-      "unique_id": "test.sme_market_intelligence.assert_scale_reproduces_validated_totals",
+      "unique_id": "test.sme_market_intelligence.assert_net_formation_equals_openings_minus_closures",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.278
+      "execution_time": 0.317
     },
     {
-      "unique_id": "test.sme_market_intelligence.assert_sector_shares_reconcile",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.391
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.assert_size_shares_reconcile",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.209
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.assert_reviewed_maps_match_published_labels",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.812
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.assert_tier3_has_no_momentum_history",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.134
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_dim_cma_cma_code_sgc2021.736872af0d",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.168
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.assert_rates_use_same_source_active_denominator",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 1.105
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.assert_unavailable_values_remain_null",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.396
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_dim_cma_dguid_2021.fc460782d4",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.234
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_dim_cma_province_code.e7d2b34d57",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.202
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_dim_cma_tier.2d3c0d2c56",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.175
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_dim_size_band_size_band_key.464f7ab44e",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.199
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_dim_size_band_size_band_label.1ef9c4528b",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.249
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_market_scale_snapshot_locations.b4c764e3da",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.242
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_market_scale_snapshot_snapshot_period.10ed1addf7",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.161
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_market_scale_snapshot_source_id.6728e9bbe0",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.195
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_market_scale_snapshot_statistical_unit.446563d413",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.224
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_momentum_monthly_period_label.78e860e07a",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.185
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_momentum_monthly_ref_month.09fafa3cb3",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.182
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_momentum_monthly_scope_class.b0b6dd3c70",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.216
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_momentum_monthly_source_id.1fa3ef681f",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.182
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_momentum_monthly_statistical_unit.f23ad34a70",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.18
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_sector_composition_snapshot_sme_locations.c530769a4d",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.176
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_sector_composition_snapshot_snapshot_period.5289d0719b",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.171
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_sector_composition_snapshot_source_id.58fa84c426",
+      "unique_id": "test.sme_market_intelligence.assert_non_additive_rule_links_verified",
       "status": "pass",
       "failures": 0,
       "execution_time": 0.129
     },
     {
-      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_sector_composition_snapshot_statistical_unit.57d62c92b0",
+      "unique_id": "test.sme_market_intelligence.assert_no_crosswalk_fanout",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.159
+      "execution_time": 0.334
     },
     {
-      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_size_composition_snapshot_locations.021a547632",
+      "unique_id": "test.sme_market_intelligence.assert_scale_reproduces_validated_totals",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.181
+      "execution_time": 0.126
     },
     {
-      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_size_composition_snapshot_snapshot_period.ca0d1a42b0",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.164
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_size_composition_snapshot_source_id.b779de6b7f",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.198
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_size_composition_snapshot_statistical_unit.a5349f9a6f",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.185
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_fact_ised_financing_context_segment_key.5c22628203",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.173
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_fact_ised_financing_context_source_id.41a640a6ee",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.208
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_fact_ised_financing_context_statistical_unit.a15b7c487e",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.208
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_fact_ised_financing_context_survey_year.efd5021d16",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.21
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_int_financing__ised_region_keys_ised_region_label.a8efad033b",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.312
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_int_financing__province_region_keys_province_code.c81b2d1113",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.187
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_int_financing__ised_region_keys_region_key.34f9588c39",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.242
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_int_market__cma_vintage_alignment_cma_code_sgc2021.ac5bc3d410",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.346
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_int_market__cma_evidence_coverage_tier.e02a2edb7b",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.365
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_int_market__cma_evidence_coverage_cma_code_sgc2021.5442eda8ef",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.391
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_stg_reference__cma_sgc2016_to_sgc2021_target_code.99b22272cc",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.339
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_stg_reference__ised_cma_to_sgc2021_target_code.0d1effab95",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.338
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_stg_reference__ised_cma_to_sgc2021_source_label.47fad49b72",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.358
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_stg_reference__ised_industry_to_naics2022_source_label.d4d3d3cb68",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.303
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_stg_reference__ised_region_province_crosswalk_target_code.d78fe95858",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.315
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_stg_reference__non_additive_category_rules_rule_id.6e4a4aa18d",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.318
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_stg_reference__statcan_0722_industry_to_naics2022_source_member_id.0bc4763cd7",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.31
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_stg_reference__statcan_1097_size_to_sme_bands_source_code.843338a064",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.307
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_stg_reference__statcan_1097_size_to_sme_bands_target_code.06e05ae4e1",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.272
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_stg_statcan__business_locations_locations.48a299bd42",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.239
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_stg_statcan__business_dynamics_ref_month.bfc5e63149",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.422
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_stg_statcan__business_dynamics_source_id.ba74355cfc",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.438
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_stg_statcan__business_locations_source_id.cea399e4d7",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.157
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.relationships_bridge_cma_vintage_cma_code_sgc2021__cma_code_sgc2021__ref_dim_cma_.de2db1068d",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.214
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.relationships_bridge_size_band_target_band__size_band_key__ref_dim_size_band_.f2830d5624",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.257
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_stg_validated__naics_profile_1097_naics_member_id.2ad6535164",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.597
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.not_null_stg_validated__ised_estimate_definitions_measure_id.203ce982ea",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.76
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.relationships_fact_cma_market_scale_snapshot_cma_code_sgc2021__cma_code_sgc2021__ref_dim_cma_.68266d69f3",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.368
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.relationships_fact_cma_momentum_monthly_cma_code_sgc2016__cma_code_sgc2016__ref_bridge_cma_vintage_.272e1751ad",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.891
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.relationships_fact_cma_momentum_monthly_cma_code_sgc2021__cma_code_sgc2021__ref_dim_cma_.c6949b3276",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.858
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.relationships_fact_cma_sector_composition_snapshot_cma_code_sgc2021__cma_code_sgc2021__ref_dim_cma_.88a05b9d7e",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.226
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.relationships_fact_cma_momentum_monthly_size_band_key__size_band_key__ref_dim_size_band_.9132bec235",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.856
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.relationships_fact_cma_size_composition_snapshot_cma_code_sgc2021__cma_code_sgc2021__ref_dim_cma_.baf5606d19",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.328
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.row_count_equals_bridge_cma_vintage_41.da06265feb",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.273
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.row_count_equals_bridge_industry_63.74c466af9d",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.162
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.row_count_equals_bridge_size_band_9.f3b1313613",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.184
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.relationships_fact_cma_size_composition_snapshot_size_band_key__size_band_key__ref_dim_size_band_.fc73ce6d70",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.482
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.row_count_equals_dim_cma_41.ac58b5da24",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.19
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.row_count_equals_dim_industry_495.c99faf8610",
+      "unique_id": "test.sme_market_intelligence.assert_sector_shares_reconcile",
       "status": "pass",
       "failures": 0,
       "execution_time": 0.148
     },
     {
-      "unique_id": "test.sme_market_intelligence.row_count_equals_dim_size_band_6.57dd8b8afd",
+      "unique_id": "test.sme_market_intelligence.assert_size_shares_reconcile",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.137
+      "execution_time": 0.194
     },
     {
-      "unique_id": "test.sme_market_intelligence.row_count_equals_fact_cma_market_scale_snapshot_123.b505387a10",
+      "unique_id": "test.sme_market_intelligence.assert_tier3_has_no_momentum_history",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.143
+      "execution_time": 0.133
     },
     {
-      "unique_id": "test.sme_market_intelligence.row_count_equals_fact_cma_momentum_monthly_3782864.69d9cecb4c",
+      "unique_id": "test.sme_market_intelligence.assert_reviewed_maps_match_published_labels",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.124
+      "execution_time": 0.645
     },
     {
-      "unique_id": "test.sme_market_intelligence.row_count_equals_fact_cma_sector_composition_snapshot_861.b7eff66427",
+      "unique_id": "test.sme_market_intelligence.not_null_dim_cma_cma_code_sgc2021.736872af0d",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.131
+      "execution_time": 0.119
     },
     {
-      "unique_id": "test.sme_market_intelligence.row_count_equals_fact_cma_size_composition_snapshot_205.3aaf6013b5",
+      "unique_id": "test.sme_market_intelligence.assert_rates_use_same_source_active_denominator",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.087
+      "execution_time": 0.859
     },
     {
-      "unique_id": "test.sme_market_intelligence.row_count_equals_int_market__cma_location_cells_8118.d35af7e3f7",
+      "unique_id": "test.sme_market_intelligence.assert_unavailable_values_remain_null",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.111
+      "execution_time": 0.317
     },
     {
-      "unique_id": "test.sme_market_intelligence.row_count_equals_fact_ised_financing_context_1497.2257c999f5",
+      "unique_id": "test.sme_market_intelligence.not_null_dim_cma_province_code.e7d2b34d57",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.145
+      "execution_time": 0.163
     },
     {
-      "unique_id": "test.sme_market_intelligence.row_count_equals_int_market__momentum_scope_members_19.761665c106",
+      "unique_id": "test.sme_market_intelligence.not_null_dim_cma_dguid_2021.fc460782d4",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.107
+      "execution_time": 0.18
     },
     {
-      "unique_id": "test.sme_market_intelligence.row_count_equals_stg_ised__financing_context_79876.0714e30002",
+      "unique_id": "test.sme_market_intelligence.not_null_dim_cma_tier.2d3c0d2c56",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.158
+      "execution_time": 0.119
     },
     {
-      "unique_id": "test.sme_market_intelligence.row_count_equals_stg_reference__ised_cma_to_sgc2021_24.2864f66294",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.094
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.row_count_equals_stg_reference__cma_sgc2016_to_sgc2021_41.bfbb5eda75",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.134
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.row_count_equals_stg_reference__ised_industry_to_naics2022_23.66edaa71f6",
+      "unique_id": "test.sme_market_intelligence.not_null_dim_size_band_size_band_key.464f7ab44e",
       "status": "pass",
       "failures": 0,
       "execution_time": 0.149
     },
     {
-      "unique_id": "test.sme_market_intelligence.row_count_equals_stg_reference__non_additive_category_rules_28.fad3184675",
+      "unique_id": "test.sme_market_intelligence.not_null_dim_size_band_size_band_label.1ef9c4528b",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.151
+      "execution_time": 0.158
     },
     {
-      "unique_id": "test.sme_market_intelligence.row_count_equals_stg_reference__statcan_0722_industry_to_naics2022_40.a2768854f4",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.154
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.row_count_equals_stg_reference__statcan_1097_size_to_sme_bands_9.a938fed2cd",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.167
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_dim_size_band_size_band_key.ea353b7868",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.301
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_int_financing__ised_region_keys_ised_region_label.b848cf2bfa",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.143
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_dim_cma_cma_code_sgc2021.98225e0e55",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.324
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_int_financing__ised_region_keys_region_key.8ef60f968b",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.274
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_int_financing__province_region_keys_province_code.8db73d2f52",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.319
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_int_market__cma_evidence_coverage_cma_code_sgc2021.1274b0c365",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.303
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_int_market__cma_vintage_alignment_cma_code_sgc2021.2360ef4423",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.62
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_key_combination_bridge_cma_vintage_cma_code_sgc2016__cma_code_sgc2021.652fe0832f",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.635
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_key_combination_bridge_industry_source_system__source_code__target_code.424684680a",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.634
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_key_combination_bridge_size_band_source_band__target_band.c798f6d748",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.15
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_key_combination_dim_cma_cma_code_sgc2021.379abd8adb",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.168
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.assert_seeds_match_reviewed_files",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 9.824
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_key_combination_dim_industry_industry_system__industry_code.61fab57876",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.183
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_key_combination_dim_size_band_size_band_key.2b9bf21a11",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.21
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_key_combination_fact_cma_market_scale_snapshot_cma_code_sgc2021__size_scope__snapshot_period.3f8294b602",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.191
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_key_combination_fact_cma_sector_composition_snapshot_cma_code_sgc2021__naics_sector__snapshot_period.93ac8d9431",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.256
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_key_combination_fact_cma_size_composition_snapshot_cma_code_sgc2021__size_band_key__snapshot_period.6f95b4438b",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.184
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_key_combination_fact_ised_financing_context_ised_table__measure_id__segment_dimension__segment_key.4a7b0e5749",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.261
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_key_combination_int_market__cma_location_cells_cma_code_sgc2021__naics_member_id__size_member_id.293b220b64",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.252
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_key_combination_int_financing__estimates_in_scope_measure_id__segment_dimension__segment_key.6a5d1d5d80",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.4
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_key_combination_int_financing__segment_lookup_dimension_class__stub_label.aa73ed2091",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.39
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_key_combination_fact_cma_momentum_monthly_cma_code_sgc2016__ref_month__size_band_key__industry_code_0722__measure.d26a1760aa",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.775
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_key_combination_int_market__industry_members_industry_system__industry_code.47f3a0b033",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.254
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_key_combination_int_market__momentum_series_inputs_cma_code_sgc2016__ref_month__size_member_id__industry_member_id.9899d870f7",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.443
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_key_combination_stg_ised__financing_context_measure_id__stub_row.c8a6accd8f",
-      "status": "pass",
-      "failures": 0,
-      "execution_time": 0.45
-    },
-    {
-      "unique_id": "test.sme_market_intelligence.unique_key_combination_stg_reference__ised_industry_to_naics2022_source_label__target_code.89484951eb",
+      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_market_scale_snapshot_locations.b4c764e3da",
       "status": "pass",
       "failures": 0,
       "execution_time": 0.202
     },
     {
-      "unique_id": "test.sme_market_intelligence.unique_key_combination_int_market__momentum_derived_cma_code_sgc2016__ref_month__size_member_id__industry_member_id__measure.8f29f678fb",
+      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_market_scale_snapshot_snapshot_period.10ed1addf7",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.778
+      "execution_time": 0.176
     },
     {
-      "unique_id": "test.sme_market_intelligence.unique_key_combination_int_market__momentum_published_cma_code_sgc2016__ref_month__size_member_id__industry_member_id__measure_member_id.b7c2e1d948",
+      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_market_scale_snapshot_source_id.6728e9bbe0",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.75
+      "execution_time": 0.174
     },
     {
-      "unique_id": "test.sme_market_intelligence.unique_key_combination_stg_reference__ised_region_province_crosswalk_source_label__target_code.1d94569c45",
+      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_market_scale_snapshot_statistical_unit.446563d413",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.162
+      "execution_time": 0.153
     },
     {
-      "unique_id": "test.sme_market_intelligence.unique_key_combination_stg_reference__statcan_0722_industry_to_naics2022_source_member_id__target_code.5565838c44",
+      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_momentum_monthly_period_label.78e860e07a",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.192
+      "execution_time": 0.153
     },
     {
-      "unique_id": "test.sme_market_intelligence.unique_stg_reference__cma_sgc2016_to_sgc2021_target_code.c7972b7a59",
+      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_momentum_monthly_ref_month.09fafa3cb3",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.189
+      "execution_time": 0.132
     },
     {
-      "unique_id": "test.sme_market_intelligence.unique_stg_reference__cma_sgc2016_to_sgc2021_source_code.70233408b0",
+      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_momentum_monthly_scope_class.b0b6dd3c70",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.14
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_momentum_monthly_source_id.1fa3ef681f",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.13
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_momentum_monthly_statistical_unit.f23ad34a70",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.13
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_sector_composition_snapshot_sme_locations.c530769a4d",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.144
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_sector_composition_snapshot_source_id.58fa84c426",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.137
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_sector_composition_snapshot_snapshot_period.5289d0719b",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.137
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_sector_composition_snapshot_statistical_unit.57d62c92b0",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.111
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_size_composition_snapshot_locations.021a547632",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.121
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_size_composition_snapshot_snapshot_period.ca0d1a42b0",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.121
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_size_composition_snapshot_source_id.b779de6b7f",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.111
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_fact_cma_size_composition_snapshot_statistical_unit.a5349f9a6f",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.117
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_fact_ised_financing_context_segment_key.5c22628203",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.117
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_fact_ised_financing_context_source_id.41a640a6ee",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.151
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_fact_ised_financing_context_statistical_unit.a15b7c487e",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.151
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_fact_ised_financing_context_survey_year.efd5021d16",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.149
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_int_financing__ised_region_keys_ised_region_label.a8efad033b",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.132
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_int_financing__ised_region_keys_region_key.34f9588c39",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.143
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_int_financing__province_region_keys_province_code.c81b2d1113",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.15
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_int_market__cma_evidence_coverage_cma_code_sgc2021.5442eda8ef",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.119
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_int_market__cma_evidence_coverage_tier.e02a2edb7b",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.175
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_int_market__cma_vintage_alignment_cma_code_sgc2021.ac5bc3d410",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.18
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_stg_reference__cma_sgc2016_to_sgc2021_target_code.99b22272cc",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.182
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_stg_reference__ised_cma_to_sgc2021_source_label.47fad49b72",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.346
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_stg_reference__ised_cma_to_sgc2021_target_code.0d1effab95",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.35
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_stg_reference__ised_industry_to_naics2022_source_label.d4d3d3cb68",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.23
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_stg_reference__ised_region_province_crosswalk_target_code.d78fe95858",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.178
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_stg_reference__non_additive_category_rules_rule_id.6e4a4aa18d",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.179
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_stg_reference__statcan_0722_industry_to_naics2022_source_member_id.0bc4763cd7",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.134
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_stg_reference__statcan_1097_size_to_sme_bands_source_code.843338a064",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.16
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_stg_reference__statcan_1097_size_to_sme_bands_target_code.06e05ae4e1",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.145
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_stg_statcan__business_dynamics_ref_month.bfc5e63149",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.184
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_stg_statcan__business_locations_locations.48a299bd42",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.123
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_stg_statcan__business_locations_source_id.cea399e4d7",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.101
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_stg_statcan__business_dynamics_source_id.ba74355cfc",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.206
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.relationships_bridge_cma_vintage_cma_code_sgc2021__cma_code_sgc2021__ref_dim_cma_.de2db1068d",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.14
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_stg_validated__ised_estimate_definitions_measure_id.203ce982ea",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.312
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.relationships_bridge_size_band_target_band__size_band_key__ref_dim_size_band_.f2830d5624",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.089
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.not_null_stg_validated__naics_profile_1097_naics_member_id.2ad6535164",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.333
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.relationships_fact_cma_market_scale_snapshot_cma_code_sgc2021__cma_code_sgc2021__ref_dim_cma_.68266d69f3",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.164
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.relationships_fact_cma_momentum_monthly_cma_code_sgc2021__cma_code_sgc2021__ref_dim_cma_.c6949b3276",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.435
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.relationships_fact_cma_momentum_monthly_size_band_key__size_band_key__ref_dim_size_band_.9132bec235",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.454
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.relationships_fact_cma_momentum_monthly_cma_code_sgc2016__cma_code_sgc2016__ref_bridge_cma_vintage_.272e1751ad",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.664
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.relationships_fact_cma_sector_composition_snapshot_cma_code_sgc2021__cma_code_sgc2021__ref_dim_cma_.88a05b9d7e",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.223
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.row_count_equals_bridge_cma_vintage_41.da06265feb",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.05
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.row_count_equals_bridge_industry_63.74c466af9d",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.075
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.relationships_fact_cma_size_composition_snapshot_size_band_key__size_band_key__ref_dim_size_band_.fc73ce6d70",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.218
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.relationships_fact_cma_size_composition_snapshot_cma_code_sgc2021__cma_code_sgc2021__ref_dim_cma_.baf5606d19",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.359
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.row_count_equals_bridge_size_band_9.f3b1313613",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.124
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.row_count_equals_dim_cma_41.ac58b5da24",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.16
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.row_count_equals_dim_industry_495.c99faf8610",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.1
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.row_count_equals_dim_size_band_6.57dd8b8afd",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.121
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.row_count_equals_fact_cma_market_scale_snapshot_123.b505387a10",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.111
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.row_count_equals_fact_cma_momentum_monthly_3782864.69d9cecb4c",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.104
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.row_count_equals_fact_cma_sector_composition_snapshot_861.b7eff66427",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.147
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.row_count_equals_fact_cma_size_composition_snapshot_205.3aaf6013b5",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.167
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.row_count_equals_fact_ised_financing_context_1497.2257c999f5",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.122
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.row_count_equals_int_market__cma_location_cells_8118.d35af7e3f7",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.121
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.row_count_equals_int_market__momentum_scope_members_19.761665c106",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.102
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.row_count_equals_stg_reference__cma_sgc2016_to_sgc2021_41.bfbb5eda75",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.084
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.row_count_equals_stg_ised__financing_context_79876.0714e30002",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.129
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.row_count_equals_stg_reference__ised_cma_to_sgc2021_24.2864f66294",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.115
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.row_count_equals_stg_reference__non_additive_category_rules_28.fad3184675",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.127
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.row_count_equals_stg_reference__statcan_0722_industry_to_naics2022_40.a2768854f4",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.119
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.row_count_equals_stg_reference__ised_industry_to_naics2022_23.66edaa71f6",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.248
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.row_count_equals_stg_reference__statcan_1097_size_to_sme_bands_9.a938fed2cd",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.185
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_dim_size_band_size_band_key.ea353b7868",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.172
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_dim_cma_cma_code_sgc2021.98225e0e55",
       "status": "pass",
       "failures": 0,
       "execution_time": 0.203
     },
     {
-      "unique_id": "test.sme_market_intelligence.unique_stg_reference__ised_cma_to_sgc2021_source_label.29bfcd976a",
+      "unique_id": "test.sme_market_intelligence.unique_int_financing__ised_region_keys_ised_region_label.b848cf2bfa",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.198
+      "execution_time": 0.094
     },
     {
-      "unique_id": "test.sme_market_intelligence.unique_stg_reference__ised_cma_to_sgc2021_target_code.510ea9a7bb",
+      "unique_id": "test.sme_market_intelligence.unique_int_financing__province_region_keys_province_code.8db73d2f52",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.207
+      "execution_time": 0.119
     },
     {
-      "unique_id": "test.sme_market_intelligence.unique_stg_reference__non_additive_category_rules_rule_id.fa29e455e7",
+      "unique_id": "test.sme_market_intelligence.unique_int_financing__ised_region_keys_region_key.8ef60f968b",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.2
+      "execution_time": 0.176
     },
     {
-      "unique_id": "test.sme_market_intelligence.unique_stg_reference__statcan_1097_size_to_sme_bands_source_code.45be3029b7",
+      "unique_id": "test.sme_market_intelligence.unique_int_market__cma_evidence_coverage_cma_code_sgc2021.1274b0c365",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.147
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_int_market__cma_vintage_alignment_cma_code_sgc2021.2360ef4423",
       "status": "pass",
       "failures": 0,
       "execution_time": 0.201
     },
     {
+      "unique_id": "test.sme_market_intelligence.unique_key_combination_bridge_cma_vintage_cma_code_sgc2016__cma_code_sgc2021.652fe0832f",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.198
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_key_combination_dim_cma_cma_code_sgc2021.379abd8adb",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.126
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_key_combination_bridge_size_band_source_band__target_band.c798f6d748",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.187
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_key_combination_bridge_industry_source_system__source_code__target_code.424684680a",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.317
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_key_combination_fact_cma_market_scale_snapshot_cma_code_sgc2021__size_scope__snapshot_period.3f8294b602",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.148
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_key_combination_dim_size_band_size_band_key.2b9bf21a11",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.45
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_key_combination_dim_industry_industry_system__industry_code.61fab57876",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.5
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_key_combination_fact_cma_sector_composition_snapshot_cma_code_sgc2021__naics_sector__snapshot_period.93ac8d9431",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.343
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_key_combination_fact_cma_size_composition_snapshot_cma_code_sgc2021__size_band_key__snapshot_period.6f95b4438b",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.302
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_key_combination_fact_ised_financing_context_ised_table__measure_id__segment_dimension__segment_key.4a7b0e5749",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.537
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.assert_seeds_match_reviewed_files",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 7.789
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_key_combination_int_financing__estimates_in_scope_measure_id__segment_dimension__segment_key.6a5d1d5d80",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.563
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_key_combination_int_financing__segment_lookup_dimension_class__stub_label.aa73ed2091",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.128
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_key_combination_fact_cma_momentum_monthly_cma_code_sgc2016__ref_month__size_band_key__industry_code_0722__measure.d26a1760aa",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 1.31
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_key_combination_int_market__cma_location_cells_cma_code_sgc2021__naics_member_id__size_member_id.293b220b64",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.166
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_key_combination_int_market__industry_members_industry_system__industry_code.47f3a0b033",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.174
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_key_combination_int_market__momentum_derived_cma_code_sgc2016__ref_month__size_member_id__industry_member_id__measure.8f29f678fb",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.657
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_key_combination_int_market__momentum_series_inputs_cma_code_sgc2016__ref_month__size_member_id__industry_member_id.9899d870f7",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.567
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_key_combination_stg_ised__financing_context_measure_id__stub_row.c8a6accd8f",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.545
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_key_combination_int_market__momentum_published_cma_code_sgc2016__ref_month__size_member_id__industry_member_id__measure_member_id.b7c2e1d948",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.714
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_key_combination_stg_reference__ised_industry_to_naics2022_source_label__target_code.89484951eb",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.175
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_key_combination_stg_reference__ised_region_province_crosswalk_source_label__target_code.1d94569c45",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.159
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_stg_reference__cma_sgc2016_to_sgc2021_source_code.70233408b0",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.153
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_key_combination_stg_reference__statcan_0722_industry_to_naics2022_source_member_id__target_code.5565838c44",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.159
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_stg_reference__cma_sgc2016_to_sgc2021_target_code.c7972b7a59",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.141
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_stg_reference__ised_cma_to_sgc2021_source_label.29bfcd976a",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.161
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_stg_reference__ised_cma_to_sgc2021_target_code.510ea9a7bb",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.167
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_stg_reference__non_additive_category_rules_rule_id.fa29e455e7",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.189
+    },
+    {
+      "unique_id": "test.sme_market_intelligence.unique_stg_reference__statcan_1097_size_to_sme_bands_source_code.45be3029b7",
+      "status": "pass",
+      "failures": 0,
+      "execution_time": 0.127
+    },
+    {
       "unique_id": "test.sme_market_intelligence.unique_stg_validated__naics_profile_1097_naics_member_id.4ca3bb0328",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.093
+      "execution_time": 0.083
     },
     {
       "unique_id": "test.sme_market_intelligence.unique_stg_validated__ised_estimate_definitions_measure_id.2fc7256ac5",
       "status": "pass",
       "failures": 0,
-      "execution_time": 0.198
+      "execution_time": 0.133
     }
   ]
 }

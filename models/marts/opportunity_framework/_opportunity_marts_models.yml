@@ -1,0 +1,314 @@
+version: 2
+
+models:
+  - name: mart_cma_opportunity_framework
+    description: |
+      Business purpose: the external market opportunity signal for each of the 35 CMAs with complete evidence, under four
+      transparent weighting scenarios, with every step visible (raw, transformed, normalized, pillar, weight, contribution, score).
+      Row grain: one row per CMA x core scenario (140). Primary key: cma_code_sgc2021, scenario_id.
+      Upstream: fact_cma_market_scale_snapshot, fact_cma_size_composition_snapshot, fact_cma_momentum_monthly (ISED context only from
+      fact_ised_financing_context). Unit: 0-100 relative index. Periods: 1097 December 2025; 0722 2025-06 to 2026-05 and 2023-06 to 2026-05.
+      Coverage: 35 Tier 1-2 CMAs; Tier 3 excluded (see mart_cma_scale_only_context). Missing values: none allowed (tested); nothing imputed.
+      Limitations: external public aggregates only; not a prospect list, revenue, conversion or investment decision; momentum is all-employer context.
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["cma_code_sgc2021", "scenario_id"]
+      - row_count_equals:
+          arguments:
+            expected: 140
+    columns:
+      - name: cma_code_sgc2021
+        description: "SGC 2021 CMA code."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_cma')
+                field: cma_code_sgc2021
+      - name: cma_label_sgc2021
+        description: "CMA name (display only)."
+      - name: evidence_tier
+        description: "Evidence tier (1 or 2 in the full framework; 3 = scale-only)."
+      - name: evidence_label
+        description: "Short evidence-coverage label."
+      - name: scenario_id
+        description: "Weighting scenario (balanced, scale_led, growth_led, stability_aware)."
+      - name: scenario_name
+        description: "Scenario name."
+      - name: scenario_interpretation
+        description: "Business interpretation of the scenario."
+      - name: c01_sme_employer_locations
+        description: "C01 raw: SME employer locations (1-499), table 1097, December 2025."
+      - name: c01_log10_sme_employer_locations
+        description: "C01 transformed: log10 of SME employer locations."
+      - name: c01_normalized
+        description: "C01 normalized (percentile, 0-100; higher = larger)."
+      - name: c03_opening_rate_12m
+        description: "C03 raw: mean monthly opening rate 2025-06 to 2026-05 (openings / active enterprises at t-1); dynamism or churn intensity, not net growth."
+      - name: c03_normalized
+        description: "C03 normalized (percentile, 0-100)."
+      - name: c05_net_formation_rate_12m
+        description: "C05 raw: mean monthly net-formation rate 2025-06 to 2026-05."
+      - name: c05_normalized
+        description: "C05 normalized (percentile, 0-100)."
+      - name: c09_net_formation_trend_per_year
+        description: "C09 raw: OLS slope of monthly net-formation rate, 2023-06 to 2026-05, per year."
+      - name: c09_normalized
+        description: "C09 normalized (percentile, 0-100)."
+      - name: c15_share_20_99
+        description: "C15 raw: 20-99 employee share of SME locations, December 2025."
+      - name: c15_normalized
+        description: "C15 normalized (percentile, 0-100)."
+      - name: c10_net_formation_rate_sd_12m
+        description: "C10 raw: sample SD of monthly net-formation rate 2025-06 to 2026-05."
+      - name: c10_log10_sd
+        description: "C10 transformed: log10 of the SD."
+      - name: c10_scale_adjusted_residual
+        description: "C10 scale-adjusted: residual of log10(SD) on log10(SME locations) across the 35 CMAs (lower = steadier than size predicts)."
+      - name: c10_stability_normalized
+        description: "Stability component normalized (percentile of the negated residual, 0-100; higher = steadier)."
+      - name: within_momentum_weight_c05
+        description: "Within-pillar weight of C05 in the momentum pillar."
+      - name: within_momentum_weight_c09
+        description: "Within-pillar weight of C09 in the momentum pillar."
+      - name: momentum_e_flagged_observations
+        description: "E-flagged monthly observations used by C03, C05 and C09."
+      - name: recent_usable_months
+        description: "Usable months in the 12-month window (12 required)."
+      - name: trend_usable_months
+        description: "Usable months in the 36-month window (30 required)."
+      - name: pillar_scale
+        description: "Scale pillar score (0-100)."
+      - name: pillar_momentum
+        description: "Momentum pillar score (0-100): mean of C05 and C09 normalized."
+      - name: pillar_dynamism
+        description: "Dynamism pillar score (0-100)."
+      - name: pillar_commercial_fit
+        description: "Commercial-fit pillar score (0-100)."
+      - name: pillar_stability
+        description: "Stability pillar score (0-100)."
+      - name: weight_scale
+        description: "Scenario weight of the scale pillar."
+      - name: weight_momentum
+        description: "Scenario weight of the momentum pillar."
+      - name: weight_dynamism
+        description: "Scenario weight of the dynamism pillar."
+      - name: weight_commercial_fit
+        description: "Scenario weight of the commercial-fit pillar."
+      - name: weight_stability
+        description: "Scenario weight of the stability pillar."
+      - name: contribution_scale
+        description: "Weighted contribution of the scale pillar (points of the score)."
+      - name: contribution_momentum
+        description: "Weighted contribution of momentum."
+      - name: contribution_dynamism
+        description: "Weighted contribution of dynamism."
+      - name: contribution_commercial_fit
+        description: "Weighted contribution of commercial fit."
+      - name: contribution_stability
+        description: "Weighted contribution of stability."
+      - name: opportunity_score
+        description: "External opportunity score, 0-100 relative index within the 35 CMAs (sum of contributions)."
+      - name: score_rank
+        description: "Rank within the scenario (1 = strongest); tied scores (rounded to 1e-9) share a rank."
+      - name: score_position
+        description: "Unique position within the scenario; ties broken by CMA code."
+      - name: tied_markets
+        description: "Number of markets sharing this score in the scenario."
+      - name: score_percentile
+        description: "Score percentile within the scenario (average-rank ties, 0-100)."
+      - name: boundary_change_flag
+        description: "2016-2021 CMA boundary caveat."
+      - name: has_ised_cma_context
+        description: "ISED publishes a CMA row for this CMA."
+      - name: context_ised_external_financing_request_rate_pct
+        description: "Context only (not scored): ISED 2023 external-financing request rate (% of SMEs), usable Tier 1 CMA estimate."
+      - name: context_ised_quality_code
+        description: "Context only: ISED quality code of that estimate."
+      - name: context_ised_use_status
+        description: "Context only: ISED use status."
+      - name: dominant_pillar
+        description: "Pillar with the largest weighted contribution (ties in pillar order)."
+      - name: opportunity_classification
+        description: "External opportunity classification (ordered rules; see docs/market_opportunity_framework.md)."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["Stronger external opportunity signal", "Scale-led external opportunity signal", "Momentum-led external opportunity signal", "Moderate external opportunity signal", "Weaker current external signal (monitor)"]
+      - name: momentum_signal_clarity
+        description: "Confidence measure: whether the 12-month mean net-formation rate exceeds 2 x its standard error (heuristic)."
+      - name: normalization_method
+        description: "Normalization used for the score."
+      - name: framework_population
+        description: "Population the score is relative to."
+      - name: score_scale
+        description: "Meaning of the score scale."
+      - name: interpretation_note
+        description: "Interpretation note."
+      - name: source_models
+        description: "dbt marts used."
+      - name: source_periods
+        description: "Source periods."
+  - name: mart_cma_opportunity_sensitivity
+    description: |
+      Business purpose: how stable each CMA's position is across scenarios, normalizations, leave-one-indicator-out and
+      volatility treatments. Row grain: one row per full-framework CMA (35). Primary key: cma_code_sgc2021.
+      Upstream: mart_cma_opportunity_framework and the opportunity intermediate models. Limitations: sensitivity describes assumption dependence,
+      not statistical confidence.
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["cma_code_sgc2021"]
+      - row_count_equals:
+          arguments:
+            expected: 35
+    columns:
+      - name: cma_code_sgc2021
+        description: "SGC 2021 CMA code."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_cma')
+                field: cma_code_sgc2021
+      - name: cma_label_sgc2021
+        description: "CMA name (display only)."
+      - name: evidence_tier
+        description: "Evidence tier (1 or 2 in the full framework; 3 = scale-only)."
+      - name: balanced_score
+        description: "Balanced-scenario opportunity score (0-100)."
+      - name: balanced_rank
+        description: "Balanced-scenario rank (1 = strongest of 35)."
+      - name: balanced_classification
+        description: "Balanced-scenario classification."
+      - name: min_scenario_rank
+        description: "Best (lowest) rank across the 4 core scenarios."
+      - name: max_scenario_rank
+        description: "Worst (highest) rank across the 4 core scenarios."
+      - name: rank_range
+        description: "Worst minus best rank across the 4 core scenarios."
+      - name: mean_scenario_rank
+        description: "Mean rank across the 4 core scenarios."
+      - name: rank_standard_deviation
+        description: "Population standard deviation of the 4 core-scenario ranks."
+      - name: score_range
+        description: "Highest minus lowest score across the 4 core scenarios."
+      - name: top_quartile_scenarios
+        description: "Number of the 4 core scenarios in which the CMA is in the top quartile (score percentile >= 75)."
+      - name: top_quartile_frequency
+        description: "Share of the 4 core scenarios with a top-quartile placement (not the weight-perturbation frequency, which the analysis outputs report separately)."
+      - name: bottom_quartile_scenarios
+        description: "Number of the 4 core scenarios in which the CMA is in the bottom quartile (score percentile < 25)."
+      - name: classification_consistency
+        description: "Share of core scenarios whose classification equals the balanced classification."
+      - name: distinct_classifications
+        description: "Number of distinct classifications across the 4 core scenarios."
+      - name: max_leave_one_out_rank_shift
+        description: "Largest absolute balanced-rank change when one core component is left out."
+      - name: most_influential_component
+        description: "Core component whose removal moves the balanced rank most (ties by component id)."
+      - name: rank_shift_without_c01
+        description: "Balanced-rank change without C01 (positive = lower placement)."
+      - name: rank_shift_without_c03
+        description: "Balanced-rank change without C03."
+      - name: rank_shift_without_c05
+        description: "Balanced-rank change without C05."
+      - name: rank_shift_without_c09
+        description: "Balanced-rank change without C09."
+      - name: rank_shift_without_c15
+        description: "Balanced-rank change without C15."
+      - name: balanced_rank_min_max
+        description: "Balanced rank under min-max normalization."
+      - name: balanced_rank_min_max_tukey_capped
+        description: "Balanced rank under Tukey-capped min-max normalization."
+      - name: balanced_rank_robust_z_clipped
+        description: "Balanced rank under clipped robust z normalization."
+      - name: max_normalization_rank_shift
+        description: "Largest absolute balanced-rank change across the alternative normalizations."
+      - name: rank_scale_adjusted_volatility
+        description: "Rank in the stability-aware scenario (scale-adjusted volatility)."
+      - name: rank_unadjusted_volatility_penalty
+        description: "Rank in the comparison scenario with an unadjusted volatility penalty."
+      - name: rank_shift_unadjusted_vs_adjusted_volatility
+        description: "Rank change from the scale-adjusted to the unadjusted volatility penalty (positive = lower placement)."
+      - name: pillar_scale
+        description: "Scale pillar score (0-100)."
+      - name: pillar_momentum
+        description: "Momentum pillar score (0-100): mean of C05 and C09 normalized."
+      - name: position_driver
+        description: "scale-driven / momentum-driven (pillar gap of 25 or more) or mixed scale and momentum."
+      - name: weighting_sensitive
+        description: "Rank range of 9 or more, or top quartile in some but not all core scenarios."
+      - name: indicator_dependent
+        description: "Leave-one-out rank shift of 9 or more."
+      - name: normalization_sensitive
+        description: "Normalization rank shift of 9 or more."
+      - name: stability_group
+        description: "Stable stronger signal, Assumption-sensitive, Stable weaker signal or Stable middle signal (ordered rules)."
+      - name: momentum_signal_clarity
+        description: "Confidence measure: whether the 12-month mean net-formation rate exceeds 2 x its standard error (heuristic)."
+      - name: interpretation_note
+        description: "Interpretation note."
+  - name: mart_cma_scale_only_context
+    description: |
+      Business purpose: scale and composition context for the 6 Tier 3 CMAs that lack 0722 momentum history.
+      Row grain: one row per scale-only CMA. Primary key: cma_code_sgc2021. Upstream: table 1097 marts and dim_cma. Percentiles are across 41 CMAs.
+      No score, rank or momentum classification exists here; full_score_eligible is always false.
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["cma_code_sgc2021"]
+      - row_count_equals:
+          arguments:
+            expected: 6
+    columns:
+      - name: cma_code_sgc2021
+        description: "SGC 2021 CMA code."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_cma')
+                field: cma_code_sgc2021
+      - name: cma_label_sgc2021
+        description: "CMA name (display only)."
+      - name: evidence_tier
+        description: "Evidence tier (1 or 2 in the full framework; 3 = scale-only)."
+      - name: vintage_status
+        description: "E1 vintage status (target-only for Tier 3)."
+      - name: sme_employer_locations
+        description: "SME employer locations (1-499), December 2025."
+      - name: log10_sme_employer_locations
+        description: "log10 of SME employer locations."
+      - name: scale_percentile_41_cma
+        description: "Scale percentile across all 41 CMAs (not comparable with 35-CMA framework percentiles)."
+      - name: share_20_99
+        description: "20-99 employee share of SME locations."
+      - name: share_20_99_percentile_41_cma
+        description: "20-99 share percentile across all 41 CMAs."
+      - name: largest_sector_code
+        description: "Largest business sector by SME locations."
+      - name: largest_sector_label
+        description: "Largest business sector name."
+      - name: largest_sector_share
+        description: "Share of classified SME locations in the largest sector."
+      - name: unclassified_share_of_sme_locations
+        description: "Unclassified share of SME locations (context)."
+      - name: context_ised_region_key
+        description: "ISED region key giving regional context (never attached as a CMA value)."
+      - name: full_score_eligible
+        description: "Always false: no full score for scale-only CMAs."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [false]
+      - name: evidence_classification
+        description: "Scale-only limited evidence."
+      - name: evidence_limitation
+        description: "Why the CMA is not scored."
+      - name: percentile_note
+        description: "Percentile comparability note."
+      - name: source_period
+        description: "Source period."
+      - name: statistical_unit
+        description: "Statistical unit."
+      - name: interpretation_note
+        description: "Interpretation note."

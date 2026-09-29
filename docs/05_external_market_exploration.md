@@ -208,3 +208,9 @@ The six Tier 3 CMAs are marked *scale-only; not eligible for the primary momentu
 ## Input source update
 
 The introduction above describes the original inputs, the Parquet views in `data/processed/analytical_views/`. The script now reads the same 11 relations from the dbt marts (schema `analytics` in `data/warehouse/sme_banking.duckdb`). They reconcile exactly with those Parquet views, and every output, finding and figure in this document was reproduced byte for byte. The evidence is in `data/validation/dbt_migration/`; see [dbt_transformation_layer.md](dbt_transformation_layer.md).
+
+---
+
+## Use in the market opportunity framework
+
+The six retained indicators (C01, C03, C05, C09, C10 and C15) were tested in the market opportunity framework without changing any classification or finding in this document; supporting, rejected and unresolved indicators stayed out of the score. See [market_opportunity_framework.md](market_opportunity_framework.md).

@@ -1,0 +1,10 @@
+check,passed,value
+scored CMAs equal the 35 momentum-eligible CMAs,True,35
+every scored CMA appears once per core scenario,True,140
+scale-only CMAs equal the 6 Tier 3 CMAs,True,6
+no CMA is both scored and scale-only,True,0
+"scale-only CMAs have no score, rank or momentum field",True,
+no Tier 3 component rows (nothing imputed),True,
+every scored CMA has all core components complete,True,
+sensitivity covers every scored CMA,True,35
+classification table covers every scored CMA,True,35

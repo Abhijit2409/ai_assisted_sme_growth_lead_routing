@@ -1,0 +1,323 @@
+{
+  "purpose": "Validation of the external market opportunity framework",
+  "run_timestamp_utc": "2026-09-29T11:27:55+00:00",
+  "dbt_version": "1.12.5",
+  "duckdb_version": "1.5.3",
+  "analysis_script_sha256": "1e697e9cfe06e562a40c4e5ca9a873f38c829f509edd1c036d4f56d09868dfc3",
+  "validation_script_sha256": "a7934b3e60fe1174ee71396dcc0f3ccf5c5f1854e61e4e4f646338722f409c03",
+  "eligible_population": {
+    "count": 35,
+    "cmas": [
+      "001",
+      "205",
+      "305",
+      "310",
+      "408",
+      "421",
+      "433",
+      "442",
+      "462",
+      "505",
+      "521",
+      "522",
+      "529",
+      "532",
+      "535",
+      "537",
+      "539",
+      "541",
+      "543",
+      "550",
+      "555",
+      "559",
+      "568",
+      "580",
+      "595",
+      "602",
+      "705",
+      "725",
+      "810",
+      "825",
+      "835",
+      "915",
+      "932",
+      "933",
+      "935"
+    ]
+  },
+  "scale_only_population": {
+    "count": 6,
+    "cmas": [
+      "320",
+      "447",
+      "830",
+      "925",
+      "930",
+      "938"
+    ]
+  },
+  "selected_indicators": [
+    {
+      "indicator_id": "C01",
+      "component_id": "C01_LOG_SCALE",
+      "pillar": "scale",
+      "within_pillar_weight": 1.0,
+      "transformation": "log10 of SME employer locations (1-499)"
+    },
+    {
+      "indicator_id": "C03",
+      "component_id": "C03_OPENING_RATE",
+      "pillar": "dynamism",
+      "within_pillar_weight": 1.0,
+      "transformation": "none (mean of 12 monthly rates)"
+    },
+    {
+      "indicator_id": "C05",
+      "component_id": "C05_NET_FORMATION_RATE",
+      "pillar": "momentum",
+      "within_pillar_weight": 0.5,
+      "transformation": "none (mean of 12 monthly rates)"
+    },
+    {
+      "indicator_id": "C09",
+      "component_id": "C09_NET_FORMATION_TREND",
+      "pillar": "momentum",
+      "within_pillar_weight": 0.5,
+      "transformation": "OLS slope of monthly net-formation rate on a calendar-month index, x12 (per year)"
+    },
+    {
+      "indicator_id": "C15",
+      "component_id": "C15_SHARE_20_99",
+      "pillar": "commercial_fit",
+      "within_pillar_weight": 1.0,
+      "transformation": "none"
+    }
+  ],
+  "sensitivity_only_indicators": [
+    {
+      "indicator_id": "C10",
+      "component_id": "C10_VOLATILITY_SCALE_ADJUSTED",
+      "framework_role": "sensitivity scenario only"
+    },
+    {
+      "indicator_id": "C10",
+      "component_id": "C10_VOLATILITY_RAW",
+      "framework_role": "sensitivity comparison only"
+    }
+  ],
+  "excluded_indicators": "supporting, rejected and unresolved indicators keep their exploration classification and never enter a score",
+  "normalization_method": "percentile_rank_average_ties",
+  "alternative_normalizations": [
+    "min_max",
+    "min_max_tukey_capped",
+    "robust_z_clipped"
+  ],
+  "scenarios": {
+    "balanced": {
+      "role": "core",
+      "interpretation": "Equal emphasis on addressable scale, momentum, dynamism and commercial fit; stability is shown as confidence context, not scored.",
+      "weights": {
+        "scale": 0.25,
+        "momentum": 0.25,
+        "dynamism": 0.25,
+        "commercial_fit": 0.25
+      }
+    },
+    "growth_led": {
+      "role": "core",
+      "interpretation": "A strategy that values expanding employer-business populations most (recent net formation and its 36-month trend).",
+      "weights": {
+        "scale": 0.2,
+        "momentum": 0.5,
+        "dynamism": 0.15,
+        "commercial_fit": 0.15
+      }
+    },
+    "scale_led": {
+      "role": "core",
+      "interpretation": "A strategy that values the size of the addressable SME location base most (coverage and volume first).",
+      "weights": {
+        "scale": 0.5,
+        "momentum": 0.2,
+        "dynamism": 0.15,
+        "commercial_fit": 0.15
+      }
+    },
+    "stability_aware": {
+      "role": "core",
+      "interpretation": "Balanced emphasis with a limited 10% weight on scale-adjusted stability, so erratic markets are tempered without the pillar dominating.",
+      "weights": {
+        "scale": 0.225,
+        "momentum": 0.225,
+        "dynamism": 0.225,
+        "commercial_fit": 0.225,
+        "stability": 0.1
+      }
+    },
+    "volatility_penalty_unadjusted": {
+      "role": "sensitivity_only",
+      "interpretation": "Comparison only: as stability-aware, but penalising raw volatility, which also penalises small markets; used to measure that double penalty.",
+      "weights": {
+        "scale": 0.225,
+        "momentum": 0.225,
+        "dynamism": 0.225,
+        "commercial_fit": 0.225,
+        "stability_unadjusted": 0.1
+      }
+    }
+  },
+  "configuration_declaration": {
+    "purpose": "Framework configuration declared before the first scoring run (weights, indicator registry, decision thresholds and primary normalization).",
+    "declared_at_utc": "2026-09-27T23:42:55Z",
+    "first_scoring_build_utc": "2026-09-27T23:46:16Z",
+    "declared_sha256": {
+      "seeds/opportunity/opportunity_decision_thresholds.csv": "954c66bb0f3de5e7b9e460c456d28fa5d3cf4138fc734fb7e66c95ec22141a6c",
+      "seeds/opportunity/opportunity_indicator_registry.csv": "226c4c9d41a2c1b07afece8e2d789eda62fafc0045428f3956d114429b4aa193",
+      "seeds/opportunity/opportunity_weight_scenarios.csv": "df9638a0844ca82769fc20f06468aa678813de03132cde3ee17a03c05c1f15ef"
+    },
+    "change_policy": "Changes require a documented, outcome-independent reason recorded here; the validation compares the current seeds with these hashes.",
+    "changes_since_declaration": []
+  },
+  "score_ranges": {
+    "balanced": {
+      "min": 16.17647059,
+      "max": 75.36764706
+    },
+    "growth_led": {
+      "min": 15.14705882,
+      "max": 82.05882353
+    },
+    "scale_led": {
+      "min": 12.5,
+      "max": 75.29411765
+    },
+    "stability_aware": {
+      "min": 20.73529412,
+      "max": 71.94852941
+    }
+  },
+  "stability_groups": {
+    "Assumption-sensitive": 14,
+    "Stable middle signal": 10,
+    "Stable stronger signal": 6,
+    "Stable weaker signal": 5
+  },
+  "stable_stronger_markets": [
+    "Halifax",
+    "Winnipeg",
+    "Saskatoon",
+    "Edmonton",
+    "Calgary",
+    "Quebec"
+  ],
+  "scale_led_restates_size": true,
+  "dbt_tests": {
+    "opportunity_tests": 39,
+    "opportunity_tests_passed": 39,
+    "base_tests_defined": 151
+  },
+  "test_sensitivity": [
+    {
+      "test": "assert_opportunity_scores_recompute",
+      "fault": "scale weight +0.01",
+      "failing_rows_as_written": 0,
+      "failing_rows_with_fault": 136
+    },
+    {
+      "test": "assert_opportunity_classification_rules",
+      "fault": "top-quartile threshold +10",
+      "failing_rows_as_written": 0,
+      "failing_rows_with_fault": 12
+    },
+    {
+      "test": "assert_opportunity_monotonicity",
+      "fault": "component lowered instead of raised",
+      "failing_rows_as_written": 0,
+      "failing_rows_with_fault": 136
+    }
+  ],
+  "doc_claims": {
+    "population": "**35** CMAs",
+    "scale_only": "**6** Tier 3 CMAs",
+    "rows": "**140** rows",
+    "stable_stronger": "**6** CMAs are in the top quartile under all four scenarios",
+    "assumption_sensitive": "**14** CMAs are assumption-sensitive",
+    "size_balanced": "**0.58** (balanced)",
+    "size_scale_led": "**0.91** (scale-led)",
+    "c01_share": "**81%** of the scale-led score variance",
+    "clarity": "**3** of 35",
+    "draws": "**5,000** weight draws",
+    "example_name": "**Halifax**",
+    "example_locations": "15,668 SME employer locations",
+    "example_log": "log10 = 4.1950",
+    "example_c01": "C01 normalized 67.6",
+    "example_c03": "C03 normalized 55.9",
+    "example_c05": "C05 normalized 100.0",
+    "example_c09": "C09 normalized 91.2",
+    "example_c15": "C15 normalized 82.4",
+    "example_pillars": "scale 67.6, momentum 95.6, dynamism 55.9, commercial fit 82.4",
+    "example_score": "balanced score **75.37**",
+    "example_class": "*Stronger external opportunity signal*",
+    "findings": "**15** findings",
+    "list_stable": "Halifax, Winnipeg, Saskatoon, Edmonton, Calgary and Quebec",
+    "list_perturbation": "Halifax, Winnipeg, Saskatoon, Edmonton, Calgary and Windsor",
+    "list_sensitive": "Windsor, Kitchener - Cambridge - Waterloo, London, Vancouver, Moncton, Ottawa - Gatineau, Lethbridge, Thunder Bay, Toronto, Saint John, Hamilton, Saguenay, Oshawa and Montr\u00e9al",
+    "list_weaker": "Barrie, Greater Sudbury, Brantford, Belleville - Quinte West and Peterborough",
+    "count_middle": "**10** CMAs form a stable middle",
+    "count_weaker": "**5** are stably weaker",
+    "list_scale_driven": "Calgary, Kitchener - Cambridge - Waterloo, Vancouver, Ottawa - Gatineau, Toronto, Hamilton, Oshawa and Montr\u00e9al",
+    "list_momentum_driven": "Halifax, Saskatoon, Moncton, Abbotsford - Mission, Lethbridge, Thunder Bay, Saint John, Kingston and Saguenay",
+    "list_all_pillars": "Halifax, Winnipeg, Saskatoon and Windsor",
+    "largest_move": "Toronto's, 20 ranks",
+    "vol_raw": "(Spearman -0.65)",
+    "vol_adjusted": "size (-0.04)",
+    "vol_shift": "about 1.8 ranks on average, while others gain about 0.6",
+    "c05_c09": "(Spearman 0.75)",
+    "momentum_share": "38% of balanced score variance",
+    "fit_vs_dynamism": "(Spearman -0.74)",
+    "dynamism_vs_scale": "(Spearman 0.49 with log scale)",
+    "fit_loo": "by 4 places at the median and up to 12 (Quebec)",
+    "norm_correlation": "0.87-0.88",
+    "norm_shift": "Only 3-4 markets",
+    "persistence": "(Spearman 0.36)",
+    "size_growth": "0.30 (growth-led)",
+    "size_stability": "0.55 (stability-aware)",
+    "skew": "from 3.49 to 1.10",
+    "top3": "52.1% of 41-CMA locations",
+    "lineage": "to within 1e-10",
+    "tier3_range": "between the 2.5th and 22.5th percentile",
+    "tier3_fit": "Drummondville (87.5th percentile) and Kamloops (82.5th percentile)",
+    "tier3_largest": "Nanaimo and Kamloops are the largest"
+  },
+  "output_sha256": {
+    "data/analysis/market_opportunity/cma_opportunity_classifications.csv": "34b4cc1bad3389e68a7ad69eff52e8689db48164879f3b3adf9f0087dbf05766",
+    "data/analysis/market_opportunity/cma_opportunity_components.csv": "7704d3df72ffdb511e646d8e47f0865e2811316a2c92bc891e9bee0544b1dd1f",
+    "data/analysis/market_opportunity/cma_opportunity_scores.csv": "1d1ae35d3033f214bc293e4daa60fa75d2ae7b67abe720d2940ee624f9b54950",
+    "data/analysis/market_opportunity/cma_opportunity_sensitivity.csv": "df8d46cbb70675eecdaf12f73660f5048da22fdaccfd4ba9646f7036e718ab35",
+    "data/analysis/market_opportunity/cma_scale_only_context.csv": "8585e529eb34c1e18b1915c50e4c47405bcb714f00b110ca843bd39d6b3cc606",
+    "data/analysis/market_opportunity/component_contribution_analysis.csv": "6b6995c323647e2f7d47bb5cb3589b88a4fe0bf7814ebb47e5494f3833ac1327",
+    "data/analysis/market_opportunity/figure_register.csv": "29779ae1e9c0bfc77d7d53973a9c492a32fb16820616e2fa9fc1bde9cbe97057",
+    "data/analysis/market_opportunity/market_opportunity_findings.csv": "6dd777cc0087817f8d01dbd63d8eb31b7ef61331d4db7f70da3194edf0d736b2",
+    "data/analysis/market_opportunity/scenario_comparison.csv": "c40291777527927a529dec97f300a941f8f9d3c04e3cde9b890cd770f8dfdbca",
+    "outputs/market_opportunity_framework/fig01_scale_momentum_opportunity_matrix.png": "2f714360778f8288456a0bd6b433d98dc4442ef2bbde43de440631343fe5b6b8",
+    "outputs/market_opportunity_framework/fig02_component_heatmap.png": "3eb2c83bf628921c71f532bda86d84a0cdff3be92b224db6fcca11773cb03c8e",
+    "outputs/market_opportunity_framework/fig03_scenario_rank_comparison.png": "ccdc6978e24b6a5ed9c48f14b02554f1286e3fa818ffe16345da1f5738bdf4f7",
+    "outputs/market_opportunity_framework/fig04_score_contributions.png": "95c1207dcd440011322918d5de8e49f365f46c101c5bb7c59fb3bd5497165379",
+    "outputs/market_opportunity_framework/fig05_top_quartile_frequency.png": "7aafd10e7850e128dba99033c069258c34cd22d7000c583a4981ba626b99a28a",
+    "outputs/market_opportunity_framework/fig06_full_score_versus_scale_only.png": "48f63344fb5939b2dbb821899e519a5fe2371bcc0f10a7261c172b3d74f3a4c9",
+    "data/validation/opportunity_framework/double_counting_checks.csv": "5514b3e1f5418cd55bf35c4e707a5ae286028bebd90d2a3727f32723ff879cd1",
+    "data/validation/opportunity_framework/framework_checks.csv": "22b355066adc19597d3a62710dec68bd11b71266929e6aeb62648f482fcabcd9",
+    "data/validation/opportunity_framework/indicator_decision_register.csv": "c9e25966f7506915fc34f3668f565e0d08a6312d220609fd91fc5c6eac9e103f",
+    "data/validation/opportunity_framework/indicator_lineage_check.csv": "728ee53c577544697d6cd3ef66984c49fffde03fcf59141447f713a6ae860d5e",
+    "data/validation/opportunity_framework/normalization_comparison.csv": "06288eb61855f2309a9889dcfd51b5beab9ce73ea2234435e516f42e28505429",
+    "data/validation/opportunity_framework/population_eligibility_checks.csv": "9e52b308be3277749fc7529805379034ff61063e2a91edde3ea506ff0453c483",
+    "data/validation/opportunity_framework/score_recalculation_checks.csv": "424eb78ae36a7dbac6e39613492561f2687878193b6ebb4d30b3fce037975ec6",
+    "data/validation/opportunity_framework/sensitivity_validation.csv": "ddc4cc75d45f0cc2f611876192cc15c82e003514dceab07178f362c5f41fe335",
+    "data/validation/opportunity_framework/transformation_comparison.csv": "fd2cfa0a5f74fe03b4d12fcb407733e7de6b79c33fc6909d71a3159f099b95ff",
+    "data/validation/opportunity_framework/weight_validation.csv": "63fa1fe0293d8dac65bc3e62557c6162cf7f0728e02de9ff0852aab8f4d3153a"
+  },
+  "checks_passed": 28,
+  "checks_total": 28,
+  "failed_checks": [],
+  "all_checks_pass": true
+}

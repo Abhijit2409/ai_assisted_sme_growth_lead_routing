@@ -1,0 +1,15 @@
+parameter,value,description
+primary_normalization,percentile_rank_average_ties,"Declared before scoring: percentile rank within the 35-CMA population, 100 x (average rank - 1) / (n - 1); bounded 0-100, robust to extreme values without trimming, deterministic for ties, identical scale for every component"
+top_quartile_percentile,75,Score percentile at or above which a market is in the top quartile of its scenario
+bottom_quartile_percentile,25,Score percentile below which a market is in the bottom quartile of its scenario
+lead_pillar_threshold,75,Pillar score at or above which a pillar leads a market's signal (classification)
+other_pillar_ceiling,50,Pillar score below which the other main pillar is weak (scale-led or momentum-led classification)
+driver_gap,25,Minimum difference between scale and momentum pillar scores to call a position scale-driven or momentum-driven
+rank_sensitivity_threshold,9,"Rank movement (about one quartile of 35 markets) treated as material across scenarios, normalizations or leave-one-indicator-out"
+size_restatement_spearman,0.8,Spearman correlation between score and log scale at or above which a scenario mostly restates market size
+component_dominance_share,0.5,Share of score variance from one component at or above which that component dominates a scenario
+momentum_clarity_multiple,2,|12-month mean net-formation rate| must exceed this multiple of its standard error (SD / sqrt(12)) for a clear momentum direction (heuristic; ignores autocorrelation)
+perturbation_seed,20260927,Fixed random seed for the weight-perturbation analysis
+perturbation_draws,5000,Number of weight draws
+perturbation_lower_bound,0.10,Lower bound for each core pillar weight before renormalization
+perturbation_upper_bound,0.40,Upper bound for each core pillar weight before renormalization

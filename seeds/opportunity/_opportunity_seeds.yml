@@ -1,0 +1,36 @@
+version: 2
+
+# Reviewed configuration of the market opportunity framework. Declared before the first scoring run;
+# changes require a documented, outcome-independent reason.
+
+seeds:
+  - name: opportunity_indicator_registry
+    description: "One row per framework component: indicator, pillar, within-pillar weight, direction, transformation, source mart and columns, period, unit and final role."
+    config:
+      column_types: {component_id: varchar, indicator_id: varchar, component_name: varchar, business_purpose: varchar, pillar: varchar,
+                     within_pillar_weight: double, direction: varchar, transformation: varchar, source_model: varchar, source_columns: varchar,
+                     period: varchar, statistical_unit: varchar, population: varchar, framework_role: varchar}
+    columns:
+      - name: component_id
+        data_tests: [unique, not_null]
+      - name: direction
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["higher_is_stronger", "lower_is_stronger"]
+  - name: opportunity_weight_scenarios
+    description: "One row per scenario x pillar with the pillar weight and the scenario's business interpretation (every pillar listed, zero weights explicit)."
+    config:
+      column_types: {scenario_id: varchar, scenario_name: varchar, scenario_role: varchar, pillar: varchar, pillar_weight: double,
+                     business_interpretation: varchar}
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["scenario_id", "pillar"]
+  - name: opportunity_decision_thresholds
+    description: "Declared decision parameters: primary normalization, classification thresholds, sensitivity thresholds and perturbation settings."
+    config:
+      column_types: {parameter: varchar, value: varchar, description: varchar}
+    columns:
+      - name: parameter
+        data_tests: [unique, not_null]

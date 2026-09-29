@@ -164,8 +164,12 @@ def main():
     tests = {"available": RUN_RESULTS.exists()}
     if RUN_RESULTS.exists():
         rr = json.loads(RUN_RESULTS.read_text(encoding="utf-8"))
+        dm_nodes = json.loads(DBT_MANIFEST.read_text(encoding="utf-8"))["nodes"] if DBT_MANIFEST.exists() else {}
+        opp_nodes = {k for k, nd in dm_nodes.items() if "opportunity" in (nd.get("tags") or [])}
+        # base analytical layer only: exclude market-opportunity framework tests (tagged, or depending on tagged nodes)
+        is_opp = lambda uid: uid in opp_nodes or bool(set(dm_nodes.get(uid, {}).get("depends_on", {}).get("nodes", [])) & opp_nodes)  # noqa: E731
         res = [{"unique_id": r["unique_id"], "status": r["status"], "failures": r.get("failures"), "execution_time": round(r.get("execution_time", 0), 3)}
-               for r in rr["results"]]
+               for r in rr["results"] if not is_opp(r["unique_id"])]
         tests.update({"dbt_version": rr["metadata"]["dbt_version"], "generated_at": rr["metadata"]["generated_at"],
                       "command": " ".join(rr["args"].get("which", "").split()) if isinstance(rr.get("args"), dict) else "",
                       "tests": sum(1 for r in res if r["unique_id"].startswith("test.")),
@@ -190,14 +194,14 @@ def main():
     nodes = dm["nodes"].values()
     models_by_layer = {layer: sum(1 for n in nodes if n["resource_type"] == "model" and n["fqn"][1] == layer)
                        for layer in ("staging", "intermediate", "marts")}
-    seeds = [n for n in nodes if n["resource_type"] == "seed"]
+    seeds = [n for n in nodes if n["resource_type"] == "seed" and "opportunity" not in (n.get("tags") or [])]   # base-layer seeds only
     xw_seeds = sum(1 for n in seeds if n["original_file_path"].replace("\\", "/").startswith("data/reference/crosswalks/"))
     singular = sum(1 for n in nodes if n["resource_type"] == "test" and n["original_file_path"].replace("\\", "/").startswith("tests/singular/"))
     rows_by_model = {m["model"]: m["dbt_rows"] for m in models}
     claims = {
-        "README.md": {"tests": f"`dbt test` ({tests.get('tests')} tests)"},
+        "README.md": {"tests": f"base analytical layer: {tests.get('tests')} dbt tests"},
         "docs/dbt_transformation_layer.md": {
-            "tests": f"`dbt test` runs **{tests.get('tests')} tests**",
+            "tests": f"The base analytical layer has **{tests.get('tests')} tests**",
             "singular": f"(`tests/singular/`, {singular} files)",
             "metrics": f"all {sum(r['passed'] for r in metric_rows)} column metrics pass",
             "crosswalk_seeds": f"{xw_seeds} reviewed crosswalks (read in place",

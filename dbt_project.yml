@@ -24,13 +24,19 @@ models:
     intermediate:
       +schema: intermediate
       +materialized: table
+      opportunity:
+        +tags: ["opportunity"]
     marts:
       +schema: analytics
       +materialized: table
+      opportunity_framework:
+        +tags: ["opportunity"]
 
 seeds:
   sme_market_intelligence:
     +schema: reference
+    opportunity:
+      +tags: ["opportunity"]
 
 # Constants shared by several models (defined once; tests check them against the sources where the source states them).
 vars:
@@ -43,3 +49,9 @@ vars:
   pandemic_window_end: "2021-12"
   ised_survey_year: 2023
   ised_national_label: "1 to 499 employees"
+  # Market opportunity framework windows (0722 monthly; same windows as the descriptive market exploration)
+  opportunity_recent_start: "2025-06"
+  opportunity_recent_end: "2026-05"
+  opportunity_trend_start: "2023-06"
+  opportunity_recent_months: 12
+  opportunity_trend_min_months: 30

@@ -1,0 +1,12 @@
+scenario_id,scenario_role,weight_sum,min_weight,weighted_pillars,sums_to_one,nonnegative
+balanced,core,1.0,0.0,scale;momentum;dynamism;commercial_fit,True,True
+growth_led,core,1.0,0.0,scale;momentum;dynamism;commercial_fit,True,True
+scale_led,core,1.0,0.0,scale;momentum;dynamism;commercial_fit,True,True
+stability_aware,core,1.0,0.0,scale;momentum;dynamism;commercial_fit;stability,True,True
+volatility_penalty_unadjusted,sensitivity_only,1.0,0.0,scale;momentum;dynamism;commercial_fit;stability_unadjusted,True,True
+within-pillar: commercial_fit,,1.0,1.0,C15_SHARE_20_99,True,True
+within-pillar: dynamism,,1.0,1.0,C03_OPENING_RATE,True,True
+within-pillar: momentum,,1.0,0.5,C05_NET_FORMATION_RATE;C09_NET_FORMATION_TREND,True,True
+within-pillar: scale,,1.0,1.0,C01_LOG_SCALE,True,True
+within-pillar: stability,,1.0,1.0,C10_VOLATILITY_SCALE_ADJUSTED,True,True
+within-pillar: stability_unadjusted,,1.0,1.0,C10_VOLATILITY_RAW,True,True

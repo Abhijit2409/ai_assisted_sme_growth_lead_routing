@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: int_opportunity__indicator_inputs
+    description: "Grain: one row per CMA x framework component. Raw values of the six retained indicators, computed from existing dbt marts (scale and commercial fit for 41 CMAs; momentum components only for the 35 CMAs with 0722 history, nothing imputed), with usable and E-flagged observation counts and lineage."
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["cma_code_sgc2021", "component_id"]
+      - row_count_equals:
+          arguments:
+            expected: 257
+  - name: int_opportunity__transformed_indicators
+    description: "Grain: one row per CMA x framework component. Documented transformation of each raw value (log10 scale, identity for rates and shares, log10 volatility, scale-adjusted volatility residual)."
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["cma_code_sgc2021", "component_id"]
+  - name: int_opportunity__normalized_indicators
+    description: "Grain: one row per full-framework CMA (35) x component (7). Oriented so higher = stronger evidence; normalized by percentile rank with average ties (primary), min-max, Tukey-capped min-max and clipped robust z (sensitivity), all 0-100."
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["cma_code_sgc2021", "component_id"]
+      - row_count_equals:
+          arguments:
+            expected: 245
+  - name: int_opportunity__pillar_scores
+    description: "Grain: one row per full-framework CMA x normalization method x pillar. Pillar score = weighted mean of the pillar's normalized components."
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["cma_code_sgc2021", "normalization_method", "pillar"]
+  - name: int_opportunity__scenario_scores
+    description: "Grain: one row per full-framework CMA x scenario (core and sensitivity-only) x normalization method. Weighted score, rank, deterministic position, ties and percentile."
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["cma_code_sgc2021", "scenario_id", "normalization_method"]
+  - name: int_opportunity__leave_one_out_scores
+    description: "Grain: one row per core component left out x full-framework CMA. Balanced scenario, primary normalization, pillar weights redistributed proportionally when a pillar empties."
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["left_out_component", "cma_code_sgc2021"]

@@ -171,3 +171,9 @@ The script exits with status 1 if any gate fails. Per-check results are in `view
 ## dbt transformation layer
 
 **Status: dbt marts are the authoritative analytical relations.** The 11 relations described above are now built by dbt, in the DuckDB warehouse `data/warehouse/sme_banking.duckdb` (schema `analytics`), with the same names, grains, columns and business rules. They reconcile exactly with the Parquet views produced by `src/analytics/09_build_analytical_views.py`, which is kept unchanged as the comparison baseline. The market exploration now reads the dbt marts. See [dbt_transformation_layer.md](dbt_transformation_layer.md).
+
+---
+
+## Market opportunity framework
+
+**Status: built and validated.** The external market opportunity framework reads these dbt marts (scale, size composition and momentum; ISED only as context) and adds its own tagged dbt models and marts without changing any of the 11 relations. See [market_opportunity_framework.md](market_opportunity_framework.md).

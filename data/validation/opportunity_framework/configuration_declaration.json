@@ -1,0 +1,12 @@
+{
+  "purpose": "Framework configuration declared before the first scoring run (weights, indicator registry, decision thresholds and primary normalization).",
+  "declared_at_utc": "2026-09-27T23:42:55Z",
+  "first_scoring_build_utc": "2026-09-27T23:46:16Z",
+  "declared_sha256": {
+    "seeds/opportunity/opportunity_decision_thresholds.csv": "954c66bb0f3de5e7b9e460c456d28fa5d3cf4138fc734fb7e66c95ec22141a6c",
+    "seeds/opportunity/opportunity_indicator_registry.csv": "226c4c9d41a2c1b07afece8e2d789eda62fafc0045428f3956d114429b4aa193",
+    "seeds/opportunity/opportunity_weight_scenarios.csv": "df9638a0844ca82769fc20f06468aa678813de03132cde3ee17a03c05c1f15ef"
+  },
+  "change_policy": "Changes require a documented, outcome-independent reason recorded here; the validation compares the current seeds with these hashes.",
+  "changes_since_declaration": []
+}

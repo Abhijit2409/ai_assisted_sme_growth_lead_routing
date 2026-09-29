@@ -1,12 +1,20 @@
 <#
 .SYNOPSIS
     Runs the analytical data platform end to end: input verification, dbt transformation layer,
-    mart-to-baseline reconciliation, market-exploration regression and dbt documentation.
+    mart-to-baseline reconciliation, market-exploration regression, the market opportunity framework
+    and dbt documentation.
 
 .DESCRIPTION
     Safe to launch from any directory: it resolves the repository from its own location.
     It never downloads data, never rebuilds validated caches and never deletes files. Every step
     must succeed; the script stops at the first failure and exits with a nonzero code.
+
+.PARAMETER Scope
+    Full (default): the validated base analytical layer, then the market opportunity framework, then dbt docs.
+    Base: only the validated base analytical layer (inputs, dbt base models and tests, reconciliation,
+          market-exploration regression).
+    Opportunity: only the market opportunity framework, after confirming that the base marts are current
+          and the framework configuration is unchanged since it was declared.
 
 .PARAMETER AnalysisPython
     Python interpreter of the analysis environment (pandas, DuckDB 1.5.3). Defaults to
@@ -14,9 +22,14 @@
 
 .EXAMPLE
     powershell -ExecutionPolicy Bypass -File .\run_analytical_pipeline.ps1
+.EXAMPLE
+    powershell -ExecutionPolicy Bypass -File .\run_analytical_pipeline.ps1 -Scope Opportunity
 #>
 [CmdletBinding()]
-param([string]$AnalysisPython)
+param(
+    [ValidateSet('Full', 'Base', 'Opportunity')][string]$Scope = 'Full',
+    [string]$AnalysisPython
+)
 
 $ErrorActionPreference = 'Stop'
 $Root = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -54,23 +67,45 @@ if (-not (Test-Path -LiteralPath (Join-Path $Root 'profiles.yml'))) {
 }
 New-Item -ItemType Directory -Force -Path (Join-Path $Root 'data\warehouse') | Out-Null
 
-Invoke-Step '1-3. Verify raw sources, cache lineage, validation summaries, analytical-view and market-exploration baselines' {
-    & $AnalysisPython 'src\validation\verify_pipeline_inputs.py'
-}
-Write-Host ''
-Write-Host '==> 4. dbt packages: none required (no packages.yml)' -ForegroundColor Cyan
+Write-Host "Scope: $Scope"
 Invoke-Step 'dbt debug' { & $Dbt debug --profiles-dir $Root }
-Invoke-Step '5. Load crosswalk and reviewed-map seeds' { & $Dbt seed --profiles-dir $Root }
-Invoke-Step '6. Build staging models' { & $Dbt run --profiles-dir $Root --select staging }
-Invoke-Step '7. Build intermediate models' { & $Dbt run --profiles-dir $Root --select intermediate }
-Invoke-Step '8. Build marts' { & $Dbt run --profiles-dir $Root --select marts }
-Invoke-Step '9. Run all dbt tests' { & $Dbt test --profiles-dir $Root }
-Invoke-Step '10. Reconcile the 11 marts with the baseline Parquet views' { & $AnalysisPython 'src\validation\11_reconcile_dbt_marts.py' }
-Invoke-Step '11-14. Market exploration from dbt marts: two runs, regression, determinism, in-place refresh' {
-    & $AnalysisPython 'src\validation\12_verify_market_exploration_regression.py'
+
+if ($Scope -in @('Full', 'Base')) {
+    Write-Host ''
+    Write-Host '--- Validated base analytical layer ---' -ForegroundColor Yellow
+    Invoke-Step 'B1. Verify raw sources, cache lineage, validation summaries, analytical-view and market-exploration baselines' {
+        & $AnalysisPython 'src\validation\verify_pipeline_inputs.py'
+    }
+    Write-Host ''
+    Write-Host '==> B2. dbt packages: none required (no packages.yml)' -ForegroundColor Cyan
+    Invoke-Step 'B3. Load crosswalk and reviewed-map seeds' { & $Dbt seed --profiles-dir $Root --exclude tag:opportunity }
+    Invoke-Step 'B4. Build staging models' { & $Dbt run --profiles-dir $Root --select staging }
+    Invoke-Step 'B5. Build intermediate models' { & $Dbt run --profiles-dir $Root --select intermediate --exclude tag:opportunity }
+    Invoke-Step 'B6. Build marts' { & $Dbt run --profiles-dir $Root --select marts --exclude tag:opportunity }
+    Invoke-Step 'B7. Run all base dbt tests' { & $Dbt test --profiles-dir $Root --exclude tag:opportunity }
+    Invoke-Step 'B8. Reconcile the 11 marts with the baseline Parquet views' { & $AnalysisPython 'src\validation\11_reconcile_dbt_marts.py' }
+    Invoke-Step 'B9. Market exploration from dbt marts: two runs, regression, determinism, in-place refresh' {
+        & $AnalysisPython 'src\validation\12_verify_market_exploration_regression.py'
+    }
 }
-Invoke-Step '15. Generate dbt documentation' { & $Dbt docs generate --profiles-dir $Root }
+
+if ($Scope -in @('Full', 'Opportunity')) {
+    Write-Host ''
+    Write-Host '--- Market opportunity framework ---' -ForegroundColor Yellow
+    Invoke-Step 'O1. Confirm base marts are current and the framework configuration is unchanged' {
+        & $AnalysisPython 'src\validation\14_validate_market_opportunity_framework.py' --preconditions-only
+    }
+    Invoke-Step 'O2. Load opportunity configuration seeds' { & $Dbt seed --profiles-dir $Root --select tag:opportunity }
+    Invoke-Step 'O3. Build opportunity models' { & $Dbt run --profiles-dir $Root --select tag:opportunity }
+    Invoke-Step 'O4. Run opportunity dbt tests' { & $Dbt test --profiles-dir $Root --select tag:opportunity }
+    Invoke-Step 'O5. Opportunity framework analysis' { & $AnalysisPython 'src\analysis\13_analyze_market_opportunity_framework.py' }
+    Invoke-Step 'O6. Opportunity framework validation (recalculation, eligibility, sensitivity, two-run reproducibility)' {
+        & $AnalysisPython 'src\validation\14_validate_market_opportunity_framework.py'
+    }
+}
+
+Invoke-Step 'Generate dbt documentation' { & $Dbt docs generate --profiles-dir $Root }
 
 Write-Host ''
-Write-Host 'Analytical pipeline completed: every step passed.' -ForegroundColor Green
+Write-Host "Analytical pipeline completed (scope: $Scope): every step passed." -ForegroundColor Green
 exit 0

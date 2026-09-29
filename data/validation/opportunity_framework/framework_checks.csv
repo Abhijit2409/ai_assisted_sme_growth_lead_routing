@@ -1,0 +1,29 @@
+check,passed,detail
+base dbt migration evidence passes,True,11 of 11 marts
+market-exploration regression evidence passes,True,
+base marts read by the framework match their reconciled row checksums,True,7 of 7
+configuration unchanged since declared before the first scoring run,True,declared 2026-09-27T23:42:55Z; first scoring build 2026-09-27T23:46:16Z
+dbt opportunity tests all passed in the latest dbt run,True,39 of 39; base tests defined: 151
+key opportunity tests detect injected faults,True,assert_opportunity_scores_recompute: 0 -> 136; assert_opportunity_classification_rules: 0 -> 12; assert_opportunity_monotonicity: 0 -> 136
+scored CMAs equal the 35 momentum-eligible CMAs,True,35
+every scored CMA appears once per core scenario,True,140
+scale-only CMAs equal the 6 Tier 3 CMAs,True,6
+no CMA is both scored and scale-only,True,0
+"scale-only CMAs have no score, rank or momentum field",True,
+no Tier 3 component rows (nothing imputed),True,
+every scored CMA has all core components complete,True,
+sensitivity covers every scored CMA,True,35
+classification table covers every scored CMA,True,35
+scenario and within-pillar weights sum to 1 and are nonnegative,True,11 weight sets
+published weights are constant within scenario and equal the configuration,True,
+only approved retained indicators are registered; no ISED source,True,
+"normalized components within 0-100, spanning 0-100, oriented and monotone",True,
+percentile normalization recomputes (average ranks for ties),True,
+every score recomputes from published components and weights,True,140 of 140; max difference 6.50e-09
+"ranks, positions and percentiles recompute within each scenario (ties shared, positions 1-35)",True,
+every classification follows its declared rule,True,
+sensitivity rank ranges and top-quartile counts recompute,True,
+"no published output represents aggregates as prospects, leads or customers",True,[]
+"ISED context sits beside, never inside, the score",True,3 context columns in the mart; Tier 1 only; all 140 scores recompute from components and weights alone; dbt isolation test passed
+analysis runs twice with identical bytes and matches the published outputs,True,"21 files; exits [0, 0]"
+documentation numbers reproduced by the outputs,True,51 of 51

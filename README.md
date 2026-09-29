@@ -10,7 +10,7 @@ A portfolio project that helps a hypothetical Canadian business-banking team dec
 - Internal CRM data introduced later in the project will be **synthetic**. Hypothetical internal-process problems are illustrations, not claims about any real Canadian bank.
 - ISED financing estimates are **contextual evidence**, never market-size inputs.
 - **Tier 3 CMAs** (six markets that were census agglomerations in 2016) have scale and composition data only. They are not eligible for momentum-based comparison.
-- No opportunity score, indicator weighting, market ranking, lead routing or dashboard exists yet.
+- The market opportunity framework compares 35 CMAs on external evidence under transparent weighting scenarios. It is an external market signal, not a prospect list or an investment decision. No CRM data, lead routing or dashboard exists yet.
 
 ## Architecture
 
@@ -45,6 +45,7 @@ The dbt marts in the `analytics` schema are the authoritative analytical relatio
 | [docs/04_analytical_data_layer.md](docs/04_analytical_data_layer.md) | The 11 analytical relations and their rules |
 | [docs/05_external_market_exploration.md](docs/05_external_market_exploration.md) | Descriptive market exploration and candidate indicators |
 | [docs/dbt_transformation_layer.md](docs/dbt_transformation_layer.md) | dbt transformation layer, tests and reconciliation |
+| [docs/market_opportunity_framework.md](docs/market_opportunity_framework.md) | Market opportunity framework: indicators, scenarios, scores, sensitivity and limitations |
 
 ## Installation
 
@@ -83,10 +84,13 @@ The script works from any directory. It never downloads data or deletes files, a
 1. Verify the raw files against `data/source_manifest.csv`, the cache lineage, every validation summary, the baseline analytical views and the market-exploration baseline.
 2. `dbt debug` and `dbt seed`, which loads the reviewed crosswalks and code maps.
 3. `dbt run` for staging, then intermediate, then marts.
-4. `dbt test` (151 tests).
+4. `dbt test`: base analytical layer: 151 dbt tests (the market opportunity framework adds its own tests, run separately).
 5. Reconcile the 11 marts with the baseline Parquet views: `src/validation/11_reconcile_dbt_marts.py`.
 6. Run the market exploration from the dbt marts twice into scratch folders. Compare the runs with each other and with the recorded baseline, then refresh in place: `src/validation/12_verify_market_exploration_regression.py`.
-7. `dbt docs generate`.
+7. The market opportunity framework (`-Scope Opportunity` runs only this part): preconditions, opportunity dbt models and tests, `src/analysis/13_analyze_market_opportunity_framework.py`, and `src/validation/14_validate_market_opportunity_framework.py`.
+8. `dbt docs generate`.
+
+`-Scope Base` runs steps 1-6 and then the dbt documentation step.
 
 **Individual commands:**
 
