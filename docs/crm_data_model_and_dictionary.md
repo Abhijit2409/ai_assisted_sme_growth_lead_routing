@@ -4,8 +4,9 @@
 
 This is the logical data model for the hypothetical acquisition CRM described in
 [crm_acquisition_process_and_requirements.md](crm_acquisition_process_and_requirements.md). It has **18** entities and
-**239** fields, with **26** fields in the widest table (`crm_lead_assignment`). It is a contract for
-future synthetic tables and dbt staging models; **no table, record or model exists yet**.
+**248** fields, with **26** fields in the widest table (`crm_lead_assignment`). It is a contract for
+the synthetic tables and dbt staging models described in [synthetic_crm_data.md](synthetic_crm_data.md); every record is
+synthetic, and the `stg_crm__*` models implement the contracts below exactly.
 
 Design principles:
 
@@ -137,6 +138,7 @@ erDiagram
     crm_duplicate_group {
         varchar duplicate_group_id PK
         varchar surviving_lead_id FK
+        varchar matched_lead_id FK
     }
     crm_opportunity_outcome {
         varchar opportunity_id PK
@@ -148,9 +150,73 @@ erDiagram
     }
 ```
 
+## Design changes for the synthetic implementation
+
+Implementing the synthetic data exposed gaps and contradictions in the first design. Each change below is logged in
+`design_change_log.csv` (before, after, reason) and checked against the catalogs by the design validator. Generation settings,
+including calibration changes, are simulation settings, not approved policy.
+
+| ID | Catalog | Object | Change | Reason |
+|---|---|---|---|---|
+| DC-01 | crm_field_dictionary.csv | crm_lead.synthetic_scenario_id | remove_field | A scenario label is generator ground truth, not an operational CRM attribute; keeping it would leak truth labels into analytical inputs. |
+| DC-02 | crm_field_dictionary.csv | crm_lead.local_time_zone | add_field | Business-time SLAs are measured in local time (A-006, NFR-005) but the lead had no time-zone field. |
+| DC-03 | crm_field_dictionary.csv | crm_lead_status_history.status_reason | add_field | Transition required fields validation_failure_reason, assignment_end_reason and reopen_reason had no physical column; they map to this field. |
+| DC-04 | crm_field_dictionary.csv | crm_routing_decision.decision_type | add_field | Reassignments (SLA-09) and overrides (RT-O01) need a decision record while the lead is already in active work. |
+| DC-05 | crm_field_dictionary.csv | crm_rm_specialization.specialization_role | add_field | The data needs to distinguish dedicated specialists from generalists with a secondary specialization (SPC-01..SPC-06). |
+| DC-06 | crm_field_dictionary.csv | crm_rm_capacity_snapshot.snapshot_as_of_utc | add_field | Capacity recomputation and routing need an unambiguous as-of instant (AC-027). |
+| DC-07 | crm_field_dictionary.csv | crm_rm_capacity_snapshot.specialist_support_points | add_field | Specialist workload must be visible separately from primary ownership. |
+| DC-08 | crm_field_dictionary.csv | crm_sla_event.responsible_role | add_field | SLA reporting by responsible role should not depend on a later join to a possibly revised rule. |
+| DC-09 | crm_field_dictionary.csv | crm_sla_event.elapsed_business_minutes | add_field | Elapsed service time is required to analyse SLA performance and to recompute outcomes. |
+| DC-10 | crm_field_dictionary.csv | crm_sla_event.exception_reason | add_field | Paused and exempt clocks must carry the reason from the SLA rule's pause or exception conditions. |
+| DC-11 | crm_field_dictionary.csv | crm_duplicate_group.matched_lead_id | add_field | Group membership could not be reconstructed for rejected review matches (no survivor). |
+| DC-12 | crm_field_dictionary.csv | crm_routing_decision.lead_status_at_decision | update_accepted_values | Reassignment and override decisions are taken while the lead is in active work; only initial and queue-release decisions require READY_FOR_ASSIGNMENT. |
+| DC-13 | crm_field_dictionary.csv | crm_routing_decision.lead_status_at_decision | update_validation_rule | Same as above. |
+| DC-14 | crm_field_dictionary.csv | crm_routing_decision.capacity_utilization_at_decision | update_validation_rule | Defines which capacity figure a decision uses so it can be recomputed. |
+| DC-15 | crm_field_dictionary.csv | crm_routing_decision.territory_match_flag | update_description | The design did not say whether backup coverage counts as a territory match. |
+| DC-16 | crm_field_dictionary.csv | crm_routing_decision.market_scenario_id | update_validation_rule | Tier 3 markets have no opportunity score in any scenario. |
+| DC-17 | crm_field_dictionary.csv | crm_lead_assignment.queue_code | update_validation_rule | A finished queue entry ends CANCELLED; clearing queue_code would erase the queue history. |
+| DC-18 | crm_field_dictionary.csv | crm_lead_assignment.reassignment_reason | update_validation_rule | Declines trigger a new routing decision like other reassignments. |
+| DC-19 | crm_field_dictionary.csv | crm_rm_capacity_snapshot.weighted_workload_points | update_validation_rule | Makes the recomputation rule explicit. |
+| DC-20 | crm_entity_catalog.csv | crm_rm_capacity_snapshot | update_grain | Business days follow the synthetic calendar. |
+| DC-21 | crm_entity_catalog.csv | crm_duplicate_group | update_foreign_keys | New matched_lead_id column. |
+| DC-22 | sla_rule_catalog.csv | SLA-05 | update_stop_events | An assignment-level clock must stop when its assignment is replaced or released; otherwise it would stay open for ever. |
+| DC-23 | sla_rule_catalog.csv | SLA-06A | update_stop_events | An assignment-level clock must stop when its assignment is replaced or released; otherwise it would stay open for ever. |
+| DC-24 | sla_rule_catalog.csv | SLA-06B | update_stop_events | An assignment-level clock must stop when its assignment is replaced or released; otherwise it would stay open for ever. |
+| DC-25 | sla_rule_catalog.csv | SLA-06C | update_stop_events | An assignment-level clock must stop when its assignment is replaced or released; otherwise it would stay open for ever. |
+| DC-26 | sla_rule_catalog.csv | SLA-06D | update_stop_events | An assignment-level clock must stop when its assignment is replaced or released; otherwise it would stay open for ever. |
+| DC-27 | sla_rule_catalog.csv | SLA-07 | update_stop_events | An assignment-level clock must stop when its assignment is replaced or released; otherwise it would stay open for ever. |
+| DC-28 | sla_rule_catalog.csv | SLA-08A | update_stop_events | An assignment-level clock must stop when its assignment is replaced or released; otherwise it would stay open for ever. |
+| DC-29 | sla_rule_catalog.csv | SLA-08B | update_stop_events | An assignment-level clock must stop when its assignment is replaced or released; otherwise it would stay open for ever. |
+| DC-30 | duplicate_rule_catalog.csv | DUP-01 | update_condition | Interpretation: terminal leads never absorb new interest. Repeat interest after a terminal outcome creates a new lead, or an audited reopening (T-28, T-29) when a closed-lost or withdrawn prospect re-requests contact within 180 days. |
+| DC-31 | duplicate_rule_catalog.csv | DUP-02 | update_condition | Distinguishes DUP-02 (intake linked to an existing prospect record) from DUP-01 (intake supplying the business identifier). |
+| DC-32 | routing_rule_catalog.csv | RT-E04 | update_exception_handling | Reassignment requires a routing decision while the lead remains ASSIGNED, CONTACTED, NURTURING or QUALIFIED. |
+| DC-33 | routing_rule_catalog.csv | RT-X02 | update_condition | Defines the capacity figure used at decision time (nightly snapshot). |
+| DC-34 | business_calendar.csv | CAL-SYN-2025-2026 | add_catalog | SLA clocks and capacity snapshots need an explicit, reviewable calendar. |
+| DC-35 | synthetic_generation_parameters.csv | GP-001.. | add_catalog | Generation settings and outcome drivers must be reviewable outside Python and marked as simulation settings. |
+| DC-36 | sla_rule_catalog.csv | SLA-08A | update_stop_events | Moving a contacted lead to nurturing hands monitoring to SLA-08B; the active-lead inactivity clock must stop there. |
+| DC-37 | synthetic_generation_parameters.csv | GP-006 | update_value | Keeps prospects inside 12,000-16,000 once duplicates and repeat interest share prospects. |
+| DC-38 | synthetic_generation_parameters.csv | GP-051 | update_value | Same reason: repeat interest shares an existing prospect record. |
+| DC-39 | synthetic_generation_parameters.csv | GP-121..GP-126 | add_parameters | Timing and share settings needed by the simulation, declared before generation. |
+| DC-40 | sla_rule_catalog.csv | SLA-02 | update_stop_events | SLA-02's exception sends a referral without a postal prefix to manual review at breach (T-06 LEAD_ROUTABLE); the clock must stop there. |
+| DC-41 | synthetic_generation_parameters.csv | GP-067 | update_value | Calibration run 1 gave lead-to-conversion 15.6%, outside the declared 6-12% range; qualification lowered. |
+| DC-42 | synthetic_generation_parameters.csv | GP-080 | update_value | Calibration run 1: conversion outside the declared range; win probability lowered. |
+| DC-43 | synthetic_generation_parameters.csv | GP-057 | update_value | Calibration run 1: SLA-event volume above range; fewer failed attempts (each failed attempt opens an SLA-07 clock). |
+| DC-44 | synthetic_generation_parameters.csv | GP-127..GP-133 | add_parameters | Activity cadence and leave handling are declared settings, not hidden constants; calibration run 1 also showed activity volume above range. |
+| DC-45 | crm_field_dictionary.csv | crm_lead_assignment.prior_assignment_id | update_validation_rule | A manager override that replaces an active assignment must keep the prior owner (BR-006, NFR-003). |
+| DC-46 | synthetic_generation_parameters.csv | GP-080 | update_value | Calibration run 2 gave conversion 11.7%, at the edge of the declared 6-12% range. |
+| DC-47 | synthetic_generation_parameters.csv | GP-130 | update_value | Calibration run 2: follow-up gaps above the 10-business-day SLA-08A target produced unintended inactivity breaches. |
+| DC-48 | synthetic_generation_parameters.csv | GP-131 | update_value | Same reason: ordinary follow-up gaps stay inside the SLA-08A target; inactivity is simulated only by inactivity_gap_probability. |
+| DC-49 | synthetic_volume_specification.csv | SLA events | update_range | The SLA catalog starts a clock at every attempt and follow-up; the original estimate of 80,000 did not count them. Calibration run 2 produced about 115,000 clocks with ordinary cadences. |
+| DC-50 | synthetic_generation_parameters.csv | GP-013 | update_value | Calibration run 3: with the 40-point capacity the required capacity scenarios (hard-limit exclusions and approved exceptions) were too rare; larger CMAs staffed relatively leaner. |
+| DC-51 | synthetic_generation_parameters.csv | GP-013 | update_value | Calibration run 4: with the 40-point capacity the required capacity scenarios (hard-limit exclusions and approved exceptions) were too rare; larger CMAs staffed relatively leaner. |
+
+The synthetic business calendar (`business_calendar.csv`, simulation setting awaiting approval under A-006) holds
+15 holidays, business hours 08:30-17:00 local and one time zone per province. The
+133 generation parameters (`synthetic_generation_parameters.csv`) are summarised in [synthetic_crm_data.md](synthetic_crm_data.md).
+
 ## Entity catalog
 
-| ID | Table | Grain | Primary key | Record type | Fields | Future model |
+| ID | Table | Grain | Primary key | Record type | Fields | dbt staging model |
 |---|---|---|---|---|---|---|
 | E-01 | crm_business_prospect | one row per synthetic business prospect | prospect_id | current-state | 13 | stg_crm__business_prospect |
 | E-02 | crm_lead | one row per lead | lead_id | current-state (with derived current status) | 25 | stg_crm__lead |
@@ -160,14 +226,14 @@ erDiagram
 | E-06 | crm_relationship_manager | one row per synthetic RM | rm_id | current-state (effective-dated employment) | 12 | stg_crm__relationship_manager |
 | E-07 | crm_territory | one row per territory | territory_id | reference | 10 | stg_crm__territory |
 | E-08 | crm_rm_territory | one row per RM x territory x effective period | rm_territory_id | effective-dated relationship | 9 | stg_crm__rm_territory |
-| E-09 | crm_rm_specialization | one row per RM x industry x effective period | rm_specialization_id | effective-dated relationship | 10 | stg_crm__rm_specialization |
-| E-10 | crm_rm_capacity_snapshot | one row per RM x snapshot date | capacity_snapshot_id | snapshot | 12 | stg_crm__rm_capacity_snapshot |
-| E-11 | crm_routing_decision | one row per routing decision | routing_decision_id | event history | 21 | stg_crm__routing_decision |
+| E-09 | crm_rm_specialization | one row per RM x industry x effective period | rm_specialization_id | effective-dated relationship | 11 | stg_crm__rm_specialization |
+| E-10 | crm_rm_capacity_snapshot | one row per employed RM x business day (national business calendar) | capacity_snapshot_id | snapshot | 14 | stg_crm__rm_capacity_snapshot |
+| E-11 | crm_routing_decision | one row per routing decision | routing_decision_id | event history | 22 | stg_crm__routing_decision |
 | E-12 | crm_lead_assignment | one row per assignment | assignment_id | effective-dated relationship with status | 26 | stg_crm__lead_assignment |
 | E-13 | crm_lead_activity | one row per activity | activity_id | event history | 12 | stg_crm__lead_activity |
-| E-14 | crm_lead_status_history | one row per lead status change | status_history_id | event history | 13 | stg_crm__lead_status_history |
-| E-15 | crm_sla_event | one row per SLA clock instance per lead or assignment | sla_event_id | event history | 16 | stg_crm__sla_event |
-| E-16 | crm_duplicate_group | one row per duplicate group | duplicate_group_id | current-state | 11 | stg_crm__duplicate_group |
+| E-14 | crm_lead_status_history | one row per lead status change | status_history_id | event history | 14 | stg_crm__lead_status_history |
+| E-15 | crm_sla_event | one row per SLA clock instance per lead or assignment | sla_event_id | event history | 19 | stg_crm__sla_event |
+| E-16 | crm_duplicate_group | one row per duplicate group | duplicate_group_id | current-state | 12 | stg_crm__duplicate_group |
 | E-17 | crm_opportunity_outcome | one row per opportunity (at most one per lead) | opportunity_id | current-state with outcome | 11 | stg_crm__opportunity_outcome |
 | E-18 | crm_rule_version | one row per rule set x version | rule_version_id | reference (effective-dated) | 10 | stg_crm__rule_version |
 
@@ -236,7 +302,7 @@ An acquisition request for a prospect captured through a channel.
 | disposition_code | varchar | true |  | Disposition for terminal leads. | DSP-NO-RESPONSE | operational |
 | duplicate_group_id | varchar | true |  | Duplicate group, if any. | DUPG-000077 | synthetic identifier |
 | surviving_lead_id | varchar | true |  | Survivor for MERGED leads. | LED-0004400 | synthetic identifier |
-| synthetic_scenario_id | varchar | true |  | Synthetic scenario that generated this lead (for test traceability). | SC-01 | operational |
+| local_time_zone | varchar | false | America/St_Johns;America/Halifax;America/Moncton;America/Toronto;America/Winnipeg;America/Regina;America/Edmonton;America/Vancouver;America/Whitehorse;America/Yellowknife;America/Iqaluit | IANA time zone of the lead's province, used for business-hour SLA clocks; the configured default zone when the province is unknown. | America/Edmonton | business location (aggregate) |
 | created_at | timestamp | false |  | Time the record was created (UTC). | 2025-07-14T15:02:11Z | operational |
 | updated_at | timestamp | true |  | Time the record was last updated (UTC); null for immutable event rows. | 2025-07-15T09:30:00Z | operational |
 | record_source | varchar | false | synthetic_generator | System that produced the record; always the synthetic generator. | synthetic_generator | operational |
@@ -404,6 +470,7 @@ Industry specializations held by RMs, keyed on reviewed industry codes.
 | specialist_type | varchar | false |  | Specialist type from the specialist rule catalog. | agriculture specialist | operational |
 | valid_from | date | false |  | Start. | 2025-06-01 | operational |
 | valid_to | date | true |  | End; null if open. | 2026-02-28 (null while current) | operational |
+| specialization_role | varchar | false | primary;secondary | primary for dedicated specialists (mandatory industries); secondary for generalists who also hold a preferred-industry specialization. | secondary | operational |
 | created_at | timestamp | false |  | Time the record was created (UTC). | 2025-07-14T15:02:11Z | operational |
 | updated_at | timestamp | true |  | Time the record was last updated (UTC); null for immutable event rows. | 2025-07-15T09:30:00Z | operational |
 | record_source | varchar | false | synthetic_generator | System that produced the record; always the synthetic generator. | synthetic_generator | operational |
@@ -412,7 +479,7 @@ Industry specializations held by RMs, keyed on reviewed industry codes.
 
 Daily RM availability and weighted workload.
 
-- **Grain:** one row per RM x snapshot date
+- **Grain:** one row per employed RM x business day (national business calendar)
 - **Primary key:** `capacity_snapshot_id`; **natural key:** rm_id + snapshot_date
 - **Foreign keys:** rm_id -> crm_relationship_manager; rule_version_id -> crm_rule_version
 - **Record type:** snapshot; **effective dates:** snapshot_date; **retention:** Life of the synthetic dataset
@@ -430,6 +497,8 @@ Daily RM availability and weighted workload.
 | utilization_ratio | decimal(6,4) | true |  | Workload / available capacity; null when capacity is 0. | 0.7875 | operational |
 | capacity_state | varchar | false | below_warning;warning;at_or_above_hard_limit;approved_exception;unavailable | State against CAP-06/CAP-09. | below_warning | operational |
 | rule_version_id | varchar | false |  | Capacity rule version applied. | RV-CAPACITY-001 | reference |
+| snapshot_as_of_utc | timestamp | false |  | Instant the snapshot describes: 00:00 UTC on snapshot_date, before any business-hour activity in Canada that day. | 2025-07-14T00:00:00 | operational |
+| specialist_support_points | decimal(6,2) | false |  | Part of weighted_workload_points that comes from specialist-support (secondary) assignments (CAP-04). | 1.00 | operational |
 | created_at | timestamp | false |  | Time the record was created (UTC). | 2025-07-14T15:02:11Z | operational |
 | updated_at | timestamp | true |  | Time the record was last updated (UTC); null for immutable event rows. | 2025-07-15T09:30:00Z | operational |
 | record_source | varchar | false | synthetic_generator | System that produced the record; always the synthetic generator. | synthetic_generator | operational |
@@ -450,12 +519,12 @@ Every routing evaluation with inputs, rule version and outcome.
 | routing_decision_id | varchar | false |  | Surrogate key. | RTD-0007710 | synthetic identifier |
 | lead_id | varchar | false |  | Lead routed. | LED-0004521 | synthetic identifier |
 | decided_at | timestamp | false |  | Decision time. | 2025-07-14T15:40:00Z | operational |
-| lead_status_at_decision | varchar | false | READY_FOR_ASSIGNMENT | Lead status when decided (RT-E04). | READY_FOR_ASSIGNMENT | operational |
+| lead_status_at_decision | varchar | false | READY_FOR_ASSIGNMENT;ASSIGNED;CONTACTED;NURTURING;QUALIFIED | Lead status when decided (RT-E04). | READY_FOR_ASSIGNMENT | operational |
 | routing_outcome | varchar | false | assigned_rm;queued_regional;queued_national;queued_specialist;queued_manual_review;self_assigned;override_assigned | Outcome. | assigned_rm | operational |
 | selected_rm_id | varchar | true |  | Selected RM; null for queue outcomes. | RM-0042 | synthetic identifier |
 | candidate_count | integer | false |  | Eligible candidates after exclusions. | 4 | operational |
 | excluded_rm_count | integer | false |  | RMs excluded by RT-X rules. | 2 | operational |
-| territory_match_flag | boolean | true | true;false | Selected RM covers the lead territory. | true | operational |
+| territory_match_flag | boolean | true | true;false | True when the selected RM holds a primary coverage of the lead's territory valid at decision time (national and remote pools count as matched); false for backup coverage or an out-of-territory RM; null for queue outcomes. | true | operational |
 | segment_match_flag | boolean | true | true;false | Segment matched (RT-P02). | true | operational |
 | specialist_match_flag | boolean | true | true;false | Specialist matched when required or preferred. | true | operational |
 | language_match_flag | boolean | true | true;false | Stated language matched; null when not stated. | true (null when no language stated) | operational |
@@ -465,6 +534,7 @@ Every routing evaluation with inputs, rule version and outcome.
 | manual_review_reason | varchar | true | geography_conflict;missing_geography;conflict_of_interest;other | Reason for manual review. | geography_conflict | operational |
 | market_scenario_id | varchar | true | balanced;scale_led;growth_led;stability_aware | Market-opportunity scenario used as context. | balanced | operational |
 | rule_version_id | varchar | false |  | Routing rule version. | RV-ROUTING-001 | reference |
+| decision_type | varchar | false | initial;reassignment;queue_release;override | Why the routing evaluation ran: first routing of a READY_FOR_ASSIGNMENT lead, reassignment of an active lead, release of a queued lead, or a manager override. | initial | operational |
 | created_at | timestamp | false |  | Time the record was created (UTC). | 2025-07-14T15:02:11Z | operational |
 | updated_at | timestamp | true |  | Time the record was last updated (UTC); null for immutable event rows. | 2025-07-15T09:30:00Z | operational |
 | record_source | varchar | false | synthetic_generator | System that produced the record; always the synthetic generator. | synthetic_generator | operational |
@@ -558,6 +628,7 @@ Every lead status change with its transition and event.
 | disposition_code | varchar | true |  | Disposition when to_status is terminal. | DSP-NO-RESPONSE | operational |
 | actor_role | varchar | false |  | Role or system that made the change. | Routing service | operational |
 | reopen_approver_role | varchar | true | Regional Sales Manager;Director, Business Banking Sales Strategy | Approver for audited reopenings. | Regional Sales Manager | operational |
+| status_reason | varchar | true | missing_fsa;missing_employee_band;missing_industry;missing_consent;expired_campaign_code;no_eligible_rm;prospect_re_requested_contact;renewed_consent | Reason attached to the status change: validation failure (T-01), release to queue (T-15) or audited reopening (T-28, T-29). | missing_fsa | operational |
 | created_at | timestamp | false |  | Time the record was created (UTC). | 2025-07-14T15:02:11Z | operational |
 | updated_at | timestamp | true |  | Time the record was last updated (UTC); null for immutable event rows. | 2025-07-15T09:30:00Z | operational |
 | record_source | varchar | false | synthetic_generator | System that produced the record; always the synthetic generator. | synthetic_generator | operational |
@@ -588,6 +659,9 @@ SLA clocks and their warning, breach, met and escalation events.
 | paused_minutes | integer | false |  | Business minutes paused under the SLA's pause conditions. | 0 | operational |
 | escalation_level | integer | false | 0;1;2 | Highest escalation reached. | 0 | operational |
 | rule_version_id | varchar | false |  | SLA rule version. | RV-SLA-001 | reference |
+| responsible_role | varchar | false |  | Role responsible for the clock, copied from the SLA rule at clock start. | Assigned RM | operational |
+| elapsed_business_minutes | integer | false |  | Business minutes (or calendar minutes for calendar-basis SLAs) from started_at to stopped_at, or to the data cut-off when open, minus paused minutes. | 690 | operational |
+| exception_reason | varchar | true | system_outage_window;prospect_requested_later_date;prospect_set_next_contact;awaiting_prospect_reply | Why the clock was paused or exempted. | prospect_requested_later_date | operational |
 | created_at | timestamp | false |  | Time the record was created (UTC). | 2025-07-14T15:02:11Z | operational |
 | updated_at | timestamp | true |  | Time the record was last updated (UTC); null for immutable event rows. | 2025-07-15T09:30:00Z | operational |
 | record_source | varchar | false | synthetic_generator | System that produced the record; always the synthetic generator. | synthetic_generator | operational |
@@ -598,7 +672,7 @@ A set of leads judged to be the same business, with the survivor.
 
 - **Grain:** one row per duplicate group
 - **Primary key:** `duplicate_group_id`; **natural key:** none
-- **Foreign keys:** surviving_lead_id -> crm_lead
+- **Foreign keys:** surviving_lead_id -> crm_lead; matched_lead_id -> crm_lead
 - **Record type:** current-state; **effective dates:** resolved_at; **retention:** Life of the synthetic dataset
 - **Relationships:** 1 group : 2+ leads
 - **Future dbt model:** `stg_crm__duplicate_group` (not built)
@@ -613,6 +687,7 @@ A set of leads judged to be the same business, with the survivor.
 | member_count | integer | false |  | Leads in the group. | 2 | derived |
 | flagged_at | timestamp | false |  | Time the match was flagged. | 2025-07-14T15:10:00Z | operational |
 | resolved_at | timestamp | true |  | Time resolved. | 2025-07-15T10:00:00Z | operational |
+| matched_lead_id | varchar | false |  | The existing lead the flagged lead was matched against; it survives when the match is confirmed. | LED-0004521 | synthetic identifier |
 | created_at | timestamp | false |  | Time the record was created (UTC). | 2025-07-14T15:02:11Z | operational |
 | updated_at | timestamp | true |  | Time the record was last updated (UTC); null for immutable event rows. | 2025-07-15T09:30:00Z | operational |
 | record_source | varchar | false | synthetic_generator | System that produced the record; always the synthetic generator. | synthetic_generator | operational |

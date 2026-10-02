@@ -7,10 +7,10 @@ A portfolio project that helps a hypothetical Canadian business-banking team dec
 
 **Important framing**
 - The data are **public aggregates**. No row is an individual business, prospect or lead.
-- Internal CRM data introduced later in the project will be **synthetic**. Hypothetical internal-process problems are illustrations, not claims about any real Canadian bank.
+- Internal CRM data are **entirely synthetic** (a fictional bank, fictional businesses and staff). Hypothetical internal-process problems, SLAs, capacity values and outcomes are simulation settings, not claims about or benchmarks for any real Canadian bank.
 - ISED financing estimates are **contextual evidence**, never market-size inputs.
 - **Tier 3 CMAs** (six markets that were census agglomerations in 2016) have scale and composition data only. They are not eligible for momentum-based comparison.
-- The market opportunity framework compares 35 CMAs on external evidence under transparent weighting scenarios. It is an external market signal, not a prospect list or an investment decision. No CRM data, lead routing or dashboard exists yet.
+- The market opportunity framework compares 35 CMAs on external evidence under transparent weighting scenarios. It is an external market signal, not a prospect list or an investment decision. No lead-priority score, routing recommendation or dashboard exists yet.
 
 ## Architecture
 
@@ -47,7 +47,8 @@ The dbt marts in the `analytics` schema are the authoritative analytical relatio
 | [docs/dbt_transformation_layer.md](docs/dbt_transformation_layer.md) | dbt transformation layer, tests and reconciliation |
 | [docs/market_opportunity_framework.md](docs/market_opportunity_framework.md) | Market opportunity framework: indicators, scenarios, scores, sensitivity and limitations |
 | [docs/crm_acquisition_process_and_requirements.md](docs/crm_acquisition_process_and_requirements.md) | Hypothetical CRM acquisition process: statuses, routing, SLAs, capacity, duplicates, KPIs, requirements and synthetic scenarios |
-| [docs/crm_data_model_and_dictionary.md](docs/crm_data_model_and_dictionary.md) | Logical CRM data model, entity catalog and field dictionary (design only; no records) |
+| [docs/crm_data_model_and_dictionary.md](docs/crm_data_model_and_dictionary.md) | Logical CRM data model, entity catalog, field dictionary and logged design changes |
+| [docs/synthetic_crm_data.md](docs/synthetic_crm_data.md) | Synthetic CRM data: generation, entities, coverage, dbt models, validation, mutation tests and reproducibility |
 
 ## Installation
 
@@ -91,7 +92,8 @@ The script works from any directory. It never downloads data or deletes files, a
 6. Run the market exploration from the dbt marts twice into scratch folders. Compare the runs with each other and with the recorded baseline, then refresh in place: `src/validation/12_verify_market_exploration_regression.py`.
 7. The market opportunity framework (`-Scope Opportunity` runs only this part): preconditions, opportunity dbt models and tests, `src/analysis/13_analyze_market_opportunity_framework.py`, and `src/validation/14_validate_market_opportunity_framework.py`.
 8. The CRM acquisition-process design validation (`-Scope CRMDesign` runs only this part): confirm that the analytical platform is current and that the market opportunity validation passed, then run `src/validation/15_validate_crm_design.py`.
-9. `dbt docs generate` (skipped by `-Scope CRMDesign`).
+9. The synthetic CRM data layer (`-Scope CRMData` runs only this part): generate the synthetic data (validated in a temporary folder, then published), build the CRM staging, intermediate and mart models, run the CRM dbt tests, run `src/validation/17_validate_synthetic_crm_data.py`, check two-run reproducibility and run the mutation tests.
+10. `dbt docs generate` (skipped by `-Scope CRMDesign`).
 
 `-Scope Base` runs steps 1-6 and then the dbt documentation step.
 
@@ -123,7 +125,7 @@ C:/Users/abhij/anaconda3/python.exe src/analysis/10_explore_market_opportunity.p
 
 ## CRM acquisition process design
 
-This is a **hypothetical design for a fictional bank**. It specifies a target-state SME acquisition process, CRM requirements and control rules for later lead prioritization and relationship-manager routing. Nothing in it describes the internal process of any real Canadian bank, and the later CRM data will be entirely synthetic. No CRM records, CRM dbt models, priority or routing scores, dashboards or machine-learning models exist yet.
+This is a **hypothetical design for a fictional bank**. It specifies a target-state SME acquisition process, CRM requirements and control rules for later lead prioritization and relationship-manager routing. Nothing in it describes the internal process of any real Canadian bank, and the CRM data are entirely synthetic. No priority or routing score, RM recommendation, dashboard or machine-learning model exists.
 
 - **Documents:** [docs/crm_acquisition_process_and_requirements.md](docs/crm_acquisition_process_and_requirements.md) and [docs/crm_data_model_and_dictionary.md](docs/crm_data_model_and_dictionary.md).
 - **Design catalogs:** `data/design/crm/`. These include assumptions, stakeholder needs, channels, lead statuses and transitions, assignment statuses, routing, territory, specialist, capacity, SLA and duplicate rules, the entity catalog and field dictionary, KPIs, requirements, acceptance criteria, traceability, synthetic scenarios and volumes. They are reviewed design inputs, not dbt seeds and not raw data.
@@ -131,6 +133,20 @@ This is a **hypothetical design for a fictional bank**. It specifies a target-st
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\run_analytical_pipeline.ps1 -Scope CRMDesign
+```
+
+## Synthetic CRM data
+
+A deterministic synthetic operating year (2025-06-01 to 2026-05-31 UTC) of the hypothetical process: about 15,600 fictional business prospects, 17,400 leads, 140 fictional relationship managers and their assignments, activities, SLA clocks, capacity snapshots, routing decisions, duplicate groups and opportunities. Every record is synthetic; every rate is a simulation setting, never a benchmark.
+
+- **Generator:** `src/synthetic/16_generate_synthetic_crm_data.py` (master seed 20260929), driven entirely by `data/design/crm` (including `synthetic_generation_parameters.csv` and `business_calendar.csv`).
+- **Data:** `data/synthetic/crm/` (one Parquet file per entity, manifest with hashes); generator ground truth, for validation only, in `data/synthetic/crm_ground_truth/`.
+- **dbt:** sources in `models/sources/_crm_sources.yml`, models in `models/staging/crm`, `models/intermediate/crm` and `models/marts/crm`, tests in `tests/crm`, all tagged `crm_data`.
+- **Validation:** `src/validation/17_validate_synthetic_crm_data.py` (independent checks, mutation tests) with evidence in `data/validation/synthetic_crm/`.
+- **Details:** [docs/synthetic_crm_data.md](docs/synthetic_crm_data.md).
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\run_analytical_pipeline.ps1 -Scope CRMData
 ```
 
 ## Limitations

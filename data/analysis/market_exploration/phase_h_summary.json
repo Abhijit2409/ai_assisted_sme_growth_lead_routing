@@ -1,7 +1,7 @@
 {
   "phase": "H",
   "script_version": "phase-h/1.0",
-  "run_timestamp_utc": "2026-09-29T11:26:28+00:00",
+  "run_timestamp_utc": "2026-09-30T01:37:40+00:00",
   "facts": {
     "sme_total_41": 1009239,
     "sme_median": 7986,
@@ -317,5 +317,5 @@
   },
   "failed_gates": [],
   "all_gates_pass": true,
-  "elapsed_seconds": 33.2
+  "elapsed_seconds": 20.8
 }

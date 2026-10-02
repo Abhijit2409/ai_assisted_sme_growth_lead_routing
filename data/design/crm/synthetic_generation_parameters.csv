@@ -1,0 +1,134 @@
+parameter_id,parameter_group,parameter_name,value,unit,rationale,source_reference,approval_status
+GP-001,run,random_seed,20260929,integer,Fixed master seed from the volume specification.,synthetic_volume_specification: random seed,simulation setting; not approved production policy
+GP-002,run,period_start_utc,2025-06-01T00:00:00,UTC timestamp,Start of the synthetic operating period (inclusive).,A-018,simulation setting; not approved production policy
+GP-003,run,period_end_utc,2026-06-01T00:00:00,UTC timestamp,End of the synthetic operating period (exclusive); also the data cut-off for open items.,A-018,simulation setting; not approved production policy
+GP-004,run,generator_version,1.0.0,version,Recorded in the manifest.,NFR-001,simulation setting; not approved production policy
+GP-005,run,schema_version,1.0,version,Field dictionary version implemented by the generator.,crm_field_dictionary.csv,simulation setting; not approved production policy
+GP-006,volume,lead_count,17400,leads,"Within the 15,000-20,000 range; duplicates and repeat interest included.",synthetic_volume_specification: leads,simulation setting; not approved production policy
+GP-007,volume,relationship_manager_count,140,RMs,Recommended value.,synthetic_volume_specification: relationship managers,simulation setting; not approved production policy
+GP-008,volume,campaign_count,40,campaigns,Recommended value.,synthetic_volume_specification: campaigns,simulation setting; not approved production policy
+GP-009,volume,mandatory_specialists_per_industry_regional,8,RMs,Regional specialists for each mandatory industry (11 and 53).,SPC-01; SPC-02,simulation setting; not approved production policy
+GP-010,volume,mandatory_specialists_per_industry_national,2,RMs,National specialist pool per mandatory industry.,TER-10,simulation setting; not approved production policy
+GP-011,volume,remote_service_rm_count,3,RMs,Northern remote-service desk.,TER-09,simulation setting; not approved production policy
+GP-012,volume,secondary_specialization_share,0.3,share of generalists,Generalists holding one preferred-industry specialization.,SPC-03..SPC-06,simulation setting; not approved production policy
+GP-013,volume,cma_staffing_elasticity,0.45,exponent,"CMA generalist headcount proportional to expected leads^0.85 (larger markets relatively leaner), minimum one per CMA.",CAP-06; SC-11,simulation setting; not approved production policy
+GP-014,volume,backup_coverage_share,0.75,share of CMA territories,Share of CMA territories that also have a backup RM from the same region.,TER-07,simulation setting; not approved production policy
+GP-015,channel,channel_share_CH-DIG,0.52,share of new leads,Digital is the largest intake channel.,acquisition_channel_catalog,simulation setting; not approved production policy
+GP-016,channel,channel_share_CH-BRN,0.11,share of new leads,Inside SC-02 indicative range 8-12%.,SC-02,simulation setting; not approved production policy
+GP-017,channel,channel_share_CH-MKT,0.18,share of new leads,Inside SC-03 indicative range 15-20%.,SC-03,simulation setting; not approved production policy
+GP-018,channel,channel_share_CH-PTR,0.07,share of new leads,Inside SC-04 indicative range 5-8%.,SC-04,simulation setting; not approved production policy
+GP-019,channel,channel_share_CH-RMP,0.12,share of new leads,Close to SC-05 indicative range 8-12%.,SC-05,simulation setting; not approved production policy
+GP-020,channel,preferred_rm_named_share,0.3,share of referrals,Branch and partner referrals naming a preferred RM.,RT-P05; SC-13,simulation setting; not approved production policy
+GP-021,channel,weekend_capture_share_digital,0.12,share,Digital and campaign leads can arrive at weekends; other channels arrive in business hours.,SLA-04A,simulation setting; not approved production policy
+GP-022,geography,share_province_remainder,0.1,share of leads,Valid Canadian leads outside the CMA spine.,SC-27; TER-04,simulation setting; not approved production policy
+GP-023,geography,share_remote_service,0.005,share of leads,Leads in the three territories.,TER-09,simulation setting; not approved production policy
+GP-024,geography,share_missing_fsa,0.015,share of leads,No or unresolvable postal prefix at capture.,TER-05; SC-06,simulation setting; not approved production policy
+GP-025,geography,share_geography_conflict,0.006,share of leads,Address province inconsistent with the CMA.,TER-08,simulation setting; not approved production policy
+GP-026,geography,share_out_of_footprint,0.008,share of leads,Business not operating in Canada.,TER-06,simulation setting; not approved production policy
+GP-027,geography,cma_floor_share,0.004,share of leads,Minimum share per CMA so that every CMA (including Tier 3) is represented.,synthetic_volume_specification: geographic distribution,simulation setting; not approved production policy
+GP-028,geography,province_remainder_weights,10:3;11:2;12:5;13:5;24:22;35:30;46:5;47:6;48:10;59:12,relative weight,Relative size of provincial remainders (synthetic).,TER-04,simulation setting; not approved production policy
+GP-029,size_industry,band_share_1-4,0.42,share of eligible leads,Micro businesses dominate SME counts.,A-003,simulation setting; not approved production policy
+GP-030,size_industry,band_share_5-19,0.36,share of eligible leads,,A-003,simulation setting; not approved production policy
+GP-031,size_industry,band_share_20-99,0.17,share of eligible leads,,A-003,simulation setting; not approved production policy
+GP-032,size_industry,band_share_100-499,0.05,share of eligible leads,,A-003,simulation setting; not approved production policy
+GP-033,size_industry,share_500_plus,0.008,share of leads,"Ineligible size (INVALID, DSP-INELIGIBLE-SIZE).",RT-E03,simulation setting; not approved production policy
+GP-034,size_industry,industry_weights_source,analytics.fact_cma_sector_composition_snapshot.sme_locations,reference,Sector draw weights by CMA; national totals elsewhere.,A-012,simulation setting; not approved production policy
+GP-035,size_industry,share_public_administration,0.003,share of leads,Excluded sector 91 (INVALID).,SPC-08,simulation setting; not approved production policy
+GP-036,size_industry,share_missing_industry,0.01,share of leads,Industry missing at capture and corrected in validation.,FR-001,simulation setting; not approved production policy
+GP-037,size_industry,existing_relationship_share,0.01,share of leads,"Synthetic existing clients (INVALID, DSP-EXISTING-RELATIONSHIP).",A-015,simulation setting; not approved production policy
+GP-038,language,stated_fr_share_quebec_and_bilingual_markets,0.2,share of leads,"Explicitly stated French in Quebec, New Brunswick and CMA 505; never inferred.",A-011; RT-P04,simulation setting; not approved production policy
+GP-039,language,stated_fr_share_elsewhere,0.01,share of leads,,A-011,simulation setting; not approved production policy
+GP-040,language,stated_en_share,0.015,share of leads,Explicitly stated English.,A-011,simulation setting; not approved production policy
+GP-041,validation,share_missing_employee_band,0.02,share of leads,,FR-001,simulation setting; not approved production policy
+GP-042,validation,share_missing_consent,0.01,share of leads,,FR-001,simulation setting; not approved production policy
+GP-043,validation,share_expired_campaign_code,0.03,share of campaign leads,,CH-MKT,simulation setting; not approved production policy
+GP-044,validation,validation_correction_probability,0.7,probability,Pending leads corrected within or after SLA-02.,SLA-02,simulation setting; not approved production policy
+GP-045,validation,validation_withdraw_probability,0.08,probability,Pending leads withdrawn by the prospect.,T-09,simulation setting; not approved production policy
+GP-046,duplicates,exact_duplicate_share,0.03,share of leads,"Repeat submissions for a business with an open lead (DUP-01, DUP-02).",SC-08,simulation setting; not approved production policy
+GP-047,duplicates,high_confidence_duplicate_share,0.012,share of leads,"New prospect record matching name and FSA or phone and name (DUP-03, DUP-04).",SC-08,simulation setting; not approved production policy
+GP-048,duplicates,review_duplicate_share,0.012,share of leads,"Probable duplicates sent to review (DUP-05, DUP-06).",SC-09,simulation setting; not approved production policy
+GP-049,duplicates,review_confirm_probability,0.75,probability,Reviewer confirms the match.,SC-09,simulation setting; not approved production policy
+GP-050,duplicates,similar_name_non_match_share,0.005,share of prospects,"Different businesses with the same normalized name in another province (DUP-09, DUP-10).",DUP-09,simulation setting; not approved production policy
+GP-051,duplicates,repeat_interest_share,0.08,share of leads,New lead from a prospect whose earlier lead is terminal.,DUP-01 interpretation,simulation setting; not approved production policy
+GP-052,duplicates,reopening_share,0.007,share of leads,Audited reopening of closed-lost or withdrawn leads within 180 days.,SC-33; A-017,simulation setting; not approved production policy
+GP-053,assignment,ack_breach_probability,0.03,probability,RM does not acknowledge within SLA-05.,SC-16,simulation setting; not approved production policy
+GP-054,assignment,decline_probability,0.012,probability,RM declines the assignment.,RT-X03,simulation setting; not approved production policy
+GP-055,assignment,first_attempt_breach_probability,0.13,probability,First contact attempt after the SLA-06 target.,SC-17,simulation setting; not approved production policy
+GP-056,assignment,first_contact_reassign_given_breach,0.3,probability,No attempt by twice the target: automatic reassignment.,SLA-06B; SC-20,simulation setting; not approved production policy
+GP-057,assignment,contact_success_logit_base,0.35,logit,Per-attempt two-way contact probability (base).,SC-18,simulation setting; not approved production policy
+GP-058,assignment,max_contact_attempts,3,attempts,From the SLA-07 reassignment behaviour.,SLA-07,simulation setting; not approved production policy
+GP-059,assignment,override_probability,0.015,probability,Manager-approved override of an active assignment.,SC-21,simulation setting; not approved production policy
+GP-060,assignment,override_capacity_exception_share,0.3,share of overrides,Override to an RM at or above the hard limit (CAP-09).,CAP-09,simulation setting; not approved production policy
+GP-061,assignment,planned_leave_episodes_per_rm,1.2,episodes per year,Planned leave of 5-15 business days.,CAP-08,simulation setting; not approved production policy
+GP-062,assignment,unplanned_absence_episodes_per_rm,0.8,episodes per year,Unplanned absence of 2-8 business days.,CAP-08; SC-12,simulation setting; not approved production policy
+GP-063,assignment,partial_availability_share,0.05,share of RM business days,Days with partial availability (0.5 capacity).,CAP-08,simulation setting; not approved production policy
+GP-064,assignment,rm_leavers,6,RMs,RMs leaving during the period; their open leads are reassigned.,SC-12,simulation setting; not approved production policy
+GP-065,assignment,rm_joiners,6,RMs,RMs joining during the period.,CAP-05,simulation setting; not approved production policy
+GP-066,assignment,uncovered_territory_windows,2,windows,Single-RM territories without backup while the RM is on leave (regional queue).,TER-07; SC-10,simulation setting; not approved production policy
+GP-067,outcome,qualification_logit_base,-1.05,logit,Qualification after two-way contact (base).,SC-23,simulation setting; not approved production policy
+GP-068,outcome,effect_band_1-4,-0.3,logit,Declared outcome driver.,KPI-O08,simulation setting; not approved production policy
+GP-069,outcome,effect_band_20-99,0.45,logit,Declared outcome driver.,KPI-O08,simulation setting; not approved production policy
+GP-070,outcome,effect_band_100-499,0.65,logit,Declared outcome driver.,KPI-O08,simulation setting; not approved production policy
+GP-071,outcome,effect_referral_channel,0.4,logit,Declared driver for CH-BRN and CH-PTR.,KPI-O06,simulation setting; not approved production policy
+GP-072,outcome,effect_rm_prospecting,0.3,logit,Declared driver for CH-RMP.,KPI-O06,simulation setting; not approved production policy
+GP-073,outcome,effect_credit_interest,0.2,logit,Declared driver for stated credit interest.,KPI-O06,simulation setting; not approved production policy
+GP-074,outcome,effect_first_contact_breach,-0.35,logit,Declared driver: late first contact lowers qualification.,KPI-S05,simulation setting; not approved production policy
+GP-075,outcome,effect_market_context,0.0,logit,No market-context effect is simulated; any later association with market scores is not built in.,BR-009,simulation setting; not approved production policy
+GP-076,outcome,latent_engagement_sd,0.8,logit,Per-lead unobserved propensity (ground truth only).,NFR-001,simulation setting; not approved production policy
+GP-077,outcome,nurture_probability,0.12,probability,Contacted prospect not ready now.,SC-22,simulation setting; not approved production policy
+GP-078,outcome,withdraw_after_contact_probability,0.03,probability,,SC-26,simulation setting; not approved production policy
+GP-079,outcome,withdraw_before_contact_probability,0.02,probability,,SC-26,simulation setting; not approved production policy
+GP-080,outcome,win_logit_base,-0.35,logit,Opportunity won (base); the same drivers apply at half strength.,SC-24,simulation setting; not approved production policy
+GP-081,outcome,nurture_reengage_probability,0.45,probability,,SC-22,simulation setting; not approved production policy
+GP-082,outcome,inactivity_gap_probability,0.05,probability,Gap longer than the SLA-08A target during active work.,SC-19,simulation setting; not approved production policy
+GP-083,outcome,inactivity_reassign_given_breach,0.4,probability,Reassignment when the escalation does not restart activity.,SC-19; SC-20,simulation setting; not approved production policy
+GP-084,outcome,escalation_level2_probability,0.15,probability,Escalation not resolved within SLA-10.,RT-O02,simulation setting; not approved production policy
+GP-085,sla,first_contact_pause_probability,0.02,probability,Prospect requests a later date (SLA-06 pause).,SLA-06B,simulation setting; not approved production policy
+GP-086,sla,intake_exempt_probability,0.002,probability,Intake clock exempt for a system outage window (SLA-01).,SLA-01,simulation setting; not approved production policy
+GP-087,sla,queue_resolution_business_hours_mean,6,business hours,Mean time for a queue owner to place a queued lead.,RT-F01,simulation setting; not approved production policy
+GP-088,scenario_minimum,min_count_SC-01,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-01,simulation setting; not approved production policy
+GP-089,scenario_minimum,min_count_SC-02,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-02,simulation setting; not approved production policy
+GP-090,scenario_minimum,min_count_SC-03,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-03,simulation setting; not approved production policy
+GP-091,scenario_minimum,min_count_SC-04,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-04,simulation setting; not approved production policy
+GP-092,scenario_minimum,min_count_SC-05,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-05,simulation setting; not approved production policy
+GP-093,scenario_minimum,min_count_SC-06,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-06,simulation setting; not approved production policy
+GP-094,scenario_minimum,min_count_SC-07,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-07,simulation setting; not approved production policy
+GP-095,scenario_minimum,min_count_SC-08,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-08,simulation setting; not approved production policy
+GP-096,scenario_minimum,min_count_SC-09,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-09,simulation setting; not approved production policy
+GP-097,scenario_minimum,min_count_SC-10,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-10,simulation setting; not approved production policy
+GP-098,scenario_minimum,min_count_SC-11,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-11,simulation setting; not approved production policy
+GP-099,scenario_minimum,min_count_SC-12,20,leads,Declared before generation: minimum observable leads for the scenario.,SC-12,simulation setting; not approved production policy
+GP-100,scenario_minimum,min_count_SC-13,20,leads,Declared before generation: minimum observable leads for the scenario.,SC-13,simulation setting; not approved production policy
+GP-101,scenario_minimum,min_count_SC-14,20,leads,Declared before generation: minimum observable leads for the scenario.,SC-14,simulation setting; not approved production policy
+GP-102,scenario_minimum,min_count_SC-15,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-15,simulation setting; not approved production policy
+GP-103,scenario_minimum,min_count_SC-16,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-16,simulation setting; not approved production policy
+GP-104,scenario_minimum,min_count_SC-17,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-17,simulation setting; not approved production policy
+GP-105,scenario_minimum,min_count_SC-18,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-18,simulation setting; not approved production policy
+GP-106,scenario_minimum,min_count_SC-19,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-19,simulation setting; not approved production policy
+GP-107,scenario_minimum,min_count_SC-20,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-20,simulation setting; not approved production policy
+GP-108,scenario_minimum,min_count_SC-21,20,leads,Declared before generation: minimum observable leads for the scenario.,SC-21,simulation setting; not approved production policy
+GP-109,scenario_minimum,min_count_SC-22,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-22,simulation setting; not approved production policy
+GP-110,scenario_minimum,min_count_SC-23,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-23,simulation setting; not approved production policy
+GP-111,scenario_minimum,min_count_SC-24,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-24,simulation setting; not approved production policy
+GP-112,scenario_minimum,min_count_SC-25,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-25,simulation setting; not approved production policy
+GP-113,scenario_minimum,min_count_SC-26,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-26,simulation setting; not approved production policy
+GP-114,scenario_minimum,min_count_SC-27,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-27,simulation setting; not approved production policy
+GP-115,scenario_minimum,min_count_SC-28,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-28,simulation setting; not approved production policy
+GP-116,scenario_minimum,min_count_SC-29,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-29,simulation setting; not approved production policy
+GP-117,scenario_minimum,min_count_SC-30,10,leads,Declared before generation: minimum observable leads for the scenario.,SC-30,simulation setting; not approved production policy
+GP-118,scenario_minimum,min_count_SC-31,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-31,simulation setting; not approved production policy
+GP-119,scenario_minimum,min_count_SC-32,25,leads,Declared before generation: minimum observable leads for the scenario.,SC-32,simulation setting; not approved production policy
+GP-120,scenario_minimum,min_count_SC-33,40,leads,Declared before generation: minimum observable leads for the scenario.,SC-33,simulation setting; not approved production policy
+GP-121,size_industry,unclassified_industry_share,0.04,share of leads,Leads whose industry resolves to UNCLASSIFIED (generalist routing).,SPC-07,simulation setting; not approved production policy
+GP-122,sla,sla02_breach_probability,0.15,probability,Validation correction after the SLA-02 target.,SLA-02,simulation setting; not approved production policy
+GP-123,sla,sla03_breach_probability,0.1,probability,Duplicate review after the SLA-03 target.,SLA-03,simulation setting; not approved production policy
+GP-124,sla,sla07_breach_probability,0.08,probability,Next contact attempt after the SLA-07 target.,SLA-07,simulation setting; not approved production policy
+GP-125,sla,sla09_breach_probability,0.08,probability,Reassignment completed after the SLA-09 target.,SLA-09,simulation setting; not approved production policy
+GP-126,sla,ack_delay_business_minutes_mean,60,business minutes,Mean acknowledgement delay when acknowledged in time.,SLA-05,simulation setting; not approved production policy
+GP-127,activity,contacted_followups_max,2,activities,Follow-up activities between first contact and the decision (qualifying leads have at least one).,SLA-08A,simulation setting; not approved production policy
+GP-128,activity,followup_gap_business_days,1-8,business days,Gap between follow-ups while CONTACTED.,SLA-08A,simulation setting; not approved production policy
+GP-129,activity,decision_after_contact_business_days,0.5-6,business days,"From the last follow-up to the qualification, nurture or closure decision.",PS-17,simulation setting; not approved production policy
+GP-130,activity,opportunity_duration_business_days,10-40,business days,"From qualification to the won, lost or withdrawn outcome.",PS-19,simulation setting; not approved production policy
+GP-131,activity,opportunity_followup_gap_business_days,5-9.5,business days,Gap between opportunity follow-ups.,SLA-08A,simulation setting; not approved production policy
+GP-132,activity,nurture_next_contact_days,30-120,calendar days,Next contact date set when nurturing starts.,SLA-08B,simulation setting; not approved production policy
+GP-133,assignment,leave_reassigns_uncontacted_only,true,flag,Planned leave and unplanned absence reassign only leads not yet contacted; leavers hand over all their leads.,CAP-08; SC-12,simulation setting; not approved production policy

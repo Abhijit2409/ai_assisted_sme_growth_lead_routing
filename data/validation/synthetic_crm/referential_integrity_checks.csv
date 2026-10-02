@@ -1,0 +1,55 @@
+check,passed,detail
+crm_business_prospect.employee_band -> size band -> analytics.dim_size_band,True,0
+crm_business_prospect.industry_system -> analytics.dim_industry.industry_system,True,0
+crm_business_prospect.industry_code -> analytics.dim_industry.industry_code,True,0
+crm_lead.prospect_id -> crm_business_prospect.prospect_id,True,0
+crm_lead.first_channel_code -> crm_acquisition_channel.channel_code,True,0
+crm_lead.cma_code_sgc2021 -> analytics.dim_cma.cma_code_sgc2021,True,0
+crm_lead.territory_id -> crm_territory.territory_id,True,0
+crm_lead.duplicate_group_id -> crm_duplicate_group.duplicate_group_id,True,0
+crm_lead.surviving_lead_id -> crm_lead.lead_id,True,0
+crm_lead_source_touch.lead_id -> crm_lead.lead_id,True,0
+crm_lead_source_touch.original_lead_id -> crm_lead.lead_id,True,0
+crm_lead_source_touch.channel_code -> crm_acquisition_channel.channel_code,True,0
+crm_lead_source_touch.campaign_id -> crm_campaign.campaign_id,True,0
+crm_lead_source_touch.prospecting_rm_id -> crm_relationship_manager.rm_id,True,0
+crm_relationship_manager.home_territory_id -> crm_territory.territory_id,True,0
+crm_territory.cma_code_sgc2021 -> analytics.dim_cma.cma_code_sgc2021,True,0
+crm_rm_territory.rm_id -> crm_relationship_manager.rm_id,True,0
+crm_rm_territory.territory_id -> crm_territory.territory_id,True,0
+crm_rm_specialization.rm_id -> crm_relationship_manager.rm_id,True,0
+crm_rm_specialization.industry_system -> analytics.dim_industry.industry_system,True,0
+crm_rm_specialization.industry_code -> analytics.dim_industry.industry_code,True,0
+crm_rm_capacity_snapshot.rm_id -> crm_relationship_manager.rm_id,True,0
+crm_rm_capacity_snapshot.rule_version_id -> crm_rule_version.rule_version_id,True,0
+crm_routing_decision.lead_id -> crm_lead.lead_id,True,0
+crm_routing_decision.selected_rm_id -> crm_relationship_manager.rm_id,True,0
+crm_routing_decision.rule_version_id -> crm_rule_version.rule_version_id,True,0
+crm_lead_assignment.lead_id -> crm_lead.lead_id,True,0
+crm_lead_assignment.rm_id -> crm_relationship_manager.rm_id,True,0
+crm_lead_assignment.routing_decision_id -> crm_routing_decision.routing_decision_id,True,0
+crm_lead_assignment.rule_version_id -> crm_rule_version.rule_version_id,True,0
+crm_lead_assignment.prior_assignment_id -> crm_lead_assignment.assignment_id,True,0
+crm_lead_assignment.prior_rm_id -> crm_relationship_manager.rm_id,True,0
+crm_lead_activity.lead_id -> crm_lead.lead_id,True,0
+crm_lead_activity.assignment_id -> crm_lead_assignment.assignment_id,True,0
+crm_lead_activity.rm_id -> crm_relationship_manager.rm_id,True,0
+crm_lead_status_history.lead_id -> crm_lead.lead_id,True,0
+crm_lead_status_history.transition_id -> lead_transition_rules.transition_id,True,0
+crm_sla_event.lead_id -> crm_lead.lead_id,True,0
+crm_sla_event.assignment_id -> crm_lead_assignment.assignment_id,True,0
+crm_sla_event.rule_version_id -> crm_rule_version.rule_version_id,True,0
+crm_duplicate_group.surviving_lead_id -> crm_lead.lead_id,True,0
+crm_duplicate_group.matched_lead_id -> crm_lead.lead_id,True,0
+crm_opportunity_outcome.lead_id -> crm_lead.lead_id,True,0
+crm_opportunity_outcome.rm_id -> crm_relationship_manager.rm_id,True,0
+"all foreign keys resolve (CRM entities, dim_cma, dim_industry, dim_size_band, transition catalog)",True,all resolve
+"every lead references one prospect; every activity, SLA event and outcome references a lead",True,
+activities belong to their assignment's lead and RM (never to a queue),True,0
+assignment-level SLA clocks (SLA-05..SLA-09) reference an assignment,True,0
+"channel-specific source identifiers are present (campaign, partner, branch, prospecting RM)",True,0
+"queue ownership (queue_code, no RM) is distinguishable from RM ownership",True,0
+territory evidence tiers equal analytics.dim_cma tiers,True,0
+RM specializations use specialist-catalog industries and types,True,0
+every opportunity belongs to a lead that passed through QUALIFIED,True,0
+capacity snapshots exist only while the RM is employed,True,0

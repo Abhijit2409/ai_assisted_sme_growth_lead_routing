@@ -2,7 +2,7 @@
 .SYNOPSIS
     Runs the analytical data platform end to end: input verification, dbt transformation layer,
     mart-to-baseline reconciliation, market-exploration regression, the market opportunity framework,
-    validation of the hypothetical CRM acquisition-process design and dbt documentation.
+    validation of the hypothetical CRM acquisition-process design, the synthetic CRM data layer and dbt documentation.
 
 .DESCRIPTION
     Safe to launch from any directory: it resolves the repository from its own location.
@@ -11,7 +11,7 @@
 
 .PARAMETER Scope
     Full (default): the validated base analytical layer, then the market opportunity framework, then the
-          CRM acquisition-process design validation, then dbt docs.
+          CRM acquisition-process design validation, then the synthetic CRM data layer, then dbt docs.
     Base: only the validated base analytical layer (inputs, dbt base models and tests, reconciliation,
           market-exploration regression).
     Opportunity: only the market opportunity framework, after confirming that the base marts are current
@@ -20,6 +20,10 @@
           data/design/crm and the two CRM design documents), after confirming that the analytical platform
           is current and the market opportunity validation passed. Builds no dbt models, rebuilds no caches,
           generates no CRM records and skips dbt docs.
+    CRMData: only the synthetic CRM data layer, after confirming that the analytical platform and the CRM design
+          are current: generate the synthetic CRM data (validated in a temporary folder, then published), build the
+          CRM staging, intermediate and foundational mart models, run the CRM dbt tests, run the independent
+          validation, check two-run reproducibility and run the mutation tests. Never rebuilds public-source caches.
 
 .PARAMETER AnalysisPython
     Python interpreter of the analysis environment (pandas, DuckDB 1.5.3). Defaults to
@@ -31,10 +35,12 @@
     powershell -ExecutionPolicy Bypass -File .\run_analytical_pipeline.ps1 -Scope Opportunity
 .EXAMPLE
     powershell -ExecutionPolicy Bypass -File .\run_analytical_pipeline.ps1 -Scope CRMDesign
+.EXAMPLE
+    powershell -ExecutionPolicy Bypass -File .\run_analytical_pipeline.ps1 -Scope CRMData
 #>
 [CmdletBinding()]
 param(
-    [ValidateSet('Full', 'Base', 'Opportunity', 'CRMDesign')][string]$Scope = 'Full',
+    [ValidateSet('Full', 'Base', 'Opportunity', 'CRMDesign', 'CRMData')][string]$Scope = 'Full',
     [string]$AnalysisPython
 )
 
@@ -85,11 +91,11 @@ if ($Scope -in @('Full', 'Base')) {
     }
     Write-Host ''
     Write-Host '==> B2. dbt packages: none required (no packages.yml)' -ForegroundColor Cyan
-    Invoke-Step 'B3. Load crosswalk and reviewed-map seeds' { & $Dbt seed --profiles-dir $Root --exclude tag:opportunity }
-    Invoke-Step 'B4. Build staging models' { & $Dbt run --profiles-dir $Root --select staging }
-    Invoke-Step 'B5. Build intermediate models' { & $Dbt run --profiles-dir $Root --select intermediate --exclude tag:opportunity }
-    Invoke-Step 'B6. Build marts' { & $Dbt run --profiles-dir $Root --select marts --exclude tag:opportunity }
-    Invoke-Step 'B7. Run all base dbt tests' { & $Dbt test --profiles-dir $Root --exclude tag:opportunity }
+    Invoke-Step 'B3. Load crosswalk and reviewed-map seeds' { & $Dbt seed --profiles-dir $Root --exclude tag:opportunity tag:crm_data }
+    Invoke-Step 'B4. Build staging models' { & $Dbt run --profiles-dir $Root --select staging --exclude tag:crm_data }
+    Invoke-Step 'B5. Build intermediate models' { & $Dbt run --profiles-dir $Root --select intermediate --exclude tag:opportunity tag:crm_data }
+    Invoke-Step 'B6. Build marts' { & $Dbt run --profiles-dir $Root --select marts --exclude tag:opportunity tag:crm_data }
+    Invoke-Step 'B7. Run all base dbt tests' { & $Dbt test --profiles-dir $Root --exclude tag:opportunity tag:crm_data }
     Invoke-Step 'B8. Reconcile the 11 marts with the baseline Parquet views' { & $AnalysisPython 'src\validation\11_reconcile_dbt_marts.py' }
     Invoke-Step 'B9. Market exploration from dbt marts: two runs, regression, determinism, in-place refresh' {
         & $AnalysisPython 'src\validation\12_verify_market_exploration_regression.py'
@@ -102,9 +108,9 @@ if ($Scope -in @('Full', 'Opportunity')) {
     Invoke-Step 'O1. Confirm base marts are current and the framework configuration is unchanged' {
         & $AnalysisPython 'src\validation\14_validate_market_opportunity_framework.py' --preconditions-only
     }
-    Invoke-Step 'O2. Load opportunity configuration seeds' { & $Dbt seed --profiles-dir $Root --select tag:opportunity }
-    Invoke-Step 'O3. Build opportunity models' { & $Dbt run --profiles-dir $Root --select tag:opportunity }
-    Invoke-Step 'O4. Run opportunity dbt tests' { & $Dbt test --profiles-dir $Root --select tag:opportunity }
+    Invoke-Step 'O2. Load opportunity configuration seeds' { & $Dbt seed --profiles-dir $Root --select tag:opportunity --exclude tag:crm_data }
+    Invoke-Step 'O3. Build opportunity models' { & $Dbt run --profiles-dir $Root --select tag:opportunity --exclude tag:crm_data }
+    Invoke-Step 'O4. Run opportunity dbt tests' { & $Dbt test --profiles-dir $Root --select tag:opportunity --exclude tag:crm_data }
     Invoke-Step 'O5. Opportunity framework analysis' { & $AnalysisPython 'src\analysis\13_analyze_market_opportunity_framework.py' }
     Invoke-Step 'O6. Opportunity framework validation (recalculation, eligibility, sensitivity, two-run reproducibility)' {
         & $AnalysisPython 'src\validation\14_validate_market_opportunity_framework.py'
@@ -122,6 +128,35 @@ if ($Scope -in @('Full', 'CRMDesign')) {
     }
     Invoke-Step 'C3. CRM design validation (catalogs, state machine, references, traceability, scenarios, documents, privacy)' {
         & $AnalysisPython 'src\validation\15_validate_crm_design.py'
+    }
+}
+
+if ($Scope -in @('Full', 'CRMData')) {
+    Write-Host ''
+    Write-Host '--- Synthetic CRM data (fictional; simulation settings, not bank policy) ---' -ForegroundColor Yellow
+    if ($Scope -eq 'CRMData') {
+        Invoke-Step 'D1. Confirm the analytical platform is current (base marts and opportunity configuration)' {
+            & $AnalysisPython 'src\validation\14_validate_market_opportunity_framework.py' --preconditions-only
+        }
+        Invoke-Step 'D2. Confirm the CRM design is valid (design catalogs, change log, documents)' {
+            & $AnalysisPython 'src\validation\15_validate_crm_design.py'
+        }
+    }
+    Invoke-Step 'D3. Generate synthetic CRM data (validated in a temporary folder, then published)' {
+        & $AnalysisPython 'src\synthetic\16_generate_synthetic_crm_data.py'
+    }
+    Invoke-Step 'D4. Build CRM staging models' { & $Dbt run --profiles-dir $Root --select path:models/staging/crm }
+    Invoke-Step 'D5. Build CRM intermediate models' { & $Dbt run --profiles-dir $Root --select path:models/intermediate/crm }
+    Invoke-Step 'D6. Build foundational CRM marts' { & $Dbt run --profiles-dir $Root --select path:models/marts/crm }
+    Invoke-Step 'D7. Run CRM dbt tests' { & $Dbt test --profiles-dir $Root --select tag:crm_data }
+    Invoke-Step 'D8. Independent synthetic CRM validation (sources, staging reconciliation, grains, rules, scenarios, privacy)' {
+        & $AnalysisPython 'src\validation\17_validate_synthetic_crm_data.py'
+    }
+    Invoke-Step 'D9. Two-run reproducibility of the synthetic CRM data' {
+        & $AnalysisPython 'src\synthetic\16_generate_synthetic_crm_data.py' --check-reproducibility
+    }
+    Invoke-Step 'D10. Mutation tests of the synthetic CRM validation (temporary copies only)' {
+        & $AnalysisPython 'src\validation\17_validate_synthetic_crm_data.py' --mutation-tests
     }
 }
 

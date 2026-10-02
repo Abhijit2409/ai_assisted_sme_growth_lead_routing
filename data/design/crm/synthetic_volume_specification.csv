@@ -8,7 +8,7 @@ assignments,22000,18000,26000,assignments,"Includes queue entries, reassignments
 activities,75000,60000,90000,activities,About 4 activities per assigned lead,true
 capacity snapshots,36000,30000,42000,RM-days,One per RM per business day (about 250 business days),true
 routing decisions,21000,18000,25000,decisions,Initial routing plus reroutes,true
-SLA events,80000,65000,95000,SLA clocks,Several clocks per lead,true
+SLA events,110000,90000,130000,SLA clocks,"About 6.5 clocks per lead: intake, assignment, acknowledgement and first contact per lead or assignment, one per failed attempt, one per follow-up, plus validation, duplicate, reassignment and escalation clocks",true
 campaigns,40,30,50,campaigns,About three to four per month,true
 duplicate rate,5%,4%,7%,share of leads merged,"Synthetic design assumption for test coverage, not a benchmark",true
 invalid-lead rate,4.5%,3%,6%,share of leads invalid,"Synthetic design assumption, not a benchmark",true

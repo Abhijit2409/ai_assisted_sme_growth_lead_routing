@@ -8,9 +8,9 @@ later synthetic dataset must contain. It connects the external market opportunit
 ([market_opportunity_framework.md](market_opportunity_framework.md)) to future lead prioritization and relationship-manager (RM)
 routing. The logical data model and field dictionary are in [crm_data_model_and_dictionary.md](crm_data_model_and_dictionary.md).
 
-**What this design does not include:** synthetic CRM records, CRM dbt models, a lead-priority score, a routing score or
-optimizer, dashboards, machine-learning models or production integration. These come later and will be built against the
-catalogs referenced here.
+**Scope:** this document specifies the design. The entirely synthetic CRM data generated from these catalogs, and its dbt
+models, are described in [synthetic_crm_data.md](synthetic_crm_data.md). No lead-priority score, routing score or optimizer,
+dashboard, machine-learning model or production integration exists.
 
 All catalogs live in `data/design/crm/` and are validated by `src/validation/15_validate_crm_design.py` (evidence in
 `data/validation/crm_design/`). Every count in this document is reproduced from those catalogs by the validator.
@@ -388,7 +388,7 @@ flowchart TD
 | RT-P04 | preference | 10 | Stated service language | Only when the prospect explicitly stated a language; never inferred | Language-matched candidates first | Keep candidates | No routing decision uses a language that the prospect did not state |
 | RT-P05 | preference | 11 | Named preferred RM | Preferred RM is active, in territory and below warning capacity | Preferred RM selected | Keep candidates | Preference is ignored whenever it would exceed the warning threshold |
 | RT-X01 | exclusion | 12 | RM availability | RM on leave, absent or inactive on the decision date | Excluded | Remaining candidates | No assignment is made to an RM unavailable on the assignment date |
-| RT-X02 | exclusion | 13 | Hard capacity limit | Utilization at or above the hard limit (CAP-06) | Excluded | Remaining candidates | No assignment exceeds the hard limit without an approved override |
+| RT-X02 | exclusion | 13 | Hard capacity limit | Utilization in the latest capacity snapshot (as of 00:00 UTC on the decision date) at or above the hard limit (CAP-06) | Excluded | Remaining candidates | No assignment exceeds the hard limit without an approved override |
 | RT-X03 | exclusion | 14 | Conflict and prior decline | RM has a recorded conflict of interest or declined this lead before | Excluded | Remaining candidates | No lead is reassigned to an RM who declined it |
 | RT-L01 | load_balancing | 15 | Workload balancing | Lowest workload utilization among remaining candidates | Selected RM | Tie-breaking | Selected RM has the minimum utilization among eligible candidates, or a documented tie-break |
 | RT-L02 | load_balancing | 16 | Tie-breaking | Equal utilization: longest time since last assignment, then lowest synthetic RM id | Selected RM | None | Identical inputs always produce the same RM |
@@ -491,19 +491,19 @@ flowchart TD
 | SLA | Name | Start | Stop | Target | Unit | Basis | Warning % | Responsible | Escalation 1 | Reassignment |
 |---|---|---|---|---|---|---|---|---|---|---|
 | SLA-01 | Intake validation | LEAD_CAPTURED | VALIDATION_PASSED;VALIDATION_FAILED | 4 | hours | business | 75 | System (intake) | Intake operations lead | none |
-| SLA-02 | Validation correction | VALIDATION_FAILED | DATA_CORRECTED;LEAD_INVALIDATED;PROSPECT_WITHDREW | 3 | days | business | 67 | Capturing channel | Channel manager | none |
+| SLA-02 | Validation correction | VALIDATION_FAILED | DATA_CORRECTED;LEAD_INVALIDATED;PROSPECT_WITHDREW;LEAD_ROUTABLE | 3 | days | business | 67 | Capturing channel | Channel manager | none |
 | SLA-03 | Duplicate review | PROBABLE_DUPLICATE_FLAGGED | DUPLICATE_CONFIRMED;DUPLICATE_REJECTED | 1 | days | business | 75 | Intake operations | Intake operations lead | none |
 | SLA-04A | Assignment - digital and RM-prospected | LEAD_ROUTABLE | ASSIGNMENT_CREATED;LEAD_TERMINATED | 2 | hours | business | 75 | Routing service; queue owner | Regional Sales Manager | none |
 | SLA-04B | Assignment - referral | LEAD_ROUTABLE | ASSIGNMENT_CREATED;LEAD_TERMINATED | 4 | hours | business | 75 | Routing service; queue owner | Regional Sales Manager | none |
 | SLA-04C | Assignment - campaign and manual review | LEAD_ROUTABLE | ASSIGNMENT_CREATED;LEAD_TERMINATED | 1 | days | business | 75 | Routing service; queue owner | Regional Sales Manager | none |
-| SLA-05 | Assignment acknowledgement | ASSIGNMENT_CREATED | ASSIGNMENT_ACKNOWLEDGED;ASSIGNMENT_DECLINED;LEAD_TERMINATED | 4 | hours | business | 75 | Assigned RM | Regional Sales Manager | Automatic reassignment at breach |
-| SLA-06A | First contact - priority P1 | ASSIGNMENT_CREATED | CONTACT_ATTEMPTED;FIRST_TWO_WAY_CONTACT;LEAD_TERMINATED | 1 | days | business | 50 | Assigned RM | Regional Sales Manager | Reassignment at second breach |
-| SLA-06B | First contact - priority P2 | ASSIGNMENT_CREATED | CONTACT_ATTEMPTED;FIRST_TWO_WAY_CONTACT;LEAD_TERMINATED | 2 | days | business | 50 | Assigned RM | Regional Sales Manager | Reassignment at second breach |
-| SLA-06C | First contact - priority P3 | ASSIGNMENT_CREATED | CONTACT_ATTEMPTED;FIRST_TWO_WAY_CONTACT;LEAD_TERMINATED | 3 | days | business | 50 | Assigned RM | Regional Sales Manager | Reassignment at second breach |
-| SLA-06D | First contact - referral | ASSIGNMENT_CREATED | CONTACT_ATTEMPTED;FIRST_TWO_WAY_CONTACT;LEAD_TERMINATED | 1 | days | business | 50 | Assigned RM | Regional Sales Manager | Reassignment at second breach |
-| SLA-07 | Follow-up after unsuccessful attempt | CONTACT_ATTEMPTED | CONTACT_ATTEMPTED;FIRST_TWO_WAY_CONTACT;LEAD_TERMINATED | 2 | days | business | 50 | Assigned RM | Regional Sales Manager | After 3 attempts without contact the lead closes with DSP-NO-RESPONSE |
-| SLA-08A | Inactivity - active leads | FOLLOW_UP_ACTIVITY | FOLLOW_UP_ACTIVITY;LEAD_TERMINATED | 10 | days | business | 70 | Assigned RM | Regional Sales Manager | Reassignment after escalation if still inactive |
-| SLA-08B | Inactivity - nurturing | NURTURE_SCHEDULED | FOLLOW_UP_ACTIVITY;NURTURE_REENGAGED;LEAD_TERMINATED | 30 | days | calendar | 80 | Assigned RM | Regional Sales Manager | none |
+| SLA-05 | Assignment acknowledgement | ASSIGNMENT_CREATED | ASSIGNMENT_ACKNOWLEDGED;ASSIGNMENT_DECLINED;LEAD_TERMINATED;REASSIGNMENT_COMPLETED;ASSIGNMENT_RELEASED | 4 | hours | business | 75 | Assigned RM | Regional Sales Manager | Automatic reassignment at breach |
+| SLA-06A | First contact - priority P1 | ASSIGNMENT_CREATED | CONTACT_ATTEMPTED;FIRST_TWO_WAY_CONTACT;LEAD_TERMINATED;REASSIGNMENT_COMPLETED;ASSIGNMENT_RELEASED | 1 | days | business | 50 | Assigned RM | Regional Sales Manager | Reassignment at second breach |
+| SLA-06B | First contact - priority P2 | ASSIGNMENT_CREATED | CONTACT_ATTEMPTED;FIRST_TWO_WAY_CONTACT;LEAD_TERMINATED;REASSIGNMENT_COMPLETED;ASSIGNMENT_RELEASED | 2 | days | business | 50 | Assigned RM | Regional Sales Manager | Reassignment at second breach |
+| SLA-06C | First contact - priority P3 | ASSIGNMENT_CREATED | CONTACT_ATTEMPTED;FIRST_TWO_WAY_CONTACT;LEAD_TERMINATED;REASSIGNMENT_COMPLETED;ASSIGNMENT_RELEASED | 3 | days | business | 50 | Assigned RM | Regional Sales Manager | Reassignment at second breach |
+| SLA-06D | First contact - referral | ASSIGNMENT_CREATED | CONTACT_ATTEMPTED;FIRST_TWO_WAY_CONTACT;LEAD_TERMINATED;REASSIGNMENT_COMPLETED;ASSIGNMENT_RELEASED | 1 | days | business | 50 | Assigned RM | Regional Sales Manager | Reassignment at second breach |
+| SLA-07 | Follow-up after unsuccessful attempt | CONTACT_ATTEMPTED | CONTACT_ATTEMPTED;FIRST_TWO_WAY_CONTACT;LEAD_TERMINATED;REASSIGNMENT_COMPLETED;ASSIGNMENT_RELEASED | 2 | days | business | 50 | Assigned RM | Regional Sales Manager | After 3 attempts without contact the lead closes with DSP-NO-RESPONSE |
+| SLA-08A | Inactivity - active leads | FOLLOW_UP_ACTIVITY | FOLLOW_UP_ACTIVITY;NURTURE_SCHEDULED;LEAD_TERMINATED;REASSIGNMENT_COMPLETED;ASSIGNMENT_RELEASED | 10 | days | business | 70 | Assigned RM | Regional Sales Manager | Reassignment after escalation if still inactive |
+| SLA-08B | Inactivity - nurturing | NURTURE_SCHEDULED | FOLLOW_UP_ACTIVITY;NURTURE_REENGAGED;LEAD_TERMINATED;REASSIGNMENT_COMPLETED;ASSIGNMENT_RELEASED | 30 | days | calendar | 80 | Assigned RM | Regional Sales Manager | none |
 | SLA-09 | Reassignment completion | REASSIGNMENT_TRIGGERED | REASSIGNMENT_COMPLETED;ASSIGNMENT_RELEASED | 4 | hours | business | 75 | Regional Sales Manager | Director, Business Banking Sales Strategy | none |
 | SLA-10 | Escalation response | ESCALATION_RAISED | ESCALATION_RESOLVED | 1 | days | business | 75 | Regional Sales Manager | Director, Business Banking Sales Strategy | none |
 
@@ -514,8 +514,8 @@ matches go to DUPLICATE_REVIEW. Merges never lose attribution: every source touc
 
 | Rule | Tier | Name | Condition | Outcome |
 |---|---|---|---|---|
-| DUP-01 | exact | Same synthetic business identifier | Identical synthetic business identifier on two open or recent (365 days) leads | auto_merge |
-| DUP-02 | exact | Same existing prospect | Lead references an existing prospect with an open lead | auto_merge |
+| DUP-01 | exact | Same synthetic business identifier | Identical synthetic business identifier on another open (non-terminal) lead | auto_merge |
+| DUP-02 | exact | Same existing prospect | Lead is captured against an existing prospect record that has another open lead (branch and RM-prospected intake) | auto_merge |
 | DUP-03 | high_confidence | Legal name and FSA | Identical normalized legal name and FSA | auto_merge |
 | DUP-04 | high_confidence | Phone and name | Identical normalized phone and identical normalized legal or operating name | auto_merge |
 | DUP-05 | review | Name only in same province | Identical normalized name in the same province with different FSA | review |
@@ -723,7 +723,7 @@ Volumes are ranges for a local portfolio dataset; the rates are synthetic design
 | activities | 75000 | 60000 | 90000 | activities | About 4 activities per assigned lead |
 | capacity snapshots | 36000 | 30000 | 42000 | RM-days | One per RM per business day (about 250 business days) |
 | routing decisions | 21000 | 18000 | 25000 | decisions | Initial routing plus reroutes |
-| SLA events | 80000 | 65000 | 95000 | SLA clocks | Several clocks per lead |
+| SLA events | 110000 | 90000 | 130000 | SLA clocks | About 6.5 clocks per lead: intake, assignment, acknowledgement and first contact per lead or assignment, one per failed attempt, one per follow-up, plus validation, duplicate, reassignment and escalation clocks |
 | campaigns | 40 | 30 | 50 | campaigns | About three to four per month |
 | duplicate rate | 5% | 4% | 7% | share of leads merged | Synthetic design assumption for test coverage, not a benchmark |
 | invalid-lead rate | 4.5% | 3% | 6% | share of leads invalid | Synthetic design assumption, not a benchmark |

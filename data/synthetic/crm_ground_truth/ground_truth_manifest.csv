@@ -1,0 +1,5 @@
+file_name,row_count,sha256,purpose,generator_version,master_random_seed
+lead_truth.parquet,17400,96388114328e64ed3f09a330e5fbabd03e2ed4b3f52054ff0fbccd8ab4156c90,generator ground truth for validation only; never a model or routing input,1.0.0,20260929
+lead_scenario_membership.parquet,50698,cb72d96135459f5825da0c50744581ba37ca1d92e8d4d77c0c113952bf8c1d71,generator ground truth for validation only; never a model or routing input,1.0.0,20260929
+prospect_truth.parquet,446,37df0fa1d9b4e367b5b48d603a040ec53a536dfd2b6cd95418d4a414ebc7f498,generator ground truth for validation only; never a model or routing input,1.0.0,20260929
+routing_decision_truth.parquet,18230,1c2d5b164832002b884e5dae2f87639b4191121b6f314f93a3c67c9c3c975e38,generator ground truth for validation only; never a model or routing input,1.0.0,20260929

@@ -1,0 +1,271 @@
+version: 2
+
+# Foundational CRM marts over the synthetic data. Grains equal the source entities; no KPIs, scores or recommendations.
+
+models:
+  - name: dim_relationship_manager
+    description: >
+      One row per synthetic RM with display label, region and specializations. Grain: one row per rm_id. Primary key: rm_id.
+      Synthetic data (fictional bank, businesses and staff); event period 2025-06-01 to 2026-05-31 UTC; no score, ranking or recommendation.
+    columns:
+      - name: rm_id
+        description: "Primary key."
+        data_tests: [unique, not_null]
+      - name: home_territory_id
+        description: "Foreign key."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_crm_territory')
+                field: territory_id
+  - name: dim_acquisition_channel
+    description: >
+      One row per acquisition channel. Grain: one row per channel_code. Primary key: channel_code.
+      Synthetic data (fictional bank, businesses and staff); event period 2025-06-01 to 2026-05-31 UTC; no score, ranking or recommendation.
+    columns:
+      - name: channel_code
+        description: "Primary key."
+        data_tests: [unique, not_null]
+  - name: dim_campaign
+    description: >
+      One row per synthetic campaign. Grain: one row per campaign_id. Primary key: campaign_id.
+      Synthetic data (fictional bank, businesses and staff); event period 2025-06-01 to 2026-05-31 UTC; no score, ranking or recommendation.
+    columns:
+      - name: campaign_id
+        description: "Primary key."
+        data_tests: [unique, not_null]
+  - name: dim_business_prospect
+    description: >
+      One row per synthetic business prospect (fictional names; no contact details). Grain: one row per prospect_id. Primary key: prospect_id.
+      Synthetic data (fictional bank, businesses and staff); event period 2025-06-01 to 2026-05-31 UTC; no score, ranking or recommendation.
+    columns:
+      - name: prospect_id
+        description: "Primary key."
+        data_tests: [unique, not_null]
+  - name: dim_crm_territory
+    description: >
+      One row per hypothetical sales territory keyed on SGC 2021 geography. Grain: one row per territory_id. Primary key: territory_id.
+      Synthetic data (fictional bank, businesses and staff); event period 2025-06-01 to 2026-05-31 UTC; no score, ranking or recommendation.
+    columns:
+      - name: territory_id
+        description: "Primary key."
+        data_tests: [unique, not_null]
+      - name: cma_code_sgc2021
+        description: "Foreign key."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_cma')
+                field: cma_code_sgc2021
+  - name: fct_lead
+    description: >
+      One row per lead with current status, milestones and market context (fictional contact fields excluded). Grain: one row per lead_id. Primary key: lead_id.
+      Synthetic data (fictional bank, businesses and staff); event period 2025-06-01 to 2026-05-31 UTC; no score, ranking or recommendation.
+    columns:
+      - name: lead_id
+        description: "Primary key."
+        data_tests: [unique, not_null]
+      - name: prospect_id
+        description: "Foreign key."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_business_prospect')
+                field: prospect_id
+      - name: first_channel_code
+        description: "Foreign key."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_acquisition_channel')
+                field: channel_code
+      - name: territory_id
+        description: "Foreign key."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_crm_territory')
+                field: territory_id
+      - name: current_owner_rm_id
+        description: "Foreign key."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_relationship_manager')
+                field: rm_id
+  - name: fct_lead_status_history
+    description: >
+      One row per lead status change. Grain: one row per status_history_id. Primary key: status_history_id.
+      Synthetic data (fictional bank, businesses and staff); event period 2025-06-01 to 2026-05-31 UTC; no score, ranking or recommendation.
+    columns:
+      - name: status_history_id
+        description: "Primary key."
+        data_tests: [unique, not_null]
+      - name: lead_id
+        description: "Foreign key."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('fct_lead')
+                field: lead_id
+  - name: fct_lead_assignment
+    description: >
+      One row per assignment (RM or queue ownership) with capacity at assignment. Grain: one row per assignment_id. Primary key: assignment_id.
+      Synthetic data (fictional bank, businesses and staff); event period 2025-06-01 to 2026-05-31 UTC; no score, ranking or recommendation.
+    columns:
+      - name: assignment_id
+        description: "Primary key."
+        data_tests: [unique, not_null]
+      - name: lead_id
+        description: "Foreign key."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('fct_lead')
+                field: lead_id
+      - name: rm_id
+        description: "Foreign key."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_relationship_manager')
+                field: rm_id
+  - name: fct_lead_activity
+    description: >
+      One row per activity with its lifecycle event. Grain: one row per activity_id. Primary key: activity_id.
+      Synthetic data (fictional bank, businesses and staff); event period 2025-06-01 to 2026-05-31 UTC; no score, ranking or recommendation.
+    columns:
+      - name: activity_id
+        description: "Primary key."
+        data_tests: [unique, not_null]
+      - name: lead_id
+        description: "Foreign key."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('fct_lead')
+                field: lead_id
+      - name: assignment_id
+        description: "Foreign key."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('fct_lead_assignment')
+                field: assignment_id
+      - name: rm_id
+        description: "Foreign key."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_relationship_manager')
+                field: rm_id
+  - name: fct_routing_decision
+    description: >
+      One row per historical routing decision (simulated hypothetical behaviour; not a recommendation). Grain: one row per routing_decision_id. Primary key: routing_decision_id.
+      Synthetic data (fictional bank, businesses and staff); event period 2025-06-01 to 2026-05-31 UTC; no score, ranking or recommendation.
+    columns:
+      - name: routing_decision_id
+        description: "Primary key."
+        data_tests: [unique, not_null]
+      - name: lead_id
+        description: "Foreign key."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('fct_lead')
+                field: lead_id
+      - name: selected_rm_id
+        description: "Foreign key."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_relationship_manager')
+                field: rm_id
+  - name: fct_rm_capacity_snapshot
+    description: >
+      One row per RM and business day. Grain: one row per capacity_snapshot_id. Primary key: capacity_snapshot_id.
+      Synthetic data (fictional bank, businesses and staff); event period 2025-06-01 to 2026-05-31 UTC; no score, ranking or recommendation.
+    columns:
+      - name: capacity_snapshot_id
+        description: "Primary key."
+        data_tests: [unique, not_null]
+      - name: rm_id
+        description: "Foreign key."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_relationship_manager')
+                field: rm_id
+  - name: fct_sla_event
+    description: >
+      One row per SLA clock with rule attributes. Grain: one row per sla_event_id. Primary key: sla_event_id.
+      Synthetic data (fictional bank, businesses and staff); event period 2025-06-01 to 2026-05-31 UTC; no score, ranking or recommendation.
+    columns:
+      - name: sla_event_id
+        description: "Primary key."
+        data_tests: [unique, not_null]
+      - name: lead_id
+        description: "Foreign key."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('fct_lead')
+                field: lead_id
+      - name: assignment_id
+        description: "Foreign key."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('fct_lead_assignment')
+                field: assignment_id
+  - name: fct_opportunity_outcome
+    description: >
+      One row per opportunity (at most one per lead). Grain: one row per opportunity_id. Primary key: opportunity_id.
+      Synthetic data (fictional bank, businesses and staff); event period 2025-06-01 to 2026-05-31 UTC; no score, ranking or recommendation.
+    columns:
+      - name: opportunity_id
+        description: "Primary key."
+        data_tests: [unique, not_null]
+      - name: lead_id
+        description: "Foreign key."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('fct_lead')
+                field: lead_id
+      - name: rm_id
+        description: "Foreign key."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_relationship_manager')
+                field: rm_id
+  - name: fct_lead_source_touch
+    description: >
+      One row per source touch; merged leads' touches stay attributed to the survivor with the original lead id. Grain: one row per source_touch_id. Primary key: source_touch_id.
+      Synthetic data (fictional bank, businesses and staff); event period 2025-06-01 to 2026-05-31 UTC; no score, ranking or recommendation.
+    columns:
+      - name: source_touch_id
+        description: "Primary key."
+        data_tests: [unique, not_null]
+      - name: lead_id
+        description: "Foreign key."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('fct_lead')
+                field: lead_id
+      - name: campaign_id
+        description: "Foreign key."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_campaign')
+                field: campaign_id
+      - name: channel_code
+        description: "Foreign key."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_acquisition_channel')
+                field: channel_code

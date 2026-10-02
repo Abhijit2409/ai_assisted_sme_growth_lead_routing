@@ -21,16 +21,28 @@ models:
     staging:
       +schema: staging
       +materialized: view
+      crm:
+        +tags: ["crm_data"]
     intermediate:
       +schema: intermediate
       +materialized: table
       opportunity:
         +tags: ["opportunity"]
+      crm:
+        +tags: ["crm_data"]
     marts:
       +schema: analytics
       +materialized: table
       opportunity_framework:
         +tags: ["opportunity"]
+      crm:
+        +tags: ["crm_data"]
+
+# Synthetic CRM data tests (tests/crm): selected with tag:crm_data, excluded from the base and opportunity runs.
+data_tests:
+  sme_market_intelligence:
+    crm:
+      +tags: ["crm_data"]
 
 seeds:
   sme_market_intelligence:
@@ -55,3 +67,5 @@ vars:
   opportunity_trend_start: "2023-06"
   opportunity_recent_months: 12
   opportunity_trend_min_months: 30
+  # Synthetic CRM data: market-context scenario joined to leads (A-010; simulation setting, not approved policy)
+  crm_market_context_scenario: "balanced"

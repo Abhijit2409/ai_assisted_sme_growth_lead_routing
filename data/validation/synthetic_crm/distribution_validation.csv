@@ -1,0 +1,30 @@
+check,passed,detail
+duplicate rate within 4%-7%,True,0.0499; denominator: all leads
+invalid-lead rate within 3%-6%,True,0.0344; denominator: all leads
+reassignment rate within 8%-14%,True,0.1171; denominator: leads with at least one primary RM assignment
+first-contact SLA-breach rate within 10%-18%,True,0.1241; denominator: SLA-06 clocks that are closed or breached
+lead-to-conversion rate within 6%-12%,True,"0.1064; denominator: valid leads (not INVALID or MERGED), including leads still open at the cut-off"
+all 41 CMAs are represented; every CMA lead carries its tier's market-evidence flag,True,min 59 leads per CMA; Tier 3 CMAs 6
+"out-of-CMA, remote, unresolved, conflicting and out-of-footprint geography are all present",True,"{'conflict': 95, 'missing': 70, 'out_of_footprint': 118, 'resolved_cma': 15193, 'resolved_province_remainder': 1924}"
+leads without a CMA carry the explicit no_market_context flag and remain processable,True,0
+"all four SME size bands, plus ineligible 500-plus, are represented",True,"{'1-4': 6500, '100-499': 761, '20-99': 2653, '5-19': 5538, '500-plus': 113, 'unknown': 1}"
+"industry coverage: generalist, preferred-specialist, mandatory-specialist, unclassified and excluded industries",True,22 industry codes
+all five acquisition channels are represented,True,"{'CH-BRN': 1884, 'CH-DIG': 8954, 'CH-MKT': 3160, 'CH-PTR': 1291, 'CH-RMP': 2111}"
+"capacity scenarios present: warnings, hard-limit states, approved exceptions, planned leave, unavailability and partial availability",True,"{'state approved_exception': 22, 'state at_or_above_hard_limit': 382, 'state below_warning': 31179, 'state unavailable': 2043, 'state warning': 544, 'availability available': 30490, 'availability partial': 1637, 'availability planned_leave': 1524, 'availability unavailable': 519}"
+"SLA scenarios present: met, warning, breached, paused, exempt and escalated clocks",True,"{'breached_closed': 5002, 'breached_open': 17, 'met': 113208, 'not_applicable': 26, 'open': 1096, 'warning_open': 80}"
+"RM population: about 140 fictional RMs with generalists, primary and secondary specialists, leavers and joiners",True,140 RMs; 20 dedicated specialists; 24 secondary; 6 leavers; 6 joiners
+every ordinary territory has at least one primary RM,True,0
+report: leads by channel,True,"{""CH-BRN"": 1884, ""CH-DIG"": 8954, ""CH-MKT"": 3160, ""CH-PTR"": 1291, ""CH-RMP"": 2111}"
+report: leads by size band,True,"{""1-4"": 7293, ""100-499"": 830, ""20-99"": 2957, ""5-19"": 6206, ""500-plus"": 113, ""unknown"": 1}"
+report: leads by status,True,"{""ASSIGNED"": 104, ""CLOSED_LOST"": 11680, ""CONTACTED"": 522, ""CONVERTED"": 1696, ""DUPLICATE_REVIEW"": 2, ""INVALID"": 598, ""MERGED"": 869, ""NURTURING"": 362, ""QUALIFIED"": 413, ""VALIDATION_PENDING"": 5, ""WITHDRAWN"": 1149}"
+report: leads by market-evidence flag,True,"{""full_framework"": 14821, ""no_market_context"": 2112, ""scale_only_limited_evidence"": 467}"
+report: unassigned (queued at least once) rate,True,0.0081
+report: opportunity rate (valid leads),True,0.2388
+report: manual-override rate (leads with an RM),True,0.0167
+report: territory mismatch rate (RM decisions),True,0.0325
+report: specialist mismatch rate (specialist-need decisions),True,0.7039
+report: RM utilization quantiles (10/50/90/99%),True,"[0.025, 0.1313, 0.4813, 1.0313]"
+report: capacity states,True,"{""approved_exception"": 22, ""at_or_above_hard_limit"": 382, ""below_warning"": 31179, ""unavailable"": 2043, ""warning"": 544}"
+report: SLA outcomes,True,"{""breached_closed"": 5002, ""breached_open"": 17, ""met"": 113208, ""not_applicable"": 26, ""open"": 1096, ""warning_open"": 80}"
+report: SLA events by rule,True,"{""SLA-01"": 17400, ""SLA-02"": 899, ""SLA-03"": 207, ""SLA-04A"": 10144, ""SLA-04B"": 2880, ""SLA-04C"": 2951, ""SLA-05"": 18417, ""SLA-06B"": 14371, ""SLA-06D"": 3200, ""SLA-07"": 10586, ""SLA-08A"": 31197, ""SLA-08B"": 1680, ""SLA-09"": 2112, ""SLA-10"": 3385}"
+report: leads per CMA (min/median/max),True,"[59, 121, 3696]"

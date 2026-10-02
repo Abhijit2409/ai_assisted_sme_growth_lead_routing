@@ -1,0 +1,17 @@
+check,passed,detail
+"every event timestamp lies inside the synthetic period [2025-06-01, 2026-06-01) UTC (planned deadlines and next-contact dates may fall later)",True,55 event timestamp columns
+prospect records are created no later than their leads,True,0
+status history starts at capture and is non-decreasing,True,"0, 0"
+"validation precedes routing, and routing precedes assignment",True,"0, 0"
+assignment timestamps are ordered; reassignment follows the prior assignment,True,"0, 0"
+activities occur while their assignment is active (assignment precedes RM-owned activity),True,0
+contact activity only for leads with consent to contact,True,0
+qualification precedes (equals) opportunity creation; opportunity precedes conversion,True,"0, 0"
+terminal closure never precedes the lead's final activity,True,0
+"SLA target and warning times recompute from start, rule and business calendar",True,0 of 119429
+SLA outcomes and elapsed business minutes recompute (cut-off 2026-06-01T00:00Z),True,"0 outcomes, 0 elapsed"
+SLA clocks stop only on their rule's stop events; responsible role copied from the rule; exceptions carry a reason,True,"0, 0, 0"
+"terminal leads have no open SLA clocks; breached assignment, first-contact, inactivity and reassignment clocks are escalated",True,"0, 0"
+"capacity snapshots recompute from assignments, lead statuses, nurture dates and CAP weights (as of 00:00 UTC)",True,0 of 34170
+capacity states follow the CAP-06 thresholds; approved exceptions follow an override with a capacity exception (CAP-09),True,"0, 0"
+routing uses the capacity snapshot available at decision time; no ordinary assignment to an unavailable or hard-limit RM,True,"0, 0"

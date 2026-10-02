@@ -1,0 +1,16 @@
+check,passed,detail
+every catalogued entity has exactly one manifest entry and file,True,18 of 18 entities
+manifest SHA-256 hashes match the files,True,19 files
+manifest row counts match the files,True,all match
+"manifest records generator version, master seed and schema version from the parameters catalog",True,"version 1.0.0, seed 20260929"
+volume crm_business_prospect within 12000-16000,True,15566
+volume crm_lead within 15000-20000,True,17400
+volume crm_relationship_manager within 120-160,True,140
+volume crm_territory within 50-60,True,53
+volume crm_lead_assignment within 18000-26000,True,18560
+volume crm_lead_activity within 60000-90000,True,71476
+volume crm_rm_capacity_snapshot within 30000-42000,True,34170
+volume crm_routing_decision within 18000-25000,True,18230
+volume crm_sla_event within 90000-130000,True,119429
+volume crm_campaign within 30-50,True,40
+ground truth is stored separately with its own manifest and hashes,True,4 files

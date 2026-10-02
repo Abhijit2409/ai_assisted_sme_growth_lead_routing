@@ -1,0 +1,98 @@
+{
+  "purpose": "Independent validation of the synthetic CRM data (fictional bank; synthetic records only)",
+  "run_timestamp_utc": "2026-10-02T00:45:27+00:00",
+  "mode": "full",
+  "validation_script_sha256": "1f6458ceb859ce6c33c4406a242c74efb521a9ab7163c09252650400962ac02c",
+  "generator_version": "1.0.0",
+  "master_random_seed": 20260929,
+  "period_utc": [
+    "2025-06-01T00:00:00",
+    "2026-06-01T00:00:00"
+  ],
+  "row_counts": {
+    "crm_business_prospect": 15566,
+    "crm_lead": 17400,
+    "crm_lead_source_touch": 17522,
+    "crm_acquisition_channel": 5,
+    "crm_campaign": 40,
+    "crm_relationship_manager": 140,
+    "crm_territory": 53,
+    "crm_rm_territory": 407,
+    "crm_rm_specialization": 44,
+    "crm_rm_capacity_snapshot": 34170,
+    "crm_routing_decision": 18230,
+    "crm_lead_assignment": 18560,
+    "crm_lead_activity": 71476,
+    "crm_lead_status_history": 87025,
+    "crm_sla_event": 119429,
+    "crm_duplicate_group": 936,
+    "crm_opportunity_outcome": 3805,
+    "crm_rule_version": 6
+  },
+  "rates": {
+    "duplicate rate": 0.049943,
+    "invalid-lead rate": 0.034368,
+    "reassignment rate": 0.117139,
+    "first-contact SLA-breach rate": 0.124073,
+    "lead-to-conversion rate": 0.106446
+  },
+  "manifest_sha256": "6d39ca660462fb916e9e7dced23da50ddba470f49a56dcb7f4efbbdf54ab3073",
+  "evidence_sha256": {
+    "entity_inventory.csv": "c90cc1253abcd5d1a13eb1179ad511912f46427c59809049623c7535a000f140",
+    "schema_validation.csv": "fc493e3bcab807671ecbad86dc1747752fcfeb09294a371262f09ba4927f98e4",
+    "referential_integrity_checks.csv": "c8c0cea027f7472a6d54c7aa8c9b53be9537e72a1fdeff03ad13e84e8cf244f4",
+    "temporal_consistency_checks.csv": "bebd28043171e00a9abf9cd821f68b7d02ccb63a14fb37c2c259249e2d8ae749",
+    "status_transition_checks.csv": "fb9dcefe141580532b7cfdf71eb44cc44abf00f25540602b88c6444714b6acb7",
+    "scenario_coverage.csv": "192c569ce722fe6eff3e0c91685fa46b85ce890c465cb4751c139e026686a4f3",
+    "distribution_validation.csv": "7a7a843a37ae8668cd6837f362c05da11cbcf95a3e73a35d66b97ca7e275c1e1",
+    "privacy_and_safety_checks.csv": "54b3e47f035ccfe1936fdbbd977c16771cab2f4c522eda25feb1fce1e9c3b059",
+    "dbt_source_reconciliation.csv": "abfc5d8f72a6cee06afa538b8a01a020b46e7ed6e6c5471a91bcc278d129db2b",
+    "model_grain_checks.csv": "410312825311da2212b012fa497623f4f4272bae86dbd9f3ec98f52325c9c50d"
+  },
+  "checks_by_file": {
+    "entity_inventory": {
+      "passed": 15,
+      "total": 15
+    },
+    "schema_validation": {
+      "passed": 8,
+      "total": 8
+    },
+    "referential_integrity_checks": {
+      "passed": 54,
+      "total": 54
+    },
+    "temporal_consistency_checks": {
+      "passed": 16,
+      "total": 16
+    },
+    "status_transition_checks": {
+      "passed": 19,
+      "total": 19
+    },
+    "scenario_coverage": {
+      "passed": 36,
+      "total": 36
+    },
+    "distribution_validation": {
+      "passed": 29,
+      "total": 29
+    },
+    "privacy_and_safety_checks": {
+      "passed": 7,
+      "total": 7
+    },
+    "dbt_source_reconciliation": {
+      "passed": 20,
+      "total": 20
+    },
+    "model_grain_checks": {
+      "passed": 26,
+      "total": 26
+    }
+  },
+  "checks_passed": 230,
+  "checks_total": 230,
+  "failed_checks": [],
+  "all_checks_pass": true
+}

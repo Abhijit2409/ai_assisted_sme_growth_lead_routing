@@ -1,0 +1,20 @@
+check,passed,detail
+every status change uses an allowed transition with its catalogued transition id and trigger event,True,0
+each lead's history starts NEW (LEAD_CAPTURED) and chains without gaps,True,"0 bad starts, 0 breaks"
+current lead status equals the latest status-history row,True,0
+terminal statuses carry a disposition that applies to them; non-terminal statuses carry none,True,"0 leads, 0 history rows"
+"audited reopenings carry approver role and reason, within 180 days of closure; no other row has an approver",True,0
+"validation failures, releases to queue and reopenings record a status reason",True,0
+surviving_lead_id is present exactly for merged leads,True,0
+at most one active primary assignment per lead; exactly one RM owner for leads in active work,True,"0 without owner, 0 with several"
+terminal leads have no active assignment,True,0
+"assignment status, active flag and lifecycle timestamps are consistent",True,0
+manual overrides have a reason code and actor role; capacity exceptions only with an override,True,0
+reassignments preserve the prior assignment and prior RM; prior assignments are ended as REASSIGNED or DECLINED,True,"0, 0"
+assignments preserve their routing decision and routing rule version,True,0
+"routing decisions: status at decision, rule traces from the routing catalog, queue and manual-review fields consistent",True,"0 inconsistent, 0 unknown rules"
+market scenario is recorded only for leads with full market evidence,True,0
+duplicates: tiers match their rules; only exact and high-confidence groups auto-merge; review groups merge only when confirmed; survivor is the earlier matched lead,True,"0, 0, 0, 0"
+source attribution: each lead keeps its original touch; merged leads' touches move to the survivor unchanged; one first touch per surviving lead,True,"0, 0, 0, 0"
+every lead carries the default priority band P2 (A-009; no priority model exists),True,0
+language is used in routing only when explicitly stated,True,0

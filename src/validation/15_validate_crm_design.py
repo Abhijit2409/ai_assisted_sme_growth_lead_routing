@@ -14,8 +14,11 @@ Nothing here describes a real bank; no CRM records exist yet. This script checks
 - all 32 required synthetic scenarios are covered and their status paths use only valid transitions;
 - the documents carry the hypothetical-design disclaimer, the six diagrams, the state machine and ERD that
   match the catalogs, and every documented count reproduced from the catalogs;
-- no synthetic CRM records, CRM models, seeds or warehouse tables exist; no personal data, real-bank
-  names or internal project phase labels appear in the new design artifacts.
+- design changes made for the synthetic implementation are logged and match the catalogs;
+- CRM records exist only as manifest-listed synthetic data under data/synthetic/crm, CRM dbt files sit in the
+  crm_data-tagged paths, CRM warehouse relations are crm_data dbt models, and no priority score, routing score
+  or RM recommendation exists; no personal data, real-bank names or internal project phase labels appear in
+  the design artifacts.
 
 Writes data/validation/crm_design/{design_completeness_checks, transition_validation,
 rule_reference_validation, requirements_coverage, scenario_coverage, documentation_checks}.csv and
@@ -44,6 +47,10 @@ OPP_SUMMARY = ROOT / "data" / "validation" / "opportunity_framework" / "opportun
 DOC_PROCESS = ROOT / "docs" / "crm_acquisition_process_and_requirements.md"
 DOC_MODEL = ROOT / "docs" / "crm_data_model_and_dictionary.md"
 README = ROOT / "README.md"
+DBT_MANIFEST = ROOT / "target" / "manifest.json"
+SYNTH_MANIFEST = ROOT / "data" / "synthetic" / "crm" / "synthetic_crm_manifest.csv"
+CRM_DBT_PATHS = ("models/staging/crm/", "models/intermediate/crm/", "models/marts/crm/", "models/sources/_crm_sources.yml", "tests/crm/")
+SCORE_RE = re.compile(r"priority_score|routing_score|lead_score|recommended_rm|rm_recommendation|assignment_optimi|propensity")
 DISCLAIMER = "hypothetical design for a fictional bank"
 
 REQUIRED = {
@@ -92,6 +99,9 @@ REQUIRED = {
     "synthetic_volume_specification.csv": ["item", "recommended_value", "range_low", "range_high", "unit", "basis", "synthetic_assumption_flag"],
     "lead_priority_input_catalog.csv": ["input_id", "input_family", "input_name", "source", "may_affect_priority", "may_affect_routing_eligibility",
                                         "may_affect_sla", "context_only", "never_use", "note"],
+    "business_calendar.csv": ["calendar_entry_id", "entry_type", "calendar_date", "province_codes", "description", "value", "calendar_version", "approval_status"],
+    "synthetic_generation_parameters.csv": ["parameter_id", "parameter_group", "parameter_name", "value", "unit", "rationale", "source_reference", "approval_status"],
+    "design_change_log.csv": ["change_id", "change_date", "catalog", "object_id", "change_type", "before", "after", "reason", "related_reference"],
 }
 KEYS = {"assumption_register.csv": "assumption_id", "stakeholder_needs.csv": "need_id", "current_state_problem_catalog.csv": "problem_id",
         "process_step_catalog.csv": "step_id", "acquisition_channel_catalog.csv": "channel_code", "lead_status_catalog.csv": "status_code",
@@ -101,7 +111,8 @@ KEYS = {"assumption_register.csv": "assumption_id", "stakeholder_needs.csv": "ne
         "sla_rule_catalog.csv": "sla_id", "duplicate_rule_catalog.csv": "rule_id", "crm_entity_catalog.csv": "table_name",
         "kpi_definition_catalog.csv": "kpi_id", "business_requirements.csv": "requirement_id", "acceptance_criteria.csv": "acceptance_criterion_id",
         "requirements_traceability.csv": "requirement_id", "synthetic_scenario_catalog.csv": "scenario_id",
-        "synthetic_volume_specification.csv": "item", "lead_priority_input_catalog.csv": "input_id"}
+        "synthetic_volume_specification.csv": "item", "lead_priority_input_catalog.csv": "input_id",
+        "business_calendar.csv": "calendar_entry_id", "synthetic_generation_parameters.csv": "parameter_id", "design_change_log.csv": "change_id"}
 REQUIRED_LEAD_STATUSES = ["NEW", "VALIDATION_PENDING", "DUPLICATE_REVIEW", "READY_FOR_ASSIGNMENT", "ASSIGNED", "CONTACTED", "NURTURING",
                           "QUALIFIED", "CONVERTED", "CLOSED_LOST", "INVALID", "MERGED", "WITHDRAWN"]
 REQUIRED_TERMINAL = {"CONVERTED", "CLOSED_LOST", "INVALID", "MERGED", "WITHDRAWN"}
@@ -288,24 +299,54 @@ def main():
 
     # scope and privacy
     entity_names = set(ent.table_name)
-    data_files = [p.relative_to(ROOT).as_posix() for p in (ROOT / "data").rglob("*") if p.is_file() and p.stem in entity_names]
-    check(G, "no synthetic CRM record files exist anywhere under data/", not data_files, data_files or "none")
-    model_files = [p.relative_to(ROOT).as_posix() for base in ("models", "seeds", "tests", "snapshots", "macros")
-                   for p in (ROOT / base).rglob("*") if p.is_file() and "crm" in p.name.lower()]
-    check(G, "no CRM dbt models, seeds, tests or snapshots exist", not model_files, model_files or "none")
+    # CRM records may exist only as published synthetic data (data/synthetic/crm, listed in its manifest)
+    data_files = sorted(p.relative_to(ROOT).as_posix() for p in (ROOT / "data").rglob("*") if p.is_file() and p.stem in entity_names)
+    listed = set()
+    if SYNTH_MANIFEST.exists():
+        listed = {f"data/synthetic/crm/{n}" for n in pd.read_csv(SYNTH_MANIFEST, dtype=str, keep_default_na=False).file_name}
+    stray = [f for f in data_files if not (f.startswith("data/synthetic/crm/") and f in listed)]
+    check(G, "CRM record files exist only as synthetic data under data/synthetic/crm and are listed in its manifest", not stray,
+          stray or f"{len(data_files)} synthetic entity files")
+    crm_files = sorted(p.relative_to(ROOT).as_posix() for base in ("models", "seeds", "tests", "snapshots", "macros")
+                       for p in (ROOT / base).rglob("*") if p.is_file() and "crm" in p.as_posix().lower())
+    outside = [f for f in crm_files if not f.startswith(CRM_DBT_PATHS)]
+    untagged = [f for f in crm_files if f.startswith("tests/crm/") and "crm_data" not in (ROOT / f).read_text(encoding="utf-8")]
+    # models may not define score or recommendation fields (tests may name them, because they check for their absence)
+    scored = [f for f in crm_files if f.startswith("models/") and SCORE_RE.search((ROOT / f).read_text(encoding="utf-8").lower())]
+    project = (ROOT / "dbt_project.yml").read_text(encoding="utf-8")
+    tag_ok = not crm_files or project.count('+tags: ["crm_data"]') >= 4
+    check(G, "CRM dbt files sit in the tagged crm_data paths and define no priority score, routing score or RM recommendation",
+          not outside and not untagged and not scored and tag_ok, (outside + untagged + scored) or f"{len(crm_files)} files")
     with duckdb.connect(str(WAREHOUSE), read_only=True) as con:
-        wh_crm = con.execute("select table_schema || '.' || table_name from information_schema.tables where lower(table_name) like '%crm%'").fetchall()
+        wh_crm = [r[0] for r in con.execute("select table_schema || '.' || table_name from information_schema.tables "
+                                           "where lower(table_name) like '%crm%'").fetchall()]
         tables = {r[0]: set() for r in con.execute("select table_name from information_schema.tables where table_schema = 'analytics'").fetchall()}
         for t, c in con.execute("select table_name, column_name from information_schema.columns where table_schema = 'analytics'").fetchall():
             tables[t].add(c)
         dim_cma = con.execute("select * from analytics.dim_cma").df()
         dim_ind = con.execute("select * from analytics.dim_industry").df()
-    check(G, "no CRM tables exist in the warehouse", not wh_crm, wh_crm or "none")
+    crm_models = set()
+    if DBT_MANIFEST.exists():
+        crm_models = {n["name"] for n in json.loads(DBT_MANIFEST.read_text(encoding="utf-8"))["nodes"].values()
+                      if n["resource_type"] == "model" and "crm_data" in (n.get("tags") or [])}
+    unknown_rel = [r for r in wh_crm if r.split(".")[1] not in crm_models]
+    check(G, "CRM warehouse relations are all crm_data-tagged dbt models", not unknown_rel, unknown_rel or f"{len(wh_crm)} relations")
     misplaced = [p.relative_to(ROOT).as_posix() for base in ("data/raw", "seeds") for p in (ROOT / base).rglob("*")
                  if p.is_file() and p.name in REQUIRED]
     check(G, "design catalogs are not placed in data/raw or dbt seeds", not misplaced, misplaced or "data/design/crm only")
     extra = sorted(p.name for p in D.iterdir() if p.name not in REQUIRED)
     check(G, "design directory holds only the declared catalogs", not extra, extra or f"{len(REQUIRED)} files")
+    log_ = C["design_change_log.csv"]
+    fkeys = set(fld.table_name + "." + fld.column_name)
+    bad_log = [r.change_id for r in log_.itertuples()
+               if (r.change_type == "add_field" and r.object_id not in fkeys) or (r.change_type == "remove_field" and r.object_id in fkeys)
+               or not (r.before and r.after and r.reason)
+               or (r.change_type.startswith("update_") and r.catalog == "crm_field_dictionary.csv"
+                   and fld.set_index(fld.table_name + "." + fld.column_name).loc[r.object_id, r.change_type[7:]] != r.after)]
+    gp = C["synthetic_generation_parameters.csv"]
+    check(G, "design changes are logged with before, after and reason and match the catalogs; generation settings and calendar are simulation settings",
+          not bad_log and len(log_) > 0 and gp.approval_status.str.startswith("simulation setting").all()
+          and C["business_calendar.csv"].approval_status.str.startswith("simulation setting").all(), bad_log or f"{len(log_)} changes, {len(gp)} parameters")
 
     new_texts = {p.relative_to(ROOT).as_posix(): p.read_text(encoding="utf-8") for p in sorted(D.glob("*.csv"))}
     for p in (DOC_PROCESS, DOC_MODEL):

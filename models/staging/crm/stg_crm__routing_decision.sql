@@ -1,0 +1,25 @@
+-- One row per routing decision (synthetic; fictional). Types every column as in crm_field_dictionary.csv; no business logic.
+select
+    cast(routing_decision_id as varchar)                   as routing_decision_id,
+    cast(lead_id as varchar)                               as lead_id,
+    cast(decided_at as timestamp)                          as decided_at,
+    cast(lead_status_at_decision as varchar)               as lead_status_at_decision,
+    cast(routing_outcome as varchar)                       as routing_outcome,
+    cast(selected_rm_id as varchar)                        as selected_rm_id,
+    cast(candidate_count as bigint)                        as candidate_count,
+    cast(excluded_rm_count as bigint)                      as excluded_rm_count,
+    cast(territory_match_flag as boolean)                  as territory_match_flag,
+    cast(segment_match_flag as boolean)                    as segment_match_flag,
+    cast(specialist_match_flag as boolean)                 as specialist_match_flag,
+    cast(language_match_flag as boolean)                   as language_match_flag,
+    cast(capacity_utilization_at_decision as decimal(6,4)) as capacity_utilization_at_decision,
+    cast(tie_break_applied_flag as boolean)                as tie_break_applied_flag,
+    cast(rule_trace as varchar)                            as rule_trace,
+    cast(manual_review_reason as varchar)                  as manual_review_reason,
+    cast(market_scenario_id as varchar)                    as market_scenario_id,
+    cast(rule_version_id as varchar)                       as rule_version_id,
+    cast(decision_type as varchar)                         as decision_type,
+    cast(created_at as timestamp)                          as created_at,
+    cast(updated_at as timestamp)                          as updated_at,
+    cast(record_source as varchar)                         as record_source
+from {{ source('synthetic_crm', 'crm_routing_decision') }}

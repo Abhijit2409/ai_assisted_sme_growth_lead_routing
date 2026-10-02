@@ -481,7 +481,7 @@ fact_cma_momentum_monthly,formula,attribute,VARCHAR,max,openings(t) / active(t-1
 fact_cma_momentum_monthly,formula,attribute,VARCHAR,category_distribution_md5,11a607f564800f8958e9fcb245e54a0b,11a607f564800f8958e9fcb245e54a0b,0.0,0.0,exact comparison,True
 fact_cma_momentum_monthly,value,measure,DOUBLE,null_count,3518461,3518461,0.0,0.0,exact comparison,True
 fact_cma_momentum_monthly,value,measure,DOUBLE,distinct_count,90995,90995,0.0,0.0,exact comparison,True
-fact_cma_momentum_monthly,value,measure,DOUBLE,sum,517422854.2756988,517422854.2756981,6.556510925292969e-07,0.0005174228542756988,relative 1e-12 on a SUM of doubles: summation order is thread-dependent (row values are compared exactly by the full-row check),True
+fact_cma_momentum_monthly,value,measure,DOUBLE,sum,517422854.27569866,517422854.27569896,2.980232238769531e-07,0.0005174228542756987,relative 1e-12 on a SUM of doubles: summation order is thread-dependent (row values are compared exactly by the full-row check),True
 fact_cma_momentum_monthly,value,measure,DOUBLE,min,-20364.0,-20364.0,0.0,0.0,exact comparison,True
 fact_cma_momentum_monthly,value,measure,DOUBLE,max,190913.0,190913.0,0.0,0.0,exact comparison,True
 fact_cma_momentum_monthly,value_available,attribute,BOOLEAN,null_count,0,0,0.0,0.0,exact comparison,True

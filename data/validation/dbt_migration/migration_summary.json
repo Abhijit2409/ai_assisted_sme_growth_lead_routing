@@ -1,6 +1,6 @@
 {
   "purpose": "Reconciliation of the dbt marts with the validated analytical-view baseline",
-  "run_timestamp_utc": "2026-09-29T11:25:02+00:00",
+  "run_timestamp_utc": "2026-09-30T01:36:47+00:00",
   "warehouse": "data/warehouse/sme_banking.duckdb",
   "warehouse_schema": "analytics",
   "baseline": "data/processed/analytical_views",
@@ -16,8 +16,8 @@
       "model": "fact_cma_momentum_monthly",
       "column": "value",
       "metric": "sum",
-      "absolute_difference": 6.556510925292969e-07,
-      "tolerance": 0.0005174228542756988
+      "absolute_difference": 2.980232238769531e-07,
+      "tolerance": 0.0005174228542756987
     }
   ],
   "differences_documented": [],
@@ -27,7 +27,7 @@
     "tests": 151,
     "tests_passed": 151,
     "singular_tests": 20,
-    "generated_at": "2026-09-29T11:21:15.989560Z"
+    "generated_at": "2026-09-30T01:34:44.419678Z"
   },
   "dbt_project": {
     "models_by_layer": {

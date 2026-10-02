@@ -1,0 +1,27 @@
+check,passed,detail
+"intermediate.int_crm__lead_current_status: one row per lead_id, one per crm_lead row",True,"17400 rows, 17400 distinct"
+intermediate.int_crm__active_assignment: one row per lead_id,True,"1401 rows, 1401 distinct"
+"intermediate.int_crm__lead_assignment_history: one row per assignment_id, one per crm_lead_assignment row",True,"18560 rows, 18560 distinct"
+"intermediate.int_crm__lead_activity_timeline: one row per activity_id, one per crm_lead_activity row",True,"71476 rows, 71476 distinct"
+"intermediate.int_crm__lead_sla_history: one row per sla_event_id, one per crm_sla_event row",True,"119429 rows, 119429 distinct"
+intermediate.int_crm__rm_capacity_at_assignment: one row per assignment_id,True,"18417 rows, 18417 distinct"
+"intermediate.int_crm__duplicate_resolution: one row per duplicate_group_id, one per crm_duplicate_group row",True,"936 rows, 936 distinct"
+"intermediate.int_crm__lead_market_context: one row per lead_id, one per crm_lead row",True,"17400 rows, 17400 distinct"
+"analytics.dim_relationship_manager: one row per rm_id, one per crm_relationship_manager row",True,"140 rows, 140 distinct"
+"analytics.dim_acquisition_channel: one row per channel_code, one per crm_acquisition_channel row",True,"5 rows, 5 distinct"
+"analytics.dim_campaign: one row per campaign_id, one per crm_campaign row",True,"40 rows, 40 distinct"
+"analytics.dim_business_prospect: one row per prospect_id, one per crm_business_prospect row",True,"15566 rows, 15566 distinct"
+"analytics.dim_crm_territory: one row per territory_id, one per crm_territory row",True,"53 rows, 53 distinct"
+"analytics.fct_lead: one row per lead_id, one per crm_lead row",True,"17400 rows, 17400 distinct"
+"analytics.fct_lead_status_history: one row per status_history_id, one per crm_lead_status_history row",True,"87025 rows, 87025 distinct"
+"analytics.fct_lead_assignment: one row per assignment_id, one per crm_lead_assignment row",True,"18560 rows, 18560 distinct"
+"analytics.fct_lead_activity: one row per activity_id, one per crm_lead_activity row",True,"71476 rows, 71476 distinct"
+"analytics.fct_routing_decision: one row per routing_decision_id, one per crm_routing_decision row",True,"18230 rows, 18230 distinct"
+"analytics.fct_rm_capacity_snapshot: one row per capacity_snapshot_id, one per crm_rm_capacity_snapshot row",True,"34170 rows, 34170 distinct"
+"analytics.fct_sla_event: one row per sla_event_id, one per crm_sla_event row",True,"119429 rows, 119429 distinct"
+"analytics.fct_opportunity_outcome: one row per opportunity_id, one per crm_opportunity_outcome row",True,"3805 rows, 3805 distinct"
+"analytics.fct_lead_source_touch: one row per source_touch_id, one per crm_lead_source_touch row",True,"17522 rows, 17522 distinct"
+int_crm__active_assignment holds exactly the active primary assignments,True,0
+Tier 3 and no-context leads keep null opportunity score and rank; Tier 3 keeps scale-only context,True,0
+"CRM models contain no ground-truth, score or recommendation columns; fictional contact fields stay out of marts",True,clean
+upstream: CRM design validation passed and the design catalogs are unchanged since it ran,True,29 catalogs

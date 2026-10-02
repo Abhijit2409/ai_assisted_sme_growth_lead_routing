@@ -1,0 +1,1354 @@
+version: 2
+
+# Typed views over the synthetic CRM Parquet files: one staging model per logical entity, same grain and columns as the
+# field dictionary. No aggregation, no scoring, no routing logic. Tests check keys, required values, accepted values and
+# relationships (CRM entities, analytics.dim_cma, analytics.dim_industry, analytics.dim_size_band).
+
+models:
+  - name: stg_crm__business_prospect
+    description: >
+      Staged crm_business_prospect (synthetic). A synthetic business that may become a client; one business can generate several leads. Grain: one row per synthetic business prospect. Primary key: prospect_id.
+      Event period 2025-06-01 to 2026-05-31 UTC. Future models and marts build on this view; contact fields are fictional and never reach marts.
+    columns:
+      - name: prospect_id
+        description: "Surrogate key of the synthetic prospect."
+        data_tests:
+          - unique
+          - not_null
+      - name: synthetic_business_id
+        description: "Synthetic business identifier used for exact duplicate matching (never a real business number)."
+        data_tests:
+          - not_null
+      - name: legal_name
+        description: "Fictional legal business name."
+        data_tests:
+          - not_null
+      - name: normalized_legal_name
+        description: "Legal name normalized for duplicate matching (case, punctuation, legal suffix removed)."
+        data_tests:
+          - not_null
+      - name: operating_name
+        description: "Fictional operating name if different."
+      - name: employee_band
+        description: "Employee-size band stated or estimated at capture."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["1-4", "5-19", "20-99", "100-499", "500-plus", "unknown"]
+          - relationships:
+              arguments:
+                to: ref('dim_size_band')
+                field: size_band_key
+              config:
+                where: "employee_band <> 'unknown'"
+      - name: industry_system
+        description: "Industry classification system."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["NAICS2022_1097"]
+      - name: industry_code
+        description: "Reviewed NAICS 2022 sector code from analytics.dim_industry."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_industry')
+                field: industry_code
+      - name: country_code
+        description: "Country of operation."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["CA", "other"]
+      - name: existing_relationship_flag
+        description: "Prospect already holds a synthetic banking relationship (excluded from acquisition)."
+        data_tests:
+          - not_null
+      - name: created_at
+        description: "Time the record was created (UTC)."
+        data_tests:
+          - not_null
+      - name: updated_at
+        description: "Time the record was last updated (UTC); null for immutable event rows."
+      - name: record_source
+        description: "System that produced the record; always the synthetic generator."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["synthetic_generator"]
+  - name: stg_crm__lead
+    description: >
+      Staged crm_lead (synthetic). An acquisition request for a prospect captured through a channel. Grain: one row per lead. Primary key: lead_id.
+      Event period 2025-06-01 to 2026-05-31 UTC. Future models and marts build on this view; contact fields are fictional and never reach marts.
+    columns:
+      - name: lead_id
+        description: "Surrogate key of the lead."
+        data_tests:
+          - unique
+          - not_null
+      - name: prospect_id
+        description: "Prospect the lead refers to."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_crm__business_prospect')
+                field: prospect_id
+      - name: captured_at
+        description: "Lead capture time (UTC)."
+        data_tests:
+          - not_null
+      - name: first_channel_code
+        description: "Channel of the first source touch."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["CH-DIG", "CH-BRN", "CH-MKT", "CH-PTR", "CH-RMP"]
+          - relationships:
+              arguments:
+                to: ref('stg_crm__acquisition_channel')
+                field: channel_code
+      - name: contact_role
+        description: "Role of the (fictional) contact person; no name stored in analytical models."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["owner", "finance lead", "operations lead", "other"]
+      - name: contact_email_fictional
+        description: "Fictional contact email on a reserved .example domain; excluded from analytical marts."
+      - name: contact_phone_fictional
+        description: "Fictional phone number using exchange 555 with line 0100-0199 (reserved for fictional use); excluded from analytical marts."
+      - name: postal_fsa
+        description: "Forward sortation area of the business location (geography, not an address)."
+      - name: province_code
+        description: "SGC province or territory code from the address."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["10", "11", "12", "13", "24", "35", "46", "47", "48", "59", "60", "61", "62"]
+      - name: cma_code_sgc2021
+        description: "Resolved SGC 2021 CMA code; null outside the 41-CMA spine."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_cma')
+                field: cma_code_sgc2021
+      - name: territory_id
+        description: "Resolved territory."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_crm__territory')
+                field: territory_id
+      - name: geography_status
+        description: "Outcome of geographic resolution."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["resolved_cma", "resolved_province_remainder", "missing", "conflict", "out_of_footprint"]
+      - name: market_evidence_flag
+        description: "Market-context availability for the lead's CMA."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["full_framework", "scale_only_limited_evidence", "no_market_context"]
+      - name: stated_product_interest
+        description: "Product interest stated at capture."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["operating account", "credit", "cash management", "merchant services", "not stated"]
+      - name: stated_service_language
+        description: "Service language explicitly stated by the prospect; never inferred."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["en", "fr", "not stated"]
+      - name: consent_to_contact_flag
+        description: "Prospect consented to be contacted."
+        data_tests:
+          - not_null
+      - name: priority_band
+        description: "Priority band from a later model; default P2 until the model exists."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["P1", "P2", "P3"]
+      - name: current_lead_status
+        description: "Current lead status, derived from the latest status-history row."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["NEW", "VALIDATION_PENDING", "DUPLICATE_REVIEW", "READY_FOR_ASSIGNMENT", "ASSIGNED", "CONTACTED", "NURTURING", "QUALIFIED", "CONVERTED", "CLOSED_LOST", "INVALID", "MERGED", "WITHDRAWN"]
+      - name: disposition_code
+        description: "Disposition for terminal leads."
+      - name: duplicate_group_id
+        description: "Duplicate group, if any."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_crm__duplicate_group')
+                field: duplicate_group_id
+      - name: surviving_lead_id
+        description: "Survivor for MERGED leads."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_crm__lead')
+                field: lead_id
+      - name: local_time_zone
+        description: "IANA time zone of the lead's province, used for business-hour SLA clocks; the configured default zone when the province is unknown."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["America/St_Johns", "America/Halifax", "America/Moncton", "America/Toronto", "America/Winnipeg", "America/Regina", "America/Edmonton", "America/Vancouver", "America/Whitehorse", "America/Yellowknife", "America/Iqaluit"]
+      - name: created_at
+        description: "Time the record was created (UTC)."
+        data_tests:
+          - not_null
+      - name: updated_at
+        description: "Time the record was last updated (UTC); null for immutable event rows."
+      - name: record_source
+        description: "System that produced the record; always the synthetic generator."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["synthetic_generator"]
+  - name: stg_crm__lead_source_touch
+    description: >
+      Staged crm_lead_source_touch (synthetic). Every channel touch that created or re-created a lead, preserved through duplicate merges. Grain: one row per lead source touch. Primary key: source_touch_id.
+      Event period 2025-06-01 to 2026-05-31 UTC. Future models and marts build on this view; contact fields are fictional and never reach marts.
+    columns:
+      - name: source_touch_id
+        description: "Surrogate key of the source touch."
+        data_tests:
+          - unique
+          - not_null
+      - name: lead_id
+        description: "Lead that currently holds the touch (the survivor after a merge)."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_crm__lead')
+                field: lead_id
+      - name: original_lead_id
+        description: "Lead originally created by the touch; never changed by merges."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_crm__lead')
+                field: lead_id
+      - name: channel_code
+        description: "Acquisition channel of the touch."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["CH-DIG", "CH-BRN", "CH-MKT", "CH-PTR", "CH-RMP"]
+          - relationships:
+              arguments:
+                to: ref('stg_crm__acquisition_channel')
+                field: channel_code
+      - name: touched_at
+        description: "Time of the touch."
+        data_tests:
+          - not_null
+      - name: campaign_id
+        description: "Campaign for CH-MKT touches."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_crm__campaign')
+                field: campaign_id
+      - name: partner_code
+        description: "Fictional partner code for CH-PTR touches."
+      - name: referring_branch_code
+        description: "Fictional branch code for CH-BRN touches."
+      - name: prospecting_rm_id
+        description: "Prospecting RM for CH-RMP touches."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_crm__relationship_manager')
+                field: rm_id
+      - name: is_first_touch
+        description: "First touch of the surviving lead (first-touch attribution)."
+        data_tests:
+          - not_null
+      - name: created_at
+        description: "Time the record was created (UTC)."
+        data_tests:
+          - not_null
+      - name: updated_at
+        description: "Time the record was last updated (UTC); null for immutable event rows."
+      - name: record_source
+        description: "System that produced the record; always the synthetic generator."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["synthetic_generator"]
+  - name: stg_crm__acquisition_channel
+    description: >
+      Staged crm_acquisition_channel (synthetic). Controlled channel catalog. Grain: one row per channel. Primary key: channel_code.
+      Event period 2025-06-01 to 2026-05-31 UTC. Future models and marts build on this view; contact fields are fictional and never reach marts.
+    columns:
+      - name: channel_code
+        description: "Channel code from the acquisition channel catalog."
+        data_tests:
+          - unique
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["CH-DIG", "CH-BRN", "CH-MKT", "CH-PTR", "CH-RMP"]
+      - name: channel_name
+        description: "Business name of the channel."
+        data_tests:
+          - not_null
+      - name: default_assignment_sla_id
+        description: "Assignment SLA applied to the channel."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["SLA-04A", "SLA-04B", "SLA-04C"]
+      - name: created_at
+        description: "Time the record was created (UTC)."
+        data_tests:
+          - not_null
+      - name: updated_at
+        description: "Time the record was last updated (UTC); null for immutable event rows."
+      - name: record_source
+        description: "System that produced the record; always the synthetic generator."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["synthetic_generator"]
+  - name: stg_crm__campaign
+    description: >
+      Staged crm_campaign (synthetic). Synthetic marketing campaigns used for attribution. Grain: one row per campaign. Primary key: campaign_id.
+      Event period 2025-06-01 to 2026-05-31 UTC. Future models and marts build on this view; contact fields are fictional and never reach marts.
+    columns:
+      - name: campaign_id
+        description: "Surrogate key."
+        data_tests:
+          - unique
+          - not_null
+      - name: campaign_code
+        description: "Fictional campaign code."
+        data_tests:
+          - not_null
+      - name: campaign_name
+        description: "Fictional campaign name."
+        data_tests:
+          - not_null
+      - name: target_segment
+        description: "Target SME segment."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["micro", "established", "all"]
+      - name: campaign_start_date
+        description: "Start date."
+        data_tests:
+          - not_null
+      - name: campaign_end_date
+        description: "End date."
+        data_tests:
+          - not_null
+      - name: created_at
+        description: "Time the record was created (UTC)."
+        data_tests:
+          - not_null
+      - name: updated_at
+        description: "Time the record was last updated (UTC); null for immutable event rows."
+      - name: record_source
+        description: "System that produced the record; always the synthetic generator."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["synthetic_generator"]
+  - name: stg_crm__relationship_manager
+    description: >
+      Staged crm_relationship_manager (synthetic). Synthetic relationship managers who own leads. Grain: one row per synthetic RM. Primary key: rm_id.
+      Event period 2025-06-01 to 2026-05-31 UTC. Future models and marts build on this view; contact fields are fictional and never reach marts.
+    columns:
+      - name: rm_id
+        description: "Surrogate key of the synthetic RM (no real employee)."
+        data_tests:
+          - unique
+          - not_null
+      - name: rm_code
+        description: "Fictional RM code; no names are stored."
+        data_tests:
+          - not_null
+      - name: rm_segment
+        description: "Segment the RM serves."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["small_business", "commercial"]
+      - name: home_territory_id
+        description: "Primary territory."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_crm__territory')
+                field: territory_id
+      - name: supported_service_languages
+        description: "Service languages the RM supports (for explicitly stated preferences only)."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["en", "fr", "en|fr"]
+      - name: base_capacity_points
+        description: "Base weighted capacity (CAP-05; configurable)."
+        data_tests:
+          - not_null
+      - name: employment_start_date
+        description: "Synthetic start date."
+        data_tests:
+          - not_null
+      - name: employment_end_date
+        description: "Synthetic end date; null if active."
+      - name: active_flag
+        description: "Currently active."
+        data_tests:
+          - not_null
+      - name: created_at
+        description: "Time the record was created (UTC)."
+        data_tests:
+          - not_null
+      - name: updated_at
+        description: "Time the record was last updated (UTC); null for immutable event rows."
+      - name: record_source
+        description: "System that produced the record; always the synthetic generator."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["synthetic_generator"]
+  - name: stg_crm__territory
+    description: >
+      Staged crm_territory (synthetic). Hypothetical territory definitions keyed on SGC 2021 geography. Grain: one row per territory. Primary key: territory_id.
+      Event period 2025-06-01 to 2026-05-31 UTC. Future models and marts build on this view; contact fields are fictional and never reach marts.
+    columns:
+      - name: territory_id
+        description: "Surrogate key."
+        data_tests:
+          - unique
+          - not_null
+      - name: territory_code
+        description: "Business code."
+        data_tests:
+          - not_null
+      - name: territory_type
+        description: "Territory type (TER rules)."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["cma", "province_remainder", "remote_service", "national_specialist"]
+      - name: cma_code_sgc2021
+        description: "SGC 2021 CMA code for cma territories."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_cma')
+                field: cma_code_sgc2021
+      - name: province_code
+        description: "Province code for province_remainder territories."
+      - name: sales_region
+        description: "Hypothetical sales region grouping."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Atlantic", "Quebec", "Ontario", "Prairies", "British Columbia and North", "National"]
+      - name: evidence_tier
+        description: "Evidence tier of the CMA (from analytics.dim_cma)."
+      - name: created_at
+        description: "Time the record was created (UTC)."
+        data_tests:
+          - not_null
+      - name: updated_at
+        description: "Time the record was last updated (UTC); null for immutable event rows."
+      - name: record_source
+        description: "System that produced the record; always the synthetic generator."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["synthetic_generator"]
+  - name: stg_crm__rm_territory
+    description: >
+      Staged crm_rm_territory (synthetic). Which RM covers which territory, and when. Grain: one row per RM x territory x effective period. Primary key: rm_territory_id.
+      Event period 2025-06-01 to 2026-05-31 UTC. Future models and marts build on this view; contact fields are fictional and never reach marts.
+    columns:
+      - name: rm_territory_id
+        description: "Surrogate key."
+        data_tests:
+          - unique
+          - not_null
+      - name: rm_id
+        description: "RM."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_crm__relationship_manager')
+                field: rm_id
+      - name: territory_id
+        description: "Territory covered."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_crm__territory')
+                field: territory_id
+      - name: coverage_role
+        description: "Coverage role."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["primary", "backup"]
+      - name: valid_from
+        description: "Coverage start."
+        data_tests:
+          - not_null
+      - name: valid_to
+        description: "Coverage end; null if open."
+      - name: created_at
+        description: "Time the record was created (UTC)."
+        data_tests:
+          - not_null
+      - name: updated_at
+        description: "Time the record was last updated (UTC); null for immutable event rows."
+      - name: record_source
+        description: "System that produced the record; always the synthetic generator."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["synthetic_generator"]
+  - name: stg_crm__rm_specialization
+    description: >
+      Staged crm_rm_specialization (synthetic). Industry specializations held by RMs, keyed on reviewed industry codes. Grain: one row per RM x industry x effective period. Primary key: rm_specialization_id.
+      Event period 2025-06-01 to 2026-05-31 UTC. Future models and marts build on this view; contact fields are fictional and never reach marts.
+    columns:
+      - name: rm_specialization_id
+        description: "Surrogate key."
+        data_tests:
+          - unique
+          - not_null
+      - name: rm_id
+        description: "RM."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_crm__relationship_manager')
+                field: rm_id
+      - name: industry_system
+        description: "Industry system."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["NAICS2022_1097"]
+      - name: industry_code
+        description: "Reviewed NAICS 2022 sector code (SPC catalog)."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_industry')
+                field: industry_code
+      - name: specialist_type
+        description: "Specialist type from the specialist rule catalog."
+        data_tests:
+          - not_null
+      - name: valid_from
+        description: "Start."
+        data_tests:
+          - not_null
+      - name: valid_to
+        description: "End; null if open."
+      - name: specialization_role
+        description: "primary for dedicated specialists (mandatory industries); secondary for generalists who also hold a preferred-industry specialization."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["primary", "secondary"]
+      - name: created_at
+        description: "Time the record was created (UTC)."
+        data_tests:
+          - not_null
+      - name: updated_at
+        description: "Time the record was last updated (UTC); null for immutable event rows."
+      - name: record_source
+        description: "System that produced the record; always the synthetic generator."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["synthetic_generator"]
+  - name: stg_crm__rm_capacity_snapshot
+    description: >
+      Staged crm_rm_capacity_snapshot (synthetic). Daily RM availability and weighted workload. Grain: one row per employed RM x business day (national business calendar). Primary key: capacity_snapshot_id.
+      Event period 2025-06-01 to 2026-05-31 UTC. Future models and marts build on this view; contact fields are fictional and never reach marts.
+    columns:
+      - name: capacity_snapshot_id
+        description: "Surrogate key."
+        data_tests:
+          - unique
+          - not_null
+      - name: rm_id
+        description: "RM."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_crm__relationship_manager')
+                field: rm_id
+      - name: snapshot_date
+        description: "Business date of the snapshot."
+        data_tests:
+          - not_null
+      - name: availability_status
+        description: "Availability on the date."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["available", "partial", "planned_leave", "unavailable"]
+      - name: available_capacity_points
+        description: "Capacity after availability pro-rating (CAP-08)."
+        data_tests:
+          - not_null
+      - name: weighted_workload_points
+        description: "Weighted workload (CAP-01..CAP-04)."
+        data_tests:
+          - not_null
+      - name: utilization_ratio
+        description: "Workload / available capacity; null when capacity is 0."
+      - name: capacity_state
+        description: "State against CAP-06/CAP-09."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["below_warning", "warning", "at_or_above_hard_limit", "approved_exception", "unavailable"]
+      - name: rule_version_id
+        description: "Capacity rule version applied."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_crm__rule_version')
+                field: rule_version_id
+      - name: snapshot_as_of_utc
+        description: "Instant the snapshot describes: 00:00 UTC on snapshot_date, before any business-hour activity in Canada that day."
+        data_tests:
+          - not_null
+      - name: specialist_support_points
+        description: "Part of weighted_workload_points that comes from specialist-support (secondary) assignments (CAP-04)."
+        data_tests:
+          - not_null
+      - name: created_at
+        description: "Time the record was created (UTC)."
+        data_tests:
+          - not_null
+      - name: updated_at
+        description: "Time the record was last updated (UTC); null for immutable event rows."
+      - name: record_source
+        description: "System that produced the record; always the synthetic generator."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["synthetic_generator"]
+  - name: stg_crm__routing_decision
+    description: >
+      Staged crm_routing_decision (synthetic). Every routing evaluation with inputs, rule version and outcome. Grain: one row per routing decision. Primary key: routing_decision_id.
+      Event period 2025-06-01 to 2026-05-31 UTC. Future models and marts build on this view; contact fields are fictional and never reach marts.
+    columns:
+      - name: routing_decision_id
+        description: "Surrogate key."
+        data_tests:
+          - unique
+          - not_null
+      - name: lead_id
+        description: "Lead routed."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_crm__lead')
+                field: lead_id
+      - name: decided_at
+        description: "Decision time."
+        data_tests:
+          - not_null
+      - name: lead_status_at_decision
+        description: "Lead status when decided (RT-E04)."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["READY_FOR_ASSIGNMENT", "ASSIGNED", "CONTACTED", "NURTURING", "QUALIFIED"]
+      - name: routing_outcome
+        description: "Outcome."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["assigned_rm", "queued_regional", "queued_national", "queued_specialist", "queued_manual_review", "self_assigned", "override_assigned"]
+      - name: selected_rm_id
+        description: "Selected RM; null for queue outcomes."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_crm__relationship_manager')
+                field: rm_id
+      - name: candidate_count
+        description: "Eligible candidates after exclusions."
+        data_tests:
+          - not_null
+      - name: excluded_rm_count
+        description: "RMs excluded by RT-X rules."
+        data_tests:
+          - not_null
+      - name: territory_match_flag
+        description: "True when the selected RM holds a primary coverage of the lead's territory valid at decision time (national and remote pools count as matched); false for backup coverage or an out-of-territory RM; null for queue outcomes."
+      - name: segment_match_flag
+        description: "Segment matched (RT-P02)."
+      - name: specialist_match_flag
+        description: "Specialist matched when required or preferred."
+      - name: language_match_flag
+        description: "Stated language matched; null when not stated."
+      - name: capacity_utilization_at_decision
+        description: "Selected RM's utilization at decision time."
+      - name: tie_break_applied_flag
+        description: "Tie-breaking rule used (RT-L02)."
+        data_tests:
+          - not_null
+      - name: rule_trace
+        description: "Ordered rule IDs evaluated, with outcome codes."
+        data_tests:
+          - not_null
+      - name: manual_review_reason
+        description: "Reason for manual review."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["geography_conflict", "missing_geography", "conflict_of_interest", "other"]
+      - name: market_scenario_id
+        description: "Market-opportunity scenario used as context."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["balanced", "scale_led", "growth_led", "stability_aware"]
+      - name: rule_version_id
+        description: "Routing rule version."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_crm__rule_version')
+                field: rule_version_id
+      - name: decision_type
+        description: "Why the routing evaluation ran: first routing of a READY_FOR_ASSIGNMENT lead, reassignment of an active lead, release of a queued lead, or a manager override."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["initial", "reassignment", "queue_release", "override"]
+      - name: created_at
+        description: "Time the record was created (UTC)."
+        data_tests:
+          - not_null
+      - name: updated_at
+        description: "Time the record was last updated (UTC); null for immutable event rows."
+      - name: record_source
+        description: "System that produced the record; always the synthetic generator."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["synthetic_generator"]
+  - name: stg_crm__lead_assignment
+    description: >
+      Staged crm_lead_assignment (synthetic). Ownership of a lead by an RM or queue over time. Grain: one row per assignment. Primary key: assignment_id.
+      Event period 2025-06-01 to 2026-05-31 UTC. Future models and marts build on this view; contact fields are fictional and never reach marts.
+    columns:
+      - name: assignment_id
+        description: "Surrogate key."
+        data_tests:
+          - unique
+          - not_null
+      - name: lead_id
+        description: "Lead."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_crm__lead')
+                field: lead_id
+      - name: rm_id
+        description: "Assigned RM; null for QUEUED assignments."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_crm__relationship_manager')
+                field: rm_id
+      - name: queue_code
+        description: "Queue for QUEUED assignments."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["regional", "national", "specialist", "manual_review"]
+      - name: assignment_role
+        description: "Primary owner or specialist support."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["primary", "specialist_support"]
+      - name: assignment_status
+        description: "Assignment status."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["QUEUED", "ASSIGNED", "ACKNOWLEDGED", "DECLINED", "REASSIGNMENT_PENDING", "REASSIGNED", "COMPLETED", "CANCELLED"]
+      - name: active_flag
+        description: "Assignment active (QUEUED, ASSIGNED, ACKNOWLEDGED or REASSIGNMENT_PENDING)."
+        data_tests:
+          - not_null
+      - name: assigned_at
+        description: "Assignment (or queue) time."
+        data_tests:
+          - not_null
+      - name: assignment_reason
+        description: "Why the assignment exists."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["routing_rule", "self_assignment", "reassignment", "override", "queue_fallback"]
+      - name: routing_decision_id
+        description: "Routing decision that produced it."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_crm__routing_decision')
+                field: routing_decision_id
+      - name: rule_version_id
+        description: "Rule version used."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_crm__rule_version')
+                field: rule_version_id
+      - name: prior_assignment_id
+        description: "Assignment it replaced (reassignment)."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_crm__lead_assignment')
+                field: assignment_id
+      - name: prior_rm_id
+        description: "Previous owner, when reassigned."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_crm__relationship_manager')
+                field: rm_id
+      - name: acknowledged_at
+        description: "Acknowledgement time."
+      - name: declined_at
+        description: "Decline time."
+      - name: decline_reason
+        description: "Decline reason."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["capacity", "conflict", "wrong_territory", "wrong_segment", "other"]
+      - name: reassignment_triggered_at
+        description: "When a reassignment condition occurred."
+      - name: reassignment_reason
+        description: "Why reassignment happened."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["acknowledgement_breach", "first_contact_breach", "inactivity", "rm_unavailable", "decline", "manager_decision"]
+      - name: ended_at
+        description: "End time for ended assignments."
+      - name: manual_override_flag
+        description: "Created or ended by a manager override (RT-O01)."
+        data_tests:
+          - not_null
+      - name: override_reason_code
+        description: "Override reason."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["client_relationship", "specialist_need", "capacity_rebalancing", "territory_correction", "other"]
+      - name: override_user_role
+        description: "Role that applied the override."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["Regional Sales Manager", "Director, Business Banking Sales Strategy"]
+      - name: capacity_exception_flag
+        description: "Assignment made above the hard limit under CAP-09."
+        data_tests:
+          - not_null
+      - name: created_at
+        description: "Time the record was created (UTC)."
+        data_tests:
+          - not_null
+      - name: updated_at
+        description: "Time the record was last updated (UTC); null for immutable event rows."
+      - name: record_source
+        description: "System that produced the record; always the synthetic generator."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["synthetic_generator"]
+  - name: stg_crm__lead_activity
+    description: >
+      Staged crm_lead_activity (synthetic). Contact attempts, conversations, meetings and nurture tasks. Grain: one row per activity. Primary key: activity_id.
+      Event period 2025-06-01 to 2026-05-31 UTC. Future models and marts build on this view; contact fields are fictional and never reach marts.
+    columns:
+      - name: activity_id
+        description: "Surrogate key."
+        data_tests:
+          - unique
+          - not_null
+      - name: lead_id
+        description: "Lead."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_crm__lead')
+                field: lead_id
+      - name: assignment_id
+        description: "Assignment under which the activity happened."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_crm__lead_assignment')
+                field: assignment_id
+      - name: rm_id
+        description: "RM who performed it."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_crm__relationship_manager')
+                field: rm_id
+      - name: activity_at
+        description: "Time of the activity."
+        data_tests:
+          - not_null
+      - name: activity_type
+        description: "Activity type."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["call_attempt", "email_attempt", "conversation", "meeting", "nurture_task", "note"]
+      - name: activity_outcome
+        description: "Outcome."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["no_answer", "left_message", "two_way_contact", "meeting_held", "scheduled", "completed"]
+      - name: counts_as_contact_attempt
+        description: "Counts toward first-contact and attempt limits."
+        data_tests:
+          - not_null
+      - name: next_contact_due_at
+        description: "Next scheduled contact (nurturing)."
+      - name: created_at
+        description: "Time the record was created (UTC)."
+        data_tests:
+          - not_null
+      - name: updated_at
+        description: "Time the record was last updated (UTC); null for immutable event rows."
+      - name: record_source
+        description: "System that produced the record; always the synthetic generator."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["synthetic_generator"]
+  - name: stg_crm__lead_status_history
+    description: >
+      Staged crm_lead_status_history (synthetic). Every lead status change with its transition and event. Grain: one row per lead status change. Primary key: status_history_id.
+      Event period 2025-06-01 to 2026-05-31 UTC. Future models and marts build on this view; contact fields are fictional and never reach marts.
+    columns:
+      - name: status_history_id
+        description: "Surrogate key."
+        data_tests:
+          - unique
+          - not_null
+      - name: lead_id
+        description: "Lead."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_crm__lead')
+                field: lead_id
+      - name: from_status
+        description: "Previous status; null for the first row (NEW)."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["NEW", "VALIDATION_PENDING", "DUPLICATE_REVIEW", "READY_FOR_ASSIGNMENT", "ASSIGNED", "CONTACTED", "NURTURING", "QUALIFIED", "CONVERTED", "CLOSED_LOST", "INVALID", "MERGED", "WITHDRAWN"]
+      - name: to_status
+        description: "New status."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["NEW", "VALIDATION_PENDING", "DUPLICATE_REVIEW", "READY_FOR_ASSIGNMENT", "ASSIGNED", "CONTACTED", "NURTURING", "QUALIFIED", "CONVERTED", "CLOSED_LOST", "INVALID", "MERGED", "WITHDRAWN"]
+      - name: transition_id
+        description: "Transition rule applied; null for the first row."
+      - name: event_code
+        description: "Triggering event."
+        data_tests:
+          - not_null
+      - name: changed_at
+        description: "Time of the change."
+        data_tests:
+          - not_null
+      - name: disposition_code
+        description: "Disposition when to_status is terminal."
+      - name: actor_role
+        description: "Role or system that made the change."
+        data_tests:
+          - not_null
+      - name: reopen_approver_role
+        description: "Approver for audited reopenings."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["Regional Sales Manager", "Director, Business Banking Sales Strategy"]
+      - name: status_reason
+        description: "Reason attached to the status change: validation failure (T-01), release to queue (T-15) or audited reopening (T-28, T-29)."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["missing_fsa", "missing_employee_band", "missing_industry", "missing_consent", "expired_campaign_code", "no_eligible_rm", "prospect_re_requested_contact", "renewed_consent"]
+      - name: created_at
+        description: "Time the record was created (UTC)."
+        data_tests:
+          - not_null
+      - name: updated_at
+        description: "Time the record was last updated (UTC); null for immutable event rows."
+      - name: record_source
+        description: "System that produced the record; always the synthetic generator."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["synthetic_generator"]
+  - name: stg_crm__sla_event
+    description: >
+      Staged crm_sla_event (synthetic). SLA clocks and their warning, breach, met and escalation events. Grain: one row per SLA clock instance per lead or assignment. Primary key: sla_event_id.
+      Event period 2025-06-01 to 2026-05-31 UTC. Future models and marts build on this view; contact fields are fictional and never reach marts.
+    columns:
+      - name: sla_event_id
+        description: "Surrogate key."
+        data_tests:
+          - unique
+          - not_null
+      - name: lead_id
+        description: "Lead."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_crm__lead')
+                field: lead_id
+      - name: assignment_id
+        description: "Assignment, for RM SLAs."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_crm__lead_assignment')
+                field: assignment_id
+      - name: sla_id
+        description: "SLA rule from the SLA catalog."
+        data_tests:
+          - not_null
+      - name: started_at
+        description: "Clock start (start event time)."
+        data_tests:
+          - not_null
+      - name: target_at
+        description: "Breach time computed on the SLA's time basis."
+        data_tests:
+          - not_null
+      - name: warning_at
+        description: "Warning time."
+        data_tests:
+          - not_null
+      - name: stopped_at
+        description: "Clock stop (stop event time); null while open."
+      - name: stop_event_code
+        description: "Event that stopped the clock."
+      - name: sla_outcome
+        description: "Outcome."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["open", "met", "warning_open", "breached_open", "breached_closed", "not_applicable"]
+      - name: paused_minutes
+        description: "Business minutes paused under the SLA's pause conditions."
+        data_tests:
+          - not_null
+      - name: escalation_level
+        description: "Highest escalation reached."
+        data_tests:
+          - not_null
+      - name: rule_version_id
+        description: "SLA rule version."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_crm__rule_version')
+                field: rule_version_id
+      - name: responsible_role
+        description: "Role responsible for the clock, copied from the SLA rule at clock start."
+        data_tests:
+          - not_null
+      - name: elapsed_business_minutes
+        description: "Business minutes (or calendar minutes for calendar-basis SLAs) from started_at to stopped_at, or to the data cut-off when open, minus paused minutes."
+        data_tests:
+          - not_null
+      - name: exception_reason
+        description: "Why the clock was paused or exempted."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["system_outage_window", "prospect_requested_later_date", "prospect_set_next_contact", "awaiting_prospect_reply"]
+      - name: created_at
+        description: "Time the record was created (UTC)."
+        data_tests:
+          - not_null
+      - name: updated_at
+        description: "Time the record was last updated (UTC); null for immutable event rows."
+      - name: record_source
+        description: "System that produced the record; always the synthetic generator."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["synthetic_generator"]
+  - name: stg_crm__duplicate_group
+    description: >
+      Staged crm_duplicate_group (synthetic). A set of leads judged to be the same business, with the survivor. Grain: one row per duplicate group. Primary key: duplicate_group_id.
+      Event period 2025-06-01 to 2026-05-31 UTC. Future models and marts build on this view; contact fields are fictional and never reach marts.
+    columns:
+      - name: duplicate_group_id
+        description: "Surrogate key."
+        data_tests:
+          - unique
+          - not_null
+      - name: match_rule_id
+        description: "Duplicate rule that matched."
+        data_tests:
+          - not_null
+      - name: match_tier
+        description: "Tier."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["exact", "high_confidence", "review"]
+      - name: review_decision
+        description: "Human decision for review-tier groups."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["confirmed", "rejected"]
+      - name: surviving_lead_id
+        description: "Surviving lead (DUP-07)."
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_crm__lead')
+                field: lead_id
+      - name: member_count
+        description: "Leads in the group."
+        data_tests:
+          - not_null
+      - name: flagged_at
+        description: "Time the match was flagged."
+        data_tests:
+          - not_null
+      - name: resolved_at
+        description: "Time resolved."
+      - name: matched_lead_id
+        description: "The existing lead the flagged lead was matched against; it survives when the match is confirmed."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_crm__lead')
+                field: lead_id
+      - name: created_at
+        description: "Time the record was created (UTC)."
+        data_tests:
+          - not_null
+      - name: updated_at
+        description: "Time the record was last updated (UTC); null for immutable event rows."
+      - name: record_source
+        description: "System that produced the record; always the synthetic generator."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["synthetic_generator"]
+  - name: stg_crm__opportunity_outcome
+    description: >
+      Staged crm_opportunity_outcome (synthetic). The qualified pursuit opened from a lead and its outcome. Grain: one row per opportunity (at most one per lead). Primary key: opportunity_id.
+      Event period 2025-06-01 to 2026-05-31 UTC. Future models and marts build on this view; contact fields are fictional and never reach marts.
+    columns:
+      - name: opportunity_id
+        description: "Surrogate key."
+        data_tests:
+          - unique
+          - not_null
+      - name: lead_id
+        description: "Qualified lead (one opportunity per lead)."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_crm__lead')
+                field: lead_id
+      - name: rm_id
+        description: "Owning RM."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_crm__relationship_manager')
+                field: rm_id
+      - name: opened_at
+        description: "Opened at qualification."
+        data_tests:
+          - not_null
+      - name: opportunity_status
+        description: "Opportunity status (separate from lead status)."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["open", "won", "lost", "withdrawn"]
+      - name: primary_product
+        description: "Main product pursued."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["operating account", "credit", "cash management", "merchant services"]
+      - name: closed_at
+        description: "Outcome time."
+      - name: outcome_reason
+        description: "Disposition code for lost or withdrawn outcomes."
+      - name: created_at
+        description: "Time the record was created (UTC)."
+        data_tests:
+          - not_null
+      - name: updated_at
+        description: "Time the record was last updated (UTC); null for immutable event rows."
+      - name: record_source
+        description: "System that produced the record; always the synthetic generator."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["synthetic_generator"]
+  - name: stg_crm__rule_version
+    description: >
+      Staged crm_rule_version (synthetic). Versioned configuration of routing, SLA, capacity and duplicate rules. Grain: one row per rule set x version. Primary key: rule_version_id.
+      Event period 2025-06-01 to 2026-05-31 UTC. Future models and marts build on this view; contact fields are fictional and never reach marts.
+    columns:
+      - name: rule_version_id
+        description: "Surrogate key."
+        data_tests:
+          - unique
+          - not_null
+      - name: rule_set
+        description: "Rule set."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["routing", "sla", "capacity", "duplicate", "territory", "specialist"]
+      - name: version_number
+        description: "Version within the rule set."
+        data_tests:
+          - not_null
+      - name: effective_from
+        description: "Start of validity."
+        data_tests:
+          - not_null
+      - name: effective_to
+        description: "End of validity; null if current."
+      - name: config_sha256
+        description: "Hash of the rule catalog content used."
+        data_tests:
+          - not_null
+      - name: approved_by_role
+        description: "Approving role."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Director, Business Banking Sales Strategy"]
+      - name: created_at
+        description: "Time the record was created (UTC)."
+        data_tests:
+          - not_null
+      - name: updated_at
+        description: "Time the record was last updated (UTC); null for immutable event rows."
+      - name: record_source
+        description: "System that produced the record; always the synthetic generator."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["synthetic_generator"]

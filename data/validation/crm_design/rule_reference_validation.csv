@@ -1,5 +1,5 @@
 check,passed,detail
-every identifier referenced in any catalog resolves,True,452 identifiers
+every identifier referenced in any catalog resolves,True,669 identifiers
 SLA start and stop events exist in the event catalog,True,24 events
 every channel names at least one SLA and every named SLA exists,True,"['SLA-04A', 'SLA-04B', 'SLA-04C', 'SLA-06A', 'SLA-06D']"
 specialist industry codes exist in analytics.dim_industry,True,"['11', '23', '31-33', '53', '54', '62', '91', 'UNCLASSIFIED']"
@@ -8,9 +8,9 @@ territory spine: 41 SGC 2021 CMAs with evidence tiers 24/11/6 in analytics.dim_c
 multi-province CMA example (505) exists and spans provinces 24 and 35,True,['province_code']
 fictional CMA examples are valid SGC 2021 CMA codes,True,['825']
 "territory rules cover CMA, provincial remainder, unresolved, out-of-footprint, remote-service and national-specialist cases",True,"['cma', 'national_specialist', 'out_of_footprint', 'province_remainder', 'remote_service', 'unresolved']"
-analytics tables and columns named as sources or foreign keys exist in the warehouse,True,14 references
+analytics tables and columns named as sources or foreign keys exist in the warehouse,True,15 references
 every CRM foreign key targets a catalogued entity,True,10 targets
-every entity foreign-key column exists in its field contract,True,15 CRM foreign keys
+every entity foreign-key column exists in its field contract,True,16 CRM foreign keys
 every future dbt model follows the stg_crm__ naming convention,True,
 "every KPI names a future mart (documented, not built)",True,"['mart_crm_acquisition_funnel', 'mart_crm_data_quality', 'mart_crm_routing_capacity', 'mart_crm_sla_performance']"
 prohibited priority inputs affect nothing; context-only inputs affect nothing,True,"4 prohibited, 3 context-only"

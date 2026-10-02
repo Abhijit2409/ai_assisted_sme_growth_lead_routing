@@ -1,8 +1,8 @@
 check,passed,detail
-every required catalog has its required columns,True,26 catalogs
-catalog identifiers are unique,True,25 keyed catalogs
+every required catalog has its required columns,True,29 catalogs
+catalog identifiers are unique,True,28 keyed catalogs
 no blank identifiers,True,none blank
-"catalogs are UTF-8 without BOM, LF line endings",True,26 files
+"catalogs are UTF-8 without BOM, LF line endings",True,29 files
 20 target-state process steps in order,True,20 steps
 13 hypothetical current-state problems,True,13
 five acquisition channels with every field populated,True,"CH-DIG, CH-BRN, CH-MKT, CH-PTR, CH-RMP"
@@ -14,7 +14,7 @@ routing decision order is contiguous and unique,True,1..21
 "SLA catalog: every SLA configurable with positive target, warning below breach, responsible role and escalation",True,16 SLAs
 "capacity rules: positive weights, warning < hard limit < exception ceiling, positive base capacity",True,"warning 0.8, hard 1.0, exception 1.1, base 40 points"
 "duplicate rules are tiered (exact, high-confidence, review, merge behaviour, non-match); only exact and high-confidence auto-merge",True,"['exact', 'high_confidence', 'merge_behavior', 'non_match', 'review']"
-at least 16 entities; every entity has a field contract whose count matches the entity catalog,True,"18 entities, 239 fields"
+at least 16 entities; every entity has a field contract whose count matches the entity catalog,True,"18 entities, 248 fields"
 every entity primary key is defined in the field dictionary,True,
 "every entity carries the audit columns created_at, updated_at, record_source",True,
 "every field has type, nullability, description, fictional example, privacy class, validation and category",True,complete
@@ -28,11 +28,12 @@ volume specification: recommended value within its range for every ranged item,T
 "rule catalogs, current-state problems and assumptions are flagged hypothetical",True,8 catalogs
 every current-state problem is worded as a hypothetical scenario or illustrative control gap,True,
 "SLA durations, capacity and specialist coverage are marked as requiring approval",True,
-no synthetic CRM record files exist anywhere under data/,True,none
-"no CRM dbt models, seeds, tests or snapshots exist",True,none
-no CRM tables exist in the warehouse,True,none
+CRM record files exist only as synthetic data under data/synthetic/crm and are listed in its manifest,True,18 synthetic entity files
+"CRM dbt files sit in the tagged crm_data paths and define no priority score, routing score or RM recommendation",True,63 files
+CRM warehouse relations are all crm_data-tagged dbt models,True,27 relations
 design catalogs are not placed in data/raw or dbt seeds,True,data/design/crm only
-design directory holds only the declared catalogs,True,26 files
+design directory holds only the declared catalogs,True,29 files
+"design changes are logged with before, after and reason and match the catalogs; generation settings and calendar are simulation settings",True,"51 changes, 133 parameters"
 every email-like value uses a reserved .example domain,True,['contact@fictional-prospect-00123.example']
 every phone-like value uses the reserved fictional 555-01xx range,True,['+1-613-555-0123']
 "no social-insurance, business-number or account-number patterns",True,none

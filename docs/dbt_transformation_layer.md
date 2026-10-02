@@ -293,3 +293,23 @@ C:/Users/abhij/anaconda3/python.exe src/validation/11_reconcile_dbt_marts.py
 ## Market opportunity framework models
 
 The framework extends the project without changing the base layer. Its seeds (`seeds/opportunity/`), models (`models/intermediate/opportunity/`, `models/marts/opportunity_framework/`) and tests (`tests/opportunity/`, plus generic tests on its models) are tagged `opportunity`, so the base layer builds and tests on its own with `--exclude tag:opportunity`. The marts `mart_cma_opportunity_framework`, `mart_cma_opportunity_sensitivity` and `mart_cma_scale_only_context` live in the `analytics` schema. Details: [market_opportunity_framework.md](market_opportunity_framework.md).
+
+---
+
+## Synthetic CRM data models
+
+The synthetic CRM layer is also isolated by tag. Its sources (`models/sources/_crm_sources.yml`: `synthetic_crm` over the Parquet
+files in `data/synthetic/crm`, and `crm_design` over the design catalogs), models (`models/staging/crm`, `models/intermediate/crm`,
+`models/marts/crm`) and tests (`tests/crm`, plus generic tests on its models) are tagged `crm_data`. The base and opportunity steps
+run with `--exclude tag:crm_data`, and the reconciliation and opportunity validators count only their own nodes. The base-layer
+and opportunity test counts are therefore unchanged.
+
+| Layer | Schema | Models |
+|---|---|---|
+| Staging (views) | `staging` | 18 `stg_crm__*` models, one per entity, typed exactly as the field dictionary |
+| Intermediate (tables) | `intermediate` | `int_crm__lead_current_status`, `int_crm__active_assignment`, `int_crm__lead_assignment_history`, `int_crm__lead_activity_timeline`, `int_crm__lead_sla_history`, `int_crm__rm_capacity_at_assignment`, `int_crm__duplicate_resolution`, `int_crm__lead_market_context` |
+| Marts (tables) | `analytics` | `dim_relationship_manager`, `dim_acquisition_channel`, `dim_campaign`, `dim_business_prospect`, `dim_crm_territory`, `fct_lead`, `fct_lead_status_history`, `fct_lead_assignment`, `fct_lead_activity`, `fct_routing_decision`, `fct_rm_capacity_snapshot`, `fct_sla_event`, `fct_opportunity_outcome`, `fct_lead_source_touch` |
+
+`int_crm__lead_market_context` joins leads to `mart_cma_opportunity_framework` (configured scenario, `crm_market_context_scenario`)
+and `mart_cma_scale_only_context`; Tier 3 and no-context leads keep NULL score and rank. No model computes a priority or routing
+score or recommends an RM. Ground truth is not a dbt source. Details: [synthetic_crm_data.md](synthetic_crm_data.md).

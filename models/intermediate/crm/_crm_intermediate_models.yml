@@ -1,0 +1,82 @@
+version: 2
+
+# Reusable CRM relationship and lifecycle models (synthetic data). No prioritization, routing recommendation or optimization.
+
+models:
+  - name: int_crm__lead_current_status
+    description: >
+      One row per lead: current status (latest status change) and lifecycle milestones. Grain: one row per lead_id.
+      Synthetic data (fictional bank, businesses and staff); event period 2025-06-01 to 2026-05-31 UTC; no score, ranking or recommendation.
+    columns:
+      - name: lead_id
+        description: "Primary key."
+        data_tests: [unique, not_null]
+  - name: int_crm__lead_assignment_history
+    description: >
+      One row per assignment with owner type (RM or queue) and ownership sequence. Grain: one row per assignment_id.
+      Synthetic data (fictional bank, businesses and staff); event period 2025-06-01 to 2026-05-31 UTC; no score, ranking or recommendation.
+    columns:
+      - name: assignment_id
+        description: "Primary key."
+        data_tests: [unique, not_null]
+  - name: int_crm__active_assignment
+    description: >
+      One row per lead with an active primary owner at the cut-off. Grain: one row per lead_id.
+      Synthetic data (fictional bank, businesses and staff); event period 2025-06-01 to 2026-05-31 UTC; no score, ranking or recommendation.
+    columns:
+      - name: lead_id
+        description: "Primary key."
+        data_tests: [unique, not_null]
+  - name: int_crm__lead_activity_timeline
+    description: >
+      One row per activity with its lifecycle event code. Grain: one row per activity_id.
+      Synthetic data (fictional bank, businesses and staff); event period 2025-06-01 to 2026-05-31 UTC; no score, ranking or recommendation.
+    columns:
+      - name: activity_id
+        description: "Primary key."
+        data_tests: [unique, not_null]
+      - name: lifecycle_event_code
+        description: "Lifecycle event the activity represents."
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["CONTACT_ATTEMPTED", "FIRST_TWO_WAY_CONTACT", "FOLLOW_UP_ACTIVITY", "NURTURE_SCHEDULED", "NURTURE_REENGAGED"]
+  - name: int_crm__lead_sla_history
+    description: >
+      One row per SLA clock with rule attributes. Grain: one row per sla_event_id.
+      Synthetic data (fictional bank, businesses and staff); event period 2025-06-01 to 2026-05-31 UTC; no score, ranking or recommendation.
+    columns:
+      - name: sla_event_id
+        description: "Primary key."
+        data_tests: [unique, not_null]
+  - name: int_crm__rm_capacity_at_assignment
+    description: >
+      One row per RM assignment with the capacity snapshot available at assignment time. Grain: one row per assignment_id.
+      Synthetic data (fictional bank, businesses and staff); event period 2025-06-01 to 2026-05-31 UTC; no score, ranking or recommendation.
+    columns:
+      - name: assignment_id
+        description: "Primary key."
+        data_tests: [unique, not_null]
+  - name: int_crm__duplicate_resolution
+    description: >
+      One row per duplicate group with flagged lead, matched lead and resolution. Grain: one row per duplicate_group_id.
+      Synthetic data (fictional bank, businesses and staff); event period 2025-06-01 to 2026-05-31 UTC; no score, ranking or recommendation.
+    columns:
+      - name: duplicate_group_id
+        description: "Primary key."
+        data_tests: [unique, not_null]
+  - name: int_crm__lead_market_context
+    description: >
+      One row per lead with external market context; NULL score and rank for Tier 3 and no-context leads. Grain: one row per lead_id.
+      Synthetic data (fictional bank, businesses and staff); event period 2025-06-01 to 2026-05-31 UTC; no score, ranking or recommendation.
+    columns:
+      - name: lead_id
+        description: "Primary key."
+        data_tests: [unique, not_null]
+      - name: market_evidence_flag
+        description: "full_framework, scale_only_limited_evidence or no_market_context."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["full_framework", "scale_only_limited_evidence", "no_market_context"]

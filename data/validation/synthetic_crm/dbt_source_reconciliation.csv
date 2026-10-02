@@ -1,0 +1,21 @@
+check,passed,detail
+staging.stg_crm__business_prospect equals its source file,True,15566 rows; 0 differing rows
+staging.stg_crm__lead equals its source file,True,17400 rows; 0 differing rows
+staging.stg_crm__lead_source_touch equals its source file,True,17522 rows; 0 differing rows
+staging.stg_crm__acquisition_channel equals its source file,True,5 rows; 0 differing rows
+staging.stg_crm__campaign equals its source file,True,40 rows; 0 differing rows
+staging.stg_crm__relationship_manager equals its source file,True,140 rows; 0 differing rows
+staging.stg_crm__territory equals its source file,True,53 rows; 0 differing rows
+staging.stg_crm__rm_territory equals its source file,True,407 rows; 0 differing rows
+staging.stg_crm__rm_specialization equals its source file,True,44 rows; 0 differing rows
+staging.stg_crm__rm_capacity_snapshot equals its source file,True,34170 rows; 0 differing rows
+staging.stg_crm__routing_decision equals its source file,True,18230 rows; 0 differing rows
+staging.stg_crm__lead_assignment equals its source file,True,18560 rows; 0 differing rows
+staging.stg_crm__lead_activity equals its source file,True,71476 rows; 0 differing rows
+staging.stg_crm__lead_status_history equals its source file,True,87025 rows; 0 differing rows
+staging.stg_crm__sla_event equals its source file,True,119429 rows; 0 differing rows
+staging.stg_crm__duplicate_group equals its source file,True,936 rows; 0 differing rows
+staging.stg_crm__opportunity_outcome equals its source file,True,3805 rows; 0 differing rows
+staging.stg_crm__rule_version equals its source file,True,6 rows; 0 differing rows
+dbt declares one synthetic_crm source per entity and no ground-truth source,True,18 sources
+all CRM dbt tests passed in the latest dbt test run,True,383 of 383

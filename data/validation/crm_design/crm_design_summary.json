@@ -1,7 +1,7 @@
 {
   "purpose": "Validation of the hypothetical CRM acquisition-process and requirements design (no CRM records exist)",
-  "run_timestamp_utc": "2026-09-29T12:05:23+00:00",
-  "validation_script_sha256": "3e92456bae3d4b10af1b1c68cd3073a9f40f13e2fc2cae2b2862c49f00fb1dd3",
+  "run_timestamp_utc": "2026-10-02T00:43:27+00:00",
+  "validation_script_sha256": "45cd7e870b61ec4ec57c62fdf5a419c75daacb70976d4e2222d75110f4f90433",
   "opportunity_validation": {
     "checks_passed": 28,
     "checks_total": 28
@@ -39,25 +39,25 @@
     "sla_rules": 16,
     "duplicate_rules": 10,
     "entities": 18,
-    "fields": 239,
+    "fields": 248,
     "fields_by_entity": {
       "crm_acquisition_channel": 6,
       "crm_business_prospect": 13,
       "crm_campaign": 9,
-      "crm_duplicate_group": 11,
+      "crm_duplicate_group": 12,
       "crm_lead": 25,
       "crm_lead_activity": 12,
       "crm_lead_assignment": 26,
       "crm_lead_source_touch": 13,
-      "crm_lead_status_history": 13,
+      "crm_lead_status_history": 14,
       "crm_opportunity_outcome": 11,
       "crm_relationship_manager": 12,
-      "crm_rm_capacity_snapshot": 12,
-      "crm_rm_specialization": 10,
+      "crm_rm_capacity_snapshot": 14,
+      "crm_rm_specialization": 11,
       "crm_rm_territory": 9,
-      "crm_routing_decision": 21,
+      "crm_routing_decision": 22,
       "crm_rule_version": 10,
-      "crm_sla_event": 16,
+      "crm_sla_event": 19,
       "crm_territory": 10
     },
     "kpis": {
@@ -122,7 +122,7 @@
     "req_NFR": "NFR: **6**",
     "req_RR": "RR: **5**",
     "entities": "**18** entities",
-    "fields": "**239** fields",
+    "fields": "**248** fields",
     "widest_table_fields": "**26** fields in the widest table"
   },
   "catalog_sha256": {
@@ -130,12 +130,14 @@
     "data/design/crm/acquisition_channel_catalog.csv": "49baa53ffcee5e9d3df84793e9e678d7195e03d40a04be51da40d4fdfcd10316",
     "data/design/crm/assignment_status_catalog.csv": "4af0041512a6e82ca09a061be213a690ec936cb02adbad16cb23f51fd34086bf",
     "data/design/crm/assumption_register.csv": "98ad31a4c5704a7e1076ffeabe69203333ed849399be79856057335c3ecb2194",
+    "data/design/crm/business_calendar.csv": "df61f1e7608c46cd4630419ab4c673731c3295078b3fd5fee37bea220b56ef2e",
     "data/design/crm/business_requirements.csv": "367f469505a7f9c785b01b3323f3e723d6b465ed2c378204542f2e0d092fda38",
-    "data/design/crm/crm_entity_catalog.csv": "636239a1480b042cd5359d489736c7a5a4f143193ef61ae2e8d00aa8ac7fdc3b",
+    "data/design/crm/crm_entity_catalog.csv": "f131e4e929cdf2c4bfe30cd311987e2c3ff536bd69a0162b8c5a89046668256a",
     "data/design/crm/crm_event_catalog.csv": "ae13f5fa9a911c323f4806d935018fb0660ebab9d36987d05168061170c0a2d1",
-    "data/design/crm/crm_field_dictionary.csv": "07e5033a6144937c4e29b27ff4e004d94e89f8d8f6acebe40f56dfb32af199d1",
+    "data/design/crm/crm_field_dictionary.csv": "61147952f719c51163ed081378a844617b2812461af622161f7383ba954796e9",
     "data/design/crm/current_state_problem_catalog.csv": "e3f8b45630d380b5afd8c34cc98e4abb05a730f4c309a7665fd0c6a2ad41afa9",
-    "data/design/crm/duplicate_rule_catalog.csv": "eb302221a4ab887c3250186e9c7089125c7225335da094dca350e0f1644714e8",
+    "data/design/crm/design_change_log.csv": "493cdaf09d7cbb064704f38d5965a04074a169ef70aeb0ed14750f208ca7b648",
+    "data/design/crm/duplicate_rule_catalog.csv": "b58e46ebf7a7429b53c6cc8a0d804ef3bb1d397c71823fb71574ab8262c1f748",
     "data/design/crm/invalid_transition_examples.csv": "88dcc5b803d8b36c2cb8ff575561c203ce2892f227cb48e5ecf403a191e3340f",
     "data/design/crm/kpi_definition_catalog.csv": "3eff7936cf2ebc13b2bd7e89b392bcabed9589115e188e422729756ca82b027e",
     "data/design/crm/lead_disposition_catalog.csv": "a5f2224332aff25db8d2d48be8f2d892f4ec428c80245c951dbde7329910a2a8",
@@ -145,30 +147,31 @@
     "data/design/crm/process_step_catalog.csv": "ee8576367d2e1e336b9d8dd6736fadb404b8a515329e719c56a7779f4701c14f",
     "data/design/crm/requirements_traceability.csv": "f3415641f62a0569217aa264feba25b04c222535bb0b76b089cca1be07fbab48",
     "data/design/crm/rm_capacity_rule_catalog.csv": "260cd2303ee95eec755a0f62a64db767082eb1e162446cbf8a478345e8d4f1cc",
-    "data/design/crm/routing_rule_catalog.csv": "94d5f099bcfad79352b1b49c58619484bf8042053b5c959bc68a36936cdb5d11",
-    "data/design/crm/sla_rule_catalog.csv": "28f73145ec0a63a660ef2b550c5a6921fd275e26821da31a9a829ee2e73ebe87",
+    "data/design/crm/routing_rule_catalog.csv": "a1cfab59ac5f305c59bc3c04c2c3eeb6dca74d81b4bd580a0a8bf8febde71410",
+    "data/design/crm/sla_rule_catalog.csv": "3731ec627f1b44b619b0b262cbcb972ed2b95e6120b5849a2e54dcc73fe355ca",
     "data/design/crm/specialist_rule_catalog.csv": "0d76533f43b6c5699f13f1ad83f81e7058d0586c5353f1f7011b23e740d74f50",
     "data/design/crm/stakeholder_needs.csv": "71eda0bb986bb6f1a68cfb31d3918c24f902c06936fce86a53755bf20587d3f1",
+    "data/design/crm/synthetic_generation_parameters.csv": "17640964c8301424c8243de09c8a6723dc0e3328db749b7fc17262bd46ff8fea",
     "data/design/crm/synthetic_scenario_catalog.csv": "ca3cd6cf0875c91edf1588825d7dc298592ff92b0372ef21bbce0399126ff001",
-    "data/design/crm/synthetic_volume_specification.csv": "a66de1b52b3b92bfe920456b7930b1cfa2a7bbc1b4016f6ad522b697cc4b95b6",
+    "data/design/crm/synthetic_volume_specification.csv": "25ca06aecd3dbd75fc19a431155972bf5bbcd52d776e2cef1b0b21293db0646b",
     "data/design/crm/territory_rule_catalog.csv": "cc5512c8c5dc5a7c58320961dfa491be83b4fa7cc18ae583a84797a00048d83e"
   },
   "document_sha256": {
-    "docs/crm_acquisition_process_and_requirements.md": "33e821a7beca50ba693359fe007a3b6cf192092f9600d004430afce313990504",
-    "docs/crm_data_model_and_dictionary.md": "39c3f70bd776e623f1108c853671ed4fd1e0bd0799e2773f5f2d038a6026f9df"
+    "docs/crm_acquisition_process_and_requirements.md": "0edd645e3cbeb63d7011b7ff3d812f737f2d2a03ed549ffb4e2b99093712ced5",
+    "docs/crm_data_model_and_dictionary.md": "54aa1d7cfe39b55ba0663ce38ec2747f13c54436b18ee5b4e9760ee6925191a8"
   },
   "evidence_sha256": {
-    "data/validation/crm_design/design_completeness_checks.csv": "c183f32c693846fbb2877ec79b3bda469f1d3b2621b986b67a3a83da1ef77954",
+    "data/validation/crm_design/design_completeness_checks.csv": "8c20be922f20caeebdda46dc14a2702623f75a5e19ca9707216062d956f9924f",
     "data/validation/crm_design/transition_validation.csv": "1efdb09cb971d568fd972c4b4d323b8be1d51fe113b30e2b9f35d89c04e0efee",
-    "data/validation/crm_design/rule_reference_validation.csv": "550a85849ec41cc3015aa5059daf3aebb3ab4ad3754b4256425b6a18a48b5bf2",
+    "data/validation/crm_design/rule_reference_validation.csv": "f5e828179a1a29df7329c6ba3cc6b2ed6ab52a04db71bc14f4c66976ff998d46",
     "data/validation/crm_design/requirements_coverage.csv": "9b8db85c733d4ef1d7aa2cdc8fce7c25ee48fc76e97b1744e56b57c764d3bdc2",
     "data/validation/crm_design/scenario_coverage.csv": "a49d3691b37a2c238439330a7fe34964741fee924f831661375700bba6f09ef1",
     "data/validation/crm_design/documentation_checks.csv": "dc2eca15719fb97f4e55174093b2b613da18c435353c820d1b347a728ef45753"
   },
   "checks_by_file": {
     "design_completeness_checks": {
-      "passed": 42,
-      "total": 42
+      "passed": 43,
+      "total": 43
     },
     "transition_validation": {
       "passed": 19,
@@ -191,8 +194,8 @@
       "total": 16
     }
   },
-  "checks_passed": 201,
-  "checks_total": 201,
+  "checks_passed": 202,
+  "checks_total": 202,
   "failed_checks": [],
   "all_checks_pass": true
 }

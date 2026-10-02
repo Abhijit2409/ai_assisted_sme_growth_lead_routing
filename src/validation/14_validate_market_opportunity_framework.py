@@ -148,7 +148,10 @@ def main():
     rr = json.loads(RUN_RESULTS.read_text(encoding="utf-8")) if RUN_RESULTS.exists() else {"results": []}
     dm = json.loads(DBT_MANIFEST.read_text(encoding="utf-8")) if DBT_MANIFEST.exists() else {"nodes": {}}
     opp_nodes = {k for k, n in dm["nodes"].items() if "opportunity" in (n.get("tags") or [])}
-    tests_all = {k: n for k, n in dm["nodes"].items() if n["resource_type"] == "test"}
+    crm_nodes = {k for k, n in dm["nodes"].items() if "crm_data" in (n.get("tags") or [])}
+    # synthetic CRM tests are a separate layer: excluded from both the opportunity and the base counts
+    tests_all = {k: n for k, n in dm["nodes"].items() if n["resource_type"] == "test"
+                 and k not in crm_nodes and not set(n.get("depends_on", {}).get("nodes", [])) & crm_nodes}
     # a test belongs to the framework if it is tagged or depends on a tagged model or seed (generic tests inherit no tag)
     opp_tests = {k for k, n in tests_all.items() if k in opp_nodes or set(n.get("depends_on", {}).get("nodes", [])) & opp_nodes}
     base_tests = set(tests_all) - opp_tests

@@ -1,0 +1,12 @@
+mutation,table,target_check,validator_exit_code,target_check_failed,detected
+duplicate primary key,crm_lead,primary keys are unique and not null,1,True,True
+broken foreign key,crm_lead_activity,all foreign keys resolve,1,True,True
+invalid status transition,crm_lead_status_history,every status change uses an allowed transition,1,True,True
+impossible event timestamp,crm_lead_activity,activities occur while their assignment is active,1,True,True
+multiple active assignments,crm_lead_assignment,at most one active primary assignment per lead,1,True,True
+missing override reason,crm_lead_assignment,manual overrides have a reason code and actor role,1,True,True
+real-looking email domain,crm_lead,emails use reserved .example domains only,1,True,True
+leaked ground-truth field,crm_lead,operational tables contain only dictionary columns and no ground-truth fields,1,True,True
+missing required scenario,crm_lead,all 33 approved scenarios are observable,1,True,True
+out-of-range conversion rate,crm_lead,lead-to-conversion rate within,1,True,True
+published data unchanged after mutation tests,all,sha256 of every published file,,,True

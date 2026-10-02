@@ -1,0 +1,8 @@
+check,passed,detail
+emails use reserved .example domains only,True,0
+telephone numbers use the fictional 555-01xx range only,True,0
+business and campaign names are obviously fictional placeholders,True,"0, 0"
+no real bank or credit-union names appear in any text value,True,668405 distinct text values screened
+"no social-insurance, business-number, account-number patterns or non-reserved emails",True,none
+"no lead-priority score, routing score or RM recommendation field exists in the data",True,none
+ground truth is not stored with the operational entities,True,separate folder

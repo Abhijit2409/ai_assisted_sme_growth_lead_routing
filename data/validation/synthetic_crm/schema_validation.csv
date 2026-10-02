@@ -1,0 +1,9 @@
+check,passed,detail
+columns and column order match the field dictionary,True,"18 tables, 248 fields"
+column types match the field dictionary,True,all types match
+required fields are never null,True,none null
+values stay inside the accepted-value lists,True,all inside
+primary keys are unique and not null,True,18 primary keys
+identifiers follow their fixed-width fictional patterns,True,19 identifier columns
+every record is marked record_source = synthetic_generator,True,all records
+operational tables contain only dictionary columns and no ground-truth fields,True,clean

@@ -1,0 +1,28 @@
+-- One row per lead (synthetic; fictional). Types every column as in crm_field_dictionary.csv; no business logic.
+select
+    cast(lead_id as varchar)                 as lead_id,
+    cast(prospect_id as varchar)             as prospect_id,
+    cast(captured_at as timestamp)           as captured_at,
+    cast(first_channel_code as varchar)      as first_channel_code,
+    cast(contact_role as varchar)            as contact_role,
+    cast(contact_email_fictional as varchar) as contact_email_fictional,
+    cast(contact_phone_fictional as varchar) as contact_phone_fictional,
+    cast(postal_fsa as varchar)              as postal_fsa,
+    cast(province_code as varchar)           as province_code,
+    cast(cma_code_sgc2021 as varchar)        as cma_code_sgc2021,
+    cast(territory_id as varchar)            as territory_id,
+    cast(geography_status as varchar)        as geography_status,
+    cast(market_evidence_flag as varchar)    as market_evidence_flag,
+    cast(stated_product_interest as varchar) as stated_product_interest,
+    cast(stated_service_language as varchar) as stated_service_language,
+    cast(consent_to_contact_flag as boolean) as consent_to_contact_flag,
+    cast(priority_band as varchar)           as priority_band,
+    cast(current_lead_status as varchar)     as current_lead_status,
+    cast(disposition_code as varchar)        as disposition_code,
+    cast(duplicate_group_id as varchar)      as duplicate_group_id,
+    cast(surviving_lead_id as varchar)       as surviving_lead_id,
+    cast(local_time_zone as varchar)         as local_time_zone,
+    cast(created_at as timestamp)            as created_at,
+    cast(updated_at as timestamp)            as updated_at,
+    cast(record_source as varchar)           as record_source
+from {{ source('synthetic_crm', 'crm_lead') }}

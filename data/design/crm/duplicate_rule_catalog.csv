@@ -1,6 +1,6 @@
 rule_id,match_tier,rule_name,inputs,condition,outcome,confidence,notes,rule_version,effective_from,hypothetical_flag
-DUP-01,exact,Same synthetic business identifier,synthetic_business_id,Identical synthetic business identifier on two open or recent (365 days) leads,auto_merge,exact,Survivor by DUP-07; all source touches kept,v1.0-design,2025-06-01,true
-DUP-02,exact,Same existing prospect,prospect_id,Lead references an existing prospect with an open lead,auto_merge,exact,Attach as a new source touch on the open lead,v1.0-design,2025-06-01,true
+DUP-01,exact,Same synthetic business identifier,synthetic_business_id,Identical synthetic business identifier on another open (non-terminal) lead,auto_merge,exact,Survivor by DUP-07; all source touches kept,v1.0-design,2025-06-01,true
+DUP-02,exact,Same existing prospect,prospect_id,Lead is captured against an existing prospect record that has another open lead (branch and RM-prospected intake),auto_merge,exact,Attach as a new source touch on the open lead,v1.0-design,2025-06-01,true
 DUP-03,high_confidence,Legal name and FSA,normalized_legal_name;postal_fsa,Identical normalized legal name and FSA,auto_merge,high,"Normalization: case, punctuation, legal suffixes",v1.0-design,2025-06-01,true
 DUP-04,high_confidence,Phone and name,normalized_phone;normalized_legal_name,Identical normalized phone and identical normalized legal or operating name,auto_merge,high,Synthetic phone numbers only,v1.0-design,2025-06-01,true
 DUP-05,review,Name only in same province,normalized_legal_name or normalized_operating_name;province_code,Identical normalized name in the same province with different FSA,review,medium,Human review within SLA-03,v1.0-design,2025-06-01,true

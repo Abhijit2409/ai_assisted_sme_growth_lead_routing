@@ -1,0 +1,37 @@
+check,passed,detail
+SC-01 Clean digital lead assigned successfully,True,observed 5652 (minimum 25); share 32.48% vs indicative 25-35% (inside); ground-truth agreement 1.000
+SC-02 Branch referral,True,observed 1727 (minimum 25); share 9.93% vs indicative 8-12% (inside); ground-truth agreement 1.000
+SC-03 Marketing-campaign response,True,observed 2838 (minimum 25); share 16.31% vs indicative 15-20% (inside); ground-truth agreement 1.000
+SC-04 Partner referral,True,observed 1168 (minimum 25); share 6.71% vs indicative 5-8% (inside); ground-truth agreement 1.000
+SC-05 RM-prospected lead,True,observed 1951 (minimum 25); share 11.21% vs indicative 8-12% (inside); ground-truth agreement 1.000
+SC-06 Incomplete lead requiring validation,True,"observed 614 (minimum 25); share 3.53% vs indicative 5-8% (outside, report only); ground-truth agreement 1.000"
+SC-07 Invalid or ineligible lead,True,observed 598 (minimum 25); share 3.44% vs indicative 3-6% (inside); ground-truth agreement 1.000
+SC-08 Exact duplicate,True,"observed 729 (minimum 25); share 4.19% vs indicative 2-4% (outside, report only); ground-truth agreement 1.000"
+SC-09 Probable duplicate requiring review,True,"observed 140 (minimum 25); share 0.80% vs indicative 2-3% (outside, report only); ground-truth agreement 1.000"
+SC-10 Unassigned lead,True,"observed 141 (minimum 25); share 0.81% vs indicative 3-5% (outside, report only); ground-truth agreement 1.000"
+SC-11 Overloaded RM,True,"observed 3865 (minimum 25); share 22.21% vs indicative 4-6% (outside, report only); ground-truth agreement 0.650"
+SC-12 RM temporarily unavailable,True,observed 309 (minimum 20); share 1.78% vs indicative 1-2% (inside); ground-truth agreement 1.000
+SC-13 Territory mismatch,True,"observed 556 (minimum 20); share 3.20% vs indicative 2-3% (outside, report only); ground-truth agreement 0.433"
+SC-14 Industry-specialist mismatch,True,"observed 4238 (minimum 20); share 24.36% vs indicative 2-3% (outside, report only); ground-truth agreement 1.000"
+SC-15 Explicitly stated service language,True,"observed 1143 (minimum 25); share 6.57% vs indicative 3-5% (outside, report only); ground-truth agreement 1.000"
+SC-16 Assignment acknowledgement delay,True,observed 531 (minimum 25); share 3.05% vs indicative 2-4% (inside); ground-truth agreement 1.000
+SC-17 First-contact SLA breach,True,observed 1892 (minimum 25); share 10.87% vs indicative 10-18% (inside); ground-truth agreement 0.981
+SC-18 Repeated failed contact attempts,True,observed 1194 (minimum 25); share 6.86% vs indicative 5-8% (inside); ground-truth agreement 1.000
+SC-19 Inactivity escalation,True,"observed 495 (minimum 25); share 2.84% vs indicative 3-5% (outside, report only); ground-truth agreement 0.950"
+SC-20 Automatic reassignment,True,"observed 1234 (minimum 25); share 7.09% vs indicative 3-5% (outside, report only); ground-truth agreement 0.994"
+SC-21 Manager-approved manual override,True,observed 265 (minimum 20); share 1.52% vs indicative 1-3% (inside); ground-truth agreement 1.000
+SC-22 Lead nurturing,True,"observed 578 (minimum 25); share 3.32% vs indicative 8-12% (outside, report only); ground-truth agreement 1.000"
+SC-23 Qualified opportunity,True,observed 3805 (minimum 25); share 21.87% vs indicative 15-25% (inside); ground-truth agreement 1.000
+SC-24 Successful conversion,True,observed 1696 (minimum 25); share 9.75% vs indicative 6-12% (inside); ground-truth agreement 1.000
+SC-25 Closed-lost lead,True,"observed 8521 (minimum 25); share 48.97% vs indicative 20-30% (outside, report only); ground-truth agreement 1.000"
+SC-26 Lead withdrawn,True,"observed 309 (minimum 25); share 1.78% vs indicative 2-4% (outside, report only); ground-truth agreement 1.000"
+SC-27 Out-of-CMA lead,True,observed 1744 (minimum 25); share 10.02% vs indicative 8-12% (inside); ground-truth agreement 1.000
+SC-28 Tier 3 market lead,True,observed 428 (minimum 25); share 2.46% vs indicative 2-4% (inside); ground-truth agreement 1.000
+SC-29 Missing market-opportunity context,True,observed 1761 (minimum 25); share 10.12% vs indicative 8-12% (inside); ground-truth agreement 1.000
+SC-30 Capacity-boundary case,True,observed 295 (minimum 10); share 1.70% vs indicative 1-2% (inside); ground-truth agreement 0.824
+"SC-31 Multiple historical assignments, one active",True,"observed 231 (minimum 25); share 1.33% vs indicative 3-5% (outside, report only); ground-truth agreement 1.000"
+SC-32 Attribution preserved after duplicate merge,True,"observed 572 (minimum 25); share 3.29% vs indicative 1-3% (outside, report only); ground-truth agreement 1.000"
+SC-33 Audited reopening of a closed-lost lead,True,observed 122 (minimum 40); share 0.70% vs indicative 0.5-1% (inside); ground-truth agreement 1.000
+all 33 approved scenarios are observable in the operational data at or above their declared minimum counts,True,33 of 33
+scenarios with directly observable definitions match the ground-truth labels exactly,True,13 scenarios
+ground truth labels cover all 33 scenarios,True,33
