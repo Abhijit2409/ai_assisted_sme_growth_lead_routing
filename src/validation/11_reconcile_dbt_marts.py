@@ -165,7 +165,7 @@ def main():
     if RUN_RESULTS.exists():
         rr = json.loads(RUN_RESULTS.read_text(encoding="utf-8"))
         dm_nodes = json.loads(DBT_MANIFEST.read_text(encoding="utf-8"))["nodes"] if DBT_MANIFEST.exists() else {}
-        opp_nodes = {k for k, nd in dm_nodes.items() if {"opportunity", "crm_data", "lead_routing"} & set(nd.get("tags") or [])}
+        opp_nodes = {k for k, nd in dm_nodes.items() if {"opportunity", "crm_data", "lead_routing", "acquisition_intelligence"} & set(nd.get("tags") or [])}
         # base analytical layer only: exclude the market-opportunity framework, the synthetic CRM layer and the
         # lead-prioritization and routing layer (tagged, or depending on tagged nodes)
         is_opp = lambda uid: uid in opp_nodes or bool(set(dm_nodes.get(uid, {}).get("depends_on", {}).get("nodes", [])) & opp_nodes)  # noqa: E731
@@ -193,7 +193,7 @@ def main():
 
     dm = json.loads(DBT_MANIFEST.read_text(encoding="utf-8")) if DBT_MANIFEST.exists() else {"nodes": {}}
     nodes = [n for n in dm["nodes"].values()
-             if not {"crm_data", "lead_routing"} & set(n.get("tags") or [])]   # the CRM and lead-routing layers are counted separately
+             if not {"crm_data", "lead_routing", "acquisition_intelligence"} & set(n.get("tags") or [])]   # later layers are counted separately
     models_by_layer = {layer: sum(1 for n in nodes if n["resource_type"] == "model" and n["fqn"][1] == layer)
                        for layer in ("staging", "intermediate", "marts")}
     seeds = [n for n in nodes if n["resource_type"] == "seed" and "opportunity" not in (n.get("tags") or [])]   # base-layer seeds only

@@ -1043,9 +1043,12 @@ def documentation(con):
         from analytics.mart_routing_recommendation_operational""").df().iloc[0]
     man = json.loads(DBT_MANIFEST.read_text(encoding="utf-8"))
     lr = {k for k, n in man["nodes"].items() if "lead_routing" in (n.get("tags") or [])}
+    ai = {k for k, n in man["nodes"].items() if "acquisition_intelligence" in (n.get("tags") or [])}
     # dbt selects a test with tag:lead_routing when it is tagged or when it depends on a tagged node (generic tests
     # declared in the lead-routing YAMLs inherit no tag), which is what the pipeline step actually runs.
+    # the acquisition-intelligence layer reads the routing marts, so its tests are excluded here
     n_tests = len([k for k, n in man["nodes"].items() if n["resource_type"] == "test"
+                   and not (k in ai or set(n.get("depends_on", {}).get("nodes", [])) & ai)
                    and (k in lr or set(n.get("depends_on", {}).get("nodes", [])) & lr)])
 
     claims = {
@@ -1638,9 +1641,13 @@ def validate(out_dir):
 
     man = json.loads(DBT_MANIFEST.read_text(encoding="utf-8")) if DBT_MANIFEST.exists() else {"nodes": {}}
     lr_nodes = {k: n for k, n in man["nodes"].items() if "lead_routing" in (n.get("tags") or [])}
+    ai_nodes = {k for k, n in man["nodes"].items() if "acquisition_intelligence" in (n.get("tags") or [])}
     lr_tests = {k for k, n in lr_nodes.items() if n["resource_type"] == "test"}
     lr_tests |= {k for k, n in man["nodes"].items() if n["resource_type"] == "test"
                  and set(n.get("depends_on", {}).get("nodes", [])) & set(lr_nodes)}
+    # the acquisition-intelligence layer reads the routing marts; its tests belong to that layer, not this one
+    lr_tests -= {k for k in lr_tests
+                 if k in ai_nodes or set(man["nodes"][k].get("depends_on", {}).get("nodes", [])) & ai_nodes}
     rr = json.loads((ROOT / "target" / "run_results.json").read_text(encoding="utf-8")) if (ROOT / "target" / "run_results.json").exists() else {"results": []}
     ran = {r["unique_id"]: r["status"] for r in rr["results"] if r["unique_id"] in lr_tests}
 

@@ -1,0 +1,14 @@
+check,passed,detail
+declared primary key holds on mart_acquisition_market_focus (cma_key),True,"42 rows, 42 distinct keys, 0 null key parts"
+"declared primary key holds on mart_acquisition_funnel_monthly (reporting_month, cma_key, channel_code, sme_segment, industry_grouping)",True,"10028 rows, 10028 distinct keys, 0 null key parts"
+"declared primary key holds on mart_rm_acquisition_performance_monthly (rm_id, reporting_month)",True,"1620 rows, 1620 distinct keys, 0 null key parts"
+declared primary key holds on mart_acquisition_action_queue (lead_id),True,"1408 rows, 1408 distinct keys, 0 null key parts"
+declared primary key holds on mart_acquisition_kpi_snapshot (reporting_cutoff_date),True,"1 rows, 1 distinct keys, 0 null key parts"
+declared primary key holds on int_acq__lead_spine (lead_id),True,"17400 rows, 17400 distinct keys, 0 null key parts"
+action queue lead_id resolves to fct_lead,True,0
+funnel channel_code resolves to the channel dimension,True,0
+RM monthly rm_id resolves to the RM dimension,True,0
+market focus cma_code resolves to dim_cma where in CMA scope,True,0
+every published priority tier is one of the declared bands,True,0
+every routing status is one of the declared states,True,0
+every queue code is a declared queue,True,0

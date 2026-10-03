@@ -1,0 +1,9 @@
+check,passed,detail
+the top-decile concentration share recomputes,True,"recomputed 0.723064, published 0.723064"
+the workload Gini recomputes,True,"recomputed 0.772884, published 0.772884"
+the busiest RM count recomputes,True,3216
+the count of RMs receiving no recommendation recomputes,True,8
+the concentration risk is material and is therefore reported,True,the busiest decile takes 72.31% of recommendations
+the capacity-aware policy makes no hard-cap breach,True,0
+the count of RMs at or above the capacity warning recomputes,True,"recomputed 5, published 5"
+RMs with no work in a month appear as zero rows rather than disappearing,True,50 RM-months with no assignment

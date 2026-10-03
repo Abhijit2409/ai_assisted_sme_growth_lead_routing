@@ -1,0 +1,79 @@
+version: 2
+
+models:
+  - name: int_acq__lead_spine
+    description: >
+      Purpose: the single place where every one-to-many acquisition source is collapsed to lead grain, so that no
+      downstream mart can double-count a lead.
+      Grain: one row per lead. Primary key: lead_id.
+      Why it exists: status history reaches 12 rows per lead, SLA events 27, activities 19, assignments 6, routing
+      decisions 6 and priority decisions 6. Any mart joining them directly would multiply its lead counts. Every
+      acquisition-intelligence mart reads this model instead.
+      Source: fct_lead (already lead grain, carrying current status and owner), dim_business_prospect, dim_cma,
+      dim_acquisition_channel, the SLA-06 first-contact clocks, the latest priority decision, the latest
+      operational routing decision, the opportunity outcome and the current owner's capacity snapshot.
+      As-of rule: everything is reported as at the declared reporting cutoff; no event after it is read.
+      Limitations: entirely synthetic CRM data over hypothetical rules. The outcome columns are descriptive only
+      and nothing here feeds any priority or routing rule.
+    columns:
+      - name: lead_id
+        data_tests:
+          - unique
+          - not_null
+          - relationships: {arguments: {to: ref('fct_lead'), field: lead_id}}
+      - name: cma_key
+        data_tests: [not_null]
+      - name: channel_code
+        data_tests: [not_null]
+      - name: sme_segment
+        data_tests: [not_null]
+      - name: industry_grouping
+        data_tests: [not_null]
+      - name: reporting_cutoff_date
+        data_tests: [not_null]
+      - name: priority_tier
+        data_tests:
+          - accepted_values: {arguments: {values: ["P1", "P2", "P3"]}}
+      - name: routing_status
+        data_tests:
+          - accepted_values: {arguments: {values: ["assigned", "queued"]}}
+
+seeds:
+  - name: acquisition_reporting_parameters
+    description: >
+      Declared reporting parameters for the acquisition-intelligence layer: the reporting cutoff and period start
+      (assumption A-018), the conversion and qualification maturity windows, the ageing threshold, the planning
+      scenario, the high-opportunity classification and the explicit labels used for unresolved geography and
+      unclassified industry. Every value carries its business reasoning and source reference.
+    columns:
+      - name: parameter
+        data_tests: [unique, not_null]
+      - name: value
+        data_tests: [not_null]
+      - name: business_reasoning
+        data_tests: [not_null]
+
+  - name: acquisition_kpi_catalog
+    description: >
+      Machine-readable KPI catalog. One row per KPI carrying its business definition, formula, numerator,
+      denominator, source mart, grain, filters, maturity rule, null handling, interpretation, limitation and
+      stakeholder. The validator checks this catalog against the KPIs the marts actually publish.
+    columns:
+      - name: kpi_id
+        data_tests: [unique, not_null]
+      - name: kpi_name
+        data_tests: [unique, not_null]
+      - name: business_definition
+        data_tests: [not_null]
+      - name: formula
+        data_tests: [not_null]
+      - name: source_mart
+        data_tests: [not_null]
+      - name: grain
+        data_tests: [not_null]
+      - name: maturity_rule
+        data_tests: [not_null]
+      - name: limitation
+        data_tests: [not_null]
+      - name: stakeholder
+        data_tests: [not_null]

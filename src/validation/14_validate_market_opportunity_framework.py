@@ -148,7 +148,8 @@ def main():
     rr = json.loads(RUN_RESULTS.read_text(encoding="utf-8")) if RUN_RESULTS.exists() else {"results": []}
     dm = json.loads(DBT_MANIFEST.read_text(encoding="utf-8")) if DBT_MANIFEST.exists() else {"nodes": {}}
     opp_nodes = {k for k, n in dm["nodes"].items() if "opportunity" in (n.get("tags") or [])}
-    crm_nodes = {k for k, n in dm["nodes"].items() if {"crm_data", "lead_routing"} & set(n.get("tags") or [])}
+    crm_nodes = {k for k, n in dm["nodes"].items()
+                 if {"crm_data", "lead_routing", "acquisition_intelligence"} & set(n.get("tags") or [])}
     # the synthetic CRM layer and the lead-prioritization and routing layer are separate layers:
     # excluded from both the opportunity and the base counts
     tests_all = {k: n for k, n in dm["nodes"].items() if n["resource_type"] == "test"

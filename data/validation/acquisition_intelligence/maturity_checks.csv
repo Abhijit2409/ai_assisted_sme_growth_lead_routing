@@ -1,0 +1,6 @@
+check,passed,detail
+the mature conversion denominator matches the independent recomputation,True,"recomputed 12064, published 12064"
+the immature population is published rather than dropped,True,3869 immature valid leads
+mature plus immature equals the valid population,True,15933
+no lead inside the maturity window is marked mature,True,0
+the current planning snapshot is never applied retrospectively to a historical month,True,0 snapshot columns found in the monthly funnel

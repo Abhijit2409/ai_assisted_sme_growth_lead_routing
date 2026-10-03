@@ -1,0 +1,12 @@
+check,passed,detail
+every funnel cell exists in both the recomputation and the published mart,True,"10028 recomputed, 10028 published"
+captured_leads recomputes exactly in every funnel cell,True,0 differing cells
+valid_leads recomputes exactly in every funnel cell,True,0 differing cells
+assigned_leads recomputes exactly in every funnel cell,True,0 differing cells
+contacted_leads recomputes exactly in every funnel cell,True,0 differing cells
+converted_leads recomputes exactly in every funnel cell,True,0 differing cells
+valid_leads_mature recomputes exactly in every funnel cell,True,0 differing cells
+converted_leads_mature recomputes exactly in every funnel cell,True,0 differing cells
+reassigned_leads recomputes exactly in every funnel cell,True,0 differing cells
+no funnel numerator exceeds its denominator,True,0
+no funnel measure is negative,True,0

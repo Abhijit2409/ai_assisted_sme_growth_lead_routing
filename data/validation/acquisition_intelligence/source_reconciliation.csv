@@ -1,0 +1,11 @@
+check,passed,detail
+the lead spine is exactly one row per source lead,True,17400 rows vs 17400 source leads
+mart_acquisition_funnel_monthly reconciles to the source lead count,True,17400 vs 17400
+mart_acquisition_market_focus reconciles to the source lead count,True,17400 vs 17400
+the executive snapshot reconciles to the source lead count,True,17400 vs 17400
+fct_lead_status_history reaches 12 rows for a single lead yet the spine stays at one row per lead,True,max 12 source rows per lead
+fct_lead_assignment reaches 6 rows for a single lead yet the spine stays at one row per lead,True,max 6 source rows per lead
+fct_sla_event reaches 27 rows for a single lead yet the spine stays at one row per lead,True,max 27 source rows per lead
+fct_lead_activity reaches 19 rows for a single lead yet the spine stays at one row per lead,True,max 19 source rows per lead
+fct_routing_decision reaches 6 rows for a single lead yet the spine stays at one row per lead,True,max 6 source rows per lead
+each lead maps to exactly one funnel cell,True,max 1 cells per lead

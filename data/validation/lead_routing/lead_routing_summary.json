@@ -1,8 +1,8 @@
 {
   "purpose": "Independent validation of the lead-prioritization and capacity-aware RM-routing framework (hypothetical rules for a fictional bank; entirely synthetic CRM data)",
   "framing": "Rule-adherence, counterfactual and operational-exposure comparisons only. No result here is evidence of a causal improvement in conversion, revenue, profitability or customer experience.",
-  "run_timestamp_utc": "2026-10-03T01:57:06+00:00",
-  "validation_script_sha256": "ed831abfb64a955bdb9c6e08b455e29f2200a2d193fd876de966f15358c324cf",
+  "run_timestamp_utc": "2026-10-03T14:43:33+00:00",
+  "validation_script_sha256": "cfb7392c5085d01856b03d9e4871e8516f619aecf59f5a46ae8eb0b36c54571a",
   "rule_version": "lr-v1.0",
   "configuration_declared_at_utc": "2026-10-02T01:01:25Z",
   "first_scoring_build_utc": "2026-10-02T01:10:13Z",

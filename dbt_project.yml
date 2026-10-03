@@ -32,6 +32,8 @@ models:
         +tags: ["crm_data"]
       lead_routing:
         +tags: ["lead_routing"]
+      acquisition_intelligence:
+        +tags: ["acquisition_intelligence"]
     marts:
       +schema: analytics
       +materialized: table
@@ -41,6 +43,8 @@ models:
         +tags: ["crm_data"]
       lead_routing:
         +tags: ["lead_routing"]
+      acquisition_intelligence:
+        +tags: ["acquisition_intelligence"]
 
 # Synthetic CRM data tests (tests/crm): selected with tag:crm_data, excluded from the base and opportunity runs.
 data_tests:
@@ -49,6 +53,8 @@ data_tests:
       +tags: ["crm_data"]
     lead_routing:
       +tags: ["lead_routing"]
+    acquisition_intelligence:
+      +tags: ["acquisition_intelligence"]
 
 seeds:
   sme_market_intelligence:
@@ -57,6 +63,8 @@ seeds:
       +tags: ["opportunity"]
     lead_routing:
       +tags: ["lead_routing"]
+    acquisition_intelligence:
+      +tags: ["acquisition_intelligence"]
 
 # Constants shared by several models (defined once; tests check them against the sources where the source states them).
 vars:

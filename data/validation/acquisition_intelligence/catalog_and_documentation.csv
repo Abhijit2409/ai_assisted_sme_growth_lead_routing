@@ -1,0 +1,9 @@
+check,passed,detail
+every KPI documents all twelve required attributes,True,24 KPIs x 12 attributes
+every KPI names a mart that exists,True,24 KPIs
+KPI identifiers and names are unique,True,24 KPIs
+the acquisition-intelligence document exists,True,acquisition_intelligence_and_kpis.md
+every catalogued KPI appears in the document,True,24 KPIs documented
+every headline figure stated in the document matches the published data,True,8 figures verified
+the document carries the synthetic and hypothetical disclaimers,True,all present
+the document makes no causal or real-bank claim,True,none

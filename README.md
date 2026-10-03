@@ -51,6 +51,7 @@ The dbt marts in the `analytics` schema are the authoritative analytical relatio
 | [docs/crm_data_model_and_dictionary.md](docs/crm_data_model_and_dictionary.md) | Logical CRM data model, entity catalog, field dictionary and logged design changes |
 | [docs/synthetic_crm_data.md](docs/synthetic_crm_data.md) | Synthetic CRM data: generation, entities, coverage, dbt models, validation, mutation tests and reproducibility |
 | [docs/lead_prioritization_and_routing.md](docs/lead_prioritization_and_routing.md) | Lead prioritization and capacity-aware RM routing: declared configuration, decision grain, leakage proofs, priority score and bands, eligibility, capacity, preferences, queues, worked examples, policy comparison, validation and limitations |
+| [docs/acquisition_intelligence_and_kpis.md](docs/acquisition_intelligence_and_kpis.md) | Integrated acquisition intelligence: the five marts and their grains, how double counting is prevented, the conversion maturity rule, the KPI catalog, routing concentration risk, and limitations |
 
 ## Installation
 
@@ -195,6 +196,43 @@ executive KPI mart.
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\run_analytical_pipeline.ps1 -Scope LeadRouting
+```
+
+## Integrated acquisition intelligence
+
+Connects the market opportunity framework, the synthetic CRM activity, funnel performance, lead priority,
+operational RM routing, SLA performance and RM capacity so the fictional bank can ask: where should SME acquisition
+effort go, which prospects need action, and where are leads delayed, lost or constrained by capacity? It adds no new
+scoring and changes no opportunity, priority or routing weight.
+
+| Mart | Grain |
+|---|---|
+| `mart_acquisition_market_focus` | one row per CMA at the planning snapshot (plus an explicit unresolved-geography row) |
+| `mart_acquisition_funnel_monthly` | reporting month x CMA x channel x SME segment x industry grouping |
+| `mart_rm_acquisition_performance_monthly` | relationship manager x reporting month |
+| `mart_acquisition_action_queue` | one row per currently actionable lead |
+| `mart_acquisition_kpi_snapshot` | one row per reporting cutoff date |
+
+- **No double counting.** Status history reaches 12 rows per lead, SLA events 27, activities 19, assignments 6 and
+  routing decisions 6. Every mart reads one intermediate model, `int_acq__lead_spine`, which is one row per lead, so
+  a lead is counted once by construction. The executive snapshot reduces each KPI to a single value at its own grain
+  before combining, so no fact table is joined to another at row level.
+- **Maturity rule.** Conversion is reported only on cohorts given 90 days to convert (95% of observed conversions
+  land within 93 days); recent leads are excluded from the denominator, not counted as failures.
+- **No retrospective snapshot.** The monthly funnel carries no opportunity score; a test asserts it never appears.
+- **24 KPIs** are defined in a machine-readable catalog seed with definition, formula, numerator, denominator,
+  grain, filters, maturity rule, null handling, interpretation, limitation and stakeholder.
+- **Headline:** assignment 99.5% of valid leads, contact 90.1% of assigned, qualification 27.8% of mature contacted,
+  conversion 12.5% of mature valid. The funnel loses volume after the first conversation, not at intake.
+- **Routing concentration risk, reported honestly:** the capacity-aware policy makes zero hard-cap breaches, yet
+  72.31% of recommendations go to the busiest decile of RMs, Gini 0.773, 3,216 to one RM and 8 RMs receive none.
+  Hard-cap compliance does not create balanced workload. The routing rules are deliberately unchanged here.
+- **Validation:** `src/validation/21_validate_acquisition_intelligence.py` recalculates every important KPI from the
+  source facts, 84 of 84 checks, 60 dbt tests, determinism verified across two runs.
+- **Details:** [docs/acquisition_intelligence_and_kpis.md](docs/acquisition_intelligence_and_kpis.md).
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .un_analytical_pipeline.ps1 -Scope AcquisitionIntelligence
 ```
 
 ## Limitations

@@ -1,0 +1,149 @@
+version: 2
+
+# Integrated acquisition intelligence: market opportunity, funnel performance, lead priority, operational routing,
+# SLA performance and RM capacity on one set of marts. Hypothetical rules for a fictional bank over entirely
+# synthetic CRM data. Nothing here describes or benchmarks any real Canadian bank.
+
+models:
+  - name: mart_acquisition_market_focus
+    description: >
+      Purpose: answer where the bank should focus SME acquisition effort, by setting the external market
+      opportunity signal beside the acquisition activity, backlog, service health and RM capacity actually present
+      in each market.
+      Grain: one row per CMA at the current planning snapshot, plus one explicit row for leads whose geography did
+      not resolve to a CMA so the mart reconciles to the full lead population. Primary key: cma_key.
+      Source: dim_cma and mart_cma_opportunity_framework (balanced planning scenario), int_acq__lead_spine for all
+      lead counts, and fct_rm_capacity_snapshot with dim_crm_territory for capacity.
+      As-of rule: a current planning snapshot at the declared reporting cutoff. The opportunity score is never
+      applied retrospectively to historical periods.
+      Limitations: the opportunity score is an external public-aggregate signal only; it excludes bank market
+      share, branch presence, competition, credit risk and acquisition cost. Capacity is attributed by RM home
+      territory, which understates coverage by RMs who also serve neighbouring territories.
+    columns:
+      - name: cma_key
+        data_tests: [unique, not_null]
+      - name: evidence_tier
+        data_tests:
+          - accepted_values: {arguments: {values: [1, 2, 3]}}
+      - name: lead_count
+        data_tests: [not_null]
+      - name: reporting_cutoff_date
+        data_tests: [not_null]
+
+  - name: mart_acquisition_funnel_monthly
+    description: >
+      Purpose: show where leads are delayed or lost, by capture cohort, with an explicit numerator and denominator
+      beside every rate so each can be recomputed and audited.
+      Grain: reporting month x CMA x acquisition channel x SME segment x industry grouping.
+      Primary key: (reporting_month, cma_key, channel_code, sme_segment, industry_grouping).
+      Source: int_acq__lead_spine only, which is already one row per lead, so no count can be inflated by status,
+      assignment, SLA or routing history.
+      Cohort basis: a lead belongs to the month it was captured and is followed wherever it went.
+      Maturity: conversion is reported only on cohorts given the declared 90 days to convert and qualification only
+      on cohorts given 30 days; immature cohorts are excluded from those denominators and published separately.
+      Limitations: entirely synthetic outcomes. No rate here is evidence of real conversion behaviour and none is
+      used to tune any priority or routing rule. The external opportunity score is deliberately absent because it
+      is a current snapshot and would misrepresent what was known in a historical month.
+    columns:
+      - name: reporting_month
+        data_tests: [not_null]
+      - name: cma_key
+        data_tests: [not_null]
+      - name: channel_code
+        data_tests:
+          - not_null
+          - relationships: {arguments: {to: ref('dim_acquisition_channel'), field: channel_code}}
+      - name: sme_segment
+        data_tests: [not_null]
+      - name: industry_grouping
+        data_tests: [not_null]
+      - name: captured_leads
+        data_tests: [not_null]
+    data_tests:
+      - unique_key_combination:
+          arguments:
+            columns: ["reporting_month", "cma_key", "channel_code", "sme_segment", "industry_grouping"]
+
+  - name: mart_rm_acquisition_performance_monthly
+    description: >
+      Purpose: show where acquisition is constrained by capacity, with each relationship manager's acquisition
+      activity, service performance and capacity position month by month.
+      Grain: relationship manager x reporting month. Primary key: (rm_id, reporting_month). The spine is every RM
+      crossed with every month in which that RM was employed, so an RM who received no work appears as a zero row
+      rather than disappearing.
+      Source: dim_relationship_manager, fct_lead_assignment, int_acq__lead_spine, fct_rm_capacity_snapshot and
+      mart_routing_recommendation_operational.
+      Direction of causality: the historical outcome columns are descriptive only. Nothing in this mart feeds back
+      into the routing or priority rules, and no rule was tuned using any value here.
+      Limitations: capacity is a declared synthetic model (CAP-01 to CAP-10), not a measured workload. Assignments
+      are attributed to the month of assignment while conversion may happen months later. Routing exceptions cannot
+      be attributed to an individual because a queued decision has no recommended RM, so they are attributed to the
+      RM home territory and named accordingly.
+    columns:
+      - name: rm_id
+        data_tests:
+          - not_null
+          - relationships: {arguments: {to: ref('dim_relationship_manager'), field: rm_id}}
+      - name: reporting_month
+        data_tests: [not_null]
+    data_tests:
+      - unique_key_combination: {arguments: {columns: ["rm_id", "reporting_month"]}}
+
+  - name: mart_acquisition_action_queue
+    description: >
+      Purpose: answer which prospects need action, with the action, the role that owns it and a deterministic rank
+      so the list can be worked top-down.
+      Grain: one row per currently actionable lead. Primary key: lead_id.
+      Actionable means an open lead, or a terminal lead still sitting in an unresolved duplicate group. Converted,
+      closed-lost, withdrawn, invalid and already-merged leads do not appear.
+      Source: int_acq__lead_spine, which holds the latest valid lead state, the latest priority decision and the
+      latest applicable operational routing decision at one row per lead.
+      Determinism: action_rank orders by escalation, then SLA urgency, then priority tier, then priority score,
+      then lead age, then the stable lead identifier, so two runs produce the same order.
+      Limitations: entirely synthetic. The recommended action follows declared hypothetical rules awaiting business
+      approval; it is a prompt for a human operator, not an instruction, and nothing is automated.
+    columns:
+      - name: lead_id
+        data_tests:
+          - unique
+          - not_null
+          - relationships: {arguments: {to: ref('fct_lead'), field: lead_id}}
+      - name: action_rank
+        data_tests: [unique, not_null]
+      - name: recommended_next_action
+        data_tests: [not_null]
+      - name: responsible_role
+        data_tests: [not_null]
+      - name: sla_status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["breached and open", "breached", "due within 24 hours", "running", "met",
+                         "no first-contact clock"]
+      - name: capacity_status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["no current owner", "no capacity evidence", "owner at or above hard limit",
+                         "owner at or above warning", "owner has headroom"]
+      - name: priority_tier
+        data_tests:
+          - accepted_values: {arguments: {values: ["P1", "P2", "P3"]}}
+
+  - name: mart_acquisition_kpi_snapshot
+    description: >
+      Purpose: the executive view, holding every headline acquisition KPI at the reporting cutoff.
+      Grain: one row per reporting cutoff date. Primary key: reporting_cutoff_date.
+      Construction: each KPI is computed in its own CTE at its own correct grain and reduced to a single value
+      before the single-value results are combined with a cross join. No fact table is joined to another fact table
+      at row level, so no measure can be inflated by another table's rows.
+      Every KPI is defined in the machine-readable catalog seed acquisition_kpi_catalog.
+      Limitations: entirely synthetic. No value here is evidence about a real bank and no rate is used to tune any
+      rule. The routing concentration measures are an operational risk signal, not a verdict on the routing rules.
+    columns:
+      - name: reporting_cutoff_date
+        data_tests: [unique, not_null]
+      - name: total_leads
+        data_tests: [not_null]
+      - name: routing_gini
+        data_tests: [not_null]

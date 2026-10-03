@@ -1,0 +1,8 @@
+check,passed,detail
+"one action row per actionable lead, with no duplicates",True,"1408 rows, 1408 distinct leads"
+every active lead appears in the action queue,True,0 active leads missing
+no terminal lead is marked actionable without an unresolved duplicate to fix,True,"0 terminal rows, 0 without a reason"
+"no converted, closed, withdrawn or invalid lead is in the queue",True,0
+"every action row carries an action, an owner and a rank",True,1408 rows
+action_rank is a complete 1..n permutation,True,1408 ranks
+every escalation has a stated reason,True,"213 escalations, 0 unjustified"

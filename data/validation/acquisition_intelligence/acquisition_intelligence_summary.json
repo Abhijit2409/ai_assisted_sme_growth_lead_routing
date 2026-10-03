@@ -1,0 +1,98 @@
+{
+  "purpose": "Independent validation of the integrated acquisition-intelligence layer: market focus, funnel performance, lead priority, operational routing, SLA performance and RM capacity.",
+  "framing": "Hypothetical rules for a fictional bank over entirely synthetic CRM data. No result is a fact about any real bank and no measure supports a causal claim.",
+  "run_timestamp_utc": "2026-10-03T14:46:47+00:00",
+  "validation_script_sha256": "613f72ccaf8530aad7c6217a639202d2d0ea4f385dacd3d5723bcc3f7745de8f",
+  "reporting_cutoff_date": "2026-05-31",
+  "declared_parameters": {
+    "reporting_cutoff_date": "2026-05-31",
+    "reporting_period_start": "2025-06-01",
+    "conversion_maturity_days": "90",
+    "qualification_maturity_days": "30",
+    "ageing_lead_days": "30",
+    "high_opportunity_classification": "Stronger external opportunity signal",
+    "planning_scenario_id": "balanced",
+    "first_contact_sla_prefix": "SLA-06",
+    "unresolved_cma_label": "UNRESOLVED",
+    "unclassified_industry_label": "UNCLASSIFIED"
+  },
+  "marts": {
+    "mart_acquisition_market_focus": "one row per CMA at the planning snapshot (plus an unresolved bucket)",
+    "mart_acquisition_funnel_monthly": "reporting month x CMA x channel x SME segment x industry grouping",
+    "mart_rm_acquisition_performance_monthly": "relationship manager x reporting month",
+    "mart_acquisition_action_queue": "one row per currently actionable lead",
+    "mart_acquisition_kpi_snapshot": "one row per reporting cutoff date"
+  },
+  "kpi_count": 24,
+  "headline": {
+    "total_leads": 17400,
+    "active_leads": 1408,
+    "actionable_leads": 1408,
+    "p1_leads_requiring_action": 217,
+    "assignment_rate": 0.994979,
+    "contact_rate": 0.90065,
+    "qualification_rate": 0.278193,
+    "mature_cohort_conversion_rate": 0.125249,
+    "duplicate_rate": 0.053793,
+    "sla_breach_rate": 0.131541,
+    "high_opportunity_cma_count": 9,
+    "rms_above_capacity_warning": 5,
+    "operational_hard_cap_breaches": 0,
+    "routing_top_decile_share": 0.723064,
+    "routing_gini": 0.772884,
+    "max_recommendations_to_one_rm": 3216,
+    "rms_with_no_recommendations": 8,
+    "data_quality_exception_count": 2300
+  },
+  "dbt_tests": {
+    "acquisition_intelligence_tests": 60
+  },
+  "evidence_sha256": {
+    "action_queue_checks.csv": "cdb24c8af66a080fd0646c87e005b265148ff573232ddd0871446b260f088eec",
+    "capacity_and_routing_checks.csv": "2b1ef95076008bac040340bb72466826c5e8d6f4779c7efe7ae7c0861e1f5b07",
+    "catalog_and_documentation.csv": "582160103345138491c3b62845f244a9b08758642b281597145e75fc9eab0b20",
+    "funnel_recalculation.csv": "26077cac5209ee5d539e720f80dd22ef27c54e48378a9227c1a76bd0ea16f4f7",
+    "kpi_recalculation.csv": "ac9a4d0d89c4ee8542af2e5f9784456347f30c18b4d4db406f2de509e6d053a6",
+    "maturity_checks.csv": "d8db229523a66ee2b4a9428a40f13022c44671e0b975e8d7aebf0410acbde306",
+    "source_reconciliation.csv": "e2eb550717d198150795c2fc75f52b2b6202ed68647e71deacfc4d826f3a0c3c",
+    "structural_checks.csv": "27b8978be83ae2670d1c7e497339a0aecaa6a8b9c34a9c01c67b48e00366f6ad"
+  },
+  "checks_by_file": {
+    "structural_checks": {
+      "passed": 13,
+      "total": 13
+    },
+    "source_reconciliation": {
+      "passed": 10,
+      "total": 10
+    },
+    "kpi_recalculation": {
+      "passed": 22,
+      "total": 22
+    },
+    "funnel_recalculation": {
+      "passed": 11,
+      "total": 11
+    },
+    "action_queue_checks": {
+      "passed": 7,
+      "total": 7
+    },
+    "capacity_and_routing_checks": {
+      "passed": 8,
+      "total": 8
+    },
+    "maturity_checks": {
+      "passed": 5,
+      "total": 5
+    },
+    "catalog_and_documentation": {
+      "passed": 8,
+      "total": 8
+    }
+  },
+  "checks_passed": 84,
+  "checks_total": 84,
+  "failed_checks": [],
+  "all_checks_pass": true
+}

@@ -1,0 +1,26 @@
+check,passed,detail
+no fictional contact or business name is written out,True,18 files
+no generator ground-truth field is written out,True,clean
+every finding carries a non-causal interpretation,True,"['capacity', 'data quality', 'external market signal', 'funnel performance', 'operational exposure', 'service performance']"
+no finding claims a causal effect or a revenue estimate,True,clean
+no financial or revenue estimate is produced,True,clean
+the funnel reconciles to the full lead population,True,"17,400"
+figures render reproducibly,True,6 figures
+"output carries source, period, unit and eligibility: market_focus.csv",True,
+"output carries source, period, unit and eligibility: market_focus_gaps.csv",True,
+"output carries source, period, unit and eligibility: funnel_monthly.csv",True,
+"output carries source, period, unit and eligibility: funnel_by_month.csv",True,
+"output carries source, period, unit and eligibility: funnel_by_channel.csv",True,
+"output carries source, period, unit and eligibility: funnel_by_segment.csv",True,
+"output carries source, period, unit and eligibility: funnel_by_industry.csv",True,
+"output carries source, period, unit and eligibility: funnel_by_cma.csv",True,
+"output carries source, period, unit and eligibility: rm_performance_monthly.csv",True,
+"output carries source, period, unit and eligibility: rm_capacity_latest.csv",True,
+"output carries source, period, unit and eligibility: routing_concentration.csv",True,
+"output carries source, period, unit and eligibility: routing_load_by_rm.csv",True,
+"output carries source, period, unit and eligibility: action_queue.csv",True,
+"output carries source, period, unit and eligibility: action_queue_summary.csv",True,
+"output carries source, period, unit and eligibility: kpi_snapshot.csv",True,
+"output carries source, period, unit and eligibility: kpi_definitions.csv",True,
+"output carries source, period, unit and eligibility: acquisition_intelligence_findings.csv",True,
+"output carries source, period, unit and eligibility: figure_register.csv",True,

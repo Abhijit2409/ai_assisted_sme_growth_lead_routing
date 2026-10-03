@@ -762,7 +762,8 @@ def dbt_checks(con, tables, counts, fields):
     print(f"  [{'PASS' if ok else 'FAIL'}] dbt sources: {len(crm_sources)}")
     rr = json.loads(RUN_RESULTS.read_text(encoding="utf-8")) if RUN_RESULTS.exists() else {"results": []}
     crm_nodes = {k for k, n in man["nodes"].items() if "crm_data" in (n.get("tags") or [])}
-    lr_nodes = {k for k, n in man["nodes"].items() if "lead_routing" in (n.get("tags") or [])}
+    lr_nodes = {k for k, n in man["nodes"].items()
+                if {"lead_routing", "acquisition_intelligence"} & set(n.get("tags") or [])}
     # Lead-routing tests read CRM models, so they would otherwise be counted here. Generic tests declared in the
     # lead-routing YAMLs inherit no tag, so a test is excluded when it is tagged lead_routing OR depends on a
     # lead-routing node, which is how 11 and 14 isolate the layer too.
