@@ -1,0 +1,13 @@
+config_id,level,pillar,component_id,weight,business_reasoning,rule_version
+LPW-PILLAR-BV,pillar,business_value,,0.65,"Business-value evidence is what makes a lead worth working; it is the majority of the score so that a durable commercial signal outranks a transient clock.",lr-v1.0
+LPW-PILLAR-OU,pillar,operational_urgency,,0.35,"Operational urgency is a real but secondary claim on attention: it reorders work within a day, it does not redefine which leads matter.",lr-v1.0
+LPW-BV01,component,business_value,BV01_CHANNEL,0.22,"Channel is the strongest declared intake signal in the hypothetical process and also drives the assignment SLA.",lr-v1.0
+LPW-BV02,component,business_value,BV02_INTENT,0.16,"Explicit stated product interest is declared intent; weighted below channel because it is self-reported and often absent.",lr-v1.0
+LPW-BV03,component,business_value,BV03_SIZE,0.22,"Validated employee band is the most reliable proxy for business-banking need and is present for almost every prospect.",lr-v1.0
+LPW-BV04,component,business_value,BV04_INDUSTRY,0.14,"Industry sets specialist coverage intent but is a coarse signal at the sector level.",lr-v1.0
+LPW-BV05,component,business_value,BV05_MARKET,0.12,"External market context is contextual public-data evidence about a geography, not about the lead. Capped at 0.12 of the business-value pillar (0.078 of the total score) so geography can never dominate.",lr-v1.0
+LPW-BV06,component,business_value,BV06_COMPLETENESS,0.14,"Completeness determines whether an RM can act immediately; it is an operational quality of the record rather than a measure of commercial value.",lr-v1.0
+LPW-OU01,component,operational_urgency,OU01_AGE,0.28,"Elapsed waiting time is the most interpretable urgency signal and is always computable.",lr-v1.0
+LPW-OU02,component,operational_urgency,OU02_INTAKE_SLA,0.32,"The intake and assignment clocks are the committed service promise for unassigned work; they carry the heaviest urgency weight.",lr-v1.0
+LPW-OU03,component,operational_urgency,OU03_OWNERSHIP_SLA,0.22,"Ownership clocks matter for reassignment and override decisions but do not exist for most initial routing decisions.",lr-v1.0
+LPW-OU04,component,operational_urgency,OU04_ENGAGEMENT,0.18,"Work already invested raises the cost of losing the lead; it applies only where pre-decision activity exists.",lr-v1.0

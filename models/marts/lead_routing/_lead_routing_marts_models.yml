@@ -1,0 +1,182 @@
+version: 2
+
+# Business-facing marts of the lead-prioritization and capacity-aware RM-routing framework.
+# Hypothetical rules for a fictional bank over entirely synthetic CRM data. Rule-adherence and operational-exposure
+# comparisons only: nothing here is evidence of a causal improvement in conversion, revenue, profitability or
+# customer experience, and no fictional contact field is exposed.
+
+models:
+  - name: mart_lead_priority
+    description: >
+      Purpose: answer which eligible SME leads should receive attention first, with the full reason.
+      Grain: one row per lead per routing-decision timestamp. Primary key: decision_id.
+      Source: int_lead_routing__lead_priority_score, int_lead_routing__priority_features_as_of,
+      int_lead_routing__priority_eligibility, stg_crm__lead, seed lead_priority_band_rules.
+      As-of rule: every field is available at or before as_of_timestamp.
+      Limitations: every source lead carries priority band P2, so source_priority_band cannot be compared with the
+      recommendation; the source field is preserved unchanged and never overwritten. The decision timestamps come from
+      the synthetic routing log. Base scores reach the P1 floor only for strong, aged or pressured leads, so most P1
+      bands come from declared override rules; both the base band and the final band are published.
+    columns:
+      - name: decision_id
+        data_tests: [unique, not_null]
+      - name: lead_id
+        data_tests:
+          - not_null
+          - relationships: {arguments: {to: ref('fct_lead'), field: lead_id}}
+      - name: source_priority_band
+        description: The unchanged priority_band recorded on the synthetic lead. Never modified by this framework.
+        data_tests: [not_null]
+      - name: recommended_priority_score
+        description: Recommended 0-100 priority score. NULL when the lead is not score eligible or an override suppressed the score.
+      - name: recommended_priority_band
+        data_tests:
+          - accepted_values: {arguments: {values: ["P1", "P2", "P3"]}}
+      - name: priority_eligibility
+        data_tests: [not_null]
+      - name: override_reason
+        data_tests: [not_null]
+      - name: rule_version
+        data_tests: [not_null]
+
+  - name: mart_routing_candidate
+    description: >
+      Purpose: show every RM considered at a decision, why each was or was not eligible, and how the eligible ones compared.
+      Grain: one row per decision per candidate RM. Primary key: (decision_id, rm_id).
+      Source: int_lead_routing__candidate_eligibility, int_lead_routing__candidate_ranking.
+      As-of rule: capacity is the most recent snapshot at or before the decision; coverage is tested on effective dates.
+      Limitations: the candidate universe is the territory-related and specialization-related RMs, so RMs with no
+      relationship to the lead's territory do not appear as rows; they are counted in structurally_excluded_rm_count.
+      Preference columns are NULL for ineligible candidates, because preference is only computed after eligibility.
+    columns:
+      - name: rm_id
+        data_tests:
+          - not_null
+          - relationships: {arguments: {to: ref('dim_relationship_manager'), field: rm_id}}
+      - name: is_eligible
+        data_tests: [not_null]
+      - name: utilization_ratio_at_decision
+        description: Utilization in the as-of capacity snapshot. NULL only when no valid snapshot exists (REL-12 fails).
+    data_tests:
+      - unique_key_combination: {arguments: {columns: ["decision_id", "rm_id"]}}
+
+  - name: mart_routing_recommendation_static
+    description: >
+      Purpose: answer which available RM or controlled queue should receive each lead.
+      Grain: one row per lead per routing-decision timestamp. Primary key: decision_id.
+      Source: int_lead_routing__routing_decision_population, int_lead_routing__candidate_ranking (rank 1),
+      int_lead_routing__queue_outcome; stg_crm__routing_decision and stg_crm__lead_assignment for the comparison
+      columns only, joined after the recommendation exists.
+      As-of rule: the recommendation uses only information available at or before as_of_timestamp. The historical_*
+      columns are comparison outputs; no upstream model reads them.
+      Limitations: the historical assignment is a synthetic policy record, not a correct label. Differences are
+      rule-adherence, counterfactual and operational-exposure comparisons only.
+    columns:
+      - name: decision_id
+        data_tests: [unique, not_null]
+      - name: recommendation_outcome
+        data_tests:
+          - not_null
+          - accepted_values: {arguments: {values: ["rm_assignment", "queue"]}}
+      - name: recommended_rm_id
+        data_tests:
+          - relationships: {arguments: {to: ref('dim_relationship_manager'), field: rm_id}}
+      - name: recommended_queue_code
+        data_tests:
+          - relationships: {arguments: {to: ref('routing_queue_rules'), field: queue_code}}
+      - name: recommendation_reason
+        data_tests: [not_null]
+      - name: rule_version
+        data_tests: [not_null]
+
+  - name: mart_routing_exception
+    description: >
+      Purpose: give every queued decision an actionable owner, SLA, next action and escalation path, with the
+      candidate-pool diagnostics that explain why no RM could be recommended.
+      Grain: one row per queued decision. Primary key: decision_id.
+      Source: int_lead_routing__queue_outcome, int_lead_routing__candidate_eligibility.
+      As-of rule: inherited from the queue model.
+      Limitations: an exception measures adherence to the declared rules, not historical mishandling.
+    columns:
+      - name: decision_id
+        data_tests: [unique, not_null]
+      - name: queue_code
+        data_tests:
+          - not_null
+          - relationships: {arguments: {to: ref('routing_queue_rules'), field: queue_code}}
+      - name: queue_owner_role
+        data_tests: [not_null]
+      - name: failed_rule_codes
+        data_tests: [not_null]
+
+  - name: mart_routing_evaluation
+    description: >
+      Purpose: compare three routing policies on the same decision population - the synthetic historical
+      assignment, the static diagnostic recommendation and the capacity-aware operational recommendation - on rule
+      adherence, operational exposure and workload concentration, across the complete period and excluding the
+      declared capacity warm-up.
+      Grain: one row per policy per metric per period scope. Primary key: (policy, metric_id, period_scope).
+      Source: mart_routing_recommendation_static, mart_routing_recommendation_operational and
+      mart_routing_candidate, after the recommendations exist.
+      As-of rule: not applicable; this is an evaluation over completed recommendations.
+      Limitations: the historical assignments are not correct labels. Every metric is a rule-adherence comparison, a
+      routing-policy counterfactual, an operational-exposure measure or an assignment-quality proxy. None of them
+      supports a causal claim about conversion, revenue, profitability or customer experience. Capacity utilization
+      starts near zero and builds during the first months, which is why the excluding_warm_up scope exists; early
+      observations are reported, never deleted.
+    columns:
+      - name: policy
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["historical", "static_diagnostic", "capacity_aware_operational"]
+      - name: metric_id
+        data_tests: [not_null]
+      - name: period_scope
+        data_tests:
+          - accepted_values: {arguments: {values: ["full_period", "excluding_warm_up"]}}
+      - name: interpretation
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["rule-adherence comparison", "routing-policy counterfactual", "operational exposure",
+                         "assignment-quality proxy"]
+    data_tests:
+      - unique_key_combination: {arguments: {columns: ["policy", "metric_id", "period_scope"]}}
+
+  - name: mart_routing_recommendation_operational
+    description: >
+      Purpose: the primary, capacity-aware operational RM recommendation. One result per routing decision: either
+      exactly one recommended RM whose simulated post-assignment workload stays strictly below the declared capacity
+      limit, or exactly one controlled queue with an owner, an SLA, a next action and an escalation path. Unlike
+      mart_routing_recommendation_static, every assignment here consumes the chosen RM's simulated capacity, so this
+      is the view that can be read as an executable plan.
+      Grain: one row per lead per routing-decision timestamp. Primary key: decision_id.
+      Source: int_lead_routing__operational_assignment, enriched with the declared queue catalogue and the priority
+      mart; the historical_* columns are a comparison output joined after the recommendation exists.
+      As-of rule: every input is available at or before as_of_timestamp.
+      Limitations: a simulation over hypothetical rules and entirely synthetic data. Differences against the
+      historical assignments are rule-adherence and operational-exposure comparisons, never evidence of better
+      conversion, revenue, profitability or customer experience.
+    columns:
+      - name: decision_id
+        data_tests: [unique, not_null]
+      - name: lead_id
+        data_tests:
+          - not_null
+          - relationships: {arguments: {to: ref('fct_lead'), field: lead_id}}
+      - name: recommendation_status
+        data_tests:
+          - not_null
+          - accepted_values: {arguments: {values: ["assigned", "queued"]}}
+      - name: recommended_rm_id
+        data_tests:
+          - relationships: {arguments: {to: ref('dim_relationship_manager'), field: rm_id}}
+      - name: queue_code
+        data_tests:
+          - relationships: {arguments: {to: ref('routing_queue_rules'), field: queue_code}}
+      - name: recommendation_basis
+        data_tests: [not_null]
+      - name: rule_version
+        data_tests: [not_null]

@@ -1,0 +1,37 @@
+perturbation,mean_absolute_score_change,max_absolute_score_change,base_band_changes,base_band_change_share
+"BV01_CHANNEL effective weight +0.02, renormalized",0.275,0.9035,165,0.0092
+"BV01_CHANNEL effective weight -0.02, renormalized",0.2862,0.9404,191,0.0106
+"BV02_INTENT effective weight +0.02, renormalized",0.4104,1.0037,372,0.0207
+"BV02_INTENT effective weight -0.02, renormalized",0.4272,1.0447,269,0.015
+"BV03_SIZE effective weight +0.02, renormalized",0.2731,0.9881,176,0.0098
+"BV03_SIZE effective weight -0.02, renormalized",0.2842,1.0284,160,0.0089
+"BV04_INDUSTRY effective weight +0.02, renormalized",0.2458,0.7893,231,0.0128
+"BV04_INDUSTRY effective weight -0.02, renormalized",0.2558,0.8215,230,0.0128
+"BV05_MARKET effective weight +0.02, renormalized",0.1613,1.0053,224,0.0125
+"BV05_MARKET effective weight -0.02, renormalized",0.1679,1.0463,171,0.0095
+"BV06_COMPLETENESS effective weight +0.02, renormalized",0.8649,1.1454,886,0.0492
+"BV06_COMPLETENESS effective weight -0.02, renormalized",0.9002,1.1921,951,0.0529
+"OU01_AGE effective weight +0.02, renormalized",0.7215,1.0815,708,0.0394
+"OU01_AGE effective weight -0.02, renormalized",0.751,1.1256,604,0.0336
+"OU02_INTAKE_SLA effective weight +0.02, renormalized",0.4242,1.0544,265,0.0147
+"OU02_INTAKE_SLA effective weight -0.02, renormalized",0.4416,1.0974,426,0.0237
+"OU03_OWNERSHIP_SLA effective weight +0.02, renormalized",0.4299,1.0171,283,0.0157
+"OU03_OWNERSHIP_SLA effective weight -0.02, renormalized",0.4474,1.0587,409,0.0227
+"OU04_ENGAGEMENT effective weight +0.02, renormalized",0.4249,0.9526,266,0.0148
+"OU04_ENGAGEMENT effective weight -0.02, renormalized",0.4422,0.9914,424,0.0236
+both band thresholds +2 points,0.0,0.0,1987,0.1104
+both band thresholds -2 points,0.0,0.0,1543,0.0858
+"RPF-01 weight -0.03, renormalized",,,53,0.003
+"RPF-01 weight +0.03, renormalized",,,31,0.0017
+"RPF-02 weight -0.03, renormalized",,,121,0.0067
+"RPF-02 weight +0.03, renormalized",,,152,0.0085
+"RPF-03 weight -0.03, renormalized",,,888,0.0495
+"RPF-03 weight +0.03, renormalized",,,898,0.05
+"RPF-04 weight -0.03, renormalized",,,23,0.0013
+"RPF-04 weight +0.03, renormalized",,,49,0.0027
+"RPF-05 weight -0.03, renormalized",,,345,0.0192
+"RPF-05 weight +0.03, renormalized",,,270,0.015
+"RPF-06 weight -0.03, renormalized",,,729,0.0406
+"RPF-06 weight +0.03, renormalized",,,552,0.0308
+"RPF-07 weight -0.03, renormalized",,,0,0.0
+"RPF-07 weight +0.03, renormalized",,,0,0.0

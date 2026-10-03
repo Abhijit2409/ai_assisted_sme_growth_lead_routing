@@ -1,6 +1,6 @@
 {
   "purpose": "Validation of the hypothetical CRM acquisition-process and requirements design (no CRM records exist)",
-  "run_timestamp_utc": "2026-10-02T00:43:27+00:00",
+  "run_timestamp_utc": "2026-10-03T01:33:19+00:00",
   "validation_script_sha256": "45cd7e870b61ec4ec57c62fdf5a419c75daacb70976d4e2222d75110f4f90433",
   "opportunity_validation": {
     "checks_passed": 28,
@@ -157,8 +157,8 @@
     "data/design/crm/territory_rule_catalog.csv": "cc5512c8c5dc5a7c58320961dfa491be83b4fa7cc18ae583a84797a00048d83e"
   },
   "document_sha256": {
-    "docs/crm_acquisition_process_and_requirements.md": "0edd645e3cbeb63d7011b7ff3d812f737f2d2a03ed549ffb4e2b99093712ced5",
-    "docs/crm_data_model_and_dictionary.md": "54aa1d7cfe39b55ba0663ce38ec2747f13c54436b18ee5b4e9760ee6925191a8"
+    "docs/crm_acquisition_process_and_requirements.md": "a9af0e9b09c8f8207ddaf6c9b357582db10e9c153ea82d48e88d5c8299d3dbfd",
+    "docs/crm_data_model_and_dictionary.md": "334565c2b288f27e9d42b27427c7597f018158310e1f9ee83248ae9aab46691a"
   },
   "evidence_sha256": {
     "data/validation/crm_design/design_completeness_checks.csv": "8c20be922f20caeebdda46dc14a2702623f75a5e19ca9707216062d956f9924f",

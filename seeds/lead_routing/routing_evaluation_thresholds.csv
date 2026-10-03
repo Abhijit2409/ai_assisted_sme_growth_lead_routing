@@ -1,0 +1,17 @@
+parameter,value,unit,business_reasoning,source_rule_id,rule_version
+capacity_warning_ratio,0.80,ratio,Declared warning level for RM utilization in the hypothetical capacity design.,CAP-06,lr-v1.0
+capacity_hard_limit_ratio,1.00,ratio,Declared hard limit; an ordinary recommendation must never be made at or above it.,CAP-06,lr-v1.0
+capacity_exception_ceiling_ratio,1.10,ratio,Declared manager-approved exception ceiling under CAP-09; never used by an ordinary recommendation.,CAP-09,lr-v1.0
+warm_up_period_start,2025-06-01,date,"The synthetic operating year starts with every RM carrying zero workload, so early utilization is low by construction.",,lr-v1.0
+warm_up_period_end_exclusive,2025-09-01,date,"The first simulated quarter is declared a capacity warm-up. Chosen before any result was examined, because the capacity design reviews base capacity quarterly (CAP-05).",CAP-05,lr-v1.0
+imminent_breach_pressure,0.90,ratio,Share of an SLA target consumed at the decision instant that counts as an imminent breach for override POV-01.,SLA-04A;SLA-06B,lr-v1.0
+escalation_override_trigger,SLA-10 clock in flight,clock state,An escalation-response clock raised strictly before the decision and still in flight triggers override POV-02.,SLA-10,lr-v1.0
+score_comparison_tolerance,0.000001,score points,Tolerance used when the independent validation recomputes a priority or preference score.,,lr-v1.0
+preference_rounding_decimals,6,decimals,"Preference scores are rounded to six decimals before ranking, so ranking is stable across builds and floating-point summation orders.",,lr-v1.0
+priority_rounding_decimals,6,decimals,"Priority scores are rounded to six decimals before banding, so band assignment is stable across builds.",,lr-v1.0
+micro_segment_max_employees,19,employees,Upper bound of the micro segment routed to small-business RMs under RT-P02.,RT-P02,lr-v1.0
+mandatory_specialist_industries,11;53,NAICS 2022 sector codes,"Agriculture, forestry, fishing and hunting (11) and real estate and rental and leasing (53) require a specialist owner.",SPC-01;SPC-02,lr-v1.0
+preferred_specialist_industries,23;31-33;54;62,NAICS 2022 sector codes,"Construction, manufacturing, professional services and health care prefer a specialist but accept a generalist.",SPC-03;SPC-04;SPC-05;SPC-06,lr-v1.0
+excluded_industries,91,NAICS 2022 sector codes,Public administration is outside SME banking scope under SPC-08.,SPC-08,lr-v1.0
+eligible_employee_bands,1-4;5-19;20-99;100-499,employee bands,In-scope SME bands under RT-E03; unknown and 500-plus are not routable.,RT-E03,lr-v1.0
+market_context_max_share_of_score,0.078,share,"Maximum share of the total priority score that external market context can contribute (0.65 pillar weight x 0.12 component weight).",,lr-v1.0

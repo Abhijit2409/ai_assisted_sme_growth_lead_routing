@@ -10,7 +10,8 @@ A portfolio project that helps a hypothetical Canadian business-banking team dec
 - Internal CRM data are **entirely synthetic** (a fictional bank, fictional businesses and staff). Hypothetical internal-process problems, SLAs, capacity values and outcomes are simulation settings, not claims about or benchmarks for any real Canadian bank.
 - ISED financing estimates are **contextual evidence**, never market-size inputs.
 - **Tier 3 CMAs** (six markets that were census agglomerations in 2016) have scale and composition data only. They are not eligible for momentum-based comparison.
-- The market opportunity framework compares 35 CMAs on external evidence under transparent weighting scenarios. It is an external market signal, not a prospect list or an investment decision. No lead-priority score, routing recommendation or dashboard exists yet.
+- The market opportunity framework compares 35 CMAs on external evidence under transparent weighting scenarios. It is an external market signal, not a prospect list or an investment decision.
+- The lead-prioritization and RM-routing framework is a **hypothetical rule set for the fictional bank**, evaluated on the synthetic CRM data. Its comparisons against the synthetic historical assignments are rule-adherence, counterfactual and operational-exposure measures only, never evidence of a causal effect on conversion, revenue, profitability or customer experience. No dashboard, machine-learning model or executive KPI mart exists yet.
 
 ## Architecture
 
@@ -49,6 +50,7 @@ The dbt marts in the `analytics` schema are the authoritative analytical relatio
 | [docs/crm_acquisition_process_and_requirements.md](docs/crm_acquisition_process_and_requirements.md) | Hypothetical CRM acquisition process: statuses, routing, SLAs, capacity, duplicates, KPIs, requirements and synthetic scenarios |
 | [docs/crm_data_model_and_dictionary.md](docs/crm_data_model_and_dictionary.md) | Logical CRM data model, entity catalog, field dictionary and logged design changes |
 | [docs/synthetic_crm_data.md](docs/synthetic_crm_data.md) | Synthetic CRM data: generation, entities, coverage, dbt models, validation, mutation tests and reproducibility |
+| [docs/lead_prioritization_and_routing.md](docs/lead_prioritization_and_routing.md) | Lead prioritization and capacity-aware RM routing: declared configuration, decision grain, leakage proofs, priority score and bands, eligibility, capacity, preferences, queues, worked examples, policy comparison, validation and limitations |
 
 ## Installation
 
@@ -93,7 +95,8 @@ The script works from any directory. It never downloads data or deletes files, a
 7. The market opportunity framework (`-Scope Opportunity` runs only this part): preconditions, opportunity dbt models and tests, `src/analysis/13_analyze_market_opportunity_framework.py`, and `src/validation/14_validate_market_opportunity_framework.py`.
 8. The CRM acquisition-process design validation (`-Scope CRMDesign` runs only this part): confirm that the analytical platform is current and that the market opportunity validation passed, then run `src/validation/15_validate_crm_design.py`.
 9. The synthetic CRM data layer (`-Scope CRMData` runs only this part): generate the synthetic data (validated in a temporary folder, then published), build the CRM staging, intermediate and mart models, run the CRM dbt tests, run `src/validation/17_validate_synthetic_crm_data.py`, check two-run reproducibility and run the mutation tests.
-10. `dbt docs generate` (skipped by `-Scope CRMDesign`).
+10. The lead-prioritization and RM-routing layer (`-Scope LeadRouting` runs only this part): verify the platform state, the CRM design, the synthetic CRM data and the declared configuration hashes; load the configuration seeds; build the priority and routing models; run the tagged tests; run `src/analysis/18_analyze_lead_prioritization_and_routing.py`; run `src/validation/19_validate_lead_prioritization_and_routing.py`; run its mutation tests; and verify repeated-build reproducibility.
+11. `dbt docs generate` (skipped by `-Scope CRMDesign`).
 
 `-Scope Base` runs steps 1-6 and then the dbt documentation step.
 
@@ -147,6 +150,51 @@ A deterministic synthetic operating year (2025-06-01 to 2026-05-31 UTC) of the h
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\run_analytical_pipeline.ps1 -Scope CRMData
+```
+
+## Lead prioritization and capacity-aware RM routing
+
+A transparent, **hypothetical** rule set for the fictional bank that answers: which eligible SME leads should receive
+attention first, and which available RM or controlled queue should receive each lead? It is evaluated on the synthetic
+CRM data at the grain of **one lead per routing-decision timestamp** (19,777 decisions over 17,400 leads). There is no
+machine-learning model, conversion prediction, propensity score, revenue forecast, optimization solver, dashboard or
+executive KPI mart.
+
+- **Declared configuration:** ten seed files in `seeds/lead_routing/`, hashed before the first score was produced; the
+  declaration and every logged change are in `data/validation/lead_routing/configuration_declaration.json`.
+- **Priority:** eligibility is decided before scoring; eligible leads receive an explainable 0-100 score from a
+  business-value pillar (0.65) and an operational-urgency pillar (0.35), with external market context capped at 0.078
+  of the score. Bands P1 >= 65, P2 >= 45, P3 < 45. The source `priority_band` is preserved unchanged.
+- **Routing:** five lead-level and nine candidate-level mandatory rules, then seven weighted preferences, then a
+  four-level deterministic tie-break ending in a stable RM identifier. Capacity comes from the most recent snapshot at
+  or before the decision; no ordinary recommendation is made at or above the hard limit. Nine controlled queues each
+  carry an owner, SLA, next action and escalation path.
+- **Two recommendations, kept apart.** `mart_routing_recommendation_static` ranks each decision independently and never
+  consumes capacity: a **diagnostic** of rule fit, not an executable plan. `mart_routing_recommendation_operational` is
+  the **operational** answer: it walks the decisions in a declared order and keeps a simulated RM capacity ledger, so
+  each assignment consumes the chosen RM's capacity for every later decision and no assignment pushes an RM to or past
+  the declared hard limit.
+- **Honest result:** the ledger enforces capacity correctly within a snapshot window (it redirects 46 decisions and
+  peaks at 38 of 40 workload points) but barely changes year-long workload concentration, because the capacity
+  snapshots were produced by the historical policy and reset the ledger each night. This layer should not be presented
+  as a workload-balancing solution.
+- **Leakage:** no later event, outcome, `fct_opportunity_outcome` record, ground-truth label or historical selected RM
+  enters any score or recommendation. Proved by transitive dbt manifest lineage, a column-level read check on the
+  compiled SQL, independent recomputation and mutation tests.
+- **Comparison with the synthetic historical assignments** is a rule-adherence comparison, a routing-policy
+  counterfactual, an operational-exposure measure and an assignment-quality proxy. **It is never evidence of a causal
+  improvement in conversion, revenue, profitability or customer experience.** Recommendations never consume capacity, so
+  workload concentrates under the recommended policy; that result is reported, not hidden.
+- **dbt:** 11 seeds, 11 intermediate models, 6 marts and 20 singular tests, all tagged `lead_routing` (168 tests). The
+  base (151), opportunity (39) and synthetic CRM (383) test counts are unchanged.
+- **Validation:** `src/validation/19_validate_lead_prioritization_and_routing.py`, 92 of 92 checks, 19 of 19 mutation
+  tests (four of them injected into copies of the dbt manifest, the compiled SQL and the configuration seed, so the
+  leakage proof itself is exercised), and 61 of 61 artefacts byte-identical across repeated runs — dbt relations,
+  analysis files, figures and validation evidence; evidence in `data/validation/lead_routing/`.
+- **Details:** [docs/lead_prioritization_and_routing.md](docs/lead_prioritization_and_routing.md).
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\run_analytical_pipeline.ps1 -Scope LeadRouting
 ```
 
 ## Limitations

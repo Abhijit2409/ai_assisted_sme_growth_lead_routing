@@ -1,0 +1,9 @@
+check,passed,detail
+the selected recommendation recomputes exactly,True,0 differing
+the RM-or-queue outcome recomputes exactly,True,0 differing
+every eligible candidate appears in both the published and the recomputed ranking,True,"149195 published, 149195 recomputed"
+every candidate preference score recomputes independently,True,max absolute difference 0.000e+00
+every candidate rank recomputes exactly,True,0 differing
+candidate ranks form a 1..n permutation in every decision,True,0
+the ordering follows the declared tie-break sequence everywhere,True,0
+the final tie-break is a stable RM identifier and is recorded when it is used,True,"{'RTB-01': 16772, 'RTB-02': 2, 'RTB-03': 25, 'RTB-04': 1151}"

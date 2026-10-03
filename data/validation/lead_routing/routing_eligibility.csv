@@ -1,0 +1,6 @@
+check,passed,detail
+the candidate universe matches the recomputation,True,"210053 published, 210053 recomputed"
+candidate eligibility recomputes exactly,True,149195 eligible
+an ineligible RM is never recommended,True,0
+every recommended RM is employed on the decision date,True,0
+the source treats employment_end_date and valid_to as exclusive bounds,True,no capacity snapshot exists on or after an RM's employment end date

@@ -1,0 +1,4 @@
+check,passed,detail
+no single weight perturbation of 0.02 reclassifies a majority of leads,True,largest base-band change share 0.1104
+the priority score responds monotonically to each component,True,22 perturbations
+the recommended RM is stable under small preference-weight perturbations,True,largest share of changed recommendations 0.0500

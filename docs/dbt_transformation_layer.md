@@ -313,3 +313,25 @@ and opportunity test counts are therefore unchanged.
 `int_crm__lead_market_context` joins leads to `mart_cma_opportunity_framework` (configured scenario, `crm_market_context_scenario`)
 and `mart_cma_scale_only_context`; Tier 3 and no-context leads keep NULL score and rank. No model computes a priority or routing
 score or recommends an RM. Ground truth is not a dbt source. Details: [synthetic_crm_data.md](synthetic_crm_data.md).
+
+## Lead prioritization and capacity-aware RM routing layer
+
+A fifth tagged layer, `lead_routing`, sits on top of the synthetic CRM models. It is selected with `tag:lead_routing`
+and excluded from the base, opportunity and CRM selections, so those test counts stay at 151, 39 and 383.
+
+| Layer | Models | Notes |
+|---|---|---|
+| Seeds | 10 configuration files in `seeds/lead_routing/` | Declared and hashed before the first score; loaded into schema `reference` |
+| Intermediate | `int_lead_routing__decision_population`, `__priority_features_as_of`, `__priority_eligibility`, `__priority_components`, `__lead_priority_score`, `__routing_decision_population`, `__candidate_eligibility`, `__candidate_preference`, `__candidate_ranking`, `__queue_outcome` | Decision grain, as-of features, explainable components, mandatory eligibility, preference, deterministic ranking and controlled queues |
+| Marts | `mart_lead_priority`, `mart_routing_candidate`, `mart_routing_recommendation_static`, `mart_routing_exception`, `mart_routing_evaluation` | Business-facing; every model documents its purpose, grain, primary key, source, as-of rule and limitations |
+| Tests | 16 singular tests in `tests/lead_routing/` plus generic tests | **140 tests**, all passing |
+
+The decision grain is one row per lead per routing-decision timestamp, published as `as_of_timestamp`. Every feature is
+available at or before it. No model in the scoring or routing lineage reads `fct_opportunity_outcome`, any
+ground-truth relation, or any outcome column of the historical routing log; `src/validation/19_validate_lead_prioritization_and_routing.py`
+proves this by walking the dbt manifest transitively and by parsing the compiled SQL for the columns each model reads
+from that log. Determinism comes from rebuilding the score in a fixed component order, rounding preference scores before
+ranking, and ending the tie-break on a stable RM identifier; two consecutive builds are byte-identical for all ten
+published relations.
+
+See [lead_prioritization_and_routing.md](lead_prioritization_and_routing.md).

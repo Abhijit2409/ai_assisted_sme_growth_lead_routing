@@ -1,0 +1,13 @@
+check,passed,detail
+"no scoring or routing model has an opportunity outcome, ground truth or the recommendation and evaluation marts anywhere upstream",True,"13 models, lineage walked transitively"
+the generator ground truth is not declared as a dbt source at all,True,0 ground-truth sources
+no dbt model or test file names a ground-truth relation outside a comment,True,"5 ground-truth relation names, none referenced in executable SQL"
+every scoring and routing model was compiled and could be inspected,True,13 models
+"every model that reads the historical routing log reads only the identifier, lead, timestamp and decision type from it",True,"{'int_lead_routing__decision_population': ['decided_at', 'decision_type', 'lead_id', 'routing_decision_id']}"
+"the as-of lead status is recomputed from the status history, not copied from the historical routing log",True,13 decisions where the recomputed status differs from the value recorded on the decision
+"no scoring or routing model publishes an outcome, ground-truth or historical column",True,clean
+the prior owner never comes from the assignment the decision itself created,True,0
+every prior-owner assignment started strictly before its decision,True,0
+every prior-owner assignment precedes its decision,True,0
+"no scored decision precedes a data correction, so the stored attribute values are the values that were true at the decision",True,0
+fct_opportunity_outcome exists but is never used as a scoring or routing input,True,"3805 opportunity rows, zero references in the scoring lineage"

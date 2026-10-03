@@ -1,0 +1,5 @@
+tiebreak_order,tiebreak_id,tiebreak_field,sort_direction,business_reasoning,is_final_tiebreak,rule_version
+1,RTB-01,preference_score,desc,"The declared preference score is the primary ordering; every business preference is already weighted into it.",false,lr-v1.0
+2,RTB-02,utilization_ratio_at_decision,asc,"Among equally preferred RMs, give the lead to the one carrying the lighter relative load.",false,lr-v1.0
+3,RTB-03,remaining_capacity_points,desc,"Absolute spare workload points break ties between RMs whose utilization ratios are equal but whose capacities differ.",false,lr-v1.0
+4,RTB-04,rm_id,asc,"A stable fictional RM identifier is the final tie-break, applied only after every business preference. No randomness is used anywhere in routing.",true,lr-v1.0

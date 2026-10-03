@@ -1,0 +1,4 @@
+band_code,band_name,min_score_inclusive,max_score_exclusive,band_meaning,first_contact_sla_id,operational_expectation,rule_version
+P1,Priority 1,65.0,100.001,"Strong business-value evidence, or an operational clock close to or past its target. Work first.",SLA-06A,First contact within 1 business day,lr-v1.0
+P2,Priority 2,45.0,65.0,"Ordinary qualified lead: workable commercial evidence with no acute operational pressure.",SLA-06B,First contact within 2 business days,lr-v1.0
+P3,Priority 3,0.0,45.0,"Weak or incomplete commercial evidence and no operational pressure. Work after P1 and P2.",SLA-06C,First contact within 3 business days,lr-v1.0

@@ -1,0 +1,7 @@
+check,passed,detail
+recommended priority band recomputes exactly,True,0 differing
+override selection recomputes exactly,True,0 differing
+"P1, P2 and P3 are all represented",True,"{'P2': 12856, 'P1': 2905, 'P3': 2230, 'None': 1786}"
+without an override the band comes directly from the declared score bands,True,3 declared bands
+every override records its reason,True,0
+the source priority field is preserved unchanged,True,0

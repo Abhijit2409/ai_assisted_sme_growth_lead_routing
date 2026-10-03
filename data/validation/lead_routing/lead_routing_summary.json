@@ -1,0 +1,242 @@
+{
+  "purpose": "Independent validation of the lead-prioritization and capacity-aware RM-routing framework (hypothetical rules for a fictional bank; entirely synthetic CRM data)",
+  "framing": "Rule-adherence, counterfactual and operational-exposure comparisons only. No result here is evidence of a causal improvement in conversion, revenue, profitability or customer experience.",
+  "run_timestamp_utc": "2026-10-03T01:57:06+00:00",
+  "validation_script_sha256": "ed831abfb64a955bdb9c6e08b455e29f2200a2d193fd876de966f15358c324cf",
+  "rule_version": "lr-v1.0",
+  "configuration_declared_at_utc": "2026-10-02T01:01:25Z",
+  "first_scoring_build_utc": "2026-10-02T01:10:13Z",
+  "configuration_changes_since_declaration": 11,
+  "declared_sha256": {
+    "seeds/lead_routing/lead_priority_band_rules.csv": "91c406218fe44b8a300b2b7732c854418f25ef033f77b5b98239f52227c9ce62",
+    "seeds/lead_routing/lead_priority_component_registry.csv": "5cf507b7516e7f9627948392f8e105235581289f69332049348ad4472466a7c6",
+    "seeds/lead_routing/lead_priority_eligibility_rules.csv": "5b5d45da2cdfcecbceefd3b61f76e5e0be8deaa4ad27587235414951a1dd45f3",
+    "seeds/lead_routing/lead_priority_override_rules.csv": "d3ec893f2569a60887ad9ff57ced2849d53aafd895535d49727ee5200f6b6791",
+    "seeds/lead_routing/lead_priority_weight_config.csv": "78b94f494f4ae7c698ee14e2887da9480a844f29d9299577910c08032cec1526",
+    "seeds/lead_routing/routing_capacity_ledger_config.csv": "96227e5ae68edbe54319304c352d2aa9a688403d06c8ce7dd09aa631359489d5",
+    "seeds/lead_routing/routing_eligibility_rule_config.csv": "131f02a73b00574e95e6a6927cf2b8a22176e16b4174d2391b5c65dc6dc93578",
+    "seeds/lead_routing/routing_evaluation_thresholds.csv": "91e01de944ad56266d3fd8bc57a6a6ef86937990ace4b17440ad9a7caa87c310",
+    "seeds/lead_routing/routing_preference_weight_config.csv": "e1b2ede263ede43828880c48303057fa443d3e55058c2b4c76e894aa05e9fcd9",
+    "seeds/lead_routing/routing_queue_rules.csv": "55c554b1959c9bb52e71a1faa38e748ce16202fd9c40c9d4abbde09c0ed6fcf3",
+    "seeds/lead_routing/routing_tiebreak_rules.csv": "91738c25d75be6d1bf961ba5878d52a8a8ebb96ab232de92050015934b1bae50"
+  },
+  "decision_grain": "one row per lead per routing-decision timestamp (as_of_timestamp)",
+  "counts": {
+    "decisions": 19777,
+    "candidates": 210053,
+    "eligible_candidates": 149195,
+    "recommendations": 17950,
+    "queue_results": 1827,
+    "evaluation_rows": 119,
+    "operational_assignments": 17950,
+    "operational_queued": 1827,
+    "operational_redirected_by_capacity": 46
+  },
+  "priority_eligibility": {
+    "score_eligible": 17991,
+    "merged": 729,
+    "invalid": 405,
+    "data_remediation": 271,
+    "manual_review": 237,
+    "duplicate_review": 144
+  },
+  "priority_band_distribution": {
+    "(not scored)": 1786,
+    "P1": 2905,
+    "P2": 12856,
+    "P3": 2230
+  },
+  "queue_outcomes": {
+    "Q-DUP": 873,
+    "Q-MAN": 287,
+    "Q-DRM": 271,
+    "Q-TER": 237,
+    "Q-OOF": 118,
+    "Q-NSP": 18,
+    "Q-CAP": 12,
+    "Q-LNG": 11
+  },
+  "headline_evaluation_full_period_matched_population": {
+    "capacity_aware_operational.assignment_rate": 0.90762,
+    "capacity_aware_operational.distinct_rms_receiving_work": 132.0,
+    "capacity_aware_operational.hard_capacity_breaches": 0.0,
+    "capacity_aware_operational.language_fulfilment": 0.890063,
+    "capacity_aware_operational.mandatory_specialist_compliance": 1.0,
+    "capacity_aware_operational.mandatory_specialist_fulfilment": 0.905792,
+    "capacity_aware_operational.max_recommendations_to_one_rm": 3216.0,
+    "capacity_aware_operational.mean_recommendations_per_rm": 128.214286,
+    "capacity_aware_operational.preferred_specialist_fulfilment": 0.083436,
+    "capacity_aware_operational.queue_rate": 0.09238,
+    "capacity_aware_operational.queue_reason_Q-CAP": 0.000607,
+    "capacity_aware_operational.queue_reason_Q-DRM": 0.013703,
+    "capacity_aware_operational.queue_reason_Q-DUP": 0.044142,
+    "capacity_aware_operational.queue_reason_Q-LNG": 0.000556,
+    "capacity_aware_operational.queue_reason_Q-MAN": 0.014512,
+    "capacity_aware_operational.queue_reason_Q-NSP": 0.00091,
+    "capacity_aware_operational.queue_reason_Q-OOF": 0.005967,
+    "capacity_aware_operational.queue_reason_Q-TER": 0.011984,
+    "capacity_aware_operational.rms_with_no_recommendations": 0.057143,
+    "capacity_aware_operational.territory_rule_compliance": 1.0,
+    "capacity_aware_operational.top_decile_share": 0.723064,
+    "capacity_aware_operational.workload_gini": 0.772884,
+    "historical.assignment_rate": 0.914547,
+    "historical.distinct_rms_receiving_work": 140.0,
+    "historical.hard_capacity_breaches": 0.001106,
+    "historical.language_fulfilment": 0.767442,
+    "historical.mandatory_specialist_compliance": 0.905518,
+    "historical.mandatory_specialist_fulfilment": 0.836008,
+    "historical.max_recommendations_to_one_rm": 663.0,
+    "historical.mean_recommendations_per_rm": 129.192857,
+    "historical.preferred_specialist_fulfilment": 0.109062,
+    "historical.queue_rate": 0.085453,
+    "historical.queue_reason_manual_review": 0.00541,
+    "historical.queue_reason_regional": 0.001719,
+    "historical.queue_reason_specialist": 0.000101,
+    "historical.rms_with_no_recommendations": 0.0,
+    "historical.territory_rule_compliance": 0.98474,
+    "historical.top_decile_share": 0.339913,
+    "historical.workload_gini": 0.45754,
+    "static_diagnostic.assignment_rate": 0.90762,
+    "static_diagnostic.distinct_rms_receiving_work": 132.0,
+    "static_diagnostic.hard_capacity_breaches": 0.0,
+    "static_diagnostic.language_fulfilment": 0.890063,
+    "static_diagnostic.mandatory_specialist_compliance": 1.0,
+    "static_diagnostic.mandatory_specialist_fulfilment": 0.905792,
+    "static_diagnostic.max_recommendations_to_one_rm": 3234.0,
+    "static_diagnostic.mean_recommendations_per_rm": 128.214286,
+    "static_diagnostic.preferred_specialist_fulfilment": 0.083436,
+    "static_diagnostic.queue_rate": 0.09238,
+    "static_diagnostic.queue_reason_Q-CAP": 0.000607,
+    "static_diagnostic.queue_reason_Q-DRM": 0.013703,
+    "static_diagnostic.queue_reason_Q-DUP": 0.044142,
+    "static_diagnostic.queue_reason_Q-LNG": 0.000556,
+    "static_diagnostic.queue_reason_Q-MAN": 0.014512,
+    "static_diagnostic.queue_reason_Q-NSP": 0.00091,
+    "static_diagnostic.queue_reason_Q-OOF": 0.005967,
+    "static_diagnostic.queue_reason_Q-TER": 0.011984,
+    "static_diagnostic.rms_with_no_recommendations": 0.057143,
+    "static_diagnostic.territory_rule_compliance": 1.0,
+    "static_diagnostic.top_decile_share": 0.723064,
+    "static_diagnostic.workload_gini": 0.772899
+  },
+  "dbt_tests": {
+    "lead_routing_tests": 168,
+    "lead_routing_tests_passed": 168
+  },
+  "doc_claims": {
+    "decisions": "| **Total** | **19,777** |",
+    "historical_decisions": "| `historical_routing_decision` | 18,230 |",
+    "intake_decisions": "| `intake_routability_review` | 1,547 |",
+    "score_eligible": "| `score_eligible` | 17,991 |",
+    "band_distribution": "**P1 2,905, P2 12,856, P3 2,230**",
+    "score_range": "**35.83 to 83.78**",
+    "base_p1": "only 831 decisions reach the P1 floor",
+    "candidate_rows": "210,053 candidate rows",
+    "eligible_rows": "149,195 are eligible",
+    "queue_total": "| `mart_routing_exception` | one queued decision | `decision_id` | 1,827 |",
+    "operational_assigned": "**17,950** of 19,777 decisions",
+    "operational_redirected": "**46** decisions",
+    "tiebreak": "RTB-01 16,772, RTB-04 1,151, RTB-03 25, RTB-02 2",
+    "warm_up": "4,935 decisions fall inside it",
+    "tests": "**168 tests, all passing**",
+    "queue_count_Q-DUP": "| 873 |",
+    "queue_count_Q-MAN": "| 287 |",
+    "queue_count_Q-DRM": "| 271 |",
+    "queue_count_Q-TER": "| 237 |",
+    "queue_count_Q-OOF": "| 118 |",
+    "queue_count_Q-NSP": "| 18 |",
+    "queue_count_Q-CAP": "| 12 |",
+    "queue_count_Q-LNG": "| 11 |",
+    "row_assignment_rate": "| Assignment rate | 91.45% | 90.76% | 90.76% |",
+    "row_queue_rate": "| Queue rate | 8.55% | 9.24% | 9.24% |",
+    "row_territory_rule_compliance": "| Territory-rule compliance | 98.47% | 100.00% | 100.00% |",
+    "row_mandatory_specialist_compliance": "| Mandatory-specialist compliance | 90.55% | 100.00% | 100.00% |",
+    "row_mandatory_specialist_fulfilment": "| Mandatory-specialist fulfilment | 83.60% | 90.58% | 90.58% |",
+    "row_preferred_specialist_fulfilment": "| Preferred-specialist fulfilment | 10.91% | 8.34% | 8.34% |",
+    "row_language_fulfilment": "| Language fulfilment | 76.74% | 89.01% | 89.01% |",
+    "row_hard_capacity_breaches": "| Hard-capacity breaches | 0.11% | 0.00% | 0.00% |",
+    "row_top_decile_share": "| Top-decile share of assignments | 33.99% | 72.31% | 72.31% |",
+    "row_max_to_one_rm": "| Largest number of assignments to one RM | 663 | 3,234 | 3,216 |",
+    "row_rms_with_no_work": "| RMs receiving no assignment at all | 0 | 8 | 8 |",
+    "row_gini": "| Workload Gini across all RMs | 0.458 | 0.773 | 0.773 |"
+  },
+  "document_sha256": {
+    "docs/lead_prioritization_and_routing.md": "48287a5826233f0ebe2f8db9c2af2a20d1838639aa945a6a1d31a0863c3fecbe"
+  },
+  "evidence_sha256": {
+    "band_validation.csv": "0cea990a2f41e6904e12259e2b49b0fea47c24c1402a16ab97974526f3e169c5",
+    "candidate_ranking.csv": "ce28cc60bd09275c9f1bf7b1143894e440884fbf9b4f1b705a659aa28ea841d5",
+    "capacity_as_of_checks.csv": "1dbcdff3ce0da40537cf9cea84c00856d4ec30ed1966b61a0916f90665fa56d8",
+    "configuration_hashes.csv": "0889cdc9c7db3e25f77214f335afcdb1404823d20d3f2359807f4bc525ffe0ab",
+    "documentation_checks.csv": "bde6dbd6a1fee406b9c6c5ca69fa5dca2892a90fa1a3d6564e36a573417e5a6a",
+    "evaluation_checks.csv": "c10e63ac7d0f104948785ee1af116a86b7877e348c032d82826c9b3b6b577e62",
+    "feature_lineage.csv": "ab15dd2811ef6bcb3201cb0f6163e69eae1bdda5e32765ef5f00d5a733abaaa2",
+    "leakage_checks.csv": "363f59bca0db3255843226277f86a48f5517f5f64d5d62e75decac7d63e84f26",
+    "mutation_tests.csv": "aa1552af7b69ccaac4fedcd0cb5b36abeac09da57f994a62851f8353454440cd",
+    "queue_checks.csv": "f5c14878864c1e6483ad3eede45e7f7fd12806219e1b7b28b5be346f5b38ca6f",
+    "reproducibility_checks.csv": "c66860cd97214590068c56a88a8be05d2e1c2f36d7ff0d6be2d001bc23e27afe",
+    "routing_eligibility.csv": "8b3b9850d8e97b6315dc7974224cdd9c6ec118dd09f1a01b605540260c2082ad",
+    "score_recalculation.csv": "0910a8bfade9009df59f1da5f8f8bce75fc3518daf3811558b2d85e7cbce43c4",
+    "sensitivity_analysis.csv": "9811714f97d56ae3c59bb334a847ab85cd6f075eb999f6f8fff61379f73269ec",
+    "sensitivity_checks.csv": "53f03454b5933aecf97e92b062a293e1942e37545f78002d2360e1886ae1f9ec",
+    "specialist_checks.csv": "3d03ff77dcbe38f5edbadc7db4ff1bec22537f88bef06ca06264026a0f12b9b5"
+  },
+  "checks_by_file": {
+    "configuration_hashes": {
+      "passed": 11,
+      "total": 11
+    },
+    "feature_lineage": {
+      "passed": 11,
+      "total": 11
+    },
+    "score_recalculation": {
+      "passed": 7,
+      "total": 7
+    },
+    "band_validation": {
+      "passed": 6,
+      "total": 6
+    },
+    "leakage_checks": {
+      "passed": 12,
+      "total": 12
+    },
+    "routing_eligibility": {
+      "passed": 5,
+      "total": 5
+    },
+    "capacity_as_of_checks": {
+      "passed": 6,
+      "total": 6
+    },
+    "specialist_checks": {
+      "passed": 3,
+      "total": 3
+    },
+    "candidate_ranking": {
+      "passed": 8,
+      "total": 8
+    },
+    "queue_checks": {
+      "passed": 7,
+      "total": 7
+    },
+    "evaluation_checks": {
+      "passed": 8,
+      "total": 8
+    },
+    "sensitivity_checks": {
+      "passed": 3,
+      "total": 3
+    },
+    "documentation_checks": {
+      "passed": 5,
+      "total": 5
+    }
+  },
+  "checks_passed": 92,
+  "checks_total": 92,
+  "failed_checks": [],
+  "all_checks_pass": true
+}

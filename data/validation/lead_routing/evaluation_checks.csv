@@ -1,0 +1,9 @@
+check,passed,detail
+the static assignment rate recomputes,True,0.9076
+all three policies are evaluated on the same decision population,True,"['capacity_aware_operational', 'historical', 'static_diagnostic']"
+every policy is evaluated over the identical decision count,True,19777 decisions per policy
+the evaluation is reported for the full period and excluding the declared warm-up,True,119 rows over 3 policies
+the capacity-aware operational policy makes no hard-capacity breach,True,0.0
+the operational recommendation differs from the static diagnostic where capacity binds,True,46 decisions routed to a different RM once capacity is consumed
+"warm-up decisions are flagged and kept, never deleted",True,"4935 decisions in the declared warm-up period, all retained"
+every evaluation metric is labelled with a non-causal interpretation,True,"['assignment-quality proxy', 'operational exposure', 'rule-adherence comparison']"

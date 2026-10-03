@@ -1,0 +1,12 @@
+check,passed,detail
+synthetic CRM validation passed,True,230 of 230
+synthetic CRM data unchanged since they were validated,True,"19 files, 0 changed"
+CRM design validation passed,True,202 of 202
+every declared configuration file still exists,True,"11 declared, 11 present"
+configuration files match the declared hashes,True,11 files
+the configuration was declared before the first scoring build,True,2026-10-02T01:01:25Z -> 2026-10-02T01:10:13Z
+"every logged change records an old value, a new value and a reason",True,11 changes
+every logged change declares a kind,True,"['design_fidelity', 'documentation', 'implementation', 'leakage_prevention', 'reported_reason']"
+"no weight, band threshold, normalization or neutral value was changed after the declaration",True,"11 changes, none of kind value_change"
+declared weights sum to one at every level,True,"pillars 1.0, business value 1.0, operational urgency 1.0, preference 0.9999999999999999"
+the external market-context cap matches the declared pillar and component weights,True,0.65 x 0.12 = 0.078

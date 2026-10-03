@@ -769,3 +769,54 @@ The `CRMDesign` scope checks that the analytical platform is current and that th
 runs `15_validate_crm_design.py`. The validator checks catalog completeness, the state machine, rule references (including CMA
 and industry keys in the warehouse), requirement traceability, scenario coverage, these documents and the absence of any
 synthetic records, personal data, real-bank names or internal phase labels.
+
+## How the lead-prioritization and routing framework implements these rules
+
+The rules in this document are design intent. The `lead_routing` layer turns them into a transparent, testable
+implementation over the synthetic CRM data, at the grain of one lead per routing-decision timestamp. It remains a
+hypothetical design for a fictional bank: nothing in it describes the internal process of any real Canadian bank, and
+every threshold stays a simulation setting awaiting business approval. Full detail is in
+[lead_prioritization_and_routing.md](lead_prioritization_and_routing.md).
+
+### Rule coverage
+
+| Design rule | Implemented as | Note |
+|---|---|---|
+| RT-E01, RT-E04 data completeness and lead-status gates | REL-01 lead routability, plus priority eligibility outcomes `data_remediation` and `not_yet_routable` | |
+| RT-E02 duplicate gate | REL-02, evaluated against the duplicate group as it stood at the decision instant | Queue Q-DUP |
+| RT-E03, SPC-08, TER-06 SME eligibility | priority eligibility outcome `invalid` | 1-499 bands, Canada only, sector 91 excluded |
+| RT-E05 channel handling and self-assignment | **not implemented** | The prospecting RM is not available as an as-of field on the synthetic lead |
+| RT-E06, TER-01 to TER-08 geography and territory | REL-04 footprint, REL-05 territory resolution, REL-08 effective coverage | Queues Q-OOF, Q-TER |
+| TER-09 remote-service coverage | REL-09, served by the remote pool's own coverage | |
+| TER-10 national specialist coverage | REL-08 and REL-09 as a **second-stage fallback**, used only when no regional candidate is eligible | 96 decisions |
+| RT-P01 territory match | RPF-01 preference, primary 100 against backup 50 | Eligibility is separate and absolute |
+| RT-P02 segment match | RPF-03 preference | |
+| RT-P03, SPC-01 to SPC-06 specialists | REL-10 for mandatory industries (eligibility), RPF-02 for preferred (preference) | Mandatory and preferred are never mixed |
+| RT-P04 stated service language | REL-11 eligibility; language is never inferred | Stricter than the design fallback: an unsupported stated language produces Q-LNG instead of assign-and-flag |
+| RT-P05 named preferred RM | **not implemented** | Not available as an as-of field |
+| RT-X01, CAP-08 availability | REL-06 employment and REL-07 availability | REL-07 is skipped when no snapshot exists; REL-12 is then the failing rule |
+| RT-X02, CAP-06, CAP-10 hard capacity | REL-12 snapshot availability and REL-13 hard limit | No ordinary recommendation at or above 1.00 |
+| RT-X03 conflict and prior decline | REL-14 exclusion | Also excludes the prior owner on a reassignment |
+| RT-L01 workload balancing | RPF-05 capacity headroom and RPF-06 pool balance | |
+| RT-L02 tie-breaking | RTB-01 to RTB-04, ending on a stable RM identifier | No randomness anywhere |
+| RT-F01, RT-F02, RT-F03 fallback queues | Nine controlled queues, each with owner, SLA, next action and escalation path | |
+| RT-O01 manager override | Q-MOR is declared and tested; the framework never applies an override itself | Overrides remain a human control |
+| RT-O02 escalation of queue ageing | POV-02 forces P1 while an SLA-10 clock is open | |
+| CAP-05 base capacity, CAP-09 exception ceiling | Published on every candidate; the exception ceiling is never used by an ordinary recommendation | |
+| SLA-04, SLA-05, SLA-06 clocks | OU02 and OU03 priority components, and override POV-01 at 90% of target | Measured only on clocks started strictly before the decision |
+| SLA-06A, SLA-06B, SLA-06C priority bands | Selected by the recommended band; the source P2 band is preserved unchanged | The three contact SLAs become usable for the first time |
+| PI-01 to PI-21 candidate priority inputs | Ten declared priority components; PI-06, PI-16 to PI-18 and PI-20 stay gates, PI-13 to PI-15 stay context | |
+| PI-22 to PI-25 prohibited inputs | Never read; language is used only when explicitly stated | |
+
+### What this adds to the process design
+
+The design named SLA-06A and SLA-06C but could never use them, because every synthetic lead carries the default P2
+band (A-009). A recommended band now exists beside the source band, so the three first-contact SLAs are addressable.
+The design's nine queue outcomes now each carry a named owner, an ageing SLA, a next action and an escalation path on
+every individual decision rather than only in the catalog.
+
+### What it deliberately does not do
+
+It creates no machine-learning model, conversion prediction, propensity score, revenue forecast, profitability estimate
+or optimization solver; it integrates with no production CRM; it builds no dashboard and no executive KPI mart; and it
+changes no historical synthetic assignment, no generator calibration and no source priority value.

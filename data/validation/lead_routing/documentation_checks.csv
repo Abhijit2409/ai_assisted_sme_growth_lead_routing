@@ -1,0 +1,6 @@
+check,passed,detail
+the lead-routing document exists,True,lead_prioritization_and_routing.md
+every count and rate the document states is reproduced by the published data,True,35 claims verified
+every worked example in the document is a real published decision,True,9 worked examples cited
+"the document carries the hypothetical, synthetic and non-causal disclaimers",True,all present
+the document makes no causal performance claim,True,none

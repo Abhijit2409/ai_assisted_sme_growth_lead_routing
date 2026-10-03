@@ -1,8 +1,8 @@
 {
   "purpose": "Independent validation of the synthetic CRM data (fictional bank; synthetic records only)",
-  "run_timestamp_utc": "2026-10-02T00:45:27+00:00",
+  "run_timestamp_utc": "2026-10-03T01:35:44+00:00",
   "mode": "full",
-  "validation_script_sha256": "1f6458ceb859ce6c33c4406a242c74efb521a9ab7163c09252650400962ac02c",
+  "validation_script_sha256": "633d9acb355c2bce8348bfc8a57d2acd5f33ec8d93d616f0bb9e2f3764c47aff",
   "generator_version": "1.0.0",
   "master_random_seed": 20260929,
   "period_utc": [

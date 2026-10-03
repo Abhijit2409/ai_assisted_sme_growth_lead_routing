@@ -1,0 +1,4 @@
+check,passed,detail
+every mandatory-specialist recommendation goes to a holder of that primary specialization,True,1298 of 1298
+the national specialist fallback is used only when no regional candidate is eligible,True,0
+preferred-specialist demand falls back to a generalist rather than being blocked,True,6689 of 8078 preferred-specialist decisions

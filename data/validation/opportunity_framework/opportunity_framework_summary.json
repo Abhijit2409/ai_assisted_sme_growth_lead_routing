@@ -1,10 +1,10 @@
 {
   "purpose": "Validation of the external market opportunity framework",
-  "run_timestamp_utc": "2026-09-30T01:38:29+00:00",
+  "run_timestamp_utc": "2026-10-03T01:32:59+00:00",
   "dbt_version": "1.12.5",
   "duckdb_version": "1.5.3",
   "analysis_script_sha256": "1e697e9cfe06e562a40c4e5ca9a873f38c829f509edd1c036d4f56d09868dfc3",
-  "validation_script_sha256": "5ba204d4883ae03a27a6f5a8ec81cf456132c597a74f0162bc664e9bf4b5089a",
+  "validation_script_sha256": "00ce063d9f9db9e92d71fac19529c6d1f2cd3a00fbe5fd3b5ff8596f1d7873e1",
   "eligible_population": {
     "count": 35,
     "cmas": [

@@ -1,0 +1,12 @@
+check,passed,detail
+decision population matches: one row per lead per routing-decision timestamp,True,"19777 published, 19777 recomputed"
+as-of lead status recomputes exactly,True,0 differing
+specialist requirement level recomputes exactly,True,0 differing
+market-context treatment recomputes exactly,True,0 differing
+pre-decision engagement state recomputes exactly,True,0 differing
+data completeness items recomputes exactly,True,0 differing
+lead age in hours recomputes within tolerance,True,0 differing
+intake SLA pressure recomputes within tolerance,True,0 differing
+ownership SLA pressure recomputes within tolerance,True,0 differing
+maximum SLA pressure recomputes within tolerance,True,0 differing
+no decision carries a feature timestamped after its decision instant,True,"verified by the recomputation, which only reads events before the decision"

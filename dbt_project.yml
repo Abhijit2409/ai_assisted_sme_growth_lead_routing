@@ -30,6 +30,8 @@ models:
         +tags: ["opportunity"]
       crm:
         +tags: ["crm_data"]
+      lead_routing:
+        +tags: ["lead_routing"]
     marts:
       +schema: analytics
       +materialized: table
@@ -37,18 +39,24 @@ models:
         +tags: ["opportunity"]
       crm:
         +tags: ["crm_data"]
+      lead_routing:
+        +tags: ["lead_routing"]
 
 # Synthetic CRM data tests (tests/crm): selected with tag:crm_data, excluded from the base and opportunity runs.
 data_tests:
   sme_market_intelligence:
     crm:
       +tags: ["crm_data"]
+    lead_routing:
+      +tags: ["lead_routing"]
 
 seeds:
   sme_market_intelligence:
     +schema: reference
     opportunity:
       +tags: ["opportunity"]
+    lead_routing:
+      +tags: ["lead_routing"]
 
 # Constants shared by several models (defined once; tests check them against the sources where the source states them).
 vars:
@@ -69,3 +77,5 @@ vars:
   opportunity_trend_min_months: 30
   # Synthetic CRM data: market-context scenario joined to leads (A-010; simulation setting, not approved policy)
   crm_market_context_scenario: "balanced"
+  # Lead prioritization and capacity-aware RM routing (declared configuration; hypothetical rules, synthetic data)
+  lead_routing_rule_version: "lr-v1.0"

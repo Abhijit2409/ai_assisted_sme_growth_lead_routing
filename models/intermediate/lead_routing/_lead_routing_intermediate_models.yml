@@ -1,0 +1,267 @@
+version: 2
+
+# Intermediate models of the lead-prioritization and capacity-aware RM-routing framework.
+# Hypothetical rules for a fictional bank over entirely synthetic CRM data. Nothing here describes the process of any
+# real Canadian bank, and no output is a causal claim about conversion, revenue, profitability or customer experience.
+
+models:
+  - name: int_lead_routing__decision_population
+    description: >
+      Purpose: establish the decision population the whole framework is evaluated on.
+      Grain: one row per lead per routing-decision timestamp.
+      Primary key: decision_id.
+      Source: stg_crm__routing_decision (identifier, lead and timestamp only), stg_crm__lead, stg_crm__lead_status_history,
+      seed routing_evaluation_thresholds.
+      As-of rule: lead_status_at_decision is recomputed from the status history using changes strictly before
+      as_of_timestamp plus changes stamped exactly at it whose event is not ASSIGNMENT_CREATED, because that event is
+      caused by the decision being replayed.
+      Limitations: the decision timestamps are the historical policy's, so this is a counterfactual at the same instants,
+      not a redesign of when decisions are taken. The intake_routability_review points are a constructed decision moment
+      for leads the routing engine never saw; they exist so the eligibility taxonomy covers held and terminal leads.
+    columns:
+      - name: decision_id
+        description: Stable decision identifier. DEC-<routing_decision_id> for a replayed decision, DEC-INTAKE-<lead_id> for an intake review.
+        data_tests: [unique, not_null]
+      - name: lead_id
+        data_tests:
+          - not_null
+          - relationships: {arguments: {to: ref('stg_crm__lead'), field: lead_id}}
+      - name: as_of_timestamp
+        description: The decision instant. Every feature must be available at or before it.
+        data_tests: [not_null]
+      - name: decision_trigger
+        data_tests:
+          - accepted_values: {arguments: {values: ["historical_routing_decision", "intake_routability_review"]}}
+      - name: decision_type
+        data_tests:
+          - accepted_values: {arguments: {values: ["initial", "reassignment", "override", "queue_release", "intake_review"]}}
+      - name: lead_status_at_decision
+        data_tests: [not_null]
+    data_tests:
+      - unique_key_combination: {arguments: {columns: ["lead_id", "as_of_timestamp"]}}
+
+  - name: int_lead_routing__priority_features_as_of
+    description: >
+      Purpose: assemble every as-of feature used by the priority score and by routing eligibility.
+      Grain: one row per decision. Primary key: decision_id.
+      Source: int_lead_routing__decision_population, stg_crm__lead, stg_crm__business_prospect, stg_crm__territory,
+      stg_crm__sla_event, stg_crm__lead_activity, stg_crm__lead_assignment, int_crm__duplicate_resolution,
+      int_crm__lead_market_context, seed routing_evaluation_thresholds.
+      As-of rule: SLA pressure uses only clocks started strictly before the decision and not stopped before it, measured
+      as the share of the clock target consumed; activity counts use activities strictly before the decision; the prior
+      owner is the RM owning the lead immediately before the decision. No later activity, status, assignment, capacity
+      snapshot or SLA result is read, and fct_opportunity_outcome and the generator ground truth are never referenced.
+      Limitations: lead geography, stated interest, consent and prospect attributes are stored as current values on the
+      synthetic source. Every historical routing decision happens after validation passed, so the current value is the
+      validated value at that instant; for the constructed intake-review points the current value is a documented
+      approximation. SLA pressure is linear between the clock start and its business-calendar target timestamp, so it is
+      exact at the endpoints and interpolated in between.
+    columns:
+      - name: decision_id
+        data_tests: [unique, not_null]
+      - name: lead_age_hours_at_decision
+        data_tests: [not_null]
+      - name: specialist_requirement_level
+        data_tests:
+          - accepted_values: {arguments: {values: ["mandatory", "preferred", "standard", "unclassified", "excluded"]}}
+      - name: market_context_treatment
+        description: Whether the external market score was used, or the declared neutral value was used for a Tier 3 scale-only or missing-context lead.
+        data_tests:
+          - accepted_values: {arguments: {values: ["scored", "neutral_tier3_scale_only", "neutral_missing_context"]}}
+      - name: pre_decision_engagement_state
+        data_tests:
+          - accepted_values: {arguments: {values: ["two_way_contact", "three_or_more_attempts_no_contact", "one_or_two_attempts_no_contact", "no_activity"]}}
+      - name: completeness_items_present
+        data_tests: [not_null]
+
+  - name: int_lead_routing__priority_eligibility
+    description: >
+      Purpose: decide priority eligibility before any score exists.
+      Grain: one row per decision. Primary key: decision_id.
+      Source: int_lead_routing__priority_features_as_of, seed lead_priority_eligibility_rules.
+      As-of rule: every condition uses the lead state at the decision instant. surviving_lead_id is deliberately not
+      used, because it is set when the merge happens and would be future information at an earlier decision.
+      Limitations: three declared outcomes (withdrawn, terminal, not_yet_routable) are defined and tested but are not
+      observed in this population, because the synthetic routing log never takes a decision on a lead in those states.
+    columns:
+      - name: decision_id
+        data_tests: [unique, not_null]
+      - name: priority_eligibility
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["score_eligible", "duplicate_review", "invalid", "merged", "withdrawn", "terminal",
+                         "data_remediation", "manual_review", "not_yet_routable"]
+      - name: is_scoreable
+        data_tests: [not_null]
+
+  - name: int_lead_routing__priority_components
+    description: >
+      Purpose: publish the full explanation of every priority score.
+      Grain: one row per decision per component (ten components per scoreable decision).
+      Primary key: (decision_id, component_id).
+      Source: int_lead_routing__priority_features_as_of, int_lead_routing__priority_eligibility, seeds
+      lead_priority_component_registry and lead_priority_weight_config.
+      As-of rule: inherited from the feature model.
+      Limitations: normalization uses declared fixed mappings and breakpoints, not population percentiles, so a score is
+      meaningful on its own and is unaffected by which other leads happen to be in the build.
+    columns:
+      - name: component_id
+        data_tests:
+          - not_null
+          - relationships: {arguments: {to: ref('lead_priority_component_registry'), field: component_id}}
+      - name: normalized_value
+        data_tests: [not_null]
+      - name: contribution
+        data_tests: [not_null]
+      - name: used_neutral_default
+        description: True when the declared neutral value was used because the observed value was absent. Never zero.
+        data_tests: [not_null]
+    data_tests:
+      - unique_key_combination: {arguments: {columns: ["decision_id", "component_id"]}}
+
+  - name: int_lead_routing__lead_priority_score
+    description: >
+      Purpose: produce the recommended priority score and band, with any override applied and explained.
+      Grain: one row per decision. Primary key: decision_id.
+      Source: int_lead_routing__priority_components, int_lead_routing__priority_eligibility,
+      int_lead_routing__priority_features_as_of, seeds lead_priority_band_rules and lead_priority_override_rules.
+      As-of rule: inherited from the feature model.
+      Limitations: the base score is rebuilt from the ten published contributions in a fixed component order, so it is
+      identical on every build; the source priority field on crm_lead is never modified.
+    columns:
+      - name: decision_id
+        data_tests: [unique, not_null]
+      - name: recommended_priority_band
+        data_tests:
+          - accepted_values: {arguments: {values: ["P1", "P2", "P3"]}}
+      - name: override_rule_id
+        data_tests:
+          - relationships: {arguments: {to: ref('lead_priority_override_rules'), field: rule_id}}
+
+  - name: int_lead_routing__routing_decision_population
+    description: >
+      Purpose: apply the lead-level mandatory gates (REL-01 to REL-05) before any RM is considered.
+      Grain: one row per decision. Primary key: decision_id.
+      Source: int_lead_routing__priority_features_as_of, int_lead_routing__lead_priority_score.
+      As-of rule: inherited from the feature model.
+      Limitations: a decision that fails a lead-level gate never reaches candidate evaluation; its queue reason is
+      chosen from the priority-eligibility outcome first, then geography, then the generic review queue.
+    columns:
+      - name: decision_id
+        data_tests: [unique, not_null]
+      - name: proceeds_to_candidate_evaluation
+        data_tests: [not_null]
+      - name: lead_gate_queue_code
+        data_tests:
+          - relationships: {arguments: {to: ref('routing_queue_rules'), field: queue_code}}
+
+  - name: int_lead_routing__candidate_eligibility
+    description: >
+      Purpose: evaluate every mandatory candidate-level rule (REL-06 to REL-14) for every RM in the candidate universe.
+      Grain: one row per decision per candidate RM. Primary key: (decision_id, rm_id).
+      Source: int_lead_routing__routing_decision_population, stg_crm__relationship_manager, stg_crm__rm_territory,
+      stg_crm__rm_specialization, stg_crm__rm_capacity_snapshot, stg_crm__lead_assignment, seed routing_evaluation_thresholds.
+      As-of rule: capacity comes from the most recent snapshot with snapshot_as_of_utc at or before the decision instant;
+      a later snapshot is never used. Territory and specialization coverage is tested against effective dates on the
+      decision date. Declines are counted only when recorded strictly before the decision.
+      Limitations: the candidate universe is RMs holding a territory relationship to the lead's territory in any
+      effective period, plus every holder of the required primary specialization on a mandatory-specialist lead. RMs
+      with no relationship to the territory at all are structurally out of scope and are counted in
+      structurally_excluded_rm_count rather than enumerated as rows.
+    columns:
+      - name: is_eligible
+        description: True only when every mandatory rule passes. Eligibility is absolute; preference can never override it.
+        data_tests: [not_null]
+      - name: capacity_snapshot_as_of_utc
+        description: Timestamp of the capacity snapshot used. Never after as_of_timestamp.
+    data_tests:
+      - unique_key_combination: {arguments: {columns: ["decision_id", "rm_id"]}}
+
+  - name: int_lead_routing__candidate_preference
+    description: >
+      Purpose: compare eligible candidates on the declared preferences, publishing every contribution.
+      Grain: one row per decision per eligible candidate. Primary key: (decision_id, rm_id).
+      Source: int_lead_routing__candidate_eligibility (eligible rows only), seeds routing_preference_weight_config and
+      routing_evaluation_thresholds.
+      As-of rule: inherited from the eligibility model.
+      Limitations: RPF-06 (workload balance) is relative to the eligible pool of the same decision, so it depends on who
+      else is eligible; RPF-05 (headroom) is absolute and does not.
+    columns:
+      - name: preference_score
+        data_tests: [not_null]
+    data_tests:
+      - unique_key_combination: {arguments: {columns: ["decision_id", "rm_id"]}}
+
+  - name: int_lead_routing__candidate_ranking
+    description: >
+      Purpose: order eligible candidates deterministically and identify the single recommended candidate.
+      Grain: one row per decision per eligible candidate. Primary key: (decision_id, rm_id); candidate_rank is unique within a decision.
+      Source: int_lead_routing__candidate_preference, seed routing_tiebreak_rules.
+      As-of rule: inherited from the preference model.
+      Limitations: no randomness is used anywhere. The final tie-break is the stable fictional RM identifier, applied
+      only after every business preference, so a build always reproduces the same ordering.
+    columns:
+      - name: candidate_rank
+        data_tests: [not_null]
+      - name: separating_tiebreak_id
+        data_tests:
+          - relationships: {arguments: {to: ref('routing_tiebreak_rules'), field: tiebreak_id}}
+    data_tests:
+      - unique_key_combination: {arguments: {columns: ["decision_id", "candidate_rank"]}}
+
+  - name: int_lead_routing__queue_outcome
+    description: >
+      Purpose: produce exactly one controlled queue result for every decision that cannot be recommended to an RM.
+      Grain: one row per queued decision. Primary key: decision_id.
+      Source: int_lead_routing__routing_decision_population, int_lead_routing__candidate_eligibility,
+      int_lead_routing__candidate_ranking, seed routing_queue_rules.
+      As-of rule: inherited from the upstream models.
+      Limitations: two of the nine declared queues (Q-CAP capacity hold and Q-MOR manager override review) are never
+      raised in this synthetic baseline, because utilization rarely reaches the hard limit and because no decision ends
+      with every candidate blocked solely by the exclusion rule. Both remain defined, documented and tested.
+    columns:
+      - name: decision_id
+        data_tests: [unique, not_null]
+      - name: queue_code
+        data_tests:
+          - not_null
+          - relationships: {arguments: {to: ref('routing_queue_rules'), field: queue_code}}
+      - name: queue_owner_role
+        data_tests: [not_null]
+      - name: next_action
+        data_tests: [not_null]
+      - name: escalation_path
+        data_tests: [not_null]
+
+  - name: int_lead_routing__operational_assignment
+    description: >
+      Purpose: the capacity-aware operational assignment. Processes every routing decision once, in the declared
+      order (timestamp, priority tier, priority score, SLA pressure, decision identifier), and maintains a simulated
+      RM capacity ledger so that each assignment consumes the chosen RM's capacity for the decisions that follow.
+      Grain: one row per lead per routing-decision timestamp. Primary key: decision_id.
+      Source: int_lead_routing__routing_decision_population, int_lead_routing__lead_priority_score,
+      int_lead_routing__priority_features_as_of, int_lead_routing__candidate_ranking,
+      int_lead_routing__queue_outcome and the declared routing_capacity_ledger_config.
+      As-of rule: only the as-of candidate set, the as-of capacity snapshot and the as-of priority are read. The
+      ledger is built strictly forward in time from this model's own earlier decisions. No conversion outcome,
+      opportunity record, ground-truth label or historical selected RM takes any part in the choice.
+      Ledger: the basis is the latest valid capacity snapshot at or before the decision; a newer observed snapshot
+      replaces the basis and resets the simulated additions, because the observed snapshot already reflects the work
+      the RM is really carrying. A candidate is selectable only while the simulated post-assignment workload stays
+      strictly below the declared limit.
+      Limitations: a simulation. The workload an assignment adds is the declared CAP-01 weight of one point and does
+      not change as the lead progresses. Because each new observed snapshot reflects the historical policy rather
+      than this one, simulated load does not carry across snapshot boundaries.
+    columns:
+      - name: decision_id
+        data_tests: [unique, not_null]
+      - name: recommendation_status
+        data_tests:
+          - not_null
+          - accepted_values: {arguments: {values: ["assigned", "queued"]}}
+      - name: processing_sequence
+        data_tests: [unique, not_null]
+      - name: recommendation_basis
+        data_tests: [not_null]

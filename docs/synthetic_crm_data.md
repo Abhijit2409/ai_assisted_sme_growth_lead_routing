@@ -11,7 +11,10 @@
 This layer turns the hypothetical CRM acquisition design ([crm_acquisition_process_and_requirements.md](crm_acquisition_process_and_requirements.md),
 [crm_data_model_and_dictionary.md](crm_data_model_and_dictionary.md)) into a deterministic, internally consistent operating
 history. Later work can use it to develop lead prioritization, capacity-aware routing and acquisition-operations analytics.
-It contains **no** lead-priority score, routing score, RM recommendation, assignment optimizer, dashboard or machine-learning model.
+This layer itself contains **no** lead-priority score, routing score, RM recommendation, assignment optimizer, dashboard
+or machine-learning model: those live in the separate `lead_routing` layer
+([lead_prioritization_and_routing.md](lead_prioritization_and_routing.md)), which reads these models and never writes
+back to them. A test asserts that no CRM source, staging or foundational mart model carries a recommendation column.
 
 ## Lineage
 
@@ -243,3 +246,24 @@ size, sorted rows and no timestamps in data values).
   decisions) because preferred-industry specialists are sparse; mandatory industries go to specialists or the national pool.
 - Some ground-truth labels are derived after the run from the generator's own records (for example acknowledgement-delay
   membership from clock outcomes, and expected final status), so their agreement with the observable predicates is partly circular.
+
+## How the lead-routing layer uses these data
+
+The lead-prioritization and capacity-aware RM-routing framework treats this synthetic year as **the baseline to
+evaluate, never as something to recalibrate**. It changes no lead outcome, conversion probability, historical
+assignment, scenario frequency, specialist staffing, capacity assumption, SLA outcome, channel distribution or market
+distribution, and it does not touch the generator. The deterministic pipeline regenerates these files unchanged on
+every run, and the routing validation re-verifies the published manifest hashes before it starts.
+
+Three properties of this baseline shape every result in that layer, and are reported rather than corrected:
+
+- every lead carries source priority band **P2** (A-009), so a recommended band cannot be compared against a source
+  band;
+- preferred-industry specialists are sparse, so preferred-specialist mismatch is about **70%** of specialist-need
+  decisions;
+- capacity starts at zero on 2025-06-01 and builds over the first months, and the first nightly snapshot is dated
+  2025-06-02, so the 12 routing decisions on 2025-06-01 have no capacity evidence at all and are held in a controlled
+  queue.
+
+The generator ground truth in `data/synthetic/crm_ground_truth/` remains out of scope for that layer entirely: it is not
+a dbt source, no model or test references it, and the routing validation asserts both.

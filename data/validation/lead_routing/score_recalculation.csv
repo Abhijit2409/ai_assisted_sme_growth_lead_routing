@@ -1,0 +1,8 @@
+check,passed,detail
+priority eligibility recomputes exactly,True,0 differing
+only score-eligible decisions carry a score,True,17991 score eligible
+priority score recomputes independently,True,max absolute difference 0.000e+00
+every scored decision has exactly ten published components,True,17991 decisions
+every contribution equals pillar weight x component weight x normalized value,True,0 bad
+every normalized component value is within 0-100,True,10.0 to 100.0
+"a missing value always takes its declared neutral value, never zero",True,0

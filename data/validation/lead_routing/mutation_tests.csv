@@ -1,0 +1,20 @@
+injected_fault,target_check,failing_rows_as_written,failing_rows_with_fault,restored,passed
+future activity used in scoring,pre-decision engagement uses only activities before the decision,0,50,True,True
+ground-truth label used in scoring,no ground-truth column exists in the scoring models,0,1,True,True
+opportunity outcome used in scoring,no opportunity-outcome column exists in the scoring models,0,1,True,True
+historical selected RM used as a feature,no historical decision column exists in the scoring models,0,1,True,True
+ineligible RM recommended,the recommended RM is eligible,0,25,True,True
+future capacity snapshot used,the capacity snapshot is never after the decision,0,40,True,True
+hard-capacity violation,no ordinary recommendation is made at or above the hard limit,0,30,True,True
+mandatory specialist violation,every mandatory-specialist recommendation goes to a specialist,0,20,True,True
+unstable tie-break,the ordering follows the declared tie-break sequence,0,40,True,True
+missing recommendation reason,every recommendation carries a reason,0,15,True,True
+missing queue result,a decision with no eligible RM always has a queue result,0,10,True,True
+altered component weight,the score equals the sum of its published contributions,0,17991,True,True
+invalid priority band,every published band is one of the declared bands and matches its score,0,20,True,True
+score outside the published range,every published score is within 0-100,0,10,True,True
+opportunity outcome injected into the scoring lineage,no forbidden relation is upstream of a scoring model,0,12,True,True
+ground-truth source injected into the scoring lineage,no forbidden relation is upstream of a scoring model,0,12,True,True
+historical selected RM read from the routing log,"only the identifier, lead, timestamp and decision type are read from the routing log",0,1,True,True
+declared component weight altered in the configuration seed,configuration files match the declared hashes and weights sum to one,0,1,True,True
+available capacity of RM-0124 reduced to 2 workload points,later recommendations move to another eligible RM or to a queue,0,3134,True,True

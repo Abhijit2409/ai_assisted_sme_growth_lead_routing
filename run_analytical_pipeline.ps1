@@ -2,7 +2,8 @@
 .SYNOPSIS
     Runs the analytical data platform end to end: input verification, dbt transformation layer,
     mart-to-baseline reconciliation, market-exploration regression, the market opportunity framework,
-    validation of the hypothetical CRM acquisition-process design, the synthetic CRM data layer and dbt documentation.
+    validation of the hypothetical CRM acquisition-process design, the synthetic CRM data layer, the lead-prioritization
+    and capacity-aware RM-routing layer, and dbt documentation.
 
 .DESCRIPTION
     Safe to launch from any directory: it resolves the repository from its own location.
@@ -11,7 +12,8 @@
 
 .PARAMETER Scope
     Full (default): the validated base analytical layer, then the market opportunity framework, then the
-          CRM acquisition-process design validation, then the synthetic CRM data layer, then dbt docs.
+          CRM acquisition-process design validation, then the synthetic CRM data layer, then the lead-prioritization
+          and routing layer, then dbt docs.
     Base: only the validated base analytical layer (inputs, dbt base models and tests, reconciliation,
           market-exploration regression).
     Opportunity: only the market opportunity framework, after confirming that the base marts are current
@@ -37,10 +39,12 @@
     powershell -ExecutionPolicy Bypass -File .\run_analytical_pipeline.ps1 -Scope CRMDesign
 .EXAMPLE
     powershell -ExecutionPolicy Bypass -File .\run_analytical_pipeline.ps1 -Scope CRMData
+.EXAMPLE
+    powershell -ExecutionPolicy Bypass -File .\run_analytical_pipeline.ps1 -Scope LeadRouting
 #>
 [CmdletBinding()]
 param(
-    [ValidateSet('Full', 'Base', 'Opportunity', 'CRMDesign', 'CRMData')][string]$Scope = 'Full',
+    [ValidateSet('Full', 'Base', 'Opportunity', 'CRMDesign', 'CRMData', 'LeadRouting')][string]$Scope = 'Full',
     [string]$AnalysisPython
 )
 
@@ -91,11 +95,11 @@ if ($Scope -in @('Full', 'Base')) {
     }
     Write-Host ''
     Write-Host '==> B2. dbt packages: none required (no packages.yml)' -ForegroundColor Cyan
-    Invoke-Step 'B3. Load crosswalk and reviewed-map seeds' { & $Dbt seed --profiles-dir $Root --exclude tag:opportunity tag:crm_data }
-    Invoke-Step 'B4. Build staging models' { & $Dbt run --profiles-dir $Root --select staging --exclude tag:crm_data }
-    Invoke-Step 'B5. Build intermediate models' { & $Dbt run --profiles-dir $Root --select intermediate --exclude tag:opportunity tag:crm_data }
-    Invoke-Step 'B6. Build marts' { & $Dbt run --profiles-dir $Root --select marts --exclude tag:opportunity tag:crm_data }
-    Invoke-Step 'B7. Run all base dbt tests' { & $Dbt test --profiles-dir $Root --exclude tag:opportunity tag:crm_data }
+    Invoke-Step 'B3. Load crosswalk and reviewed-map seeds' { & $Dbt seed --profiles-dir $Root --exclude tag:opportunity tag:crm_data tag:lead_routing }
+    Invoke-Step 'B4. Build staging models' { & $Dbt run --profiles-dir $Root --select staging --exclude tag:crm_data tag:lead_routing }
+    Invoke-Step 'B5. Build intermediate models' { & $Dbt run --profiles-dir $Root --select intermediate --exclude tag:opportunity tag:crm_data tag:lead_routing }
+    Invoke-Step 'B6. Build marts' { & $Dbt run --profiles-dir $Root --select marts --exclude tag:opportunity tag:crm_data tag:lead_routing }
+    Invoke-Step 'B7. Run all base dbt tests' { & $Dbt test --profiles-dir $Root --exclude tag:opportunity tag:crm_data tag:lead_routing }
     Invoke-Step 'B8. Reconcile the 11 marts with the baseline Parquet views' { & $AnalysisPython 'src\validation\11_reconcile_dbt_marts.py' }
     Invoke-Step 'B9. Market exploration from dbt marts: two runs, regression, determinism, in-place refresh' {
         & $AnalysisPython 'src\validation\12_verify_market_exploration_regression.py'
@@ -108,9 +112,9 @@ if ($Scope -in @('Full', 'Opportunity')) {
     Invoke-Step 'O1. Confirm base marts are current and the framework configuration is unchanged' {
         & $AnalysisPython 'src\validation\14_validate_market_opportunity_framework.py' --preconditions-only
     }
-    Invoke-Step 'O2. Load opportunity configuration seeds' { & $Dbt seed --profiles-dir $Root --select tag:opportunity --exclude tag:crm_data }
-    Invoke-Step 'O3. Build opportunity models' { & $Dbt run --profiles-dir $Root --select tag:opportunity --exclude tag:crm_data }
-    Invoke-Step 'O4. Run opportunity dbt tests' { & $Dbt test --profiles-dir $Root --select tag:opportunity --exclude tag:crm_data }
+    Invoke-Step 'O2. Load opportunity configuration seeds' { & $Dbt seed --profiles-dir $Root --select tag:opportunity --exclude tag:crm_data tag:lead_routing }
+    Invoke-Step 'O3. Build opportunity models' { & $Dbt run --profiles-dir $Root --select tag:opportunity --exclude tag:crm_data tag:lead_routing }
+    Invoke-Step 'O4. Run opportunity dbt tests' { & $Dbt test --profiles-dir $Root --select tag:opportunity --exclude tag:crm_data tag:lead_routing }
     Invoke-Step 'O5. Opportunity framework analysis' { & $AnalysisPython 'src\analysis\13_analyze_market_opportunity_framework.py' }
     Invoke-Step 'O6. Opportunity framework validation (recalculation, eligibility, sensitivity, two-run reproducibility)' {
         & $AnalysisPython 'src\validation\14_validate_market_opportunity_framework.py'
@@ -148,7 +152,7 @@ if ($Scope -in @('Full', 'CRMData')) {
     Invoke-Step 'D4. Build CRM staging models' { & $Dbt run --profiles-dir $Root --select path:models/staging/crm }
     Invoke-Step 'D5. Build CRM intermediate models' { & $Dbt run --profiles-dir $Root --select path:models/intermediate/crm }
     Invoke-Step 'D6. Build foundational CRM marts' { & $Dbt run --profiles-dir $Root --select path:models/marts/crm }
-    Invoke-Step 'D7. Run CRM dbt tests' { & $Dbt test --profiles-dir $Root --select tag:crm_data }
+    Invoke-Step 'D7. Run CRM dbt tests' { & $Dbt test --profiles-dir $Root --select tag:crm_data --exclude tag:lead_routing }
     Invoke-Step 'D8. Independent synthetic CRM validation (sources, staging reconciliation, grains, rules, scenarios, privacy)' {
         & $AnalysisPython 'src\validation\17_validate_synthetic_crm_data.py'
     }
@@ -157,6 +161,40 @@ if ($Scope -in @('Full', 'CRMData')) {
     }
     Invoke-Step 'D10. Mutation tests of the synthetic CRM validation (temporary copies only)' {
         & $AnalysisPython 'src\validation\17_validate_synthetic_crm_data.py' --mutation-tests
+    }
+}
+
+if ($Scope -in @('Full', 'LeadRouting')) {
+    Write-Host ''
+    Write-Host '--- Lead prioritization and capacity-aware RM routing (hypothetical rules; synthetic data) ---' -ForegroundColor Yellow
+    if ($Scope -eq 'LeadRouting') {
+        Invoke-Step 'L1. Confirm the analytical platform is current (base marts and opportunity configuration)' {
+            & $AnalysisPython 'src\validation\14_validate_market_opportunity_framework.py' --preconditions-only
+        }
+        Invoke-Step 'L2. Confirm the CRM design is valid (design catalogs, change log, documents)' {
+            & $AnalysisPython 'src\validation\15_validate_crm_design.py'
+        }
+        Invoke-Step 'L3. Confirm the synthetic CRM data are current (manifest hashes and the recorded validation)' {
+            & $AnalysisPython 'src\validation\19_validate_lead_prioritization_and_routing.py' --preconditions-only
+        }
+    }
+    Invoke-Step 'L4. Verify the declared configuration hashes' {
+        & $AnalysisPython 'src\validation\19_validate_lead_prioritization_and_routing.py' --config-hashes-only
+    }
+    Invoke-Step 'L5. Load the lead-routing configuration seeds' { & $Dbt seed --profiles-dir $Root --select tag:lead_routing }
+    Invoke-Step 'L6. Build the priority and routing models' { & $Dbt run --profiles-dir $Root --select tag:lead_routing }
+    Invoke-Step 'L7. Run the lead-routing dbt tests' { & $Dbt test --profiles-dir $Root --select tag:lead_routing }
+    Invoke-Step 'L8. Lead prioritization and routing analysis (sensitivity, policy comparison, diagnostics, figures)' {
+        & $AnalysisPython 'src\analysis\18_analyze_lead_prioritization_and_routing.py'
+    }
+    Invoke-Step 'L9. Independent validation (recomputation, leakage lineage, capacity as-of, ranking, queues, evaluation)' {
+        & $AnalysisPython 'src\validation\19_validate_lead_prioritization_and_routing.py'
+    }
+    Invoke-Step 'L10. Mutation tests of the lead-routing validation (isolated copies only)' {
+        & $AnalysisPython 'src\validation\19_validate_lead_prioritization_and_routing.py' --mutation-tests
+    }
+    Invoke-Step 'L11. Repeated-build reproducibility of the priority and routing layer' {
+        & $AnalysisPython 'src\validation\19_validate_lead_prioritization_and_routing.py' --check-reproducibility
     }
 }
 

@@ -1,0 +1,186 @@
+version: 2
+
+# Declared configuration of the lead-prioritization and capacity-aware RM-routing framework.
+# Hypothetical rules for a fictional bank over synthetic data. Declared and hashed before the first
+# score or recommendation was produced (data/validation/lead_routing/configuration_declaration.json);
+# any later change must record the old value, the new value and an outcome-independent reason.
+
+seeds:
+  - name: lead_priority_component_registry
+    description: "One row per priority component: pillar, business purpose, source model and columns, transformation, direction, normalization rule, declared neutral value and the as-of availability rule."
+    config:
+      tags: ["lead_routing"]
+      column_types: {component_id: varchar, pillar: varchar, component_name: varchar, business_purpose: varchar,
+                     source_model: varchar, source_columns: varchar, raw_value_kind: varchar, transformation: varchar,
+                     direction: varchar, normalization_rule: varchar, neutral_value: double, available_at_decision: varchar, notes: varchar}
+    columns:
+      - name: component_id
+        data_tests: [unique, not_null]
+      - name: pillar
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["business_value", "operational_urgency"]
+      - name: direction
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["higher_is_stronger", "lower_is_stronger"]
+      - name: neutral_value
+        data_tests: [not_null]
+
+  - name: lead_priority_weight_config
+    description: "Declared pillar weights and within-pillar component weights with the business reasoning for each. Pillar weights sum to 1; component weights sum to 1 within each pillar."
+    config:
+      tags: ["lead_routing"]
+      column_types: {config_id: varchar, level: varchar, pillar: varchar, component_id: varchar, weight: double,
+                     business_reasoning: varchar, rule_version: varchar}
+    columns:
+      - name: config_id
+        data_tests: [unique, not_null]
+      - name: level
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["pillar", "component"]
+      - name: weight
+        data_tests: [not_null]
+
+  - name: lead_priority_band_rules
+    description: "Declared P1, P2 and P3 bands: score range, meaning, the first-contact SLA the band would select and the operational expectation."
+    config:
+      tags: ["lead_routing"]
+      column_types: {band_code: varchar, band_name: varchar, min_score_inclusive: double, max_score_exclusive: double,
+                     band_meaning: varchar, first_contact_sla_id: varchar, operational_expectation: varchar, rule_version: varchar}
+    columns:
+      - name: band_code
+        data_tests:
+          - unique
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["P1", "P2", "P3"]
+
+  - name: lead_priority_eligibility_rules
+    description: "Ordered priority-eligibility rules. The first matching rule decides the eligibility outcome; only score_eligible leads receive a score."
+    config:
+      tags: ["lead_routing"]
+      column_types: {rule_id: varchar, eligibility_outcome: varchar, evaluation_order: bigint, condition_description: varchar,
+                     source_rule_id: varchar, is_scoreable: boolean, outcome_meaning: varchar, next_action: varchar,
+                     owner_role: varchar, rule_version: varchar}
+    columns:
+      - name: rule_id
+        data_tests: [unique, not_null]
+      - name: eligibility_outcome
+        data_tests: [unique, not_null]
+      - name: evaluation_order
+        data_tests: [unique, not_null]
+
+  - name: lead_priority_override_rules
+    description: "Ordered override rules applied after the base score: forced band, band floor, band cap or score suppression, each with its business reasoning."
+    config:
+      tags: ["lead_routing"]
+      column_types: {rule_id: varchar, override_order: bigint, override_action: varchar, forced_band: varchar,
+                     band_floor: varchar, band_cap: varchar, trigger_condition: varchar, business_reasoning: varchar,
+                     source_rule_id: varchar, owner_role: varchar, rule_version: varchar}
+    columns:
+      - name: rule_id
+        data_tests: [unique, not_null]
+      - name: override_order
+        data_tests: [unique, not_null]
+      - name: override_action
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["force_band", "band_floor", "band_cap", "suppress_score"]
+
+  - name: routing_eligibility_rule_config
+    description: "Mandatory routing-eligibility rules, separated into lead-level gates and candidate-level gates, each mapped to its source design rule and to the queue raised when it fails."
+    config:
+      tags: ["lead_routing"]
+      column_types: {rule_id: varchar, rule_scope: varchar, evaluation_order: bigint, rule_name: varchar,
+                     condition_for_pass: varchar, failure_queue_code: varchar, source_rule_id: varchar,
+                     business_reasoning: varchar, is_mandatory: boolean, rule_version: varchar}
+    columns:
+      - name: rule_id
+        data_tests: [unique, not_null]
+      - name: rule_scope
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["lead", "candidate"]
+      - name: evaluation_order
+        data_tests: [unique, not_null]
+
+  - name: routing_preference_weight_config
+    description: "Candidate preference components with declared weights, normalization rules, neutral values and business reasoning. Preference never overrides eligibility."
+    config:
+      tags: ["lead_routing"]
+      column_types: {preference_id: varchar, preference_name: varchar, weight: double, direction: varchar,
+                     normalization_rule: varchar, neutral_value: double, business_reasoning: varchar,
+                     source_rule_id: varchar, rule_version: varchar}
+    columns:
+      - name: preference_id
+        data_tests: [unique, not_null]
+      - name: weight
+        data_tests: [not_null]
+
+  - name: routing_tiebreak_rules
+    description: "Deterministic tie-break order applied after the preference score. The final tie-break is a stable fictional RM identifier; no randomness is used."
+    config:
+      tags: ["lead_routing"]
+      column_types: {tiebreak_order: bigint, tiebreak_id: varchar, tiebreak_field: varchar, sort_direction: varchar,
+                     business_reasoning: varchar, is_final_tiebreak: boolean, rule_version: varchar}
+    columns:
+      - name: tiebreak_id
+        data_tests: [unique, not_null]
+      - name: tiebreak_order
+        data_tests: [unique, not_null]
+      - name: sort_direction
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ["asc", "desc"]
+
+  - name: routing_queue_rules
+    description: "Controlled queue outcomes used when no RM is eligible: code, reason, owner, SLA, next action and escalation path."
+    config:
+      tags: ["lead_routing"]
+      column_types: {queue_code: varchar, queue_name: varchar, queue_priority: bigint, trigger_rule_id: varchar,
+                     queue_reason: varchar, queue_owner_role: varchar, queue_sla_id: varchar, queue_sla_target: varchar,
+                     next_action: varchar, escalation_path: varchar, source_rule_id: varchar, rule_version: varchar}
+    columns:
+      - name: queue_code
+        data_tests: [unique, not_null]
+      - name: queue_priority
+        data_tests: [unique, not_null]
+      - name: queue_owner_role
+        data_tests: [not_null]
+
+  - name: routing_capacity_ledger_config
+    description: "Declared parameters of the simulated RM capacity ledger used by the operational recommendation: the workload a newly assigned lead adds (CAP-01), the post-assignment limit, the policy for resetting the ledger when a newer observed snapshot arrives, the deterministic processing order, and the queue used when no eligible RM has capacity."
+    config:
+      tags: ["lead_routing"]
+      column_types: {parameter: varchar, value: varchar, unit: varchar, business_reasoning: varchar,
+                     source_rule_id: varchar, rule_version: varchar}
+    columns:
+      - name: parameter
+        data_tests: [unique, not_null]
+      - name: value
+        data_tests: [not_null]
+      - name: business_reasoning
+        data_tests: [not_null]
+      - name: source_rule_id
+        data_tests: [not_null]
+
+  - name: routing_evaluation_thresholds
+    description: "Declared decision parameters: capacity thresholds, the warm-up period, override triggers, rounding and comparison tolerances, specialist and eligibility code lists, and the market-context cap."
+    config:
+      tags: ["lead_routing"]
+      column_types: {parameter: varchar, value: varchar, unit: varchar, business_reasoning: varchar,
+                     source_rule_id: varchar, rule_version: varchar}
+    columns:
+      - name: parameter
+        data_tests: [unique, not_null]
+      - name: value
+        data_tests: [not_null]

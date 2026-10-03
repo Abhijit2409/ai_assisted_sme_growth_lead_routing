@@ -1,0 +1,153 @@
+{
+  "purpose": "Configuration of the lead-prioritization and capacity-aware RM-routing framework, declared and hashed before the first priority score or RM recommendation was produced.",
+  "framing": "Hypothetical rules for a fictional bank evaluated on entirely synthetic CRM data. Nothing here describes or benchmarks the process of any real Canadian bank.",
+  "rule_version": "lr-v1.0",
+  "declared_at_utc": "2026-10-02T01:01:25Z",
+  "first_scoring_build_utc": "2026-10-02T01:10:13Z",
+  "declared_sha256": {
+    "seeds/lead_routing/lead_priority_band_rules.csv": "91c406218fe44b8a300b2b7732c854418f25ef033f77b5b98239f52227c9ce62",
+    "seeds/lead_routing/lead_priority_component_registry.csv": "5cf507b7516e7f9627948392f8e105235581289f69332049348ad4472466a7c6",
+    "seeds/lead_routing/lead_priority_eligibility_rules.csv": "5b5d45da2cdfcecbceefd3b61f76e5e0be8deaa4ad27587235414951a1dd45f3",
+    "seeds/lead_routing/lead_priority_override_rules.csv": "d3ec893f2569a60887ad9ff57ced2849d53aafd895535d49727ee5200f6b6791",
+    "seeds/lead_routing/lead_priority_weight_config.csv": "78b94f494f4ae7c698ee14e2887da9480a844f29d9299577910c08032cec1526",
+    "seeds/lead_routing/routing_capacity_ledger_config.csv": "96227e5ae68edbe54319304c352d2aa9a688403d06c8ce7dd09aa631359489d5",
+    "seeds/lead_routing/routing_eligibility_rule_config.csv": "131f02a73b00574e95e6a6927cf2b8a22176e16b4174d2391b5c65dc6dc93578",
+    "seeds/lead_routing/routing_evaluation_thresholds.csv": "91e01de944ad56266d3fd8bc57a6a6ef86937990ace4b17440ad9a7caa87c310",
+    "seeds/lead_routing/routing_preference_weight_config.csv": "e1b2ede263ede43828880c48303057fa443d3e55058c2b4c76e894aa05e9fcd9",
+    "seeds/lead_routing/routing_queue_rules.csv": "55c554b1959c9bb52e71a1faa38e748ce16202fd9c40c9d4abbde09c0ed6fcf3",
+    "seeds/lead_routing/routing_tiebreak_rules.csv": "91738c25d75be6d1bf961ba5878d52a8a8ebb96ab232de92050015934b1bae50"
+  },
+  "change_policy": "Any later change records the file, the old value, the new value and an outcome-independent reason in changes_since_declaration. Weights and band thresholds are never adjusted after examining historical conversion or assignment outcomes.",
+  "changes_since_declaration": [
+    {
+      "changed_at_utc": "2026-10-02T01:02:58Z",
+      "files": [
+        "seeds/lead_routing/lead_priority_override_rules.csv",
+        "seeds/lead_routing/routing_evaluation_thresholds.csv"
+      ],
+      "rule_id": "POV-02",
+      "old_value": "POV-02 triggers when an in-flight clock carries escalation level 2 (threshold escalation_override_level = 2).",
+      "new_value": "POV-02 triggers when an escalation-response clock (SLA-10) was raised strictly before the decision instant and is still in flight at it (threshold escalation_override_trigger = SLA-10 clock in flight).",
+      "reason": "Leakage prevention, outcome-independent: crm_sla_event.escalation_level holds the clock final escalation level, which may be raised after the decision instant, so it is not available as-of. The SLA-10 escalation-response clock start time is strictly pre-decision information and expresses the same business condition (a manager has already been engaged). No historical conversion or assignment outcome was examined; no scores or recommendations had been produced.",
+      "old_sha256": {
+        "seeds/lead_routing/lead_priority_override_rules.csv": "7714fc686342128d2129bc7c2c8eeaeca0afe6782d47579f1ece6084fac9da44",
+        "seeds/lead_routing/routing_evaluation_thresholds.csv": "db2239ce2138aaced6559d43a1bae75e38e0fc66036c7180c18ce0a7489f5b11"
+      },
+      "new_sha256": {
+        "seeds/lead_routing/lead_priority_override_rules.csv": "20115eddc3cc22dc5fb3208190038bbec3e174806ab895ec6a0c27955756cf6e",
+        "seeds/lead_routing/routing_evaluation_thresholds.csv": "2028adabceb06777c6479580ffdf6872e3b1b050e0d769c5edc9dbf90d9a8b41"
+      },
+      "change_kind": "leakage_prevention"
+    },
+    {
+      "rule_id": "REL-07",
+      "files": [
+        "seeds/lead_routing/routing_eligibility_rule_config.csv"
+      ],
+      "old_value": "REL-07 fails whenever availability_status is null or in (planned_leave, unavailable).",
+      "new_value": "REL-07 is not evaluated when no capacity snapshot exists at or before the decision; REL-12 is the rule that fails.",
+      "reason": "Correctness of the reported reason, outcome-independent. With no snapshot, availability is unknown rather than bad. Under the old text the 12 decisions on 2025-06-01 (the day before the first capacity snapshot) failed REL-07 and REL-12 together, so no candidate was blocked solely by capacity and they fell through to the generic manual-review queue instead of the capacity hold the design intends. Candidate eligibility is unchanged: a candidate with no snapshot remains ineligible through REL-12.",
+      "changed_at_utc": "2026-10-02T01:33:19Z",
+      "change_kind": "reported_reason"
+    },
+    {
+      "rule_id": "REL-08 and REL-09",
+      "files": [
+        "seeds/lead_routing/routing_eligibility_rule_config.csv"
+      ],
+      "old_value": "REL-08 required effective coverage of the lead own territory in every case; the national specialist pool (TER-10) was therefore unreachable.",
+      "new_value": "REL-08 also passes under a declared TER-10 fallback stage: a mandatory-specialist lead with no eligible regional candidate may be served by an RM holding effective coverage of the national specialist territory and the required primary specialization. REL-09 states that the fallback is a second stage evaluated only after the regional stage.",
+      "reason": "Design fidelity, outcome-independent. TER-10 and the fallback column of SPC-01 and SPC-02 are part of the reviewed CRM design and were already cited by REL-09, but the implementation made them unreachable: no lead carries the national specialist territory, so its four specialists always failed REL-08. All 114 national-specialist queue results had a national-pool specialist that passed every other mandatory rule. No weight, band or threshold was changed, and the fallback cannot outrank an eligible regional RM because it is only evaluated when none exists.",
+      "changed_at_utc": "2026-10-02T01:33:19Z",
+      "new_sha256": {
+        "seeds/lead_routing/routing_eligibility_rule_config.csv": "af7f36f68cd3723b8096e8daa272ec0f94e9c3d367df6c1c18f92e8cd01a0419"
+      },
+      "change_kind": "design_fidelity"
+    },
+    {
+      "rule_id": "int_lead_routing__candidate_eligibility (implementation)",
+      "files": [],
+      "old_value": "The candidate universe was every RM at every decision, evaluated with correlated subqueries.",
+      "new_value": "The candidate universe is RMs holding a territory relationship to the lead territory in any effective period, plus every holder of the required primary specialization on a mandatory-specialist lead; coverage is resolved with joins.",
+      "reason": "Implementation only, outcome-independent: the original cross join of 140 RMs by every decision exhausted memory. No rule, weight or threshold changed. RMs with no relationship to the territory are structurally out of scope and are counted in structurally_excluded_rm_count rather than enumerated.",
+      "changed_at_utc": "2026-10-02T01:33:19Z",
+      "change_kind": "implementation"
+    },
+    {
+      "rule_id": "int_lead_routing__priority_eligibility (implementation)",
+      "files": [],
+      "old_value": "The merged outcome also triggered on surviving_lead_id being present.",
+      "new_value": "The merged outcome triggers only on the as-of lead status; the as-of duplicate group covers the pre-merge state.",
+      "reason": "Leakage prevention, outcome-independent: surviving_lead_id is written when the merge happens, so at an earlier decision instant it is future information. 140 intake-review decisions move from merged to duplicate_review, which is the correct as-of answer.",
+      "changed_at_utc": "2026-10-02T01:33:19Z",
+      "change_kind": "leakage_prevention"
+    },
+    {
+      "rule_id": "int_lead_routing__routing_decision_population (implementation)",
+      "files": [],
+      "old_value": "The lead-gate queue code was chosen from duplicate status, then validation, then geography, then the generic queue.",
+      "new_value": "The lead-gate queue code is chosen from the priority-eligibility outcome first, then geography, then the generic queue.",
+      "reason": "Correctness of the reported reason, outcome-independent: a merged lead with unresolved geography was being sent to territory review instead of duplicate review, so the queue owner was given the wrong action.",
+      "changed_at_utc": "2026-10-02T01:33:19Z",
+      "note_on_weights": "No weight, band threshold, normalization mapping or neutral value has been changed since the declaration. Every change above is a leakage, implementation or design-fidelity correction.",
+      "change_kind": "reported_reason"
+    },
+    {
+      "changed_at_utc": "2026-10-02T03:37:33Z",
+      "rule_id": "int_lead_routing__routing_decision_population (implementation)",
+      "files": [],
+      "old_value": "The lead-gate queue code checked geography before the generic review queue, so an ineligible lead with unresolved geography was sent to territory review (Q-TER).",
+      "new_value": "Priority eligibility outcomes invalid, withdrawn, terminal and not_yet_routable are sent to general manual review (Q-MAN) before the geography branch is reached.",
+      "reason": "Correctness of the reported reason, outcome-independent. 287 ineligible leads were being given to the Regional Sales Manager with the instruction \"resolve the territory\" for a lead that will never be worked; PEL-01 closes such a lead with an eligibility disposition instead. Same class of defect as the merged-lead queue fix already logged. No weight, band or eligibility rule changed, and no decision changed from a recommendation to a queue or back.",
+      "change_kind": "reported_reason"
+    },
+    {
+      "changed_at_utc": "2026-10-02T03:37:33Z",
+      "rule_id": "RPF-01",
+      "files": [
+        "seeds/lead_routing/routing_preference_weight_config.csv"
+      ],
+      "old_value": "Normalization rule recorded as \"primary=100;backup=50\".",
+      "new_value": "Normalization rule recorded as \"primary=100;backup=50;national_pool=50\".",
+      "reason": "Documentation only, outcome-independent: the national-pool coverage role introduced by the TER-10 fallback already scored 50 in the implementation, because the rule is \"primary 100, otherwise 50\". The seed text now names it explicitly. No value changed.",
+      "note_on_weights": "No weight, band threshold, normalization value or neutral value has been changed since the declaration. Every change above is a leakage, implementation, design-fidelity or documentation correction.",
+      "change_kind": "documentation"
+    },
+    {
+      "changed_at_utc": "2026-10-03T00:39:19Z",
+      "change_kind": "design_fidelity",
+      "rule_id": "REL-12 and REL-13",
+      "files": [],
+      "old_value": "REL-13 failed whenever the utilization ratio was null, so a candidate with no usable capacity snapshot was reported as a hard-capacity breach.",
+      "new_value": "REL-12 is the capacity-data-availability rule (a snapshot must exist and carry a usable utilization). REL-13 is evaluated only when capacity can be established and is otherwise recorded as NOT EVALUATED; a REL-13 failure now means a calculable utilization at or above the hard limit.",
+      "reason": "Correctness of the reported reason, outcome-independent. 5,624 candidate rows with no usable snapshot were being reported to queue owners as hard-capacity breaches when the real problem was missing capacity evidence. Candidate eligibility is unchanged (149,195 eligible before and after) because a not-evaluated REL-13 still cannot admit a candidate; only the reason given changed."
+    },
+    {
+      "changed_at_utc": "2026-10-03T00:39:19Z",
+      "change_kind": "design_fidelity",
+      "rule_id": "routing_capacity_ledger_config (new configuration file)",
+      "files": [
+        "seeds/lead_routing/routing_capacity_ledger_config.csv"
+      ],
+      "old_value": "No capacity-ledger configuration existed: the recommendation ranked candidates independently at every decision and never consumed capacity.",
+      "new_value": "A declared ledger configuration: assignment_workload_points 1.00 (the CAP-01 weight of an assigned, not-yet-contacted lead), post_assignment_limit_ratio 1.00 applied strictly, the latest_observed_snapshot basis policy, the deterministic processing order, and Q-CAP as the queue used when no eligible RM has capacity.",
+      "reason": "Required to make the recommendation operational rather than diagnostic. The workload value is not a new assumption: CAP-01 of the reviewed capacity design already weights an assigned, not-yet-contacted lead at exactly 1.0 points, and the hard limit is CAP-06. No priority weight, band threshold, normalization value or preference weight was touched."
+    },
+    {
+      "changed_at_utc": "2026-10-03T01:55:47Z",
+      "change_kind": "documentation",
+      "rule_id": "configuration seed file formatting",
+      "files": [
+        "seeds/lead_routing/lead_priority_override_rules.csv",
+        "seeds/lead_routing/routing_capacity_ledger_config.csv",
+        "seeds/lead_routing/routing_eligibility_rule_config.csv",
+        "seeds/lead_routing/routing_evaluation_thresholds.csv",
+        "seeds/lead_routing/routing_preference_weight_config.csv"
+      ],
+      "old_value": "Five configuration seeds were written with CRLF line endings by the editing tooling, which is not the line ending used anywhere else in this repository.",
+      "new_value": "Those five files now use LF line endings, matching every other tracked text file. The declared SHA-256 values are refreshed accordingly.",
+      "reason": "Formatting only, outcome-independent. Every field value, row and column is byte-identical once the line ending is normalized; this was verified by parsing each file both ways and comparing the resulting rows. No rule, weight, threshold, band, queue or parameter changed, and the built tables are unaffected."
+    }
+  ],
+  "pre_declaration_profiling": "Before the configuration was declared, the synthetic sources were profiled for feature availability only: entity row counts, column schemas, category distributions of channel, product interest, employee band, industry, geography status, stated language, RM segment and territory type, lead age at decision, SLA-clock availability at the decision instant, and the routing-log decision_type by routing_outcome counts (used to size the decision population and confirm that reassignment and override decisions exist). No conversion, opportunity, revenue or assignment-quality outcome was examined, and no score or recommendation had been produced."
+}

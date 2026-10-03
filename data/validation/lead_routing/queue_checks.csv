@@ -1,0 +1,8 @@
+check,passed,detail
+every decision has exactly one recommendation: one RM or one queue,True,0
+"every queue result carries a code, reason, failed rules, owner, SLA, next action and escalation path",True,0
+every queue code used is a declared queue,True,"{'Q-DUP': 873, 'Q-MAN': 287, 'Q-DRM': 271, 'Q-TER': 237, 'Q-OOF': 118, 'Q-NSP': 18, 'Q-CAP': 12, 'Q-LNG': 11}"
+unused declared queues are reported rather than hidden,True,never raised in this baseline: ['Q-MOR']
+a decision is queued only when no RM is eligible or a lead gate failed,True,0
+"every queue code recomputes exactly, including the no-eligible-candidate classifier",True,0 differing over 1827 queued decisions
+the lead-level gate queue and the no-eligible-candidate queue are distinguished,True,"1786 lead-gate queues, 41 no-eligible-candidate queues"

@@ -1,0 +1,7 @@
+check,passed,detail
+no capacity snapshot is dated after its decision,True,0
+the snapshot used is the most recent valid one at or before the decision,True,0
+the decision-time utilization recomputes exactly,True,max difference 0.000e+00
+no ordinary recommendation is made at or above the hard limit,True,0
+no candidate is eligible without a valid capacity snapshot,True,0
+"decisions with a missing snapshot end in a controlled queue, not an assignment",True,18 queued decisions include a candidate with no snapshot

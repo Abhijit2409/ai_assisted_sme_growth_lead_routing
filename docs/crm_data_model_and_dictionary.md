@@ -740,3 +740,56 @@ Versioned configuration of routing, SLA, capacity and duplicate rules.
 | created_at | timestamp | false |  | Time the record was created (UTC). | 2025-07-14T15:02:11Z | operational |
 | updated_at | timestamp | true |  | Time the record was last updated (UTC); null for immutable event rows. | 2025-07-15T09:30:00Z | operational |
 | record_source | varchar | false | synthetic_generator | System that produced the record; always the synthetic generator. | synthetic_generator | operational |
+
+## Derived relations of the lead-prioritization and routing layer
+
+These relations are **derived analytics**, not CRM entities. They are not part of the 18-entity logical CRM model, they
+add no column to any CRM source, staging or foundational mart model, and they never write back to the operating
+history. A test asserts that no CRM model carries a `recommended_*`, `preference_score` or `priority_score` column, and
+that the source `priority_band` on every lead is published unchanged beside the recommendation.
+
+They are built from the CRM models, the public-data market marts and the ten declared configuration seeds in
+`seeds/lead_routing/`. Full definitions are in [lead_prioritization_and_routing.md](lead_prioritization_and_routing.md)
+and in the model documentation under `models/intermediate/lead_routing/` and `models/marts/lead_routing/`.
+
+| Relation | Grain | Primary key | As-of rule |
+|---|---|---|---|
+| `int_lead_routing__decision_population` | one lead at one routing-decision timestamp | `decision_id` | status recomputed from the status history before the decision instant |
+| `int_lead_routing__priority_features_as_of` | one decision | `decision_id` | every feature available at or before `as_of_timestamp` |
+| `int_lead_routing__priority_eligibility` | one decision | `decision_id` | lead state at the decision instant |
+| `int_lead_routing__priority_components` | one decision x component | `(decision_id, component_id)` | inherited |
+| `int_lead_routing__lead_priority_score` | one decision | `decision_id` | inherited |
+| `int_lead_routing__routing_decision_population` | one decision | `decision_id` | inherited |
+| `int_lead_routing__candidate_eligibility` | one decision x candidate RM | `(decision_id, rm_id)` | capacity from the latest snapshot at or before the decision; coverage on effective dates |
+| `int_lead_routing__candidate_preference` | one decision x eligible candidate | `(decision_id, rm_id)` | inherited |
+| `int_lead_routing__candidate_ranking` | one decision x eligible candidate | `(decision_id, rm_id)` | inherited |
+| `int_lead_routing__queue_outcome` | one queued decision | `decision_id` | inherited |
+| `mart_lead_priority` | one lead at one routing-decision timestamp | `decision_id` | every field at or before `as_of_timestamp` |
+| `mart_routing_candidate` | one decision x candidate RM | `(decision_id, rm_id)` | as above |
+| `mart_routing_recommendation_static` | one lead at one routing-decision timestamp | `decision_id` | recommendation as-of; the `historical_*` columns are comparison outputs produced afterwards |
+| `mart_routing_exception` | one queued decision | `decision_id` | inherited |
+| `mart_routing_evaluation` | one metric x period scope x decision scope | `(metric_id, period_scope, decision_scope)` | not applicable; an evaluation over completed recommendations |
+
+### New field families
+
+| Field family | Where | Meaning |
+|---|---|---|
+| `as_of_timestamp`, `as_of_date`, `decision_id`, `decision_trigger`, `decision_type` | every relation | the decision instant and what kind of decision it is |
+| `priority_eligibility`, `is_scoreable`, `eligibility_rule_id` | priority relations | the ordered eligibility outcome, decided before any score |
+| `base_priority_score`, `base_priority_band`, `recommended_priority_score`, `recommended_priority_band` | `mart_lead_priority` | the score and band before and after any override |
+| `source_priority_band` | `mart_lead_priority` | the unchanged `crm_lead.priority_band`, never overwritten |
+| `override_rule_id`, `override_action`, `override_reason` | `mart_lead_priority` | which declared override applied and why |
+| `raw_value_text`, `raw_value_numeric`, `transformation`, `normalized_value`, `direction`, `used_neutral_default`, `declared_neutral_value`, `pillar_weight`, `component_weight`, `effective_weight`, `contribution` | `int_lead_routing__priority_components` | the full explanation of every score |
+| `passes_rel_06_employment` to `passes_rel_14_exclusion`, `is_eligible`, `failed_rule_codes` | `mart_routing_candidate` | one boolean per mandatory rule, plus the codes that failed |
+| `capacity_snapshot_id`, `capacity_snapshot_as_of_utc`, `weighted_workload_points`, `capacity_limit_points`, `utilization_ratio_at_decision`, `remaining_capacity_points`, `capacity_warning_at_decision`, `capacity_at_or_above_hard_limit`, `capacity_exception_eligible` | `mart_routing_candidate` | decision-time capacity evidence |
+| `n01_territory_role` to `n07_language_fit`, `pref_contribution_rpf_01` to `_07`, `preference_score`, `candidate_rank`, `separating_tiebreak_id` | `mart_routing_candidate` | the full preference explanation and the deterministic ordering |
+| `recommendation_outcome`, `recommended_rm_id`, `recommended_queue_code`, `recommendation_reason` | `mart_routing_recommendation_static` | exactly one RM or exactly one queue, with its reason |
+| `queue_code`, `queue_reason`, `failed_rule_codes`, `queue_owner_role`, `queue_sla_id`, `queue_sla_target`, `next_action`, `escalation_path` | `mart_routing_exception` | the actionable queue result |
+| `rule_version` | every relation | traceability to the declared configuration (`lr-v1.0`) |
+
+### Fields deliberately absent
+
+No relation in this layer carries a fictional contact field, a ground-truth label, an opportunity outcome, a conversion
+flag or a propensity. The only `historical_*` fields anywhere are on `mart_routing_recommendation_static`, where they are
+a comparison output joined after the recommendation exists; no upstream model reads them, which the dbt manifest
+lineage check proves.
