@@ -1,0 +1,84 @@
+measure_name,source_table,source_columns,format,kpi_catalog_id,dashboard_page,qa_target,interpretation
+Reporting Cutoff Date,FunnelMonthly,FunnelMonthly[reporting_cutoff_date],"Date, yyyy-mm-dd",supporting measure (not a published KPI),All pages,,
+Data Basis Note,FunnelMonthly,FunnelMonthly[reporting_cutoff_date],Text,supporting measure (not a published KPI),All pages,,
+Captured Leads,FunnelMonthly,FunnelMonthly[captured_leads],"Whole number, thousands separator",KPI-A02,Acquisition Funnel,"(no filters): 17,400",
+Valid Leads,FunnelMonthly,FunnelMonthly[valid_leads],"Whole number, thousands separator",supporting measure (not a published KPI),Acquisition Funnel,"15,933",
+Duplicate Leads,FunnelMonthly,FunnelMonthly[duplicate_leads],"Whole number, thousands separator",supporting measure (not a published KPI),Acquisition Funnel,936,
+Assigned Leads,FunnelMonthly,FunnelMonthly[assigned_leads],"Whole number, thousands separator",supporting measure (not a published KPI),Acquisition Funnel,"15,853",
+Contacted Leads,FunnelMonthly,FunnelMonthly[contacted_leads],"Whole number, thousands separator",supporting measure (not a published KPI),Acquisition Funnel,"14,278",
+Qualified Leads,FunnelMonthly,FunnelMonthly[qualified_leads],"Whole number, thousands separator",supporting measure (not a published KPI),Acquisition Funnel,"3,805",
+Converted Leads,FunnelMonthly,FunnelMonthly[converted_leads],"Whole number, thousands separator",supporting measure (not a published KPI),Acquisition Funnel,"1,696",NOTE: all-cohort count. Do NOT divide this by Valid Leads - that is not a valid conversion rate.
+Closed or Disqualified Leads,FunnelMonthly,FunnelMonthly[closed_or_disqualified_leads],"Whole number, thousands separator",supporting measure (not a published KPI),Acquisition Funnel,,
+Active Backlog,FunnelMonthly,FunnelMonthly[active_backlog],"Whole number, thousands separator",KPI-A03,Acquisition Funnel,"1,408",
+Ageing Leads,FunnelMonthly,FunnelMonthly[ageing_leads],"Whole number, thousands separator",KPI-A23,Acquisition Funnel,594,
+Reassigned Leads,FunnelMonthly,FunnelMonthly[reassigned_leads],"Whole number, thousands separator",supporting measure (not a published KPI),Acquisition Funnel,"1,907",
+Valid Leads (Mature),FunnelMonthly,FunnelMonthly[valid_leads_mature],"Whole number, thousands separator",supporting measure (not a published KPI),Acquisition Funnel,"12,064",
+Converted Leads (Mature),FunnelMonthly,FunnelMonthly[converted_leads_mature],"Whole number, thousands separator",supporting measure (not a published KPI),Acquisition Funnel,"1,511",
+Valid Leads (Immature),FunnelMonthly,FunnelMonthly[valid_leads_immature],"Whole number, thousands separator",supporting measure (not a published KPI),Acquisition Funnel,"3,869",Published so the exclusion is visible rather than hidden.
+Contacted Leads (Mature),FunnelMonthly,FunnelMonthly[contacted_leads_mature],"Whole number, thousands separator",supporting measure (not a published KPI),Acquisition Funnel,"13,239",
+Qualified Leads (Mature),FunnelMonthly,FunnelMonthly[qualified_leads_mature],"Whole number, thousands separator",supporting measure (not a published KPI),Acquisition Funnel,"3,683",
+Share of Valid Leads Immature,derived from other measures,Valid Leads (Immature); Valid Leads (Mature),"Percentage, 1 decimal",supporting measure (not a published KPI),Acquisition Funnel,24.3%,Share of the valid population still inside the maturity window. Put this beside any conversion visual.
+Assignment Rate,derived from other measures,Assigned Leads; Valid Leads,"Percentage, 2 decimals",KPI-A05,Executive Overview; Acquisition Funnel,99.50%,
+Contact Rate,derived from other measures,Assigned Leads; Contacted Leads,"Percentage, 2 decimals",KPI-A06,Executive Overview; Acquisition Funnel,90.07%,
+Qualification Rate (Mature),derived from other measures,Contacted Leads (Mature); Qualified Leads (Mature),"Percentage, 2 decimals",KPI-A07,Executive Overview; Acquisition Funnel,27.82%,
+Mature-Cohort Conversion Rate,derived from other measures,Converted Leads (Mature); Valid Leads (Mature),"Percentage, 2 decimals",KPI-A08,Executive Overview; Acquisition Funnel,12.52%,The headline effectiveness measure. Mature cohort only.
+Duplicate Rate,derived from other measures,Captured Leads; Duplicate Leads,"Percentage, 2 decimals",KPI-A09,Executive Overview; Acquisition Funnel,5.38%,
+Reassignment Rate,derived from other measures,Assigned Leads; Reassigned Leads,"Percentage, 2 decimals",KPI-A12,Acquisition Funnel,12.03%,
+Typical Hours to Assignment,FunnelMonthly,FunnelMonthly[assigned_leads]; FunnelMonthly[median_hours_to_assignment],"Decimal, 1 decimal, custom format 0.0"" h""",KPI-A20,Acquisition Funnel,1.7 h,"Median of a median is not a median. This weights each funnel cell by its assigned leads, which is the defensible roll-up available from this grain. Label it ""typical"", not ""median"", above cell level."
+Typical Hours to First Contact,FunnelMonthly,FunnelMonthly[contacted_leads]; FunnelMonthly[median_hours_to_first_contact],"Decimal, 1 decimal, custom format 0.0"" h""",KPI-A21,Acquisition Funnel,48.5 h,
+SLA Clocks Eligible,FunnelMonthly,FunnelMonthly[first_contact_sla_eligible],"Whole number, thousands separator",supporting measure (not a published KPI),Acquisition Funnel,"15,853",
+SLA Clocks Settled,FunnelMonthly,FunnelMonthly[first_contact_sla_settled],"Whole number, thousands separator",supporting measure (not a published KPI),Acquisition Funnel,"15,805",
+SLA Breaches,FunnelMonthly,FunnelMonthly[first_contact_sla_breached],"Whole number, thousands separator",KPI-A11,Acquisition Funnel,"2,079",
+SLA Breach Rate,derived from other measures,SLA Breaches; SLA Clocks Settled,"Percentage, 2 decimals",KPI-A11,Executive Overview; Acquisition Funnel,13.15%,
+SLA Compliance Rate,FunnelMonthly,FunnelMonthly[first_contact_sla_met],"Percentage, 2 decimals",KPI-A10,Acquisition Funnel,86.85%,
+High-Opportunity CMA Count,MarketFocus,MarketFocus[is_high_opportunity],Whole number,KPI-A01,Executive Overview; Market Opportunity,9,
+CMA Count,derived from other measures,,Whole number,supporting measure (not a published KPI),Market Opportunity,41,
+CMAs Without Opportunity Score,MarketFocus,MarketFocus[opportunity_score],Whole number,supporting measure (not a published KPI),Market Opportunity,6,Reported explicitly so a gap in the evidence is never read as a weak market.
+Average Opportunity Score,MarketFocus,MarketFocus[opportunity_score],"Decimal, 1 decimal",supporting measure (not a published KPI),Market Opportunity,,
+Market Leads,MarketFocus,MarketFocus[lead_count],"Whole number, thousands separator",supporting measure (not a published KPI),Market Opportunity,"15,288 (CMA-resolved leads only)",
+Market Prospects,MarketFocus,MarketFocus[prospect_count],"Whole number, thousands separator",supporting measure (not a published KPI),Market Opportunity,"13,672",
+Market Active Backlog,MarketFocus,MarketFocus[active_lead_backlog],"Whole number, thousands separator",KPI-A22,Market Opportunity,"1,242",
+Market Qualified Leads,MarketFocus,MarketFocus[qualified_leads],"Whole number, thousands separator",supporting measure (not a published KPI),Market Opportunity,,
+Market Converted Leads,MarketFocus,MarketFocus[converted_leads],"Whole number, thousands separator",supporting measure (not a published KPI),Market Opportunity,,
+Market Mature Conversion Rate,MarketFocus,MarketFocus[mature_converted_leads]; MarketFocus[mature_valid_leads],"Percentage, 2 decimals",supporting measure (not a published KPI),Market Opportunity,,
+Leads Outside CMA Scope,FunnelMonthly,FunnelMonthly[cma_key],"Whole number, thousands separator",supporting measure (not a published KPI),Market Opportunity,"2,112","Leads whose geography never resolved to a CMA. Taken straight from the funnel's own UNRESOLVED bucket so it responds to slicers. Shown as an explicit data-quality figure, never silently dropped."
+High-Opportunity Markets Below Median Activity,MarketFocus,MarketFocus[is_high_opportunity]; MarketFocus[lead_count],Whole number,supporting measure (not a published KPI),Market Opportunity,,"Threshold is the median lead count across scored CMAs, computed live - not a hardcoded cut-off."
+Actionable Leads,derived from other measures,,"Whole number, thousands separator",KPI-A03,Executive Overview; Lead Action Queue,"1,408",
+P1 Leads Requiring Action,ActionQueue,ActionQueue[priority_tier],Whole number,KPI-A04,Executive Overview; Lead Action Queue,217,
+Leads Requiring Escalation,ActionQueue,ActionQueue[requires_escalation],Whole number,supporting measure (not a published KPI),Lead Action Queue,213,
+Overdue Leads,ActionQueue,ActionQueue[sla_status],Whole number,supporting measure (not a published KPI),Lead Action Queue,206,"Already past the first-contact promise, counted on the action queue rather than the funnel."
+Overdue P1 Leads,ActionQueue,ActionQueue[priority_tier],Whole number,supporting measure (not a published KPI),Lead Action Queue,55,
+Unassigned Leads,ActionQueue,ActionQueue[current_owner_rm_id],Whole number,KPI-A13,Lead Action Queue,7,
+Queued Leads,ActionQueue,ActionQueue[routing_status],Whole number,KPI-A13,Lead Action Queue,19,
+Leads With Owner At Capacity Limit,ActionQueue,ActionQueue[capacity_status],Whole number,supporting measure (not a published KPI),Lead Action Queue,218,The owner is already at or past the declared hard capacity limit.
+Average Lead Age (Days),ActionQueue,ActionQueue[lead_age_days],"Decimal, 1 decimal",supporting measure (not a published KPI),Lead Action Queue,,
+Hours to SLA Target,ActionQueue,ActionQueue[hours_remaining_or_overdue],"Decimal, 1 decimal, custom format 0.0"" h""",supporting measure (not a published KPI),Lead Action Queue,,Negative means overdue. Shown on the queue table with conditional formatting.
+Latest Capacity Month,RMPerformanceMonthly,RMPerformanceMonthly[reporting_month],"Date, yyyy-mm",supporting measure (not a published KPI),RM Capacity and Routing,,
+RMs Above Capacity Warning,RMPerformanceMonthly,RMPerformanceMonthly[at_or_above_capacity_warning]; RMPerformanceMonthly[reporting_month]; RMPerformanceMonthly[rm_id],Whole number,KPI-A14,Executive Overview; RM Capacity and Routing,5,
+RMs At or Above Hard Limit,RMPerformanceMonthly,RMPerformanceMonthly[at_or_above_hard_limit]; RMPerformanceMonthly[reporting_month]; RMPerformanceMonthly[rm_id],Whole number,supporting measure (not a published KPI),RM Capacity and Routing,4,
+RMs With Capacity Evidence,RMPerformanceMonthly,RMPerformanceMonthly[reporting_month]; RMPerformanceMonthly[rm_id],Whole number,supporting measure (not a published KPI),RM Capacity and Routing,134 (RMs employed in the latest month),
+Average Utilization,RMPerformanceMonthly,RMPerformanceMonthly[capacity_limit_points]; RMPerformanceMonthly[weighted_workload_points],"Percentage, 1 decimal",supporting measure (not a published KPI),RM Capacity and Routing,,
+Remaining Capacity Points,RMPerformanceMonthly,RMPerformanceMonthly[remaining_capacity_points],"Decimal, 0 decimals, thousands separator",KPI-A24,RM Capacity and Routing,,
+RM Assignments,RMPerformanceMonthly,RMPerformanceMonthly[assigned_leads],"Whole number, thousands separator",supporting measure (not a published KPI),RM Capacity and Routing,,"Activity measure: a reassigned lead counts in each month it was assigned. Never label this ""leads""."
+RM Active Leads,RMPerformanceMonthly,RMPerformanceMonthly[active_leads],"Whole number, thousands separator",supporting measure (not a published KPI),RM Capacity and Routing,,
+RM P1 Assignments,RMPerformanceMonthly,RMPerformanceMonthly[p1_assignments],"Whole number, thousands separator",supporting measure (not a published KPI),RM Capacity and Routing,,
+RM P2 Assignments,RMPerformanceMonthly,RMPerformanceMonthly[p2_assignments],"Whole number, thousands separator",supporting measure (not a published KPI),RM Capacity and Routing,,
+RM P3 Assignments,RMPerformanceMonthly,RMPerformanceMonthly[p3_assignments],"Whole number, thousands separator",supporting measure (not a published KPI),RM Capacity and Routing,,
+RM Qualified Leads,RMPerformanceMonthly,RMPerformanceMonthly[qualified_leads],"Whole number, thousands separator",supporting measure (not a published KPI),RM Capacity and Routing,,
+RM Converted Leads,RMPerformanceMonthly,RMPerformanceMonthly[converted_leads],"Whole number, thousands separator",supporting measure (not a published KPI),RM Capacity and Routing,,
+RM SLA Compliance Rate,RMPerformanceMonthly,RMPerformanceMonthly[first_contact_sla_met]; RMPerformanceMonthly[first_contact_sla_settled],"Percentage, 2 decimals",supporting measure (not a published KPI),RM Capacity and Routing,,
+Routing Exceptions in Home Territory,RMPerformanceMonthly,RMPerformanceMonthly[routing_exceptions_in_home_territory],"Whole number, thousands separator",supporting measure (not a published KPI),RM Capacity and Routing,,"Queued decisions have no recommended RM, so they are attributed to the RM's home territory. Label as such."
+Total Operational Recommendations,RoutingLoadByRM,RoutingLoadByRM[operational_recommendations],"Whole number, thousands separator",supporting measure (not a published KPI),RM Capacity and Routing,"17,950",
+RM Population,derived from other measures,,Whole number,supporting measure (not a published KPI),RM Capacity and Routing,140,
+Max Recommendations to One RM,RoutingLoadByRM,RoutingLoadByRM[operational_recommendations],"Whole number, thousands separator",supporting measure (not a published KPI),RM Capacity and Routing,"3,216",
+RMs With No Recommendations,RoutingLoadByRM,RoutingLoadByRM[operational_recommendations],Whole number,supporting measure (not a published KPI),RM Capacity and Routing,8,
+Median Recommendations per RM,RoutingLoadByRM,RoutingLoadByRM[operational_recommendations],"Decimal, 1 decimal",supporting measure (not a published KPI),RM Capacity and Routing,35.5,
+Routing Top-Decile Share,RoutingLoadByRM,RoutingLoadByRM[operational_recommendations],"Percentage, 2 decimals",KPI-A17,Executive Overview; RM Capacity and Routing,72.31%,Computed live from RoutingLoadByRM: the busiest tenth of the RM population (140 / 10 = 14).
+Routing Workload Gini,RoutingConcentration,RoutingConcentration[workload_gini],"Decimal, 3 decimals",KPI-A18,Executive Overview; RM Capacity and Routing,0.773,"Authoritative validated value. 0 is perfectly even, 1 is fully concentrated. See the note above."
+Operational Hard-Cap Breaches,RMPerformanceMonthly,RMPerformanceMonthly[max_simulated_utilization],Whole number,KPI-A16,RM Capacity and Routing,0,"RM-months in which the capacity-aware routing simulation would have pushed an RM to or past the declared hard limit. Expected to be zero, and verified as zero: max_simulated_utilization never reaches 1 in the source. A non-zero value here means the routing layer has regressed and must be investigated, not styled."
+Routing Concentration Interpretation,derived from other measures,RMs With No Recommendations; Routing Top-Decile Share,Text,supporting measure (not a published KPI),RM Capacity and Routing,,
+QA Published Assignment Rate,KPISnapshot,KPISnapshot[assignment_rate],"Percentage, 2 decimals",supporting measure (not a published KPI),Not on any page (QA only),,
+QA Published Conversion Rate,KPISnapshot,KPISnapshot[mature_cohort_conversion_rate],"Percentage, 2 decimals",supporting measure (not a published KPI),Not on any page (QA only),,
+QA Published SLA Breach Rate,KPISnapshot,KPISnapshot[sla_breach_rate],"Percentage, 2 decimals",supporting measure (not a published KPI),Not on any page (QA only),,
+QA Published Actionable Leads,KPISnapshot,KPISnapshot[actionable_leads],Whole number,supporting measure (not a published KPI),Not on any page (QA only),,
+QA Reconciliation Status,derived from other measures,Actionable Leads; Assignment Rate; Mature-Cohort Conversion Rate; QA Published Actionable Leads; QA Published Assignment Rate; QA Published Conversion Rate; QA Published SLA Breach Rate; SLA Breach Rate,Text,supporting measure (not a published KPI),Not on any page (QA only),,

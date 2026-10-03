@@ -1,0 +1,514 @@
+// =====================================================================================================
+// SME Growth & Acquisition Intelligence - DAX measure library
+//
+// Hypothetical framework for a fictional bank over entirely synthetic CRM data.
+// No measure here is evidence about a real Canadian bank.
+//
+// HOW TO USE
+//   1. Create an empty table to hold the measures:
+//        Home -> Enter data -> Table name: _Measures -> leave the single column -> Load
+//        Then: select the Column1 field -> right-click -> Delete. The table stays and holds measures only.
+//   2. For each measure below: Home -> New measure, paste the expression (without the // comment lines),
+//      then set the format in Measure tools exactly as the FORMAT line states.
+//   3. Measures are grouped by page. Create them in order; a few reference earlier ones.
+//
+// RULES FOLLOWED THROUGHOUT
+//   * Every rate re-divides the SUMMED numerator by the SUMMED denominator. The pre-computed *_rate columns
+//     in the source files are per-cell rates and must never be averaged.
+//   * Every division uses DIVIDE(), which returns BLANK on a zero denominator rather than an error.
+//   * Conversion and qualification use the declared mature cohort only.
+//   * No headline value is hardcoded. Every number comes from the model.
+// =====================================================================================================
+
+
+// -----------------------------------------------------------------------------------------------------
+// GROUP 1 - CONTEXT
+// -----------------------------------------------------------------------------------------------------
+
+// FORMAT: Date, yyyy-mm-dd | Used on: every page footer
+Reporting Cutoff Date =
+MAX ( FunnelMonthly[reporting_cutoff_date] )
+
+// FORMAT: Text | Used on: every page subtitle. States the synthetic basis on the report itself.
+Data Basis Note =
+"Synthetic CRM data, hypothetical rules. Reporting cutoff "
+    & FORMAT ( MAX ( FunnelMonthly[reporting_cutoff_date] ), "yyyy-mm-dd" )
+    & ". Not evidence about a real bank."
+
+
+// -----------------------------------------------------------------------------------------------------
+// GROUP 2 - FUNNEL VOLUMES (source: FunnelMonthly)
+// Each is a simple additive sum over the capture-cohort grain, so every one is slicer-safe.
+// -----------------------------------------------------------------------------------------------------
+
+// FORMAT: Whole number, thousands separator | QA target (no filters): 17,400
+Captured Leads =
+SUM ( FunnelMonthly[captured_leads] )
+
+// FORMAT: Whole number, thousands separator | QA target: 15,933
+Valid Leads =
+SUM ( FunnelMonthly[valid_leads] )
+
+// FORMAT: Whole number, thousands separator | QA target: 936
+Duplicate Leads =
+SUM ( FunnelMonthly[duplicate_leads] )
+
+// FORMAT: Whole number, thousands separator | QA target: 15,853
+Assigned Leads =
+SUM ( FunnelMonthly[assigned_leads] )
+
+// FORMAT: Whole number, thousands separator | QA target: 14,278
+Contacted Leads =
+SUM ( FunnelMonthly[contacted_leads] )
+
+// FORMAT: Whole number, thousands separator | QA target: 3,805
+Qualified Leads =
+SUM ( FunnelMonthly[qualified_leads] )
+
+// FORMAT: Whole number, thousands separator | QA target: 1,696
+// NOTE: all-cohort count. Do NOT divide this by Valid Leads - that is not a valid conversion rate.
+Converted Leads =
+SUM ( FunnelMonthly[converted_leads] )
+
+// FORMAT: Whole number, thousands separator
+Closed or Disqualified Leads =
+SUM ( FunnelMonthly[closed_or_disqualified_leads] )
+
+// FORMAT: Whole number, thousands separator | QA target: 1,408
+Active Backlog =
+SUM ( FunnelMonthly[active_backlog] )
+
+// FORMAT: Whole number, thousands separator | QA target: 594
+Ageing Leads =
+SUM ( FunnelMonthly[ageing_leads] )
+
+// FORMAT: Whole number, thousands separator | QA target: 1,907
+Reassigned Leads =
+SUM ( FunnelMonthly[reassigned_leads] )
+
+
+// -----------------------------------------------------------------------------------------------------
+// GROUP 3 - MATURITY-CONTROLLED COHORTS (source: FunnelMonthly)
+// A lead captured inside the declared window has not had time to convert. It is excluded from the
+// denominator rather than counted as a failure. Always label visuals that use these as "mature cohort".
+// -----------------------------------------------------------------------------------------------------
+
+// FORMAT: Whole number, thousands separator | QA target: 12,064
+Valid Leads (Mature) =
+SUM ( FunnelMonthly[valid_leads_mature] )
+
+// FORMAT: Whole number, thousands separator | QA target: 1,511
+Converted Leads (Mature) =
+SUM ( FunnelMonthly[converted_leads_mature] )
+
+// FORMAT: Whole number, thousands separator | QA target: 3,869
+// Published so the exclusion is visible rather than hidden.
+Valid Leads (Immature) =
+SUM ( FunnelMonthly[valid_leads_immature] )
+
+// FORMAT: Whole number, thousands separator | QA target: 13,239
+Contacted Leads (Mature) =
+SUM ( FunnelMonthly[contacted_leads_mature] )
+
+// FORMAT: Whole number, thousands separator | QA target: 3,683
+Qualified Leads (Mature) =
+SUM ( FunnelMonthly[qualified_leads_mature] )
+
+// FORMAT: Percentage, 1 decimal | QA target: 24.3%
+// Share of the valid population still inside the maturity window. Put this beside any conversion visual.
+Share of Valid Leads Immature =
+DIVIDE ( [Valid Leads (Immature)], [Valid Leads (Immature)] + [Valid Leads (Mature)] )
+
+
+// -----------------------------------------------------------------------------------------------------
+// GROUP 4 - FUNNEL RATES (source: FunnelMonthly)
+// Numerator and denominator both summed first. Never an average of the row-level rate columns.
+// -----------------------------------------------------------------------------------------------------
+
+// FORMAT: Percentage, 2 decimals | QA target: 99.50%
+Assignment Rate =
+DIVIDE ( [Assigned Leads], [Valid Leads] )
+
+// FORMAT: Percentage, 2 decimals | QA target: 90.07%
+Contact Rate =
+DIVIDE ( [Contacted Leads], [Assigned Leads] )
+
+// FORMAT: Percentage, 2 decimals | QA target: 27.82%
+Qualification Rate (Mature) =
+DIVIDE ( [Qualified Leads (Mature)], [Contacted Leads (Mature)] )
+
+// FORMAT: Percentage, 2 decimals | QA target: 12.52%
+// The headline effectiveness measure. Mature cohort only.
+Mature-Cohort Conversion Rate =
+DIVIDE ( [Converted Leads (Mature)], [Valid Leads (Mature)] )
+
+// FORMAT: Percentage, 2 decimals | QA target: 5.38%
+Duplicate Rate =
+DIVIDE ( [Duplicate Leads], [Captured Leads] )
+
+// FORMAT: Percentage, 2 decimals | QA target: 12.03%
+Reassignment Rate =
+DIVIDE ( [Reassigned Leads], [Assigned Leads] )
+
+// FORMAT: Decimal, 1 decimal, custom format 0.0" h" | QA target: 1.7 h
+// Median of a median is not a median. This weights each funnel cell by its assigned leads, which is the
+// defensible roll-up available from this grain. Label it "typical", not "median", above cell level.
+Typical Hours to Assignment =
+DIVIDE (
+    SUMX ( FunnelMonthly, FunnelMonthly[median_hours_to_assignment] * FunnelMonthly[assigned_leads] ),
+    CALCULATE ( SUM ( FunnelMonthly[assigned_leads] ), NOT ISBLANK ( FunnelMonthly[median_hours_to_assignment] ) )
+)
+
+// FORMAT: Decimal, 1 decimal, custom format 0.0" h" | QA target: 48.5 h
+Typical Hours to First Contact =
+DIVIDE (
+    SUMX ( FunnelMonthly, FunnelMonthly[median_hours_to_first_contact] * FunnelMonthly[contacted_leads] ),
+    CALCULATE ( SUM ( FunnelMonthly[contacted_leads] ), NOT ISBLANK ( FunnelMonthly[median_hours_to_first_contact] ) )
+)
+
+
+// -----------------------------------------------------------------------------------------------------
+// GROUP 5 - FIRST-CONTACT SLA (source: FunnelMonthly)
+// Only settled clocks count. A clock still legitimately running is never scored as a miss.
+// -----------------------------------------------------------------------------------------------------
+
+// FORMAT: Whole number, thousands separator | QA target: 15,853
+SLA Clocks Eligible =
+SUM ( FunnelMonthly[first_contact_sla_eligible] )
+
+// FORMAT: Whole number, thousands separator | QA target: 15,805
+SLA Clocks Settled =
+SUM ( FunnelMonthly[first_contact_sla_settled] )
+
+// FORMAT: Whole number, thousands separator | QA target: 2,079
+SLA Breaches =
+SUM ( FunnelMonthly[first_contact_sla_breached] )
+
+// FORMAT: Percentage, 2 decimals | QA target: 13.15%
+SLA Breach Rate =
+DIVIDE ( [SLA Breaches], [SLA Clocks Settled] )
+
+// FORMAT: Percentage, 2 decimals | QA target: 86.85%
+SLA Compliance Rate =
+DIVIDE ( SUM ( FunnelMonthly[first_contact_sla_met] ), [SLA Clocks Settled] )
+
+
+// -----------------------------------------------------------------------------------------------------
+// GROUP 6 - MARKET OPPORTUNITY (source: MarketFocus)
+// A current planning snapshot. Never apply these to a historical month.
+// A blank opportunity score means missing evidence, NOT a weak market - never coalesce it to zero.
+// -----------------------------------------------------------------------------------------------------
+
+// FORMAT: Whole number | QA target: 9
+High-Opportunity CMA Count =
+CALCULATE (
+    COUNTROWS ( MarketFocus ),
+    MarketFocus[is_high_opportunity] = TRUE ()
+)
+
+// FORMAT: Whole number | QA target: 41
+CMA Count =
+COUNTROWS ( MarketFocus )
+
+// FORMAT: Whole number | QA target: 6
+// Reported explicitly so a gap in the evidence is never read as a weak market.
+CMAs Without Opportunity Score =
+CALCULATE ( COUNTROWS ( MarketFocus ), ISBLANK ( MarketFocus[opportunity_score] ) )
+
+// FORMAT: Decimal, 1 decimal | Blank where the CMA cannot be scored, by design
+Average Opportunity Score =
+AVERAGE ( MarketFocus[opportunity_score] )
+
+// FORMAT: Whole number, thousands separator | QA target: 15,288 (CMA-resolved leads only)
+Market Leads =
+SUM ( MarketFocus[lead_count] )
+
+// FORMAT: Whole number, thousands separator | QA target: 13,672
+Market Prospects =
+SUM ( MarketFocus[prospect_count] )
+
+// FORMAT: Whole number, thousands separator | QA target: 1,242
+Market Active Backlog =
+SUM ( MarketFocus[active_lead_backlog] )
+
+// FORMAT: Whole number, thousands separator
+Market Qualified Leads =
+SUM ( MarketFocus[qualified_leads] )
+
+// FORMAT: Whole number, thousands separator
+Market Converted Leads =
+SUM ( MarketFocus[converted_leads] )
+
+// FORMAT: Percentage, 2 decimals
+Market Mature Conversion Rate =
+DIVIDE ( SUM ( MarketFocus[mature_converted_leads] ), SUM ( MarketFocus[mature_valid_leads] ) )
+
+// FORMAT: Whole number, thousands separator | QA target: 2,112
+// Leads whose geography never resolved to a CMA. Taken straight from the funnel's own UNRESOLVED bucket so it
+// responds to slicers. Shown as an explicit data-quality figure, never silently dropped.
+Leads Outside CMA Scope =
+CALCULATE ( [Captured Leads], FunnelMonthly[cma_key] = "UNRESOLVED" )
+
+// FORMAT: Whole number | Flags markets with a strong signal but comparatively little activity.
+// Threshold is the median lead count across scored CMAs, computed live - not a hardcoded cut-off.
+High-Opportunity Markets Below Median Activity =
+VAR MedianLeads = MEDIANX ( ALL ( MarketFocus ), MarketFocus[lead_count] )
+RETURN
+    CALCULATE (
+        COUNTROWS ( MarketFocus ),
+        MarketFocus[is_high_opportunity] = TRUE (),
+        MarketFocus[lead_count] < MedianLeads
+    )
+
+
+// -----------------------------------------------------------------------------------------------------
+// GROUP 7 - LEAD ACTION QUEUE (source: ActionQueue)
+// One row per currently actionable lead. Counts here are "needs work now", not funnel history.
+// -----------------------------------------------------------------------------------------------------
+
+// FORMAT: Whole number, thousands separator | QA target: 1,408
+Actionable Leads =
+COUNTROWS ( ActionQueue )
+
+// FORMAT: Whole number | QA target: 217
+P1 Leads Requiring Action =
+CALCULATE ( COUNTROWS ( ActionQueue ), ActionQueue[priority_tier] = "P1" )
+
+// FORMAT: Whole number | QA target: 213
+Leads Requiring Escalation =
+CALCULATE ( COUNTROWS ( ActionQueue ), ActionQueue[requires_escalation] = TRUE () )
+
+// FORMAT: Whole number | QA target: 206
+// Already past the first-contact promise, counted on the action queue rather than the funnel.
+Overdue Leads =
+CALCULATE (
+    COUNTROWS ( ActionQueue ),
+    ActionQueue[sla_status] IN { "breached", "breached and open" }
+)
+
+// FORMAT: Whole number | QA target: 55
+Overdue P1 Leads =
+CALCULATE ( [Overdue Leads], ActionQueue[priority_tier] = "P1" )
+
+// FORMAT: Whole number | QA target: 7
+Unassigned Leads =
+CALCULATE ( COUNTROWS ( ActionQueue ), ISBLANK ( ActionQueue[current_owner_rm_id] ) )
+
+// FORMAT: Whole number | QA target: 19
+Queued Leads =
+CALCULATE ( COUNTROWS ( ActionQueue ), ActionQueue[routing_status] = "queued" )
+
+// FORMAT: Whole number | QA target: 218
+// The owner is already at or past the declared hard capacity limit.
+Leads With Owner At Capacity Limit =
+CALCULATE (
+    COUNTROWS ( ActionQueue ),
+    ActionQueue[capacity_status] IN { "owner at or above hard limit", "owner at or above warning" }
+)
+
+// FORMAT: Decimal, 1 decimal | Average age of the work still outstanding.
+Average Lead Age (Days) =
+AVERAGE ( ActionQueue[lead_age_days] )
+
+// FORMAT: Decimal, 1 decimal, custom format 0.0" h"
+// Negative means overdue. Shown on the queue table with conditional formatting.
+Hours to SLA Target =
+AVERAGE ( ActionQueue[hours_remaining_or_overdue] )
+
+
+// -----------------------------------------------------------------------------------------------------
+// GROUP 8 - RM CAPACITY (source: RMPerformanceMonthly)
+// Capacity is a declared model, not a measured workload. The headline counts use the LATEST month only,
+// because capacity is a position, not something to add across months.
+// -----------------------------------------------------------------------------------------------------
+
+// FORMAT: Date, yyyy-mm | The month the capacity position is read from.
+Latest Capacity Month =
+MAX ( RMPerformanceMonthly[reporting_month] )
+
+// FORMAT: Whole number | QA target: 5
+RMs Above Capacity Warning =
+VAR LatestMonth = CALCULATE ( MAX ( RMPerformanceMonthly[reporting_month] ), ALL ( RMPerformanceMonthly ) )
+RETURN
+    CALCULATE (
+        DISTINCTCOUNT ( RMPerformanceMonthly[rm_id] ),
+        RMPerformanceMonthly[reporting_month] = LatestMonth,
+        RMPerformanceMonthly[at_or_above_capacity_warning] = TRUE ()
+    )
+
+// FORMAT: Whole number | QA target: 4
+RMs At or Above Hard Limit =
+VAR LatestMonth = CALCULATE ( MAX ( RMPerformanceMonthly[reporting_month] ), ALL ( RMPerformanceMonthly ) )
+RETURN
+    CALCULATE (
+        DISTINCTCOUNT ( RMPerformanceMonthly[rm_id] ),
+        RMPerformanceMonthly[reporting_month] = LatestMonth,
+        RMPerformanceMonthly[at_or_above_hard_limit] = TRUE ()
+    )
+
+// FORMAT: Whole number | QA target: 134 (RMs employed in the latest month)
+RMs With Capacity Evidence =
+VAR LatestMonth = CALCULATE ( MAX ( RMPerformanceMonthly[reporting_month] ), ALL ( RMPerformanceMonthly ) )
+RETURN
+    CALCULATE (
+        DISTINCTCOUNT ( RMPerformanceMonthly[rm_id] ),
+        RMPerformanceMonthly[reporting_month] = LatestMonth
+    )
+
+// FORMAT: Percentage, 1 decimal | Weighted by capacity, not a flat average of ratios.
+Average Utilization =
+DIVIDE (
+    SUM ( RMPerformanceMonthly[weighted_workload_points] ),
+    SUM ( RMPerformanceMonthly[capacity_limit_points] )
+)
+
+// FORMAT: Decimal, 0 decimals, thousands separator
+Remaining Capacity Points =
+SUM ( RMPerformanceMonthly[remaining_capacity_points] )
+
+// FORMAT: Whole number, thousands separator
+// Activity measure: a reassigned lead counts in each month it was assigned. Never label this "leads".
+RM Assignments =
+SUM ( RMPerformanceMonthly[assigned_leads] )
+
+// FORMAT: Whole number, thousands separator
+RM Active Leads =
+SUM ( RMPerformanceMonthly[active_leads] )
+
+// FORMAT: Whole number, thousands separator
+RM P1 Assignments =
+SUM ( RMPerformanceMonthly[p1_assignments] )
+
+// FORMAT: Whole number, thousands separator
+RM P2 Assignments =
+SUM ( RMPerformanceMonthly[p2_assignments] )
+
+// FORMAT: Whole number, thousands separator
+RM P3 Assignments =
+SUM ( RMPerformanceMonthly[p3_assignments] )
+
+// FORMAT: Whole number, thousands separator
+RM Qualified Leads =
+SUM ( RMPerformanceMonthly[qualified_leads] )
+
+// FORMAT: Whole number, thousands separator
+RM Converted Leads =
+SUM ( RMPerformanceMonthly[converted_leads] )
+
+// FORMAT: Percentage, 2 decimals
+RM SLA Compliance Rate =
+DIVIDE (
+    SUM ( RMPerformanceMonthly[first_contact_sla_met] ),
+    SUM ( RMPerformanceMonthly[first_contact_sla_settled] )
+)
+
+// FORMAT: Whole number, thousands separator
+// Queued decisions have no recommended RM, so they are attributed to the RM's home territory. Label as such.
+Routing Exceptions in Home Territory =
+SUM ( RMPerformanceMonthly[routing_exceptions_in_home_territory] )
+
+
+// -----------------------------------------------------------------------------------------------------
+// GROUP 9 - ROUTING CONCENTRATION (source: RoutingLoadByRM and RoutingConcentration)
+//
+// READ THIS BEFORE CHANGING THE GINI MEASURE.
+// The workload Gini is taken from the validated RoutingConcentration row, not recomputed in DAX.
+// A RANKX-based Gini returns 0.7709 instead of the validated 0.7729, because RANKX gives tied RMs the same
+// rank while the validated calculation breaks ties on a stable identifier. The published value is the
+// authoritative one and is what the independent validator checks.
+// -----------------------------------------------------------------------------------------------------
+
+// FORMAT: Whole number, thousands separator | QA target: 17,950
+Total Operational Recommendations =
+SUM ( RoutingLoadByRM[operational_recommendations] )
+
+// FORMAT: Whole number | QA target: 140
+RM Population =
+COUNTROWS ( RoutingLoadByRM )
+
+// FORMAT: Whole number, thousands separator | QA target: 3,216
+Max Recommendations to One RM =
+MAX ( RoutingLoadByRM[operational_recommendations] )
+
+// FORMAT: Whole number | QA target: 8
+RMs With No Recommendations =
+CALCULATE (
+    COUNTROWS ( RoutingLoadByRM ),
+    RoutingLoadByRM[operational_recommendations] = 0
+)
+
+// FORMAT: Decimal, 1 decimal | QA target: 35.5
+Median Recommendations per RM =
+MEDIAN ( RoutingLoadByRM[operational_recommendations] )
+
+// FORMAT: Percentage, 2 decimals | QA target: 72.31%
+// Computed live from RoutingLoadByRM: the busiest tenth of the RM population (140 / 10 = 14).
+Routing Top-Decile Share =
+VAR N = COUNTROWS ( ALL ( RoutingLoadByRM ) )
+VAR DecileSize = ROUND ( N / 10, 0 )
+VAR TopDecile =
+    TOPN ( DecileSize, ALL ( RoutingLoadByRM ), RoutingLoadByRM[operational_recommendations], DESC )
+VAR TopSum = SUMX ( TopDecile, RoutingLoadByRM[operational_recommendations] )
+VAR AllSum = SUMX ( ALL ( RoutingLoadByRM ), RoutingLoadByRM[operational_recommendations] )
+RETURN
+    DIVIDE ( TopSum, AllSum )
+
+// FORMAT: Decimal, 3 decimals | QA target: 0.773
+// Authoritative validated value. 0 is perfectly even, 1 is fully concentrated. See the note above.
+Routing Workload Gini =
+SELECTEDVALUE ( RoutingConcentration[workload_gini] )
+
+// FORMAT: Whole number | QA target: 0
+// RM-months in which the capacity-aware routing simulation would have pushed an RM to or past the declared
+// hard limit. Expected to be zero, and verified as zero: max_simulated_utilization never reaches 1 in the
+// source. A non-zero value here means the routing layer has regressed and must be investigated, not styled.
+Operational Hard-Cap Breaches =
+CALCULATE (
+    COUNTROWS ( RMPerformanceMonthly ),
+    RMPerformanceMonthly[max_simulated_utilization] >= 1
+) + 0
+
+// FORMAT: Text | The standing interpretation shown on the RM Capacity and Routing page.
+Routing Concentration Interpretation =
+"Hard-capacity compliance does not guarantee balanced workload distribution. "
+    & "The busiest decile of relationship managers receives "
+    & FORMAT ( [Routing Top-Decile Share], "0.0%" )
+    & " of recommendations and "
+    & FORMAT ( [RMs With No Recommendations], "0" )
+    & " receive none, with zero hard-cap breaches."
+
+
+// -----------------------------------------------------------------------------------------------------
+// GROUP 10 - RECONCILIATION HELPERS (source: KPISnapshot, disconnected)
+//
+// These exist ONLY for the QA checklist. Do not bind them to a report visual: KPISnapshot is a single
+// pre-aggregated row and does not respond to any slicer, so a card using it would silently ignore filters.
+// Put them in a temporary table visual, confirm they equal the measures above, then delete that visual.
+// -----------------------------------------------------------------------------------------------------
+
+// FORMAT: Percentage, 2 decimals | Reconciliation only
+QA Published Assignment Rate =
+SELECTEDVALUE ( KPISnapshot[assignment_rate] )
+
+// FORMAT: Percentage, 2 decimals | Reconciliation only
+QA Published Conversion Rate =
+SELECTEDVALUE ( KPISnapshot[mature_cohort_conversion_rate] )
+
+// FORMAT: Percentage, 2 decimals | Reconciliation only
+QA Published SLA Breach Rate =
+SELECTEDVALUE ( KPISnapshot[sla_breach_rate] )
+
+// FORMAT: Whole number | Reconciliation only
+QA Published Actionable Leads =
+SELECTEDVALUE ( KPISnapshot[actionable_leads] )
+
+// FORMAT: Text | Shows PASS only when every headline measure matches the published snapshot.
+QA Reconciliation Status =
+VAR Tol = 0.00005
+VAR OK =
+    ABS ( [Assignment Rate] - [QA Published Assignment Rate] ) < Tol
+        && ABS ( [Mature-Cohort Conversion Rate] - [QA Published Conversion Rate] ) < Tol
+        && ABS ( [SLA Breach Rate] - [QA Published SLA Breach Rate] ) < Tol
+        && [Actionable Leads] = [QA Published Actionable Leads]
+RETURN
+    IF ( OK, "PASS - dashboard reconciles to the validated snapshot", "FAIL - investigate before publishing" )

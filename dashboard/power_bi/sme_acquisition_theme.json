@@ -1,0 +1,209 @@
+{
+  "name": "SME Acquisition Intelligence",
+  "dataColors": [
+    "#1F3A5F",
+    "#2E6F9E",
+    "#4A9BC7",
+    "#1A8F7A",
+    "#4FBFA8",
+    "#C8821A",
+    "#E0A84E",
+    "#9B2C24",
+    "#6B7F94",
+    "#A8BBCC",
+    "#153048",
+    "#7FA8C4"
+  ],
+  "foreground": "#1F3A5F",
+  "foregroundNeutralSecondary": "#4A5A6A",
+  "foregroundNeutralTertiary": "#6B7F94",
+  "background": "#F4F6F8",
+  "backgroundLight": "#FFFFFF",
+  "backgroundNeutral": "#E4E9ED",
+  "tableAccent": "#2E6F9E",
+  "good": "#1A8F7A",
+  "neutral": "#C8821A",
+  "bad": "#9B2C24",
+  "maximum": "#1F3A5F",
+  "center": "#C8821A",
+  "minimum": "#F4F6F8",
+  "null": "#A8BBCC",
+  "hyperlink": "#2E6F9E",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          { "show": true, "color": { "solid": { "color": "#FFFFFF" } }, "transparency": 0 }
+        ],
+        "border": [
+          { "show": true, "color": { "solid": { "color": "#E4E9ED" } }, "radius": 4 }
+        ],
+        "visualHeader": [
+          { "show": true, "background": { "solid": { "color": "#FFFFFF" } }, "transparency": 0 }
+        ],
+        "title": [
+          {
+            "show": true,
+            "fontColor": { "solid": { "color": "#1F3A5F" } },
+            "background": { "solid": { "color": "#FFFFFF" } },
+            "alignment": "left",
+            "fontSize": 12,
+            "fontFamily": "Segoe UI Semibold"
+          }
+        ],
+        "subTitle": [
+          {
+            "show": false,
+            "fontColor": { "solid": { "color": "#4A5A6A" } },
+            "fontSize": 9,
+            "fontFamily": "Segoe UI"
+          }
+        ],
+        "labels": [
+          {
+            "color": { "solid": { "color": "#1F3A5F" } },
+            "fontSize": 9,
+            "fontFamily": "Segoe UI"
+          }
+        ],
+        "categoryAxis": [
+          {
+            "show": true,
+            "labelColor": { "solid": { "color": "#4A5A6A" } },
+            "fontSize": 9,
+            "gridlineShow": false,
+            "titleFontSize": 9,
+            "titleColor": { "solid": { "color": "#4A5A6A" } }
+          }
+        ],
+        "valueAxis": [
+          {
+            "show": true,
+            "labelColor": { "solid": { "color": "#4A5A6A" } },
+            "fontSize": 9,
+            "gridlineShow": true,
+            "gridlineColor": { "solid": { "color": "#E4E9ED" } },
+            "gridlineThickness": 1,
+            "titleFontSize": 9,
+            "titleColor": { "solid": { "color": "#4A5A6A" } }
+          }
+        ],
+        "legend": [
+          {
+            "show": true,
+            "position": "Top",
+            "labelColor": { "solid": { "color": "#4A5A6A" } },
+            "fontSize": 9,
+            "showTitle": false
+          }
+        ]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [
+          { "color": { "solid": { "color": "#F4F6F8" } }, "transparency": 0 }
+        ],
+        "outspace": [
+          { "color": { "solid": { "color": "#E4E9ED" } }, "transparency": 0 }
+        ]
+      }
+    },
+    "card": {
+      "*": {
+        "labels": [
+          {
+            "color": { "solid": { "color": "#1F3A5F" } },
+            "fontSize": 28,
+            "fontFamily": "Segoe UI Semibold"
+          }
+        ],
+        "categoryLabels": [
+          {
+            "show": true,
+            "color": { "solid": { "color": "#4A5A6A" } },
+            "fontSize": 10,
+            "fontFamily": "Segoe UI"
+          }
+        ]
+      }
+    },
+    "slicer": {
+      "*": {
+        "header": [
+          {
+            "show": true,
+            "fontColor": { "solid": { "color": "#1F3A5F" } },
+            "fontSize": 10,
+            "fontFamily": "Segoe UI Semibold"
+          }
+        ],
+        "items": [
+          {
+            "fontColor": { "solid": { "color": "#1F3A5F" } },
+            "background": { "solid": { "color": "#FFFFFF" } },
+            "fontSize": 9
+          }
+        ]
+      }
+    },
+    "tableEx": {
+      "*": {
+        "grid": [
+          {
+            "gridVertical": false,
+            "gridHorizontal": true,
+            "gridHorizontalColor": { "solid": { "color": "#E4E9ED" } },
+            "rowPadding": 3,
+            "outlineColor": { "solid": { "color": "#E4E9ED" } }
+          }
+        ],
+        "columnHeaders": [
+          {
+            "fontColor": { "solid": { "color": "#FFFFFF" } },
+            "backColor": { "solid": { "color": "#1F3A5F" } },
+            "fontSize": 9,
+            "fontFamily": "Segoe UI Semibold",
+            "alignment": "left",
+            "wordWrap": true
+          }
+        ],
+        "values": [
+          {
+            "fontColorPrimary": { "solid": { "color": "#1F3A5F" } },
+            "backColorPrimary": { "solid": { "color": "#FFFFFF" } },
+            "fontColorSecondary": { "solid": { "color": "#1F3A5F" } },
+            "backColorSecondary": { "solid": { "color": "#FAFBFC" } },
+            "fontSize": 9
+          }
+        ]
+      }
+    },
+    "pivotTable": {
+      "*": {
+        "columnHeaders": [
+          {
+            "fontColor": { "solid": { "color": "#FFFFFF" } },
+            "backColor": { "solid": { "color": "#1F3A5F" } },
+            "fontSize": 9,
+            "fontFamily": "Segoe UI Semibold"
+          }
+        ],
+        "values": [
+          {
+            "fontColorPrimary": { "solid": { "color": "#1F3A5F" } },
+            "backColorPrimary": { "solid": { "color": "#FFFFFF" } },
+            "fontSize": 9
+          }
+        ]
+      }
+    },
+    "textbox": {
+      "*": {
+        "background": [
+          { "show": true, "color": { "solid": { "color": "#FFFFFF" } }, "transparency": 0 }
+        ]
+      }
+    }
+  }
+}
