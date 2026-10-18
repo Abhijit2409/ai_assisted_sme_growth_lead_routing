@@ -1,6 +1,6 @@
 # Power BI build guide
 
-Step-by-step instructions to build the **SME Growth & Acquisition Intelligence** report in Power BI Desktop.
+Step-by-step instructions to build the **AI-Assisted SME Growth & Lead Routing** report in Power BI Desktop.
 
 Written for someone who can find their way around Power BI Desktop but wants to be told exactly what to click. Follow
 the sections in order — several early steps prevent faults that are painful to diagnose later.

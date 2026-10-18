@@ -1,4 +1,4 @@
-# SME Growth & Acquisition Intelligence
+# AI-Assisted SME Growth & Lead Routing
 
 **A lead-routing rule set can be provably compliant and still be badly broken. In this build the capacity rules
 record zero breaches — and send 72.31% of all recommendations to the busiest 10% of relationship managers, while
