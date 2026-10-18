@@ -24,8 +24,8 @@ Statistical unit: **enterprises**. Used for business opening, closure and net-fo
 ### Table 33-10-1097-01
 
 > Adapted from Statistics Canada, *Canadian Business Counts, with employees, census metropolitan areas and census
-> subdivisions, December 2025* (Table 33-10-1097-01), reference period 2025-07-01. This does not constitute an
-> endorsement by Statistics Canada of this product.
+> subdivisions, December 2025* (Table 33-10-1097-01), December 2025 release, reference date July 2025. This does
+> not constitute an endorsement by Statistics Canada of this product.
 
 Source table: <https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3310109701>
 

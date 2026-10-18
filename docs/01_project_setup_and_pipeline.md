@@ -173,10 +173,10 @@ python src/analysis/10_explore_market_opportunity.py
 
 | File | Purpose |
 |---|---|
-| `SME Growth & Acquisition Intelligence.pbix` | The report: 5 pages over a 9-table model with 83 DAX measures |
+| `SME Growth & Acquisition Intelligence.pbix` | The report: 5 pages over a 9-table model, 60 of the 61 specified visuals built |
 | `data_manifest.csv` | The 8 CSV tables the model loads, with expected row counts |
 | `data_model_guide.md` | Table roles, keys, relationships and the anti-fan-out design |
-| `measures.dax` | All 83 measures, grouped, each with its format and QA target |
+| `measures.dax` | All 83 measures as authored, grouped, each with its format and QA target |
 | `measure_catalog.csv` | The same 83 measures as a machine-readable catalog |
 | `visual_specification.csv` | The authoritative visual contract: 61 visuals across 5 pages |
 | `power_bi_build_guide.md` | Step-by-step build instructions |
