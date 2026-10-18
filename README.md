@@ -1,255 +1,387 @@
-# Canadian SME Acquisition Strategy: analytical data platform
+# SME Growth & Acquisition Intelligence
 
-A portfolio project that helps a hypothetical Canadian business-banking team decide where to focus small and medium-sized enterprise (SME) acquisition. It uses validated **public** Canadian data:
-- **Statistics Canada 33-10-0722-01:** employer-business openings and closures, monthly;
-- **Statistics Canada 33-10-1097-01:** employer business counts by location, December 2025;
-- **ISED Survey on Financing and Growth of SMEs 2023:** financing context.
+**Canadian SME acquisition opportunity is concentrated in nine markets — but the bank is already in all nine. The
+constraint is not where to sell. It is that work piles up after the first conversation, and that routing quietly
+sends most of it to the same few people.**
 
-**Important framing**
-- The data are **public aggregates**. No row is an individual business, prospect or lead.
-- Internal CRM data are **entirely synthetic** (a fictional bank, fictional businesses and staff). Hypothetical internal-process problems, SLAs, capacity values and outcomes are simulation settings, not claims about or benchmarks for any real Canadian bank.
-- ISED financing estimates are **contextual evidence**, never market-size inputs.
-- **Tier 3 CMAs** (six markets that were census agglomerations in 2016) have scale and composition data only. They are not eligible for momentum-based comparison.
-- The market opportunity framework compares 35 CMAs on external evidence under transparent weighting scenarios. It is an external market signal, not a prospect list or an investment decision.
-- The lead-prioritization and RM-routing framework is a **hypothetical rule set for the fictional bank**, evaluated on the synthetic CRM data. Its comparisons against the synthetic historical assignments are rule-adherence, counterfactual and operational-exposure measures only, never evidence of a causal effect on conversion, revenue, profitability or customer experience. No dashboard, machine-learning model or executive KPI mart exists yet.
+A portfolio case study combining public Canadian market evidence with a synthetic operational funnel to answer three
+questions for a fictional business-banking team: where is SME acquisition opportunity strongest, which leads need
+action now, and where does lead routing create operational risk?
+
+> **Synthetic operational data.** The market evidence is real public data from Statistics Canada and ISED. The CRM,
+> leads, relationship managers and outcomes are entirely synthetic, generated for this project. Nothing here is a
+> claim about, or a benchmark for, any real Canadian bank.
+
+### 90-second walkthrough
+
+> **TODO — demo video not yet recorded.** A short Loom walkthrough of the five dashboard pages will be linked here.
+> Until then, [What I found](#what-i-found) and the figures below cover the same ground.
+
+---
+
+## The decision
+
+Stop treating this as a market-coverage problem and start treating it as a throughput and workload problem.
+
+All nine high-opportunity markets already receive at or above the median lead volume, so there is no coverage gap to
+close. Meanwhile 1,408 leads are waiting for action, qualification collapses right after first contact, and 72.31% of
+routing recommendations land on the busiest 10% of relationship managers — even though the capacity rules record
+**zero** breaches.
+
+**Recommendation: hold acquisition volume flat, clear the backlog, fix the qualification step, and add a workload
+distribution control alongside the existing hard cap.**
+
+## What I found
+
+**1. Opportunity is concentrated, and already covered.**
+Nine of 35 scored census metropolitan areas carry a stronger external opportunity signal: Halifax, Winnipeg,
+Saskatoon, Edmonton, Calgary, Windsor, Quebec, Kitchener–Cambridge–Waterloo and London. Every one of them already
+receives at or above the median lead volume across scored CMAs. The count of high-opportunity markets below median
+activity is **zero**.
+
+**2. The funnel does not leak at intake. It leaks after the first conversation.**
+
+| Stage | Leads | Rate |
+|---|---:|---|
+| Captured | 17,400 | — |
+| Valid | 15,933 | 91.6% of captured |
+| Assigned | 15,853 | **99.50%** of valid |
+| Contacted | 14,278 | **90.1%** of assigned (14,278 / 15,853) |
+| Qualified (mature cohort) | 3,683 | **27.82%** of mature contacted |
+| Converted (mature cohort) | 1,511 | **12.52%** of mature valid (1,511 / 12,064) |
+
+Intake, assignment and first contact all work. Between contact and qualification the funnel loses roughly three out
+of four leads. That is where process attention belongs.
+
+**3. There is a real backlog, and part of it is already late.**
+1,408 leads need action now: 217 are P1, 213 require escalation, and the first-contact SLA breach rate is 13.15%.
+
+**4. Capacity compliance and workload balance are not the same thing — and only one of them is healthy.**
+
+| Measure | Value |
+|---|---:|
+| Operational hard-cap breaches | **0** |
+| Share of recommendations to the busiest decile (14 of 140 RMs) | **72.31%** |
+| Workload Gini | **0.773** |
+| Recommendations to the single busiest RM | **3,216** |
+| Median recommendations per RM | 35.5 |
+| RMs receiving no recommendations | **8** |
+
+The routing rules respect the hard limit on every single decision. They still produce a distribution where one
+person receives roughly 90 times the median workload and eight people receive nothing.
+
+The cause is in the rules themselves: the preference logic rewards the emptiest available relationship manager, and
+in a lightly loaded year that is repeatedly the same person. A hard cap is a ceiling, not a distribution policy.
+
+![Operational routing recommendations per relationship manager, ranked](outputs/acquisition_intelligence/fig05_routing_concentration.png)
+
+## Why this matters
+
+A capacity dashboard reporting "zero breaches" would tell this management team that routing is under control. It
+isn't. The control that exists prevents individual overload; nothing in the system spreads work across the network.
+
+The practical consequences are concrete: eight relationship managers are idle on recommendations while one carries
+thousands, and the leads sitting behind that concentration are the 1,408 already waiting. Adding more acquisition
+volume into this system increases the backlog without increasing conversion.
+
+## The problem
+
+A business-banking team wants to grow its SME book. The usual framing is "find the best markets and send more
+leads". That framing assumes two things worth testing: that market opportunity and current activity are
+mismatched, and that the operational system can absorb more volume.
+
+The stakeholders pull in different directions. Regional leadership wants market prioritisation. Sales management
+wants a defensible answer to "who works which lead first". Operations owns SLAs and relationship-manager capacity
+and is the group that absorbs any volume increase.
+
+Those three questions cannot be answered from the same table. Market opportunity comes from public aggregates that
+contain no customers. Lead priority and routing are operational and need record-level data that no public source
+provides. Connecting them without inventing a relationship that does not exist is the actual analytical problem.
+
+## How I approached it
+
+The analytical decisions mattered more than the tooling. The ones that changed the answer:
+
+**Separating market scale from market opportunity.** A large market is not the same as a market with momentum. The
+opportunity framework scores 35 CMAs on five pillars — scale, momentum, dynamism, commercial fit and stability —
+under transparent weighting scenarios, so a result can be tested against a different weighting rather than asserted.
+
+**Reconciling incompatible public definitions.** The three sources count different things: 33-10-0722 counts
+*enterprises*, 33-10-1097 counts *locations*, and ISED reports *survey estimates*. They are never combined in one
+table and never used as each other's denominators. Each fact table carries its source, period and statistical unit
+on every row.
+
+**Resolving geography and size-band differences.** CMA boundaries differ between SGC 2016 (0722) and SGC 2021
+(1097); they are aligned only through a reviewed, tested bridge. Six CMAs were census agglomerations in 2016 and
+have scale and composition data only, so they are excluded from momentum comparison and carry **no** opportunity
+score. A blank score means missing evidence — not zero opportunity.
+
+**Keeping unresolved leads in the totals.** 2,112 of the 17,400 leads could not be resolved to a CMA. Dropping them
+would have made every funnel rate look slightly better and quietly changed the denominator. They stay in the funnel
+totals and are reported as their own line.
+
+**Treating the opportunity score as a current planning snapshot.** It describes markets today and is never applied
+retrospectively to historical leads. A dbt test asserts the score never appears in the monthly funnel, so the rule
+is enforced rather than merely documented.
+
+**Measuring qualification and conversion on mature cohorts only.** A lead captured last week has not failed to
+convert; it has not had time. Conversion is reported only on cohorts given 90 days (95% of observed conversions land
+within 93 days). Recent leads are excluded from the denominator rather than counted as failures — which is why
+conversion is 1,511 of 12,064 *mature valid* leads, not 1,511 of 17,400.
+
+**Preventing double counting by construction.** Status history reaches 12 rows per lead, SLA events 27, activities
+19. Every mart reads one intermediate model that is one row per lead, so a lead is counted once structurally rather
+than by careful joins.
+
+**Separating capacity compliance from workload concentration.** These were deliberately measured as two different
+things. Reporting only the first would have produced a clean and misleading result.
+
+## From market signal to action
+
+```mermaid
+flowchart LR
+    A["Public market evidence<br/>StatCan 0722 / 1097 · ISED"] --> B["Market prioritisation<br/>35 CMAs scored, 9 high-opportunity"]
+    B --> C["Acquisition funnel<br/>17,400 synthetic leads"]
+    C --> D["Lead action queue<br/>1,408 actionable · 217 P1"]
+    D --> E["RM capacity<br/>declared operating model"]
+    E --> F["Routing concentration<br/>72.31% to busiest decile"]
+    F --> G["Management decision<br/>hold volume · clear backlog · rebalance"]
+```
+
+Each step narrows the question. Public evidence says where the market is; the funnel says what actually happened to
+leads; the queue says what needs doing today; capacity and concentration say whether the team can absorb it.
+
+![External market opportunity against acquisition activity, by CMA](outputs/acquisition_intelligence/fig01_market_focus_opportunity_vs_activity.png)
+
+![Acquisition funnel volumes, conversion measured on mature cohorts only](outputs/acquisition_intelligence/fig02_acquisition_funnel_volumes.png)
+
+## Key dashboard views
+
+A five-page Power BI report sits on top of the marts: a 9-table model with 83 DAX measures and 61 visuals built
+against a declared visual contract (`dashboard/power_bi/visual_specification.csv`).
+
+> **TODO — page screenshots not yet captured.** The `.pbix` is in the repository and the layout wireframes are
+> under `dashboard/power_bi/wireframes/`. Screenshots of the live pages will replace this note. The figures in this
+> README are Python analysis outputs generated directly from the validated marts, not dashboard captures.
+
+| Page | The decision it supports |
+|---|---|
+| Executive Overview | Is the acquisition system healthy right now, and if not, which part is failing? |
+| Market Opportunity | Which markets deserve acquisition attention, and where is the evidence missing? |
+| Acquisition Funnel | At which stage are leads actually lost, and is that stable over the year? |
+| Lead Action Queue | Which specific leads should be worked first today? |
+| RM Capacity & Routing | Can the team absorb more volume, and is the work spread fairly? |
+
+![What the actionable leads actually need](outputs/acquisition_intelligence/fig06_action_queue_by_action.png)
+
+## Key recommendations
+
+1. **Hold acquisition volume flat in the nine high-opportunity markets.** They are already served at or above median
+   activity. There is no coverage gap, so additional volume adds backlog rather than conversion.
+2. **Clear the 1,408-lead backlog before expanding intake**, starting with the 217 P1 leads and the 213 requiring
+   escalation. The first-contact SLA breach rate of 13.15% is the symptom to watch.
+3. **Target the qualification step, not intake.** 90.1% of assigned leads are contacted; only 27.82% of mature
+   contacted leads qualify. Intake and assignment are not the constraint.
+4. **Report conversion on the mature cohort only.** Measuring against all leads mixes in leads that have not had
+   time to convert and will understate performance by construction.
+5. **Add a workload distribution measure to routing governance alongside the hard cap.** Zero breaches is being read
+   as "routing is fine"; a Gini of 0.773 says otherwise. *Caveat:* the capacity ledger resets nightly from snapshots
+   produced by the historical policy, so rebalancing is an untested next step here, not a demonstrated fix.
+6. **Investigate the 8 relationship managers receiving no recommendations.** This is either a territory and
+   specialist eligibility gap or a data gap. Either way it is unlikely to be intentional.
+
+## Data and methodology
+
+### Real / public sources
+
+| Source | What it provides | Reference period |
+|---|---|---|
+| **Statistics Canada 33-10-0722-01** — Experimental estimates for business openings and closures | Monthly business openings and closures (enterprises) | 2015-01 to 2026-05 |
+| **Statistics Canada 33-10-1097-01** — Canadian Business Counts, with employees | Business counts by location and size band (locations) | December 2025 |
+| **ISED Survey on Financing and Growth of SMEs, 2023** | SME financing context (survey estimates) | 2023 |
+
+`data/source_manifest.csv` records each raw file with its SHA-256, byte size, source title, source URL and reference
+period. ISED estimates are contextual evidence only and are never used as market-size inputs or attached to CMAs.
+
+### Synthetic data
+
+The operational layer — **17,400 leads**, about 15,600 fictional business prospects, 140 relationship managers, and
+their assignments, activities, SLA clocks, capacity snapshots, routing decisions and outcomes — is entirely
+synthetic, deterministically generated from a declared seed over a simulated operating year (2025-06-01 to
+2026-05-31).
+
+**Why synthetic was necessary:** no public source contains bank CRM records, and none ever should. Lead
+prioritisation and routing cannot be demonstrated on aggregates that contain no leads. Generating the operational
+layer from a declared, reviewed design made the process rules explicit and testable, and keeps every operational
+rate an openly stated simulation setting rather than an implied benchmark.
+
+A validator checks that the synthetic data contains no real bank names, no real email domains, and no
+social-insurance, business-number or account-number patterns.
+
+## Data engineering and QA
+
+**dbt on DuckDB**, 111 models and **801 tests**, organised in tag-isolated layers so each analytical stage can be
+built and tested without disturbing the one before it:
+
+| Layer | Tests |
+|---|---:|
+| Base analytical layer | 151 |
+| Market opportunity | 39 |
+| Synthetic CRM | 383 |
+| Lead routing | 168 |
+| Acquisition intelligence | 60 |
+
+The pipeline runs `dbt test` for the base analytical layer: 151 dbt tests, then each later layer under its own tag.
+
+Beyond the dbt tests, the project carries independent verification:
+
+- **Reconciliation.** The dbt marts are compared against an earlier Python-built baseline of the same 11 relations,
+  column by column and metric by metric.
+- **Recalculation.** `src/validation/21_validate_acquisition_intelligence.py` recomputes every headline KPI from the
+  source facts rather than reading the mart — 84 of 84 checks pass.
+- **Mutation testing.** Key tests are re-run with a deliberately injected fault and must then fail, which proves the
+  test is capable of failing.
+- **Leakage proofs.** No outcome, later event or historical selected RM enters any priority score or routing
+  recommendation. Verified by dbt manifest lineage, a column-level read check on the compiled SQL, independent
+  recomputation and mutation tests.
+- **Determinism.** Repeated runs produce byte-identical artefacts — relations, analysis files, figures and
+  validation evidence.
+
+Evidence for every check is written to `data/validation/` and committed.
+
+**Power BI semantic layer:** 9 tables, 83 DAX measures, single-direction relationships, and a one-row-per-lead spine
+so no measure fans out. Every measure carries its format and QA target in `dashboard/power_bi/measures.dax`.
+
+> The dashboard QA checklist (`dashboard/power_bi/dashboard_qa_checklist.md`) is **not yet filled in**. The numbers
+> in this README come from the validated data layer, not from the report.
 
 ## Architecture
 
-| Layer | Technology | Location |
-|---|---|---|
-| Source download, raw validation, cache and lineage, ISED workbook parsing, crosswalk validation | Python | `src/validation/`, `data/raw/`, `data/cache/`, `data/reference/crosswalks/`, `data/validation/` |
-| Transformation: sources, staging, intermediate logic, dimensions, bridges, facts, tests, documentation | **dbt** | `models/`, `seeds/`, `tests/`, `macros/`, `dbt_project.yml` |
-| Analytical warehouse | **DuckDB** | `data/warehouse/sme_banking.duckdb`, with schemas `reference`, `staging`, `intermediate`, `analytics` |
-| Statistical exploration, candidate-indicator profiling, charts | Python | `src/analysis/`, `data/analysis/`, `outputs/` |
-| Reconciliation baseline (kept unchanged) | Python | `src/analytics/09_build_analytical_views.py` → `data/processed/analytical_views/` |
-
-The dbt marts in the `analytics` schema are the authoritative analytical relations. They reproduce the 11 validated analytical views exactly, and the market exploration reads from them. Details on lineage, model grains, tests and reconciliation are in [docs/dbt_transformation_layer.md](docs/dbt_transformation_layer.md).
-
-**Final models (schema `analytics`):**
-- **Dimensions:** `dim_cma` (41 CMAs), `dim_industry`, `dim_size_band`.
-- **Bridges:** `bridge_cma_vintage`, `bridge_industry`, `bridge_size_band`.
-- **Momentum (0722):** `fact_cma_momentum_monthly`.
-- **Scale and composition (1097):** `fact_cma_market_scale_snapshot`, `fact_cma_sector_composition_snapshot`, `fact_cma_size_composition_snapshot`.
-- **Financing context (ISED):** `fact_ised_financing_context`.
-
-**Each fact table comes from one source only** and carries its source, period and statistical unit on every row:
-- **0722** counts enterprises. All-size momentum is all-employer context, not SME-specific.
-- **1097** counts locations, not businesses.
-- **ISED** gives survey estimates.
-
-## Documentation
-
-| Document | Content |
-|---|---|
-| [docs/02_data_sources_and_validation.md](docs/02_data_sources_and_validation.md) | Source validation and crosswalks |
-| [docs/03_mvp_analytical_scope.md](docs/03_mvp_analytical_scope.md) | Analytical scope, reporting spine and grains |
-| [docs/04_analytical_data_layer.md](docs/04_analytical_data_layer.md) | The 11 analytical relations and their rules |
-| [docs/05_external_market_exploration.md](docs/05_external_market_exploration.md) | Descriptive market exploration and candidate indicators |
-| [docs/dbt_transformation_layer.md](docs/dbt_transformation_layer.md) | dbt transformation layer, tests and reconciliation |
-| [docs/market_opportunity_framework.md](docs/market_opportunity_framework.md) | Market opportunity framework: indicators, scenarios, scores, sensitivity and limitations |
-| [docs/crm_acquisition_process_and_requirements.md](docs/crm_acquisition_process_and_requirements.md) | Hypothetical CRM acquisition process: statuses, routing, SLAs, capacity, duplicates, KPIs, requirements and synthetic scenarios |
-| [docs/crm_data_model_and_dictionary.md](docs/crm_data_model_and_dictionary.md) | Logical CRM data model, entity catalog, field dictionary and logged design changes |
-| [docs/synthetic_crm_data.md](docs/synthetic_crm_data.md) | Synthetic CRM data: generation, entities, coverage, dbt models, validation, mutation tests and reproducibility |
-| [docs/lead_prioritization_and_routing.md](docs/lead_prioritization_and_routing.md) | Lead prioritization and capacity-aware RM routing: declared configuration, decision grain, leakage proofs, priority score and bands, eligibility, capacity, preferences, queues, worked examples, policy comparison, validation and limitations |
-| [docs/acquisition_intelligence_and_kpis.md](docs/acquisition_intelligence_and_kpis.md) | Integrated acquisition intelligence: the five marts and their grains, how double counting is prevented, the conversion maturity rule, the KPI catalog, routing concentration risk, and limitations |
-
-## Installation
-
-The project uses two Python environments, both with **DuckDB 1.5.3**, so they can open the same warehouse file:
-
-1. **Analysis environment** (Anaconda, Python 3.13), used by the Python scripts. Its packages are listed in `requirements-analysis.txt`.
-2. **dbt environment**, isolated so that installing dbt can't change the validated analysis packages:
-
-   ```bash
-   py -3.11 -m venv .venv
-   ```
-
-   ```bash
-   .venv/Scripts/python.exe -m pip install -r requirements.txt -c requirements-dbt-lock.txt
-   ```
-
-   `requirements-dbt-lock.txt` pins every transitive dependency of the validated dbt environment.
-
-## Local profile
-
-dbt needs a profile. Copy the example into the repository root; `profiles.yml` is git-ignored. The profile contains no credentials, only the relative warehouse path `data/warehouse/sme_banking.duckdb`. The pipeline script creates it automatically if it is missing.
-
-```powershell
-Copy-Item profiles.example.yml profiles.yml
-```
-
-Run every dbt command from the repository root with `--profiles-dir .`.
-
-## Running the pipeline
-
-```bash
-powershell -ExecutionPolicy Bypass -File .\run_analytical_pipeline.ps1
-```
-
-The script works from any directory. It never downloads data or deletes files, and it stops with a nonzero exit code at the first failure. It runs, in order:
-1. Verify the raw files against `data/source_manifest.csv`, the cache lineage, every validation summary, the baseline analytical views and the market-exploration baseline.
-2. `dbt debug` and `dbt seed`, which loads the reviewed crosswalks and code maps.
-3. `dbt run` for staging, then intermediate, then marts.
-4. `dbt test`: base analytical layer: 151 dbt tests (the market opportunity framework adds its own tests, run separately).
-5. Reconcile the 11 marts with the baseline Parquet views: `src/validation/11_reconcile_dbt_marts.py`.
-6. Run the market exploration from the dbt marts twice into scratch folders. Compare the runs with each other and with the recorded baseline, then refresh in place: `src/validation/12_verify_market_exploration_regression.py`.
-7. The market opportunity framework (`-Scope Opportunity` runs only this part): preconditions, opportunity dbt models and tests, `src/analysis/13_analyze_market_opportunity_framework.py`, and `src/validation/14_validate_market_opportunity_framework.py`.
-8. The CRM acquisition-process design validation (`-Scope CRMDesign` runs only this part): confirm that the analytical platform is current and that the market opportunity validation passed, then run `src/validation/15_validate_crm_design.py`.
-9. The synthetic CRM data layer (`-Scope CRMData` runs only this part): generate the synthetic data (validated in a temporary folder, then published), build the CRM staging, intermediate and mart models, run the CRM dbt tests, run `src/validation/17_validate_synthetic_crm_data.py`, check two-run reproducibility and run the mutation tests.
-10. The lead-prioritization and RM-routing layer (`-Scope LeadRouting` runs only this part): verify the platform state, the CRM design, the synthetic CRM data and the declared configuration hashes; load the configuration seeds; build the priority and routing models; run the tagged tests; run `src/analysis/18_analyze_lead_prioritization_and_routing.py`; run `src/validation/19_validate_lead_prioritization_and_routing.py`; run its mutation tests; and verify repeated-build reproducibility.
-11. `dbt docs generate` (skipped by `-Scope CRMDesign`).
-
-`-Scope Base` runs steps 1-6 and then the dbt documentation step.
-
-**Individual commands:**
-
-```bash
-.venv/Scripts/dbt.exe build --profiles-dir .
-```
-
-```bash
-.venv/Scripts/dbt.exe test --profiles-dir .
-```
-
-```bash
-C:/Users/abhij/anaconda3/python.exe src/validation/11_reconcile_dbt_marts.py
-```
-
-```bash
-C:/Users/abhij/anaconda3/python.exe src/analysis/10_explore_market_opportunity.py
-```
-
-```bash
-.venv/Scripts/dbt.exe docs generate --profiles-dir .
-```
-
-```bash
-.venv/Scripts/dbt.exe docs serve --profiles-dir .
+```mermaid
+flowchart TD
+    S1["StatCan 33-10-0722<br/>openings / closures"] --> V["Python validation<br/>SHA-256 · lineage · crosswalks"]
+    S2["StatCan 33-10-1097<br/>business counts"] --> V
+    S3["ISED SFGSME 2023<br/>financing context"] --> V
+    G["Synthetic CRM generator<br/>declared seed · reviewed design"] --> W
+    V --> W[("DuckDB warehouse")]
+    W --> D["dbt<br/>staging → intermediate → marts<br/>111 models · 801 tests"]
+    D --> M["Analytics marts<br/>market focus · funnel · RM performance<br/>action queue · KPI snapshot"]
+    M --> P["Power BI<br/>83 measures · 5 pages"]
+    M --> F["Python analysis figures<br/>outputs/"]
+    D --> Q["Validation evidence<br/>data/validation/"]
 ```
 
 ## CRM acquisition process design
 
-This is a **hypothetical design for a fictional bank**. It specifies a target-state SME acquisition process, CRM requirements and control rules for later lead prioritization and relationship-manager routing. Nothing in it describes the internal process of any real Canadian bank, and the CRM data are entirely synthetic. No priority or routing score, RM recommendation, dashboard or machine-learning model exists.
+This is a **hypothetical design for a fictional bank**. It specifies a target-state SME acquisition process, CRM
+requirements and control rules for lead prioritization and relationship-manager routing. Nothing in it describes the
+internal process of any real Canadian bank, and the CRM data are entirely synthetic. Every SLA, capacity value,
+duplicate rule and conversion outcome is a declared simulation setting.
 
-- **Documents:** [docs/crm_acquisition_process_and_requirements.md](docs/crm_acquisition_process_and_requirements.md) and [docs/crm_data_model_and_dictionary.md](docs/crm_data_model_and_dictionary.md).
-- **Design catalogs:** `data/design/crm/`. These include assumptions, stakeholder needs, channels, lead statuses and transitions, assignment statuses, routing, territory, specialist, capacity, SLA and duplicate rules, the entity catalog and field dictionary, KPIs, requirements, acceptance criteria, traceability, synthetic scenarios and volumes. They are reviewed design inputs, not dbt seeds and not raw data.
-- **Validation:** `src/validation/15_validate_crm_design.py` writes its evidence to `data/validation/crm_design/`.
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\run_analytical_pipeline.ps1 -Scope CRMDesign
-```
-
-## Synthetic CRM data
-
-A deterministic synthetic operating year (2025-06-01 to 2026-05-31 UTC) of the hypothetical process: about 15,600 fictional business prospects, 17,400 leads, 140 fictional relationship managers and their assignments, activities, SLA clocks, capacity snapshots, routing decisions, duplicate groups and opportunities. Every record is synthetic; every rate is a simulation setting, never a benchmark.
-
-- **Generator:** `src/synthetic/16_generate_synthetic_crm_data.py` (master seed 20260929), driven entirely by `data/design/crm` (including `synthetic_generation_parameters.csv` and `business_calendar.csv`).
-- **Data:** `data/synthetic/crm/` (one Parquet file per entity, manifest with hashes); generator ground truth, for validation only, in `data/synthetic/crm_ground_truth/`.
-- **dbt:** sources in `models/sources/_crm_sources.yml`, models in `models/staging/crm`, `models/intermediate/crm` and `models/marts/crm`, tests in `tests/crm`, all tagged `crm_data`.
-- **Validation:** `src/validation/17_validate_synthetic_crm_data.py` (independent checks, mutation tests) with evidence in `data/validation/synthetic_crm/`.
-- **Details:** [docs/synthetic_crm_data.md](docs/synthetic_crm_data.md).
+- **Documents:** [docs/crm_acquisition_process_and_requirements.md](docs/crm_acquisition_process_and_requirements.md)
+  and [docs/crm_data_model_and_dictionary.md](docs/crm_data_model_and_dictionary.md).
+- **Design catalogs:** `data/design/crm/` — assumptions, stakeholder needs, channels, lead statuses and transitions,
+  routing, territory, specialist, capacity, SLA and duplicate rules, the entity catalog and field dictionary, KPIs,
+  requirements, acceptance criteria, traceability and synthetic scenarios. These are reviewed design inputs, not dbt
+  seeds and not raw data.
+- **Validation:** `src/validation/15_validate_crm_design.py`, with evidence in `data/validation/crm_design/`.
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\run_analytical_pipeline.ps1 -Scope CRMData
+powershell -ExecutionPolicy Bypass -File ./run_analytical_pipeline.ps1 -Scope CRMDesign
 ```
 
-## Lead prioritization and capacity-aware RM routing
+## Reproducing / exploring the project
 
-A transparent, **hypothetical** rule set for the fictional bank that answers: which eligible SME leads should receive
-attention first, and which available RM or controlled queue should receive each lead? It is evaluated on the synthetic
-CRM data at the grain of **one lead per routing-decision timestamp** (19,777 decisions over 17,400 leads). There is no
-machine-learning model, conversion prediction, propensity score, revenue forecast, optimization solver, dashboard or
-executive KPI mart.
+**To explore without running anything** — everything needed is committed:
 
-- **Declared configuration:** ten seed files in `seeds/lead_routing/`, hashed before the first score was produced; the
-  declaration and every logged change are in `data/validation/lead_routing/configuration_declaration.json`.
-- **Priority:** eligibility is decided before scoring; eligible leads receive an explainable 0-100 score from a
-  business-value pillar (0.65) and an operational-urgency pillar (0.35), with external market context capped at 0.078
-  of the score. Bands P1 >= 65, P2 >= 45, P3 < 45. The source `priority_band` is preserved unchanged.
-- **Routing:** five lead-level and nine candidate-level mandatory rules, then seven weighted preferences, then a
-  four-level deterministic tie-break ending in a stable RM identifier. Capacity comes from the most recent snapshot at
-  or before the decision; no ordinary recommendation is made at or above the hard limit. Nine controlled queues each
-  carry an owner, SLA, next action and escalation path.
-- **Two recommendations, kept apart.** `mart_routing_recommendation_static` ranks each decision independently and never
-  consumes capacity: a **diagnostic** of rule fit, not an executable plan. `mart_routing_recommendation_operational` is
-  the **operational** answer: it walks the decisions in a declared order and keeps a simulated RM capacity ledger, so
-  each assignment consumes the chosen RM's capacity for every later decision and no assignment pushes an RM to or past
-  the declared hard limit.
-- **Honest result:** the ledger enforces capacity correctly within a snapshot window (it redirects 46 decisions and
-  peaks at 38 of 40 workload points) but barely changes year-long workload concentration, because the capacity
-  snapshots were produced by the historical policy and reset the ledger each night. This layer should not be presented
-  as a workload-balancing solution.
-- **Leakage:** no later event, outcome, `fct_opportunity_outcome` record, ground-truth label or historical selected RM
-  enters any score or recommendation. Proved by transitive dbt manifest lineage, a column-level read check on the
-  compiled SQL, independent recomputation and mutation tests.
-- **Comparison with the synthetic historical assignments** is a rule-adherence comparison, a routing-policy
-  counterfactual, an operational-exposure measure and an assignment-quality proxy. **It is never evidence of a causal
-  improvement in conversion, revenue, profitability or customer experience.** Recommendations never consume capacity, so
-  workload concentrates under the recommended policy; that result is reported, not hidden.
-- **dbt:** 11 seeds, 11 intermediate models, 6 marts and 20 singular tests, all tagged `lead_routing` (168 tests). The
-  base (151), opportunity (39) and synthetic CRM (383) test counts are unchanged.
-- **Validation:** `src/validation/19_validate_lead_prioritization_and_routing.py`, 92 of 92 checks, 19 of 19 mutation
-  tests (four of them injected into copies of the dbt manifest, the compiled SQL and the configuration seed, so the
-  leakage proof itself is exercised), and 61 of 61 artefacts byte-identical across repeated runs — dbt relations,
-  analysis files, figures and validation evidence; evidence in `data/validation/lead_routing/`.
-- **Details:** [docs/lead_prioritization_and_routing.md](docs/lead_prioritization_and_routing.md).
+- Analysis outputs as CSV under `data/analysis/`, including the KPI snapshot and the action queue.
+- All figures under `outputs/`.
+- Validation evidence under `data/validation/`.
+- The report at `dashboard/power_bi/SME Growth & Acquisition Intelligence.pbix`. Open it in Power BI Desktop and
+  repoint the `DataRoot` parameter to your clone path before refreshing.
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\run_analytical_pipeline.ps1 -Scope LeadRouting
+**To rebuild the analytical layers** — set up the two Python environments, copy `profiles.example.yml` to
+`profiles.yml`, and run the pipeline. Full instructions are in
+[docs/01_project_setup_and_pipeline.md](docs/01_project_setup_and_pipeline.md).
+
+```bash
+powershell -ExecutionPolicy Bypass -File ./run_analytical_pipeline.ps1
 ```
 
-## Integrated acquisition intelligence
-
-Connects the market opportunity framework, the synthetic CRM activity, funnel performance, lead priority,
-operational RM routing, SLA performance and RM capacity so the fictional bank can ask: where should SME acquisition
-effort go, which prospects need action, and where are leads delayed, lost or constrained by capacity? It adds no new
-scoring and changes no opportunity, priority or routing weight.
-
-| Mart | Grain |
-|---|---|
-| `mart_acquisition_market_focus` | one row per CMA at the planning snapshot (plus an explicit unresolved-geography row) |
-| `mart_acquisition_funnel_monthly` | reporting month x CMA x channel x SME segment x industry grouping |
-| `mart_rm_acquisition_performance_monthly` | relationship manager x reporting month |
-| `mart_acquisition_action_queue` | one row per currently actionable lead |
-| `mart_acquisition_kpi_snapshot` | one row per reporting cutoff date |
-
-- **No double counting.** Status history reaches 12 rows per lead, SLA events 27, activities 19, assignments 6 and
-  routing decisions 6. Every mart reads one intermediate model, `int_acq__lead_spine`, which is one row per lead, so
-  a lead is counted once by construction. The executive snapshot reduces each KPI to a single value at its own grain
-  before combining, so no fact table is joined to another at row level.
-- **Maturity rule.** Conversion is reported only on cohorts given 90 days to convert (95% of observed conversions
-  land within 93 days); recent leads are excluded from the denominator, not counted as failures.
-- **No retrospective snapshot.** The monthly funnel carries no opportunity score; a test asserts it never appears.
-- **24 KPIs** are defined in a machine-readable catalog seed with definition, formula, numerator, denominator,
-  grain, filters, maturity rule, null handling, interpretation, limitation and stakeholder.
-- **Headline:** assignment 99.5% of valid leads, contact 90.1% of assigned, qualification 27.8% of mature contacted,
-  conversion 12.5% of mature valid. The funnel loses volume after the first conversation, not at intake.
-- **Routing concentration risk, reported honestly:** the capacity-aware policy makes zero hard-cap breaches, yet
-  72.31% of recommendations go to the busiest decile of RMs, Gini 0.773, 3,216 to one RM and 8 RMs receive none.
-  Hard-cap compliance does not create balanced workload. The routing rules are deliberately unchanged here.
-- **Validation:** `src/validation/21_validate_acquisition_intelligence.py` recalculates every important KPI from the
-  source facts, 84 of 84 checks, 60 dbt tests, determinism verified across two runs.
-- **Details:** [docs/acquisition_intelligence_and_kpis.md](docs/acquisition_intelligence_and_kpis.md).
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .un_analytical_pipeline.ps1 -Scope AcquisitionIntelligence
-```
+**To rebuild from raw source data** — `data/raw/` is not committed (the 0722 table alone is 1.69 GB). Download the
+three sources from the URLs in `data/source_manifest.csv`. Statistics Canada revises its tables, so a download made
+later than the original may not match the recorded SHA-256 hashes; treat a mismatch as a source revision to be
+reviewed, not as something to override.
 
 ## Limitations
 
-- **Geography:**
-  - CMA boundaries differ between SGC 2016 (0722) and SGC 2021 (1097), and they're aligned only through the reviewed bridge.
-  - ISED doesn't state its geography vintage.
-  - ISED regional values are never attached to CMAs.
-- **Time:** 0722 runs monthly to 2026-05, 1097 is a December 2025 snapshot, and ISED covers calendar 2023. There is no common period.
-- **Statistical units:** enterprises, locations and survey estimates are never combined in one table, and never used as each other's denominators.
-- **Missing values:** suppressed and unavailable observations stay unavailable (NULL), never zero. A 1097 cell counts as zero only where reconciliation proves it.
+- **The operational data is synthetic.** Every lead, relationship manager, SLA, capacity value and conversion
+  outcome is generated. No operational rate here is a benchmark for any real institution.
+- **The opportunity score is a current planning construct**, not a forecast and not a historical attribute. It
+  excludes bank market share, branch presence, competition, credit risk and acquisition cost.
+- **Nothing here is causal.** Comparisons against the synthetic historical assignments measure rule adherence and
+  operational exposure. They are not evidence of an effect on conversion, revenue, profitability or customer
+  experience.
+- **Capacity is a declared operating model**, not a measurement of real employee workload.
+- **Routing rebalancing is unproven.** The capacity ledger enforces the hard limit within a snapshot window but
+  resets nightly from snapshots produced by the historical policy, so it barely changes year-long concentration.
+  This layer should not be presented as a workload-balancing solution.
+- **The sources share no common period** — 0722 is monthly to 2026-05, 1097 is a December 2025 snapshot, ISED covers
+  2023 — and they are never joined on time.
+- **Suppressed and unavailable observations stay NULL**, never zero. A 1097 cell counts as zero only where
+  reconciliation proves it.
+- **Six CMAs carry no opportunity score**, and 2,112 leads could not be resolved to a CMA. Both are reported rather
+  than hidden.
+- **Documents in `docs/` record their own layer at the stage it was built**, so an early document may describe a
+  later layer as not yet existing. This README reflects the current state of the project.
 
-## Repository hygiene
+## Repository structure
 
-The following are generated or machine-specific, and all are git-ignored:
-- `target/`, `logs/` and `dbt_packages/`;
-- the DuckDB warehouse and its WAL files;
-- `.venv/`;
-- `profiles.yml`;
-- raw downloads and caches.
+```
+├── models/            dbt: staging → intermediate → marts (111 models)
+├── tests/             dbt singular tests (79 files)
+├── seeds/             reviewed configuration: weights, rules, thresholds, KPI catalog
+├── macros/            shared dbt macros
+├── src/
+│   ├── validation/    source validation, reconciliation, layer validators, mutation tests
+│   ├── analysis/      statistical exploration and figure generation
+│   ├── analytics/     the Python baseline the dbt marts are reconciled against
+│   └── synthetic/     the deterministic synthetic CRM generator
+├── data/
+│   ├── reference/     reviewed crosswalks (loaded as dbt seeds)
+│   ├── design/crm/    the reviewed CRM process design catalogs
+│   ├── synthetic/     generated CRM tables (Parquet) + ground truth
+│   ├── analysis/      analysis outputs consumed by Power BI
+│   ├── validation/    committed evidence for every validation run
+│   └── source_manifest.csv
+├── outputs/           analysis figures (PNG)
+├── dashboard/power_bi/  .pbix, 83 measures, visual contract, build kit, wireframes
+├── docs/              methodology and layer documentation
+└── run_analytical_pipeline.ps1
+```
+
+## Tools
+
+SQL · dbt (dbt-core 1.12.5, dbt-duckdb) · DuckDB · Power BI (DAX, Power Query) · Python (pandas, matplotlib) ·
+PowerShell · Statistics Canada and ISED open data
+
+## Licence and attribution
+
+Code and documentation in this repository are released under the [MIT Licence](LICENSE).
+
+This project is a value-added product that adapts public information:
+
+- Adapted from Statistics Canada, *Experimental estimates for business openings and closures by employment size for
+  Canada, provinces and territories, census metropolitan areas, seasonally adjusted* (Table 33-10-0722-01),
+  reference period 2015-01 to 2026-05. This does not constitute an endorsement by Statistics Canada of this product.
+- Adapted from Statistics Canada, *Canadian Business Counts, with employees, census metropolitan areas and census
+  subdivisions, December 2025* (Table 33-10-1097-01). This does not constitute an endorsement by Statistics Canada
+  of this product.
+- Adapted from *Survey on Financing and Growth of Small and Medium Enterprises, 2023*, produced by Statistics Canada
+  in collaboration with Innovation, Science and Economic Development Canada. This does not constitute an endorsement
+  by Statistics Canada of this product.
+
+Contains information licensed under the
+[Open Government Licence – Canada](https://open.canada.ca/en/open-government-licence-canada).
+
+See [ATTRIBUTION.md](ATTRIBUTION.md) for full source details.

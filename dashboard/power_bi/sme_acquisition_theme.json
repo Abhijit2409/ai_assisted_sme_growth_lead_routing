@@ -46,7 +46,7 @@
             "show": true,
             "fontColor": { "solid": { "color": "#1F3A5F" } },
             "background": { "solid": { "color": "#FFFFFF" } },
-            "alignment": "left",
+            "alignment": "Left",
             "fontSize": 12,
             "fontFamily": "Segoe UI Semibold"
           }
@@ -164,7 +164,7 @@
             "backColor": { "solid": { "color": "#1F3A5F" } },
             "fontSize": 9,
             "fontFamily": "Segoe UI Semibold",
-            "alignment": "left",
+            "alignment": "Left",
             "wordWrap": true
           }
         ],

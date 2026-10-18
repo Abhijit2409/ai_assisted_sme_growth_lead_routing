@@ -20,3 +20,16 @@ data/warehouse/*.duckdb.wal
 data/warehouse/*.wal
 *.duckdb.wal
 .env
+
+# Power BI temporary and recovery files (the .pbix itself IS committed)
+*.pbix.tmp
+~$*.pbix
+*.pbix.bak
+PowerBIDesktopTemp/
+
+# OS / editor noise
+Thumbs.db
+Desktop.ini
+.DS_Store
+.vscode/
+.idea/
