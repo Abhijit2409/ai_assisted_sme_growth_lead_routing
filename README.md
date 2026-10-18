@@ -344,6 +344,10 @@ powershell -ExecutionPolicy Bypass -File ./run_analytical_pipeline.ps1 -Scope CR
 
 **Explore — works straight from a clone.** Everything needed to inspect the results is committed:
 
+```bash
+git clone https://github.com/Abhijit2409/ai_assisted_sme_growth_lead_routing.git
+```
+
 - Analysis outputs as CSV under `data/analysis/`, including the KPI snapshot and the full action queue.
 - All figures under `outputs/`.
 - Validation evidence under `data/validation/`.
